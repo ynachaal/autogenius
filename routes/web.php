@@ -9,7 +9,7 @@ use App\Http\Controllers\Admin\SettingController; // Ensure BlogController is im
 use App\Http\Controllers\Admin\UserController; // Ensure BlogController is imported
 use App\Http\Controllers\Admin\MenuController; // Ensure BlogController is imported
 use App\Http\Controllers\Admin\MenuCategoryController; // Ensure BlogController is imported
-
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\SiteController;
 use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Route;
@@ -42,6 +42,9 @@ Route::middleware(['auth', AdminMiddleware::class])
         Route::get('/dashboard', function () {
             return view('admin.dashboard'); // Create resources/views/admin/dashboard.blade.php
         })->name('dashboard'); // Now correctly named 'admin.dashboard'
+		
+		     Route::get('/migrate', [DashboardController::class, 'migrate'])->name('migrate');
+        Route::get('/clearCache', [DashboardController::class, 'clearCache'])->name('clearCache');
     
         // Admin CRUD routes
         // This now correctly creates 'admin.blogs.index', 'admin.blogs.create', etc.
