@@ -590,13 +590,13 @@
                             <div class="accordion accordion-flush" id="rts-accordion">
                                 <div class="accordion-item active">
                                     <div class="accordion-header" id="first">
-                                        <h4 class="accordion-button collapse show" data-bs-toggle="collapse"
+                                        <h4 class="accordion-button show" data-bs-toggle="collapse"
                                             data-bs-target="#item__one" aria-expanded="false"
                                             aria-controls="item__one">
                                             How do I register with AutoGenius Private Limited?
                                         </h4>
                                     </div>
-                                    <div id="item__one" class="accordion-collapse collapse collapse show"
+                                    <div id="item__one" class="accordion-collapse collapse show"
                                          aria-labelledby="first" data-bs-parent="#rts-accordion">
                                         <div class="accordion-body">
                                             <p>Click on the <b>Register</b> button and fill in your details — it only takes a minute to get started!</p>
