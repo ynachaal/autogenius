@@ -1,100 +1,65 @@
-
+<!-- rts footer area start -->
+<div class="rts-footer-area footer-five bg-white" id="rts-footer">
     <div class="container">
-        <div class="footer-content">
-            <div class="row gy-4">
-                <div class="col-lg-3 col-md-6 col-12">
-                    <div class="footer-widget">
-                        <div>
-                            <a class="logo d-block mb-3" href="javascript:void(0)">Compass <span>&</span> Coin</a>
+        <div class="footer-wrapper">
+            <div class="row g-5">
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-content-box">
+                        <div class="icon">
+                            <img src="{{ asset('images/call-us.svg') }}" alt="">
                         </div>
-                        <p>{!! config('app.footer_about', '') !!}</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-6">
-                    <div class="footer-widget">
-                        <h3>Quick Links</h3>
-                        <ul class="list-unstyled">
-                            <li>
-                                <a href="javascript:void(0)">Buy Properties</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">Sell Properties</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">Rent Properties</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">Off-Plan Projects</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">About Us</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">Contact Us</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-6">
-                    <div class="footer-widget">
-                        <h3>Dubai Areas</h3>
-                        <ul class="list-unstyled">
-                            <li>
-                                <a href="javascript:void(0)">Dubai Marina</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">Palm Jumeirah</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">Downtown Dubai</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">Dubai Hills Estate</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">Jumeirah Village Circle</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">Arabian Ranches</a>
-                            </li>
-                        </ul>
+                        <h6 class="title">Call Us Now</h6>
+                        <p><a href="tel:+918007500740">+91 80075 00740</a></p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <div class="footer-widget">
-                        <h3>Contact Us</h3>
-                        <ul class="list-unstyled contact_info">
-                            <li>
-                                <a href="javascript:void(0)"><i class="fa-solid fa-location-dot"></i> F-37, Ahmad Building, Hor Al Anz, Dubai</a>
-                            </li>
-                            <li>
-                                <a href="tel:+971528426365"><i class="fa-solid fa-phone-flip"></i> +971 528426365</a>
-                            </li>
-                            <li>
-                                <a href="mailto:info@compassandcoin.com"><i class="fa-solid fa-envelope"></i> info@compassandcoin.com</a>
-                            </li>
-                        </ul>
+                    <div class="footer-content-box">
+                        <div class="icon">
+                            <img src="{{ asset('images/map.svg') }}" alt="">
+                        </div>
+                        <h6 class="title">Our Location</h6>
+                        <p>518 & 519 A, 5th floor, 93 Avenue Mall, Wanowrie, Pune 411022</p>
                     </div>
-                    <div class="social-media">
-                        <ul class="list-inline">
-                            <li class="list-inline-item">
-                                <a href="{{ config('settings.facebook_url', 'My Laravel App') }}"><i class="fa-brands fa-facebook-f"></i></a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="{{ config('settings.twitter_url', 'My Laravel App') }}"><i class="fa-brands fa-x-twitter"></i></a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="{{ config('settings.instagram_url', 'My Laravel App') }}"><i class="fa-brands fa-instagram"></i></a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="{{ config('settings.linkedin_url', 'My Laravel App') }}"><i class="fa-brands fa-linkedin-in"></i></a>
-                            </li>
-                        </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-content-box">
+                        <div class="icon">
+                            <img src="{{ asset('images/mail.svg') }}" alt="">
+                        </div>
+                        <h6 class="title">Send US Email</h6>
+                        <p><a href="mailto:autogenius.in@gmail.com">autogenius.in@gmail.com</a></p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-content-box">
+                        <div class="icon">
+                            <img src="{{ asset('images/time.svg') }}" alt="">
+                        </div>
+                        <h6 class="title">Working Hours</h6>
+                        <p>Monday – Friday: 10 am – 8 pm</p>
                     </div>
                 </div>
             </div>
         </div>
-        <hr class="border-light">
     </div>
-    <p class="copyright">&copy; {{ date('Y') }}  {{ config('settings.footer_text', 'My Laravel App') }}</p>
+    <div class="copyright-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="copyright-area-inner d-flex align-items-center justify-content-between">
+                        <p>Copyright © {{ date('Y') }} All Rights Reserved by {{ config('settings.footer_text', 'My Laravel App') }}
 
+                        </p>
+                        <div class="social-area-transparent">
+                            <ul class="d-flex align-items-center">
+                                <li><a href="javascript:void(0)"><img src="{{ asset('images/facebook.svg') }}" alt=""></a></li>
+                                <li><a href="javascript:void(0)"><img src="{{ asset('images/instagram.svg') }}" alt=""></a></li>
+                                <li><a href="javascript:void(0)"><img src="{{ asset('images/whatsapp.svg') }}" alt=""></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
