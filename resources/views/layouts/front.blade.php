@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- DYNAMIC SEO METADATA -->
-    <title>@yield('meta_title', config('settings.meta_title', 'My Laravel App'))</title>
+    <title>@yield('meta_title', config('settings.meta_title', 'AutoGenius Private Limited - The Automotive Testing Company'))</title>
     <meta name="description" content="@yield('meta_description', config('settings.meta_description', 'A brief, default site description.'))">
     <meta name="keywords" content="@yield('meta_keywords', config('settings.meta_keywords', 'default, keywords, tags'))">
     <!-- END SEO -->
@@ -27,7 +27,7 @@
     <!-- Main Content -->
     <main>
 
-     
+
         <!-- Page / Category / Blog Header -->
         @yield('header')
 
