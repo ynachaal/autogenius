@@ -57,6 +57,8 @@
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" crossorigin="anonymous"></script>
 
+    <link rel="stylesheet" href="{{ asset('css/admin.css?123') }}">
+
     @vite(['resources/js/app.js'])
 
     @stack('styles')
