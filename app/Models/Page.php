@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property string $title
@@ -14,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
 class Page extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -25,6 +27,9 @@ class Page extends Model
         'slug',
         'content',
         'is_published',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
     ];
 
     /**
