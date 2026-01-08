@@ -4,18 +4,31 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Page;
+use App\Services\PageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class PageController extends Controller
 {
+     protected $pageService;
+
+      public function __construct(
+      
+        PageService $pageService,
+     
+    ) {
+      
+        $this->pageService = $pageService;
+       
+    }
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
         $query = $request->input('q');
+        $published = $request->input('published'); // Get the published filter value
 
         // Start building the query
         $pagesQuery = Page::query();
@@ -28,6 +41,11 @@ class PageController extends Controller
             });
         }
 
+        // Apply published filter if set
+        if ($published !== null && in_array($published, ['0', '1'])) {
+            $pagesQuery->where('is_published', $published);
+        }
+
         // --- Sorting ---
         $sortBy = $request->input('sort_by', 'id'); // default sort
         $sortDirection = $request->input('sort_direction', 'asc');
@@ -35,9 +53,9 @@ class PageController extends Controller
         // Allowed columns to sort by
         $allowedSorts = ['id', 'title', 'slug', 'is_published', 'created_at'];
         if (!in_array($sortBy, $allowedSorts)) {
-            $sortBy = 'created_at';
+            $sortBy = 'id';
         }
-        $sortDirection = strtolower($sortDirection) === 'asc' ? 'asc' : 'asc';
+        $sortDirection = strtolower($sortDirection) === 'asc' ? 'asc' : 'desc';
 
         // Apply sorting
         $pagesQuery->orderBy($sortBy, $sortDirection);
@@ -46,10 +64,11 @@ class PageController extends Controller
         $pages = $pagesQuery->paginate(10);
         $pages->appends(array_merge($request->query(), [
             'sort_by' => $sortBy,
-            'sort_direction' => $sortDirection
+            'sort_direction' => $sortDirection,
+            'published' => $published
         ]));
 
-        return view('admin.pages.index', compact('pages', 'sortBy', 'sortDirection'));
+        return view('admin.pages.index', compact('pages', 'sortBy', 'sortDirection', 'published'));
     }
 
     /**
@@ -57,7 +76,8 @@ class PageController extends Controller
      */
     public function create()
     {
-        return view('admin.pages.create');
+        $contentAllowedAdmin = true;
+        return view('admin.pages.create',compact('contentAllowedAdmin'));
     }
 
     /**
@@ -65,16 +85,24 @@ class PageController extends Controller
      */
     public function store(Request $request)
     {
+ 
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'slug' => [
                 'nullable',
                 'string',
                 'max:255',
-                Rule::unique('pages', 'slug'),
+                // Ensure slug is unique (ignoring soft-deleted records)
+                Rule::unique('pages', 'slug')->whereNull('deleted_at'),
             ],
             'content' => 'required|string',
-            'is_published' => 'boolean',
+            'is_published' => 'nullable|boolean',
+            
+            // --- NEW FIELDS VALIDATION ---
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string|max:500', // Common limit for description
+            'meta_keywords' => 'nullable|string|max:500', 
+            // -----------------------------
         ]);
 
         // Generate slug if not provided
@@ -110,7 +138,9 @@ class PageController extends Controller
      */
     public function edit(Page $page)
     {
-        return view('admin.pages.edit', compact('page'));
+       $contentAllowedAdmin = $this->pageService->contentAllowedAdmin($page->slug);
+
+        return view('admin.pages.edit', compact('page','contentAllowedAdmin'));
     }
 
     /**
@@ -118,22 +148,30 @@ class PageController extends Controller
      */
     public function update(Request $request, Page $page)
     {
+       
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|max:255', // Uncommented and restored
             'slug' => [
                 'nullable',
                 'string',
                 'max:255',
-                Rule::unique('pages', 'slug')->ignore($page->id),
+                // Rule to ensure uniqueness while ignoring the current page's ID
+                Rule::unique('pages', 'slug')->ignore($page->id)->whereNull('deleted_at'),
             ],
-            'content' => 'required|string',
-            'is_published' => 'boolean',
+            'content' => 'nullable|string',
+            'is_published' => 'nullable|boolean', // Uncommented and restored (using nullable for flexibility)
+
+            // --- NEW FIELDS VALIDATION ---
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string|max:500',
+            'meta_keywords' => 'nullable|string|max:500',
+            // -----------------------------
         ]);
 
-        // Generate or format slug
+        // Generate or format slug (Uncommented and restored)
         if (empty($validated['slug'])) {
             $validated['slug'] = Str::slug($validated['title']);
-            // Uniqueness check for generated slug (if different from current page's slug)
+            // Uniqueness check for generated slug
             $count = 0;
             $originalSlug = $validated['slug'];
             while (Page::where('slug', $validated['slug'])->where('id', '!=', $page->id)->exists()) {

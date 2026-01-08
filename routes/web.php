@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TinyMCEController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\BlogController; // Ensure BlogController is imported
 use App\Http\Controllers\Admin\FaqController; // Ensure BlogController is imported
@@ -76,3 +77,5 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+Route::get('/tinymce-images', [TinyMCEController::class, 'images'])->name('tinymce.images');
+Route::post('/tinymce-upload', [TinyMCEController::class, 'upload'])->name('tinymce.upload');
