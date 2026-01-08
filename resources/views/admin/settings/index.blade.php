@@ -35,8 +35,7 @@
                         'address' => '',
                         'map_embed' => '',
                         'contact_email' => '',
-                        'site_ceo_image' => '',
-                        'site_ceo_message' => '',
+                   
                         // Footer
                         'footer_about' => '',
                     ];
@@ -60,10 +59,7 @@
                         <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact"
                             type="button" role="tab">Contact</button>
                     </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="ceo-tab" data-bs-toggle="tab" data-bs-target="#ceo"
-                            type="button" role="tab">CEO Message</button>
-                    </li>
+                 
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="footer-tab" data-bs-toggle="tab" data-bs-target="#footer"
                             type="button" role="tab">Footer</button>
@@ -161,29 +157,7 @@
                         </div>
                     </div>
 
-                    {{-- CEO Message --}}
-                    <div class="tab-pane fade" id="ceo">
-
-                        {{-- CEO Image --}}
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">CEO Image</label>
-                                <input type="file" name="site_ceo_image" class="form-control" accept="image/*">
-                                <x-input-error :messages="$errors->get('site_ceo_image')" class="text-danger mt-1" />
-                                @if ($settings->get('site_ceo_image'))
-                                    <img src="{{ asset($settings->get('site_ceo_image')->value) }}" class="mt-2"
-                                        style="max-width:200px">
-                                @endif
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12 mb-3">
-                                <label class="form-label">CEO Message</label>
-                                <textarea name="settings[site_ceo_message]" id="editor" rows="2" class="form-control tinymce-editor">{{ $settings->get('site_ceo_message')?->value }}</textarea>
-                                <x-input-error :messages="$errors->get('settings.site_ceo_message')" class="text-danger mt-1" />
-                            </div>
-                        </div>
-                    </div>
+                  
 
                     {{-- FOOTER --}}
                     <div class="tab-pane fade" id="footer">

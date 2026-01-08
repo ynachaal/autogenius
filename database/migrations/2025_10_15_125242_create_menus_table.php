@@ -15,7 +15,6 @@ return new class extends Migration {
             $table->string('title');
             $table->string('external_link')->nullable();
             $table->foreignId('page_id')->nullable()->constrained('pages')->onDelete('set null');
-            $table->foreignId('post_id')->nullable()->constrained('posts')->onDelete('set null');
             $table->foreignId('parent_id')->nullable()->constrained('menus')->onDelete('cascade');
              $table->foreignId('category_id')->nullable()->constrained('menu_categories')->onDelete('set null');
             $table->integer('order')->default(0);
