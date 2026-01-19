@@ -1,0 +1,50 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Controllers\Admin\{
+    DashboardController,
+    PageController,
+    BrandController,
+    ContactSubmissionController,
+    ServiceController,
+    BlogController,
+    FaqController,
+    BlogCategoryController,
+    SettingController,
+    UserController,
+    MenuController,
+    MenuCategoryController
+};
+
+/*
+|--------------------------------------------------------------------------
+| Admin Routes
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth', AdminMiddleware::class])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+
+        Route::get('/dashboard', function () {
+            return view('admin.dashboard');
+        })->name('dashboard');
+
+        Route::get('/migrate', [DashboardController::class, 'migrate'])->name('migrate');
+        Route::get('/clearCache', [DashboardController::class, 'clearCache'])->name('clearCache');
+
+        Route::resource('contact-submissions', ContactSubmissionController::class);
+        Route::resource('services', ServiceController::class);
+        Route::resource('brands', BrandController::class);
+        Route::resource('blogs', BlogController::class);
+        Route::resource('faqs', FaqController::class);
+        Route::resource('pages', PageController::class);
+        Route::resource('users', UserController::class);
+        Route::resource('menus', MenuController::class);
+        Route::resource('menu-categories', MenuCategoryController::class);
+        Route::resource('blog-categories', BlogCategoryController::class);
+
+        Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
+        Route::put('/settings', [SettingController::class, 'update'])->name('settings.update');
+    });

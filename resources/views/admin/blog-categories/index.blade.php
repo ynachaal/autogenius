@@ -43,6 +43,7 @@
                                     <button class="btn btn-default" type="submit" title="Search">
 
                                         <i class="fas fa-search"></i> {{-- Font Awesome Search Icon --}}
+                                        Search
 
                                     </button>
 
@@ -185,7 +186,7 @@
 
                                         <td>{{ $category->created_at->format('Y-m-d') }}</td>
 
-                                        <td>{{ Str::limit($category->description, 50) }}</td>
+                                        <td>{!! Str::limit($category->description, 50) !!}</td>
 
                                         <td class="text-center">
 

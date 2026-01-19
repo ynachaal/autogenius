@@ -36,56 +36,50 @@
                     {{-- === TABS CONTENT === --}}
                     <div class="tab-content pt-3" id="pageTabContent">
 
-                        {{-- TAB 1: General Content --}}
                         <div class="tab-pane fade show active" id="general" role="tabpanel"
                             aria-labelledby="general-tab">
+                            <div class="row g-3">
 
-                            <div class="mb-3">
-                                <label for="title" class="form-label">Title</label>
-                                <input type="text" id="title" name="title"
-                                    class="form-control @error('title') is-invalid @enderror"
-                                    value="{{ $title ?? old('title') }}" {{ $required ?? 'required' }} autofocus {{ isset($title) ? 'readonly' : '' }}>
-                                @error('title')
-                                    <div class="text-danger small mt-1">{{ $message }}</div>
-                                @enderror
+                                {{-- Title --}}
+                                <div class="col-md-6">
+                                    <label for="title" class="form-label">Title</label>
+                                    <input type="text" id="title" name="title"
+                                        class="form-control @error('title') is-invalid @enderror"
+                                        value="{{ $title ?? old('title') }}" {{ $required ?? 'required' }} autofocus {{ isset($title) ? 'readonly' : '' }}>
+                                    @error('title')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
+                                </div>
+
+                                {{-- Slug --}}
+                                <div class="col-md-6">
+                                    <label for="slug" class="form-label">Slug (optional)</label>
+                                    <input type="text" id="slug" name="slug"
+                                        class="form-control @error('slug') is-invalid @enderror"
+                                        value="{{ $slug ?? old('slug') }}" {{ isset($slug) ? 'readonly' : '' }}>
+                                    @error('slug')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
+                                </div>
+
+                                {{-- Content --}}
+                                <div class="col-12">
+                                    <label for="editor" class="form-label">Page Content</label>
+                                    <textarea name="content" id="editor" rows="4"
+                                        class="form-control tinymce-editor">{{ $content ?? old('content') }}</textarea>
+                                    @error('content')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
+                                </div>
+
+                                {{-- Publish --}}
+                                <div class="col-md-6 d-flex align-items-center">
+                                    <div class="form-check mt-2">
+                                        <input type="hidden" name="is_published"
+                                            value="{{ $is_published ?? old('is_published', false) ? '1' : '0' }}">
+                                        <input class="form-check-input" type="checkbox" name="is_published" value="1"
+                                            id="is_published" {{ ($is_published ?? old('is_published', false)) ? 'checked' : '' }} {{ isset($page) ? 'disabled' : '' }}>
+                                        <label class="form-check-label" for="is_published">Publish Page</label>
+                                    </div>
+                                    @error('is_published')<div class="text-danger small mt-1">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
                             </div>
-
-                            <div class="mb-3">
-                                <label for="slug" class="form-label">Slug (optional - leave blank to
-                                    auto-generate)</label>
-                                <input type="text" id="slug" name="slug"
-                                    class="form-control @error('slug') is-invalid @enderror"
-                                    value="{{ $slug ?? old('slug') }}" {{ isset($slug) ? 'readonly' : '' }}>
-                                @error('slug')
-                                    <div class="text-danger small mt-1">{{ $message }}</div>
-                                @enderror
-                            </div> 
-                           
-                            <div class="mb-3">
-                                <label for="editor" class="form-label">Page Content</label>
-                                {{-- Hidden textarea to store Quill's content for form submission and validation --}}
-                              <textarea name="content" id="editor" rows="2"
-                                class="form-control tinymce-editor">{{ $content ?? old('content') }}</textarea>
-                              
-                                @error('content')
-                                    <div class="text-danger small mt-1">{{ $message }}</div>
-                                @enderror
-                            </div>
-                       
-                            <div class="form-check mb-4">
-                                {{-- Hidden input preserves the value when checkbox is disabled --}}
-                                <input type="hidden" name="is_published"
-                                    value="{{ $is_published ?? old('is_published', false) ? '1' : '0' }}">
-
-                                <input class="form-check-input" type="checkbox" name="is_published" value="1"
-                                    id="is_published" {{ ($is_published ?? old('is_published', false)) ? 'checked' : '' }} {{ isset($page) ? 'disabled' : '' }}>
-
-                                <label class="form-check-label" for="is_published">Publish Page</label>
-                                @error('is_published')
-                                    <div class="text-danger small mt-1">{{ $message }}</div>
-                                @enderror
-                            </div>
-
                         </div>
 
 
@@ -162,9 +156,6 @@
             var re = new RegExp(regexp);
             return re.test(value);
         }, "Slug can only contain lowercase letters, numbers, and hyphens.");
-
-       
-
 
         $(document).ready(function () {
             console.log('Document ready, initializing form validation...');
@@ -258,7 +249,7 @@
                 },
                 submitHandler: function (form) {
                     // Ensure Quill content is synced before final submission
-                
+
                     form.submit();
                 },
                 invalidHandler: function (event, validator) {

@@ -1,158 +1,151 @@
-<?php
-
-namespace App\Http\Controllers\Admin;
-
-use App\Http\Controllers\Controller;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-
-class UserController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(Request $request)
-    {
-        // Ensure only admins can access
-        
-
-        $query = User::query();
-
-        // 1. Search Filtering
-        if ($request->filled('search')) {
-            $search = $request->input('search');
-            $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%");
-            });
-        }
-
-        // 2. Sorting
-        $sortBy = $request->input('sort_by', 'id');
-        $sortDirection = $request->input('sort_direction', 'asc');
-
-        $allowedSorts = ['id', 'name', 'email', 'created_at'];
-        if (!in_array($sortBy, $allowedSorts)) {
-            $sortBy = 'created_at';
-        }
-        $sortDirection = (strtolower($sortDirection) === 'asc') ? 'asc' : 'desc';
-
-        $users = $query->orderBy($sortBy, $sortDirection)->paginate(10);
-
-        return view('admin.users.index', compact('users', 'sortBy', 'sortDirection'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        // Ensure only admins can access
-     
-
-        return view('admin.users.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        // Ensure only admins can access
-      
-
-        // 1. Validation
-        $validatedData = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
-
-        // 2. Hash the password
-        $validatedData['password'] = Hash::make($validatedData['password']);
-
-        // 3. Create the User
-        $user = User::create($validatedData);
-
-        // 4. Redirect
-        return redirect()->route('admin.users.index')->with('success', 'User created successfully!');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(User $user)
-    {
-        // Ensure only admins can access
-        
-
-        return view('admin.users.show', compact('user'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(User $user)
-    {
-        // Ensure only admins can access
-       
-
-        return view('admin.users.edit', compact('user'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, User $user)
-    {
-        // Ensure only admins can access
-       
-
-        // 1. Validation
-        $validatedData = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
-            'password' => ['nullable', 'string', 'min:8', 'confirmed'],
-        ]);
-
-        // 2. Hash the password if provided
-        if (!empty($validatedData['password'])) {
-            $validatedData['password'] = Hash::make($validatedData['password']);
-        } else {
-            unset($validatedData['password']);
-        }
-
-        // 3. Update the User
-        $user->update($validatedData);
-
-        // 4. Redirect
-        return redirect()->route('admin.users.show', $user)->with('success', 'User updated successfully!');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(User $user)
-    {
-        // Ensure only admins can access
-        
-
-        // Prevent self-deletion
-        if (Auth::id() === $user->id) {
-            abort(403, 'Unauthorized action. You cannot delete your own account.');
-        }
-
-        // 1. Delete the User
-        $user->delete();
-
-        // 2. Redirect
-        return redirect()->route('admin.users.index')->with('success', 'User deleted successfully!');
-    }
-
-    /**
-     * Helper method to check if the user is an admin
-     */
-   
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+
+class UserController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(Request $request)
+    {
+        $query = User::query()
+            ->leftJoin('roles', 'users.role', '=', 'roles.code')
+            ->select('users.*', 'roles.name as role_name');
+
+        // Search
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('users.name', 'like', "%{$search}%")
+                  ->orWhere('users.email', 'like', "%{$search}%")
+                  ->orWhere('users.phone_number', 'like', "%{$search}%");
+            });
+        }
+
+        // Sorting
+        $allowedSorts = ['id', 'name', 'email', 'created_at'];
+        $sortBy = in_array($request->sort_by, $allowedSorts)
+            ? $request->sort_by
+            : 'users.created_at';
+
+        $sortDirection = $request->sort_direction === 'asc' ? 'asc' : 'desc';
+
+        $users = $query
+            ->orderBy($sortBy, $sortDirection)
+            ->paginate(10);
+
+        return view('admin.users.index', compact('users', 'sortBy', 'sortDirection'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $roles = DB::table('roles')
+            ->where('status', 1)
+            ->select('code', 'name')
+            ->get();
+
+        return view('admin.users.create', compact('roles'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name'         => ['required', 'string', 'max:255'],
+            'email'        => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'phone_number' => ['nullable', 'string', 'max:20', 'unique:users,phone_number'],
+            'role'         => ['required', 'exists:roles,code'],
+            'password'     => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        $validatedData['password'] = Hash::make($validatedData['password']);
+
+        User::create($validatedData);
+
+        return redirect()
+            ->route('admin.users.index')
+            ->with('success', 'User created successfully!');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(User $user)
+    {
+        $user->load([
+            'roleData' => function ($q) {
+                $q->select('code', 'name');
+            }
+        ]);
+
+        return view('admin.users.show', compact('user'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(User $user)
+    {
+        $roles = DB::table('roles')
+            ->where('status', 1)
+            ->select('code', 'name')
+            ->get();
+
+        return view('admin.users.edit', compact('user', 'roles'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, User $user)
+    {
+        $validatedData = $request->validate([
+            'name'         => ['required', 'string', 'max:255'],
+            'email'        => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
+            'phone_number' => ['nullable', 'string', 'max:20', 'unique:users,phone_number,' . $user->id],
+            'role'         => ['required', 'exists:roles,code'],
+            'password'     => ['nullable', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        if (!empty($validatedData['password'])) {
+            $validatedData['password'] = Hash::make($validatedData['password']);
+        } else {
+            unset($validatedData['password']);
+        }
+
+        $user->update($validatedData);
+
+        return redirect()
+            ->route('admin.users.show', $user)
+            ->with('success', 'User updated successfully!');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(User $user)
+    {
+        if (Auth::id() === $user->id) {
+            abort(403, 'You cannot delete your own account.');
+        }
+
+        $user->delete();
+
+        return redirect()
+            ->route('admin.users.index')
+            ->with('success', 'User deleted successfully!');
+    }
 }

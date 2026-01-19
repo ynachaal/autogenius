@@ -43,7 +43,7 @@
                                     <button class="btn btn-default" type="submit" title="Search">
 
                                         <i class="fas fa-search"></i> {{-- Font Awesome Search Icon --}}
-
+                                        Search
                                     </button>
 
                                     {{-- Clear Button: Only show if search query exists --}}

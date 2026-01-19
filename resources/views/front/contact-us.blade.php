@@ -32,7 +32,7 @@
                         <div class="alert alert-danger mb-4">{{ session('error') }}</div>
                     @endif
 
-                    <form method="POST" action="{{ route('site.contactUs.submit') }}" id="contactForm">
+                    <form method="POST" action="{{ route('frontend.contact.store') }}" id="contactForm">
                         @csrf
 
                         <div class="mb-3">

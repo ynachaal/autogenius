@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'developer.abstain@gmail.com',
             'password' => Hash::make('S@123456s'),
-            'role' => 'admin',
+            'role' => '01',
         ]);
     }
 }
