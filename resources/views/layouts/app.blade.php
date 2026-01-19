@@ -9,7 +9,7 @@
     <meta name="theme-color" content="#007bff" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('settings.site_name', '') }}</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css" crossorigin="anonymous">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet">
@@ -24,6 +24,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="{{ asset('css/admin.css?123') }}">
@@ -78,7 +79,7 @@
             <div class="sidebar-wrapper">
                 <nav class="mt-2">
                     <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview">
-                        @if(Auth::check() && Auth::user()->role === 'admin')
+                        @if(Auth::check() && Auth::user()->role === '01')
                             @include('layouts.navigation-admin')
                         @else
                             @include('layouts.navigation-user')
@@ -113,7 +114,9 @@
         </main>
 
         <footer class="app-footer text-center">
-            <strong>Copyright &copy; {{ date('Y') }} <a href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>.</strong>
+            <span>Copyright &copy; {{ date('Y') }} <a href="{{ url('/') }}"
+                    class="text-decoration-none">{{ config('settings.site_name', '') }}</a>.</span>
+            {{ config('settings.footer_text', '') }}
         </footer>
     </div>
 

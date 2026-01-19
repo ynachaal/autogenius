@@ -44,7 +44,5 @@ class Blog extends Model
                 $blog->slug = Str::slug($blog->title);
             }
         });
-
-      
     }
 }

@@ -20,6 +20,24 @@ return [
         'active' => Route::is('admin.users.index'),
     ],
     [
+        'title' => 'Contact Submissions',
+        'icon' => 'bi-ui-checks',
+        'route' => route('admin.contact-submissions.index'),
+        'active' => Route::is('admin.contact-submissions.index'),
+    ],
+     [
+        'title' => 'Services',
+        'icon' => 'bi-person-fill',
+        'route' => route('admin.services.index'),
+        'active' => Route::is('admin.services.index'),
+    ],
+     [
+        'title' => 'Brands',
+        'icon' => 'bi-tag',
+        'route' => route('admin.brands.index'),
+        'active' => Route::is('admin.brands.index'),
+    ],
+    [
         'title' => 'Blogs',
         'icon' => 'bi-journal-text',
         'children' => [

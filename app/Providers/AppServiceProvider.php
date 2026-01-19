@@ -6,6 +6,10 @@ use Illuminate\Support\Facades\Schema;
 
 use Illuminate\Support\ServiceProvider;
 
+use App\Services\SettingsService;
+
+use App\Models\Setting;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -22,5 +26,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Schema::defaultStringLength(191);
+
+        if (Schema::hasTable('settings')) {
+            $settings = Setting::pluck('value','key')->toArray();
+            config(['settings' => $settings]);
+        }
+        
     }
 }

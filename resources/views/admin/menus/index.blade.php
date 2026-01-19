@@ -32,7 +32,7 @@
 
                                     <button class="btn btn-default" type="submit" title="Search">
 
-                                        <i class="fas fa-search"></i>
+                                        <i class="fas fa-search"></i> Search
 
                                     </button>
 

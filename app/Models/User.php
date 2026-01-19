@@ -5,38 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Notifications\CustomResetPassword;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use App\Models\PropertyInterest;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
-    use SoftDeletes;
-
-    const DAS_ROLES = ['03', '04', '05', '06'];
+    use HasFactory, Notifiable, SoftDeletes;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
+     * Mass assignable attributes
      */
     protected $fillable = [
         'name',
         'email',
         'password',
         'phone_number',
-        'passport',
-        'emirates_id',
-        'role', // ADDED: Critical column from migration
+        'role', // stores role CODE (01, 02)
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
+     * Hidden attributes
      */
     protected $hidden = [
         'password',
@@ -44,9 +31,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
+     * Casts
      */
     protected function casts(): array
     {
@@ -56,87 +41,36 @@ class User extends Authenticatable
         ];
     }
 
-    public function sendPasswordResetNotification($token)
-    {
-        $this->notify(new CustomResetPassword($token));
-    }
-
-    public function role()
-    {
-        return $this->belongsTo(Role::class, 'role_code', 'code');
-    }
-
-
-    public function scopeHasPassport($query)
-    {
-        return $query->whereNotNull('passport');
-    }
-    public function scopeHasEmiratesId($query)
-    {
-        return $query->whereNotNull('emirates_id');
-    }
     /**
-     * Check if the user's profile documents are complete.
+     * Role relationship (joined via role code)
      */
-    public function isKYCComplete(): bool
+    public function roleData()
     {
-        return !empty($this->passport) && !empty($this->emirates_id);
+        return $this->belongsTo(
+            \App\Models\Role::class,
+            'role',   // users.role
+            'code'    // roles.code
+        );
     }
-
-    // -----------------------------------------------------------------
-    // | ✅ NEW RELATIONSHIP: Property Interests (Needed for User Filter) |
-    // -----------------------------------------------------------------
 
     /**
-     * Get the property interests submitted by the user.
-     *
-     * @return HasMany
+     * Helpers
      */
-    public function propertyInterests(): HasMany
-    {
-        // Links the User model to the PropertyInterest model via the 'user_id' foreign key
-        return $this->hasMany(PropertyInterest::class);
-    }
-
-    // -----------------------------------------------------------------
-    // |                      Accessors/Mutators                         |
-    // -----------------------------------------------------------------
-
-    /**
-     * Check if the user has a specific management role.
-     * 
-     * @return bool
-     */
-    public function isDAS(): bool
-    {
-        return in_array($this->role, self::DAS_ROLES);
-    }
-    public function isBO(): bool
-    {
-        return $this->role === '07';
-    }
-    public function isUser(): bool
-    {
-        return $this->role === '02';
-    }
     public function isAdmin(): bool
     {
         return $this->role === '01';
     }
 
-    public function getDashboardUrlAttribute(): string
-{
-    return match (true) {
-        $this->isAdmin() => route('admin.dashboard'),
-        $this->isUser()  => route('user.dashboard'),
-        $this->isBO()    => route('user.dashboard'),
-        $this->isDAS()   => route('das.dashboard'),
-        default          => route('home'),
-    };
-}
-    // get current user role name
-    public function getRoleNameAttribute()
+    public function isUser(): bool
     {
-        return Role::where('code', $this->role)->value('name');
+        return $this->role === '02';
+    }
+
+    /**
+     * Accessor: role name
+     */
+    public function getRoleNameAttribute(): ?string
+    {
+        return $this->roleData?->name;
     }
 }

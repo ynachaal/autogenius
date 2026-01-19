@@ -45,6 +45,7 @@
                                     <button class="btn btn-default" type="submit">
 
                                         <i class="fas fa-search"></i> {{-- Search Button --}}
+                                        Search
 
                                     </button>
 

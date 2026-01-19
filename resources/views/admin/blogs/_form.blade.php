@@ -28,87 +28,81 @@
 
                 <div class="tab-content">
 
-                    {{-- ================= GENERAL TAB ================= --}}
                     <div class="tab-pane fade show active" id="general">
+                        <div class="row g-3">
+                            {{-- Title --}}
+                            <div class="col-md-6">
+                                <label class="form-label fw-medium">Title</label>
+                                <input type="text" name="title" value="{{ $title ?? old('title') }}"
+                                    class="form-control @error('title') is-invalid @enderror" required>
+                                @error('title')<div class="text-danger small">{{ $message }}</div>@enderror
+                            </div>
 
-                        {{-- Title --}}
-                        <div class="mb-3">
-                            <label class="form-label fw-medium">Title</label>
-                            <input type="text" name="title" value="{{ $title ?? old('title') }}"
-                                class="form-control @error('title') is-invalid @enderror" required>
-                            @error('title')<div class="text-danger small">{{ $message }}</div>@enderror
+                            {{-- Slug --}}
+                            <div class="col-md-6">
+                                <label class="form-label fw-medium">Slug (optional)</label>
+                                <input type="text" name="slug" value="{{ $slug ?? old('slug') }}"
+                                    class="form-control @error('slug') is-invalid @enderror">
+                                @error('slug')<div class="text-danger small">{{ $message }}</div>@enderror
+                            </div>
+
+                            {{-- Author --}}
+                            <div class="col-md-6">
+                                <label class="form-label fw-medium">Author</label>
+                                <select name="author_id" class="form-select @error('author_id') is-invalid @enderror"
+                                    required>
+                                    <option value="">Select Author</option>
+                                    @foreach($users as $user)
+                                        <option value="{{ $user->id }}" @selected(($author_id ?? old('author_id')) == $user->id)>
+                                            {{ $user->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('author_id')<div class="text-danger small">{{ $message }}</div>@enderror
+                            </div>
+
+                            {{-- Category --}}
+                            <div class="col-md-6">
+                                <label class="form-label fw-medium">Category</label>
+                                <select name="category_id"
+                                    class="form-select @error('category_id') is-invalid @enderror" required>
+                                    <option value="">Select Category</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->id }}" @selected(($category_id ?? old('category_id')) == $category->id)>
+                                            {{ $category->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('category_id')<div class="text-danger small">{{ $message }}</div>@enderror
+                            </div>
+
+                            {{-- Featured Image --}}
+                            <div class="col-md-6">
+                                <label class="form-label fw-medium">Featured Image</label>
+                                <input type="file" name="featured_image" class="form-control">
+                                @if(isset($blog) && $blog->featured_image)
+                                    <img src="{{ asset($blog->featured_image) }}" class="img-thumbnail mt-2"
+                                        style="max-width:200px">
+                                @endif
+                            </div>
+
+                            {{-- Publish --}}
+                            <div class="col-md-6 d-flex align-items-center">
+                                <div class="form-check mt-2">
+                                    <input type="checkbox" class="form-check-input" name="is_published" value="1"
+                                        @checked($is_published ?? old('is_published'))>
+                                    <label class="form-check-label">Publish</label>
+                                </div>
+                            </div>
+
+                            {{-- Content --}}
+                            <div class="col-12">
+                                <label for="editor" class="form-label">Page Content</label>
+                                <textarea name="content" id="editor" rows="4"
+                                    class="form-control tinymce-editor @error('content') is-invalid @enderror">{{ $content ?? old('content') }}</textarea>
+                                @error('content')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
+                            </div>
                         </div>
-
-                        {{-- Slug --}}
-                        <div class="mb-3">
-                            <label class="form-label fw-medium">Slug (optional)</label>
-                            <input type="text" name="slug" value="{{ $slug ?? old('slug') }}"
-                                class="form-control @error('slug') is-invalid @enderror">
-                            @error('slug')<div class="text-danger small">{{ $message }}</div>@enderror
-                        </div>
-
-                        {{-- Author --}}
-                        <div class="mb-3">
-                            <label class="form-label fw-medium">Author</label>
-                            <select name="author_id" class="form-select @error('author_id') is-invalid @enderror"
-                                required>
-                                <option value="">Select Author</option>
-                                @foreach($users as $user)
-                                    <option value="{{ $user->id }}" @selected(($author_id ?? old('author_id')) == $user->id)>
-                                        {{ $user->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('author_id')<div class="text-danger small">{{ $message }}</div>@enderror
-                        </div>
-
-                        {{-- Category --}}
-                        <div class="mb-3">
-                            <label class="form-label fw-medium">Category</label>
-                            <select name="category_id" class="form-select @error('category_id') is-invalid @enderror"
-                                required>
-                                <option value="">Select Category</option>
-                                @foreach($categories as $category)
-                                    <option value="{{ $category->id }}" @selected(($category_id ?? old('category_id')) == $category->id)>
-                                        {{ $category->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('category_id')<div class="text-danger small">{{ $message }}</div>@enderror
-                        </div>
-
-                        {{-- Featured Image --}}
-                        <div class="mb-3">
-                            <label class="form-label fw-medium">Featured Image</label>
-                            <input type="file" name="featured_image" class="form-control">
-                            @if(isset($blog) && $blog->featured_image)
-                                <img src="{{ asset($blog->featured_image) }}" class="img-thumbnail mt-2"
-                                    style="max-width:200px">
-                            @endif
-                        </div>
-
-                        {{-- Content --}}
-                        <div class="mb-3">
-
-                            <label for="editor" class="form-label">Page Content</label>
-                            {{-- Hidden textarea to store Quill's content for form submission and validation --}}
-
-                            <textarea name="content" id="editor" rows="2"
-                                class="form-control tinymce-editor">{{ $content ?? old('content') }}</textarea>
-
-
-                            @error('content')
-                                <div class="text-danger small mt-1">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        {{-- Publish --}}
-                        <div class="form-check mb-3">
-                            <input type="checkbox" class="form-check-input" name="is_published" value="1"
-                                @checked($is_published ?? old('is_published'))>
-                            <label class="form-check-label">Publish</label>
-                        </div>
-
                     </div>
 
                     {{-- ================= SEO TAB ================= --}}
@@ -153,30 +147,30 @@
 
 @push('scripts')
     <script>
-        
+
         $(document).ready(function () {
 
             // Custom method for file size (bytes)
-    $.validator.addMethod("filesize", function (value, element, param) {
-        if (!element.files.length) return true; // Optional field
-        return element.files[0].size <= param;
-    }, "File size must be less than {0} bytes");
+            $.validator.addMethod("filesize", function (value, element, param) {
+                if (!element.files.length) return true; // Optional field
+                return element.files[0].size <= param;
+            }, "File size must be less than {0} bytes");
 
-    // Custom method for file type validation
-    $.validator.addMethod("filetype", function (value, element, param) {
-        if (!element.files.length) return true; // Optional
-        var ext = value.split('.').pop().toLowerCase();
-        return $.inArray(ext, param) !== -1;
-    }, "Invalid file type.");
+            // Custom method for file type validation
+            $.validator.addMethod("filetype", function (value, element, param) {
+                if (!element.files.length) return true; // Optional
+                var ext = value.split('.').pop().toLowerCase();
+                return $.inArray(ext, param) !== -1;
+            }, "Invalid file type.");
 
-    // Optional regex method for slug
-    if (!$.validator.methods.regex) {
-        $.validator.addMethod("regex", function (value, element, regexp) {
-            if (!value) return true;
-            var re = new RegExp(regexp);
-            return re.test(value);
-        }, "Please check your input.");
-    }
+            // Optional regex method for slug
+            if (!$.validator.methods.regex) {
+                $.validator.addMethod("regex", function (value, element, regexp) {
+                    if (!value) return true;
+                    var re = new RegExp(regexp);
+                    return re.test(value);
+                }, "Please check your input.");
+            }
             // Form validation
             $("#{{ $formId ?? 'blog-form' }}").validate({
                 rules: {
