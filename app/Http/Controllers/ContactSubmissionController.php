@@ -1,12 +1,20 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Services\EmailService;
 use Illuminate\Http\Request;
 use App\Models\ContactSubmission;
 
 class ContactSubmissionController extends Controller
 {
+
+    protected EmailService $emailService;
+
+     public function __construct(
+        EmailService $emailService,
+    ) {
+        $this->emailService = $emailService;
+    }
     /**
      * Show contact form
      */
@@ -25,6 +33,8 @@ class ContactSubmissionController extends Controller
             'email'   => 'required|email|max:255',
             'message' => 'required|string',
         ]);
+
+         $this->emailService->contactUs((object) $validated);
 
         ContactSubmission::create($validated);
 

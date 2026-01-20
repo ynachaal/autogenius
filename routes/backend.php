@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\Admin\{
@@ -14,6 +15,9 @@ use App\Http\Controllers\Admin\{
     SettingController,
     UserController,
     MenuController,
+	EmailTemplateController,
+	SliderController,
+	SliderCategoryController,
     MenuCategoryController
 };
 
@@ -41,7 +45,10 @@ Route::middleware(['auth', AdminMiddleware::class])
         Route::resource('faqs', FaqController::class);
         Route::resource('pages', PageController::class);
         Route::resource('users', UserController::class);
+        Route::resource('sliders', SliderController::class);
+        Route::resource('slider-categories', SliderCategoryController::class);
         Route::resource('menus', MenuController::class);
+		Route::resource('email-templates', EmailTemplateController::class);
         Route::resource('menu-categories', MenuCategoryController::class);
         Route::resource('blog-categories', BlogCategoryController::class);
 

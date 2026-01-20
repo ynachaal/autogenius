@@ -138,9 +138,9 @@ class PageController extends Controller
      */
     public function edit(Page $page)
     {
-       $contentAllowedAdmin = $this->pageService->contentAllowedAdmin($page->slug);
+      
 
-        return view('admin.pages.edit', compact('page','contentAllowedAdmin'));
+        return view('admin.pages.edit', compact('page',));
     }
 
     /**

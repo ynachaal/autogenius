@@ -6,6 +6,7 @@ use App\Models\EmailTemplate;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
+use App\Mail\GenericMail;
 use Illuminate\Support\Facades\Auth;
 use Exception;
 
@@ -22,7 +23,7 @@ class EmailService
      * @param string|null $fallbackSubject
      * @return bool
      */
-    public function sendEmail(
+      public function sendEmail(
         string $to,
         string $templateTitle,
         array $data = [],
@@ -37,10 +38,41 @@ class EmailService
             }
 
             $body = $this->replacePlaceholders($template->content, $data);
+            $subject = $this->replacePlaceholders($template->subject, $data)
+                ?? $fallbackSubject
+                ?? 'No Subject';
 
-            Mail::html($body, function ($message) use ($to, $template, $fallbackSubject) {
+            // QUEUE PROPERLY
+            Mail::to($to)->queue(new GenericMail($body, $subject));
+
+            Log::info("Email queued successfully for {$to} using template '{$templateTitle}'.");
+            return true;
+        } catch (Exception $e) {
+            Log::error("Failed to queue email to {$to} (Template: {$templateTitle}): " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function sendEmailInstant(
+        string $to,
+        string $templateTitle,
+        array $data = [],
+        ?string $fallbackSubject = null
+    ): bool {
+        try {
+            $template = EmailTemplate::firstWhere('title', $templateTitle);
+
+            if (!$template) {
+                Log::warning("Email template '{$templateTitle}' not found. To: {$to}");
+                return false;
+            }
+
+            $body = $this->replacePlaceholders($template->content, $data);
+            $subject = $this->replacePlaceholders($template->subject, $data);
+
+            Mail::html($body, function ($message) use ($to, $subject, $fallbackSubject) {
                 $message->to($to)
-                    ->subject($template->subject ?? $fallbackSubject ?? 'No Subject');
+                    ->subject($subject ?? $fallbackSubject ?? 'No Subject');
             });
 
             Log::info("Email sent successfully to {$to} using template '{$templateTitle}'.");
@@ -94,7 +126,7 @@ class EmailService
 
         // Admin
         $this->sendEmail(
-            config('settings.admin_email', 'sumit.abstain@gmail.com'),
+            config('settings.admin_email', 'anubhav.abstain@gmail.com'),
             'Contact Us - Admin',
             $data,
             'New Contact Inquiry'
@@ -109,165 +141,9 @@ class EmailService
         );
     }
 
-    /**
-     * Send a Client Registration email notification.
-     *
-     * @param object $request
-     * @return bool
-     */
-    public function ClientRegirsation($request): bool
-    {
-        $data = [
-            '{name}'          => $request->name ?? '',
-            '{email}'         => $request->email ?? '',
-            '{date}'          => now()->format('d-m-Y H:i:s'),
-            '{support_email}' => config('mail.from.address', 'support@example.com'),
-            '{company_name}'  => config('settings.site_name', 'CC'),
-            '{year}'          => now()->year,
-            '{website_link}'  => config('app.url', url('/')),
-        ];
+   
 
-        // Admin
-        $this->sendEmail(
-            config('settings.admin_email', 'sumit.abstain@gmail.com'),
-            'Client Registration - Admin',
-            $data,
-            'New Client Registered.'
-        );
-
-        // Client
-        return $this->sendEmail(
-            $request->email,
-            'Client Registration',
-            $data,
-            'Your Registration has been Successfully done.'
-        );
-    }
-
-    /**
-     * Send an Admin notification for a new Property Inquiry.
-     *
-     * @param array $param
-     * @return bool
-     */
-    public function PropertyInquiry(array $param): bool
-    {
-        // OPTIMIZATION: Use Auth::user() directly and check if user is authenticated
-        $name = Auth::check() ? Auth::user()->name : 'Anonymous Client';
-
-        $data = [
-            '{property_title}'        => $param['title'] ?? 'N/A',
-            '{property_area}'         => $param['location'] ?? 'N/A',
-            '{property_price}'        => $param['price'] ?? 'N/A',
-            '{user_name}'             => $name,
-            '{company_name}'          => config('settings.site_name', 'CC'),
-            '{admin_dashboard_link}'  => config('app.url', url('/')) . '/admin/inquiries',
-            '{year}'          => now()->year,
-        ];
-
-        // Admin
-        return $this->sendEmail(
-            config('settings.admin_email', 'sumit.abstain@gmail.com'),
-            'Property Inquiry',
-            $data,
-            'New Property Inquiry!'
-        );
-    }
-    /**
-     * Send an Admin notification for a new Property Inquiry.
-     *
-     * @param array $param
-     * @return bool
-     */
-    public function PropertyApproved(array $param): bool
-    {
-        $name = User::where('id', $param['user_id'])->pluck('name')->first() ?? 'Anonymous Client';
-
-        $data = [
-            '{property_title}'        => $param['title'] ?? 'N/A',
-            '{property_area}'         => $param['location'] ?? 'N/A',
-            '{property_price}'        => $param['price'] ?? 'N/A',
-            '{user_name}'             => $name,
-            '{company_name}'          => config('settings.site_name', 'CC'),
-            '{admin_dashboard_link}'  => config('app.url', url('/')),
-            '{year}'          => now()->year,
-        ];
-
-        // Admin
-        return $this->sendEmail(
-            config('settings.admin_email', 'sumit.abstain@gmail.com'),
-            'Property Approved - Admin',
-            $data,
-            'New Property Inquiry!'
-        );
-    }
-
-    /**
-     * Send an Client notification for Approval of Developer Partner.
-     *
-     * @param array $param
-     * @return bool
-     */
-    public function DeveloperPartnerApproved(array $param): bool
-    {
-        // Get user details properly
-        $user = User::where('id', $param['user_id'])->first(['name', 'email']);
-
-        if ($user) {
-            $data = [
-                '{client_name}'     => $user->name,
-                '{partner_name}'    => $param['name'] ?? 'N/A',
-                '{company_name}'    => config('settings.site_name', 'CC'),
-                '{published_date}'  => now()->format('d-m-Y'),
-                '{partner_link}'    => $param['partner_link'] ?? config('app.url', url('/')),
-                '{website_link}'    => config('app.url', url('/')),
-                '{year}'            => now()->year,
-            ];
-
-            return $this->sendEmail(
-                $user->email,
-                'Developer Partner Approved - Client',
-                $data,
-                'Developer Partner Approved!'
-            );
-        }
-
-        return false;
-    }
-    /**
-     * Send an Admin notification for a new Developer Partner submission.
-     *
-     * @param array $param
-     * @return bool
-     */
-    public function NewDeveloperPartner(array $param): bool
-    {
-        // Get client (the one who submitted the developer partner)
-        $user = User::where('id', $param['user_id'])->first(['name']);
-
-        if ($user) {
-            $data = [
-                '{partner_name}'    => $param['name'] ?? 'N/A',
-                '{submitted_by}'    => $user->name ?? 'Unknown User',
-                '{company_name}'    => config('settings.site_name', 'CC'),
-                '{submitted_date}'  => now()->format('F d, Y'),
-                '{admin_link}'      => $param['admin_link'] ?? config('app.url', url('/admin')),
-                '{website_link}'    => config('app.url', url('/')),
-                '{year}'            => now()->year,
-            ];
-
-            return $this->sendEmail(
-                config('settings.admin_email', 'sumit.abstain@gmail.com'),
-                'New Developer Partner - Admin',
-                $data,
-                'New Developer Partner Submission'
-            );
-        }
-
-        return false;
-    }
-
-
+    
 
     /**
      * Send a Forget Password email to the client.
@@ -290,7 +166,7 @@ class EmailService
         ];
 
         // Send to Client (password reset email)
-        return $this->sendEmail(
+        return $this->sendEmailInstant(
             $request->email,
             'Forget Password',
             $data,

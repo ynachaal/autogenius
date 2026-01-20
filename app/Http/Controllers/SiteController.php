@@ -9,6 +9,7 @@ use App\Services\DeveloperPartnerService;
 use App\Services\WhyChooseUsService;
 use App\Services\EmailService;
 use App\Models\PropertyType;
+use Illuminate\Support\Facades\Artisan;
 use App\Models\ContactSubmission;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -17,27 +18,22 @@ use Illuminate\Support\Facades\Log;
 
 class SiteController extends Controller
 {
-    protected PropertyService $propertyService;
-    protected PropertyAreaService $propertyAreaService;
-    protected BlogService $blogService;
-    protected DeveloperPartnerService $developerPartnerService;
-    protected WhyChooseUsService $whyChooseUsService;
     protected EmailService $emailService;
-    protected PropertyType $propertyType;
 
     public function __construct(
-       
         EmailService $emailService,
-        
     ) {
-      
     }
 
     public function index(): View
     {
-
-
         return view('front.home',);
+    }
+
+    public function queue()
+    {
+        Artisan::call('queue:work --stop-when-empty');
+        return redirect()->route('admin.dashboard')->with('success', 'Migration completed.');
     }
 
     public function contactUs(Request $request): RedirectResponse|View

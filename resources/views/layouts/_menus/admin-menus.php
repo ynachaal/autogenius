@@ -38,6 +38,12 @@ return [
         'active' => Route::is('admin.brands.index'),
     ],
     [
+        'title' => 'Email Templates',
+        'icon' => 'bi-envelope-paper',
+        'route' => route('admin.email-templates.index'),
+        'active' => Route::is('admin.email-templates.index'),
+    ],
+    [
         'title' => 'Blogs',
         'icon' => 'bi-journal-text',
         'children' => [
@@ -53,6 +59,23 @@ return [
             ],
         ],
         'active' => Route::is('admin.blogs.*') || Route::is('admin.blog-categories.*'),
+    ],
+    [
+        'title' => 'Slider',
+        'icon' => 'bi-journal-text',
+        'children' => [
+            [
+                'title' => 'Slider',
+                'route' => route('admin.sliders.index'),
+                'active' => Route::is('admin.sliders.*'),
+            ],
+            [
+                'title' => 'Slider Categories',
+                'route' => route('admin.slider-categories.index'),
+                'active' => Route::is('admin.slider-categories.*'),
+            ],
+        ],
+        'active' => Route::is('admin.slider-categories.*') || Route::is('admin.sliders.*'),
     ],
     [
         'title' => 'Faqs',

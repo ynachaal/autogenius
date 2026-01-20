@@ -53,7 +53,7 @@
                                 <div class="button-area">
                                     @auth
                                         @php
-                                            $dashboardUrl = Auth::user()->role === 'admin'
+                                            $dashboardUrl = Auth::user()->role === '01'
                                                 ? url('/admin/dashboard')
                                                 : url('/dashboard');
 
@@ -110,7 +110,7 @@
 
 <nav class="navbar navbar-expand-xl d-none" data-bs-theme="dark">
     <div class="container">
-        <a class="navbar-brand logo" href="/">Compass <span>&</span> Coin</a>
+        <a class="navbar-brand logo" href="/">Autogenius</a>
 
         <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -136,7 +136,7 @@
                 {{-- Auth-based menu items --}}
                 @auth
                     @php
-                        $dashboardUrl = Auth::user()->role === 'admin'
+                        $dashboardUrl = Auth::user()->role === '01'
                             ? url('/admin/dashboard')
                             : url('/dashboard');
 

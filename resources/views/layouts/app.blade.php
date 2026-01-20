@@ -25,6 +25,7 @@
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="{{ asset('css/admin.css?123') }}">
@@ -71,9 +72,9 @@
 
         <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
             <div class="sidebar-brand">
-                <a href="" class="brand-link">
-                    <img src="{{ asset('assets/img/AdminLTELogo.png') }}" alt="App Logo" class="brand-image opacity-75 shadow">
-                    <span class="brand-text fw-light">{{ config('app.name', 'Laravel') }}</span>
+               <a href="" class="brand-link shadow-none">
+                    <img src="{{ asset(config('settings.site_logo', '')) }}"
+                        alt="{{ config('settings.site_name', '') }}" class="brand-image">
                 </a>
             </div>
             <div class="sidebar-wrapper">

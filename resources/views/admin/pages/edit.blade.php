@@ -21,6 +21,6 @@
 
         'submitButtonText' => __('Update Page'),
         'required' => 'required',
-        'contentAllowedAdmin'=>$contentAllowedAdmin,
+       
     ])
 </x-app-layout>
