@@ -53,5 +53,6 @@ Route::prefix('contact')
 | TinyMCE (shared / frontend usage)
 |--------------------------------------------------------------------------
 */
+Route::get('/queue', [SiteController::class, 'queue'])->name('queue');
 Route::get('/tinymce-images', [TinyMCEController::class, 'images'])->name('tinymce.images');
 Route::post('/tinymce-upload', [TinyMCEController::class, 'upload'])->name('tinymce.upload');

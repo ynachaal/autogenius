@@ -5,7 +5,6 @@
         </h2>
     </x-slot>
 
-    <!-- Main Admin Content Area -->
     <main class="dashboard-content container my-4">
         <div class="card shadow-sm rounded-lg border p-4 p-lg-5">
 
@@ -13,46 +12,50 @@
                 Dashboard Overview
             </h2>
 
-            <!-- Stats Grid -->
             <div class="row g-4">
-                <!-- Total Users -->
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="card border border-primary-subtle shadow-sm rounded-4 p-4 text-center bg-primary-subtle">
                         <p class="text-uppercase small fw-medium text-primary mb-2">Total Users</p>
-                        <p class="display-6 fw-bold text-dark mb-0">4,200</p>
+                        <p class="display-6 fw-bold text-dark mb-0">
+                            {{ number_format($stats['total_users'] ?? 0) }}
+                        </p>
                     </div>
                 </div>
 
-                <!-- Revenue -->
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="card border border-success-subtle shadow-sm rounded-4 p-4 text-center bg-success-subtle">
-                        <p class="text-uppercase small fw-medium text-success mb-2">Revenue</p>
-                        <p class="display-6 fw-bold text-dark mb-0">$15.4K</p>
+                        <p class="text-uppercase small fw-medium text-success mb-2">Active Blogs</p>
+                        <p class="display-6 fw-bold text-dark mb-0">
+                            {{ number_format($stats['active_blogs'] ?? 0) }}
+                        </p>
                     </div>
                 </div>
 
-                <!-- Pending Tasks -->
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="card border border-warning-subtle shadow-sm rounded-4 p-4 text-center bg-warning-subtle">
-                        <p class="text-uppercase small fw-medium text-warning mb-2">Pending Tasks</p>
-                        <p class="display-6 fw-bold text-dark mb-0">12</p>
+                        <p class="text-uppercase small fw-medium text-warning mb-2">Active Brands</p>
+                        <p class="display-6 fw-bold text-dark mb-0">
+                            {{ number_format($stats['active_brands'] ?? 0) }}
+                        </p>
                     </div>
                 </div>
 
-                <!-- Critical Errors -->
                 <div class="col-12 col-md-6 col-lg-3">
-                    <div class="card border border-danger-subtle shadow-sm rounded-4 p-4 text-center bg-danger-subtle">
-                        <p class="text-uppercase small fw-medium text-danger mb-2">Critical Errors</p>
-                        <p class="display-6 fw-bold text-dark mb-0">0</p>
+                    <div class="card border border-info-subtle shadow-sm rounded-4 p-4 text-center bg-info-subtle">
+                        <p class="text-uppercase small fw-medium text-info mb-2">Active Services</p>
+                        <p class="display-6 fw-bold text-dark mb-0">
+                            {{ number_format($stats['active_services'] ?? 0) }}
+                        </p>
                     </div>
                 </div>
             </div>
 
-            <!-- Additional Content -->
-            <div class="mt-4">
-                <p class="text-secondary">
-                    This section represents the main content of your admin dashboard, providing space for tables, charts, and control elements.
-                </p>
+            <div class="mt-5 border-top pt-4">
+                <h4 class="h5 fw-bold mb-3">System Actions</h4>
+                <div class="d-flex gap-2">
+                    <a href="{{ route('admin.migrate') }}" class="btn btn-outline-dark btn-sm">Run Migrations</a>
+                    <a href="{{ route('admin.clearCache') }}" class="btn btn-outline-secondary btn-sm">Clear Cache</a>
+                </div>
             </div>
 
         </div>
