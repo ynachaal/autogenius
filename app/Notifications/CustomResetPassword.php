@@ -22,15 +22,18 @@ class CustomResetPassword extends Notification
 
     public function toMail($notifiable)
     {
+
         $resetUrl = url(route('password.reset', [
             'token' => $this->token,
             'email' => $notifiable->getEmailForPasswordReset(),
         ], false));
-
+   
         $request = new \stdClass();
         $request->name = $notifiable->name ?? 'User';
         $request->email = $notifiable->email;
         $request->reset_url = $resetUrl;
+
+          
 
         // Send your custom email
         (new EmailService())->ForgetPassword($request);
