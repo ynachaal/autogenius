@@ -60,6 +60,7 @@ class EmailService
         ?string $fallbackSubject = null
     ): bool {
         try {
+              
             $template = EmailTemplate::firstWhere('title', $templateTitle);
 
             if (!$template) {
@@ -78,6 +79,7 @@ class EmailService
             Log::info("Email sent successfully to {$to} using template '{$templateTitle}'.");
             return true;
         } catch (Exception $e) {
+        
             Log::error("Failed to send email to {$to} (Template: {$templateTitle}): " . $e->getMessage());
             return false;
         }
@@ -165,10 +167,12 @@ class EmailService
             '{website_link}'  => config('app.url', url('/')),
         ];
 
+  
+
         // Send to Client (password reset email)
         return $this->sendEmailInstant(
             $request->email,
-            'Forget Password',
+            'Forgot Password',
             $data,
             'Password Reset Instructions'
         );
