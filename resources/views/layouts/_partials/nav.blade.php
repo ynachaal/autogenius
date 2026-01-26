@@ -1,18 +1,13 @@
 @php
     $frontMenus = include resource_path('views/layouts/_menus/front-menus.php');
-    
 @endphp
 <header class="main-header">
     <div class="header-sticky bg-section">
         <nav class="navbar navbar-expand-lg">
             <div class="container">
-                <!-- Logo Start -->
-                <a class="navbar-brand" href="./">
+                <a class="navbar-brand" href="{{ url('/') }}">
                     <img src="{{ asset('images/logo-icon.png') }}" alt="Logo">
                 </a>
-                <!-- Logo End -->
-
-                <!-- Main Menu Start -->
                 <div class="collapse navbar-collapse main-menu">
                     <div class="nav-menu-wrapper">
                         <ul class="navbar-nav mr-auto" id="menu">
@@ -23,12 +18,10 @@
                                 @endphp
 
                                 @if (!empty($menuItem['submenu']))
-                                    <!-- Dropdown menu -->
                                     <li class="nav-item submenu has-dropdown">
                                         <a class="nav-link {{ $isActive ? 'active' : '' }}" href="javascript:void(0)">
                                             {{ $menuItem['title'] }}
                                         </a>
-
                                         <ul class="submenu parent-nav">
                                             @foreach ($menuItem['submenu'] as $sub)
                                                 <li class="nav-item">
@@ -40,7 +33,6 @@
                                         </ul>
                                     </li>
                                 @else
-                                    <!-- Single menu item -->
                                     <li class="nav-item">
                                         <a class="nav-link {{ $isActive ? 'active' : '' }}" href="{{ $url }}">
                                             {{ $menuItem['title'] }}
@@ -48,16 +40,49 @@
                                     </li>
                                 @endif
                             @endforeach
-                           
                         </ul>
                     </div>
+
+                    <div class="header-auth d-flex align-items-center ms-auto">
+                        @auth
+                            @php
+                                // Logic from your example: redirect based on role
+                                $dashboardUrl = Auth::user()->role === '01' 
+                                    ? url('/admin/dashboard') 
+                                    : url('/dashboard');
+                                
+                                $isDashboardActive = request()->is('dashboard') || request()->is('admin/dashboard');
+                            @endphp
+                            
+                            <a href="{{ $dashboardUrl }}" class="nav-link text-white me-3 @if($isDashboardActive) active @endif">
+                                <i class="fa fa-tachometer-alt"></i> Dashboard
+                            </a>
+                            
+                            <form method="POST" action="{{ route('logout') }}" class="d-inline">
+                                @csrf
+                                <a href="{{ route('logout') }}" class="nav-link text-white me-3" 
+                                   onclick="event.preventDefault(); this.closest('form').submit();">
+                                    <i class="fa fa-sign-out-alt"></i> Logout
+                                </a>
+                            </form>
+                        @else
+                            <a href="{{ route('login') }}" class="nav-link text-white me-3 @if(request()->is('login')) active @endif">
+                                Login
+                            </a>
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}" class="nav-link text-white me-3 @if(request()->is('register')) active @endif">
+                                    Register
+                                </a>
+                            @endif
+                        @endauth
+                    </div>
+
                     <div class="search">
                         <a class="text-white search-toggle" href="#">
                             <i class="fa fa-search"></i> Search
                         </a>
                     </div>
                 </div>
-                <!-- Main Menu End -->
                 <div class="navbar-toggle"></div>
             </div>
         </nav>

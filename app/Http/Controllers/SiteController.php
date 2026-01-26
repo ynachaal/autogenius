@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\PropertyService;
 use App\Services\PropertyAreaService;
+use App\Services\ContentMetaService; // Import the service
 use App\Services\BlogService;
 use App\Services\DeveloperPartnerService;
 use App\Services\WhyChooseUsService;
@@ -19,15 +20,28 @@ use Illuminate\Support\Facades\Log;
 class SiteController extends Controller
 {
     protected EmailService $emailService;
+    protected ContentMetaService $metaService;
 
     public function __construct(
         EmailService $emailService,
+        ContentMetaService $metaService // Inject the service
     ) {
+        $this->emailService = $emailService;
+        $this->metaService = $metaService;
     }
 
     public function index(): View
     {
-        return view('front.home',);
+        $data = [
+        'trusted_experts'    => $this->metaService->getAllValues('trusted-car-expert'),
+        'how_it_works'       => $this->metaService->getAllValues('how-autogenius-works'),
+        'service_area'       => $this->metaService->getAllValues('service-area'),
+        'why_choose'         => $this->metaService->getAllValues('why-choose-autogenius'),
+        'protecting_buyers'  => $this->metaService->getAllValues('protecting-buyers'),
+        'about'              => $this->metaService->getAllValues('about-autogenius'),
+        'why_founded'        => $this->metaService->getAllValues('why-we-founded-autogenius'),
+     ];
+        return view('front.home', compact('data'));
     }
 
     public function queue()
