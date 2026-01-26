@@ -186,12 +186,21 @@ class ServiceController extends Controller
         }
 
         // New image upload
-        if ($request->hasFile('image')) {
-            if ($service->image) {
-                Storage::disk('public')->delete($service->image);
-            }
-            $service->image = $request->file('image')->store('services', 'public');
+        // 2. Handle New Image Upload
+    if ($request->hasFile('image')) {
+        // Delete old image if it exists
+        if ($service->image) {
+            Storage::disk('public')->delete($service->image);
         }
+        // Store new image and put the path into the validated array
+        $validatedData['image'] = $request->file('image')->store('services', 'public');
+    } else {
+        // If no new image is uploaded and we aren't removing it, 
+        // unset it so we don't overwrite the existing path with null
+        if (!$request->boolean('remove_image')) {
+            unset($validatedData['image']);
+        }
+    }
 
         // Remove helper field from update array
         unset($validatedData['remove_image']);

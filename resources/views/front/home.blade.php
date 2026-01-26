@@ -97,168 +97,36 @@
                     </div>
                 </div>
 
-                <div class="row">
+             <div class="row">
+                @foreach($data['services'] as $service)
                     <div class="col-xl-3 col-lg-4 col-md-6">
-                        <div class="service-item-prime wow fadeInUp">
+                        <div class="service-item-prime wow fadeInUp" data-wow-delay="{{ $loop->iteration * 0.1 }}s">
                             <div class="service-item-image-prime">
-                                <a href="javascript:void(0)">
+                                <a href="{{ url('services/' . $service->slug) }}">
                                     <figure>
-                                        <img src="{{ asset('images/new-car-con.jpg') }}" alt="">
+                                        @if($service->image)
+                                            <img src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->title }}">
+                                        @else
+                                            <img src="{{ asset('images/placeholder-car.jpg') }}" alt="Placeholder Image">
+                                        @endif
                                     </figure>
                                 </a>
                             </div>
                             <div class="service-item-body-prime">
                                 <div class="service-item-content-prime">
-                                    <h3><a href="javascript:void(0)">New Car Consultation</a></h3>
-                                    <p>The Smarter Way to Buy a New Car</p>
+                                    <h3>
+                                        <a href="{{ url('services/' . $service->slug) }}">{{ $service->title }}</a>
+                                    </h3>
+                                    <p>{{ $service->sub_heading }}</p>
                                 </div>
                                 <div class="service-readmore-btn-prime">
-                                    <a href="javascript:void(0)" class="readmore-btn">Read More</a>
+                                    <a href="{{ url('services/' . $service->slug) }}" class="readmore-btn">Read More</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6">
-                        <div class="service-item-prime wow fadeInUp">
-                            <div class="service-item-image-prime">
-                                <a href="javascript:void(0)">
-                                    <figure>
-                                        <img src="{{ asset('images/pdi.jpg') }}" alt="">
-                                    </figure>
-                                </a>
-                            </div>
-                            <div class="service-item-body-prime">
-                                <div class="service-item-content-prime">
-                                    <h3><a href="javascript:void(0)">New Car PDI</a></h3>
-                                    <p>Expert inspection to ensure your new car is 100% defect-free before delivery.</p>
-                                </div>
-                                <div class="service-readmore-btn-prime">
-                                    <a href="javascript:void(0)" class="readmore-btn">Read More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6">
-                        <div class="service-item-prime wow fadeInUp">
-                            <div class="service-item-image-prime">
-                                <a href="javascript:void(0)">
-                                    <figure>
-                                        <img src="{{ asset('images/pre-own.jpg') }}" alt="">
-                                    </figure>
-                                </a>
-                            </div>
-                            <div class="service-item-body-prime">
-                                <div class="service-item-content-prime">
-                                    <h3><a href="javascript:void(0)">Used Car Consultation & Testing</a></h3>
-                                    <p>Find the Right Car with Complete Peace of Mind</p>
-                                </div>
-                                <div class="service-readmore-btn-prime">
-                                    <a href="javascript:void(0)" class="readmore-btn">Read More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6">
-                        <div class="service-item-prime wow fadeInUp">
-                            <div class="service-item-image-prime">
-                                <a href="javascript:void(0)">
-                                    <figure>
-                                        <img src="{{ asset('images/sell.jpg') }}" alt="">
-                                    </figure>
-                                </a>
-                            </div>
-                            <div class="service-item-body-prime">
-                                <div class="service-item-content-prime">
-                                    <h3><a href="javascript:void(0)">USED CAR TESTING</a></h3>
-                                    <p>Complete Health & Condition Check Before You Buy</p>
-                                </div>
-                                <div class="service-readmore-btn-prime">
-                                    <a href="javascript:void(0)" class="readmore-btn">Read More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6">
-                        <div class="service-item-prime wow fadeInUp">
-                            <div class="service-item-image-prime">
-                                <a href="javascript:void(0)">
-                                    <figure>
-                                        <img src="{{ asset('images/prem.jpg') }}" alt="">
-                                    </figure>
-                                </a>
-                            </div>
-                            <div class="service-item-body-prime">
-                                <div class="service-item-content-prime">
-                                    <h3><a href="javascript:void(0)">Premium & Luxury Car Inspection</a></h3>
-                                    <p>Complete 360° health check of your car</p>
-                                </div>
-                                <div class="service-readmore-btn-prime">
-                                    <a href="javascript:void(0)" class="readmore-btn">Read More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6">
-                        <div class="service-item-prime wow fadeInUp">
-                            <div class="service-item-image-prime">
-                                <a href="javascript:void(0)">
-                                    <figure>
-                                        <img src="{{ asset('images/car1.jpg') }}" alt="">
-                                    </figure>
-                                </a>
-                            </div>
-                            <div class="service-item-body-prime">
-                                <div class="service-item-content-prime">
-                                    <h3><a href="javascript:void(0)">ON-CALL CAR CONSULTATION</a></h3>
-                                    <p>Expert Car Advice — Anytime, Anywhere.</p>
-                                </div>
-                                <div class="service-readmore-btn-prime">
-                                    <a href="javascript:void(0)" class="readmore-btn">Read More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6">
-                        <div class="service-item-prime wow fadeInUp">
-                            <div class="service-item-image-prime">
-                                <a href="javascript:void(0)">
-                                    <figure>
-                                        <img src="{{ asset('images/call.jpg') }}" alt="">
-                                    </figure>
-                                </a>
-                            </div>
-                            <div class="service-item-body-prime">
-                                <div class="service-item-content-prime">
-                                    <h3><a href="javascript:void(0)">Sell Your Car with AutoGenius</a></h3>
-                                    <p>The Smartest, Fastest & Most Transparent Way to Sell Your Car</p>
-                                </div>
-                                <div class="service-readmore-btn-prime">
-                                    <a href="javascript:void(0)" class="readmore-btn">Read More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6">
-                        <div class="service-item-prime wow fadeInUp">
-                            <div class="service-item-image-prime">
-                                <a href="javascript:void(0)">
-                                    <figure>
-                                        <img src="{{ asset('images/inc.jpg') }}" alt="">
-                                    </figure>
-                                </a>
-                            </div>
-                            <div class="service-item-body-prime">
-                                <div class="service-item-content-prime">
-                                    <h3><a href="javascript:void(0)">Insurance with AutoGenius</a></h3>
-                                    <p>Trusted. Transparent. Hassle-Free.</p>
-                                </div>
-                                <div class="service-readmore-btn-prime">
-                                    <a href="javascript:void(0)" class="readmore-btn">Read More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
+            </div>
                 <a href="javascript:void(0)" class="btn-default mx-auto d-block w-fit mt-3">View All Services</a>
             </div>
         </div>

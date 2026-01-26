@@ -9,6 +9,7 @@ use App\Services\BlogService;
 use App\Services\DeveloperPartnerService;
 use App\Services\WhyChooseUsService;
 use App\Services\EmailService;
+use App\Services\ServiceService;
 use App\Models\PropertyType;
 use Illuminate\Support\Facades\Artisan;
 use App\Models\ContactSubmission;
@@ -21,13 +22,18 @@ class SiteController extends Controller
 {
     protected EmailService $emailService;
     protected ContentMetaService $metaService;
+    protected ServiceService $serviceService;
 
     public function __construct(
         EmailService $emailService,
+        ServiceService $serviceService,
         ContentMetaService $metaService // Inject the service
+        
     ) {
         $this->emailService = $emailService;
+        $this->serviceService = $serviceService;
         $this->metaService = $metaService;
+        
     }
 
     public function index(): View
@@ -40,7 +46,9 @@ class SiteController extends Controller
         'protecting_buyers'  => $this->metaService->getAllValues('protecting-buyers'),
         'about'              => $this->metaService->getAllValues('about-autogenius'),
         'why_founded'        => $this->metaService->getAllValues('why-we-founded-autogenius'),
+        'services'           => $this->serviceService->getFeaturedServices(8),
      ];
+        
         return view('front.home', compact('data'));
     }
 
