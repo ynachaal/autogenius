@@ -31,6 +31,15 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected static function booted()
+    {
+        static::deleting(function ($user) {
+            if ($user->id === 1) {
+                throw new \Exception('This user cannot be deleted.');
+            }
+        });
+    }
+
     /**
      * Casts
      */
@@ -66,8 +75,8 @@ class User extends Authenticatable
     {
         return $this->role === '02';
     }
-	
-	public function sendPasswordResetNotification($token)
+
+    public function sendPasswordResetNotification($token)
     {
         $this->notify(new CustomResetPassword($token));
     }

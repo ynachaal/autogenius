@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\{
     BrandController,
     ContactSubmissionController,
     ServiceController,
+    ContentMetaController,
     BlogController,
     FaqController,
     BlogCategoryController,
@@ -30,6 +31,10 @@ Route::middleware(['auth', AdminMiddleware::class])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
+
+
+      Route::get('content-meta/{section}', [ContentMetaController::class, 'index'])->name('content-meta.index');
+        Route::post('content-meta/{section}/save', [ContentMetaController::class, 'saveMeta'])->name('content-meta.save');
 
         Route::get('/dashboard', function () {
             return view('admin.dashboard');
@@ -55,3 +60,5 @@ Route::middleware(['auth', AdminMiddleware::class])
         Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
         Route::put('/settings', [SettingController::class, 'update'])->name('settings.update');
     });
+
+    
