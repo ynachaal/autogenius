@@ -24,12 +24,12 @@
 
                     <div class="card-tools d-flex align-items-center">
 
-                        <form action="{{ route('admin.users.index') }}" method="GET" class="d-flex align-items-center me-2">
+                        <form action="{{ route('admin.users.index') }}" method="GET"
+                            class="d-flex align-items-center me-2">
 
                             <div class="input-group input-group-sm" style="width: 250px;">
 
                                 <input type="search" name="search" class="form-control float-right"
-
                                     placeholder="Search by name or email..." value="{{ request('search') }}">
 
                                 <div class="input-group-append">
@@ -42,13 +42,12 @@
 
                                     @if(request('search'))
 
-                                    <a href="{{ route('admin.users.index', array_merge(request()->except(['search', 'page']), ['search' => ''])) }}"
+                                        <a href="{{ route('admin.users.index', array_merge(request()->except(['search', 'page']), ['search' => ''])) }}"
+                                            class="btn-sm btn btn-secondary" title="Clear Search">
 
-                                        class="btn-sm btn btn-secondary" title="Clear Search">
+                                            Clear
 
-                                        Clear
-
-                                    </a>
+                                        </a>
 
                                     @endif
 
@@ -146,11 +145,11 @@
 
                                         <td>
 
-                                           
 
-                                                {{ $user->name }}
 
-                                          
+                                            {{ $user->name }}
+
+
 
                                         </td>
 
@@ -163,7 +162,6 @@
                                             <div class="btn-group">
 
                                                 <a href="{{ route('admin.users.show', $user) }}"
-
                                                     class="btn btn-sm btn-primary me-2" data-toggle="tooltip" title="View">
 
                                                     <i class="bi bi-eye"></i>
@@ -171,32 +169,24 @@
                                                 </a>
 
                                                 <a href="{{ route('admin.users.edit', $user) }}"
-
                                                     class="btn btn-sm btn-info me-2" data-toggle="tooltip" title="Edit">
 
                                                     <i class="bi bi-pencil"></i>
 
                                                 </a>
 
-                                                <form action="{{ route('admin.users.destroy', $user) }}" method="POST"
-
-                                                    class="d-inline" id="delete-form-{{ $user->id }}">
-
-                                                    @csrf
-
-                                                    @method('DELETE')
-
-                                                    <button type="submit" class="btn btn-sm btn-danger"
-
-                                                        data-toggle="tooltip" title="Delete"
-
-                                                        onclick="return showConfirmationModal('delete-form-{{ $user->id }}', '{{ Str::limit($user->name, 60) }}', 'User')">
-
-                                                        <i class="bi bi-trash"></i>
-
-                                                    </button>
-
-                                                </form>
+                                                @if($user->id !== 1)
+                                                    <form action="{{ route('admin.users.destroy', $user) }}" method="POST"
+                                                        class="d-inline" id="delete-form-{{ $user->id }}">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-sm btn-danger"
+                                                            data-toggle="tooltip" title="Delete"
+                                                            onclick="return showConfirmationModal('delete-form-{{ $user->id }}', '{{ Str::limit($user->name, 60) }}', 'User')">
+                                                            <i class="bi bi-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                @endif
 
                                             </div>
 

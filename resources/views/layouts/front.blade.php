@@ -12,134 +12,129 @@
     <meta name="description" content="@yield('meta_description', config('settings.meta_description', 'A brief, default site description.'))">
     <meta name="keywords" content="@yield('meta_keywords', config('settings.meta_keywords', 'default, keywords, tags'))">
     <!-- END SEO -->
-
-    <link rel="stylesheet" href="{{ asset('css/plugins.css?1') }}">
-    <link rel="stylesheet" href="{{ asset('css/magnifying-popup.css') }}">
-    <link href="//cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ asset('css/rt-icon.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/style.css?123') }}">
+    <link href="//cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/slicknav.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/swiper-bundle.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/twentytwenty.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 
     @stack('styles')
 </head>
 <body>
-    <div class="loader-wrapper">
-        <div class="loader">
-        </div>
-        <div class="loader-section section-left"></div>
-        <div class="loader-section section-right"></div>
-    </div>
-    <div class="search-input-area">
-        <div class="container">
-            <div class="search-input-inner">
-                <div class="input-div">
-                    <input class="search-input autocomplete" type="text" placeholder="Search by keyword or #">
-                    <button><i class="far fa-search"></i></button>
-                </div>
-            </div>
-        </div>
-        <div id="close" class="search-close-icon"><i class="far fa-times"></i></div>
-    </div>
-    <div id="anywhere-home">
-    </div>
-    <!-- progress area start -->
-    <div class="progress-wrap">
-        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
-            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"
-                  style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 307.919;">
-            </path>
-        </svg>
-    </div>
-    <!-- progress area end -->
-    <div class="rts-wrapper">
-        <div class="rts-wrapper-inner">
-            <!-- Header / Navigation -->
-            <header class="{{ request()->is('/') ? 'home-header' : '' }}">
-                @include('layouts._partials.nav')
-            </header>
-            <!-- Page / Category / Blog Header -->
-            @yield('header')
-
-            <!-- Page / Blog Content -->
-            @yield('content')
+    <div class="preloader">
+        <div class="loading-container">
+            <div class="loading"></div>
+            <div id="loading-icon"><img src="{{ asset('images/logo-icon.png') }}" style="height: 150px;" alt=""></div>
         </div>
     </div>
-    <!-- header style two -->
-    <div id="side-bar" class="side-bar header-two">
-        <button class="close-icon-menu">X</button>
-        <!-- mobile menu area start -->
-        <div class="mobile-menu-main">
-            <nav class="nav-main mainmenu-nav mt--30">
-                <ul class="mainmenu metismenu" id="mobile-menu-active">
-                    @foreach ($frontMenus as $menuItem)
-                        @php
-                            $url = $menuItem['route'] ?? '#';
-                            $isActive = url()->current() === $url;
-                        @endphp
+    @include('layouts._partials.nav')
 
-                        @if (!empty($menuItem['submenu']))
-                            <!-- Dropdown menu -->
-                            <li class="has-droupdown">
-                                <a class="main {{ $isActive ? 'active' : '' }}" href="javascript:void(0)">
-                                    {{ $menuItem['title'] }}
-                                </a>
+    @yield('header')
+    <!-- Page / Blog Content -->
 
-                                <ul class="submenu mm-collapse">
-                                    @foreach ($menuItem['submenu'] as $sub)
-                                        <li>
-                                            <a href="{{ $sub['route'] ?? 'javascript:void(0)' }}">
-                                                {{ $sub['title'] }}
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </li>
-                        @else
-                            <!-- Single menu item -->
-                            <li>
-                                <a class="main {{ $isActive ? 'active' : '' }}" href="{{ $url }}">
-                                    {{ $menuItem['title'] }}
-                                </a>
-                            </li>
-                        @endif
-                    @endforeach
-                </ul>
-            </nav>
+    @yield('content')
 
-            <div class="rts-social-style-one pl--20 mt--50">
-                <ul>
-                    <li><a href="javascript:void(0)"><img src="{{ asset('images/facebook.svg') }}" alt=""></a></li>
-                    <li><a href="javascript:void(0)"><img src="{{ asset('images/instagram.svg') }}" alt=""></a></li>
-                    <li><a href="javascript:void(0)"><img src="{{ asset('images/whatsapp.svg') }}" alt=""></a></li>
-                </ul>
-            </div>
-        </div>
-        <!-- mobile menu area end -->
-    </div>
     <!-- Footer -->
     @include('layouts._partials.footer')
 
     <!-- Scripts -->
     <script src="//cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
-    <script src="{{ asset('js/counter-up.js') }}"></script>
-    <script src="{{ asset('js/contact-form.js') }}"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/js/swiper.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/metisMenu/3.0.6/metisMenu.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jarallax/2.2.1/jarallax.min.js"></script>
-    <script src="{{ asset('js/smooth-scroll.js') }}"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js"></script>
-    <!-- main js here -->
-    <script src="{{ asset('js/main.js') }}"></script>
-
     <script src="//cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('js/jquery.slicknav.js') }}"></script>
+    <script src="{{ asset('js/jquery.slicknav.js') }}"></script>
+    <script src="{{ asset('js/swiper-bundle.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.waypoints.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.counterup.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
+    <script src="{{ asset('js/parallaxie.js') }}"></script>
+    <script src="{{ asset('js/jquery.event.move.js') }}"></script>
+    <script src="{{ asset('js/jquery.twentytwenty.js') }}"></script>
+    <script src="{{ asset('js/gsap.min.js') }}"></script>
+    <script src="{{ asset('js/SplitText.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.mb.YTPlayer.min.js') }}"></script>
+    <script src="{{ asset('js/wow.min.js') }}"></script>
+    <script src="{{ asset('js/function.js') }}"></script>
     @stack('scripts')
+
+    <script>
+        const locations = [
+            { name: "", top: "59%", left: "8%" },
+            { name: "", top: "25%", left: "30%" },
+            { name: "", top: "45%", left: "50%" },
+            { name: "", top: "33%", left: "25%" },
+            { name: "", top: "51%", left: "16%" },
+            { name: "", top: "42%", left: "11%" },
+            { name: "", top: "85%", left: "10.5%" },
+            { name: "", top: "33%", left: "4%" },
+            { name: "", top: "24%", left: "12%" },
+            { name: "", top: "72%", left: "17%" },
+            { name: "", top: "15%", left: "34%" },
+            { name: "", top: "22%", left: "44%" },
+            { name: "", top: "9%", left: "72%" },
+            { name: "", top: "22%", left: "67%" },
+            { name: "", top: "22%", left: "44%" },
+            { name: "", top: "45%", left: "30%" },
+            { name: "", top: "52%", left: "38%" },
+            { name: "", top: "35%", left: "42%" },
+            { name: "", top: "52%", left: "38%" },
+            { name: "", top: "61%", left: "25%" },
+            { name: "", top: "23%", left: "57%" },
+            { name: "", top: "14%", left: "57%" },
+            { name: "", top: "14%", left: "85%" },
+            { name: "", top: "26%", left: "81%" },
+            { name: "", top: "14%", left: "17%" },
+            { name: "", top: "4%", left: "17%" },
+            { name: "", top: "22%", left: "22%" },
+            { name: "", top: "33%", left: "15%" },
+            { name: "", top: "62%", left: "16%" },
+            { name: "", top: "49%", left: "5%" },
+            { name: "", top: "70%", left: "8%" },
+            { name: "", top: "13%", left: "49%" },
+            { name: "", top: "33%", left: "64%" },
+            { name: "", top: "34%", left: "33%" },
+            { name: "", top: "11%", left: "27%" },
+            { name: "", top: "41%", left: "21%" },
+            { name: "", top: "43%", left: "38%" },
+            { name: "", top: "62%", left: "33%" },
+            { name: "", top: "71%", left: "28%" },
+            { name: "", top: "52%", left: "26%" },
+            { name: "", top: "26%", left: "37%" },
+            { name: "", top: "54%", left: "46%" },
+            { name: "", top: "63%", left: "41%" },
+            { name: "", top: "38%", left: "56%" },
+            { name: "", top: "48%", left: "58%" },
+            { name: "", top: "29%", left: "50%" },
+            { name: "", top: "4%", left: "54%" },
+            { name: "", top: "17%", left: "77%" },
+            { name: "", top: "31%", left: "73%" },
+            { name: "", top: "36%", left: "88%" },
+            { name: "", top: "23%", left: "90%" },
+            { name: "", top: "6%", left: "89%" },
+            { name: "", top: "7%", left: "80%" },
+            { name: "", top: "81%", left: "19%" },
+            { name: "", top: "13%", left: "64%" },
+            { name: "", top: "91%", left: "17%" },
+        ];
+        const map = document.querySelector(".map-wrapper");
+        locations.forEach(loc => {
+            const pin = document.createElement("div");
+            pin.className = "map-pin";
+            pin.style.top = loc.top;
+            pin.style.left = loc.left;
+
+            //
+            //pin.innerHTML = `<span>${loc.name}</span>`;
+            map.appendChild(pin);
+        });
+    </script>
 </body>
 </html>

@@ -3,759 +3,802 @@
 @section('title', 'Home Page')
 
 @section('content')
-    <!-- Banner area start -->
-    <section class="rts-banner-area bg_image_one jarallax">
-        <div class="container">
-            <div class="row">
+    <div class="hero">
+        <!-- Hero Box Start -->
+        <div class="hero-box parallaxie">
+            <video autoplay muted loop playsinline class="bg-video">
+                <source src="{{ asset('video/video-bg.mp4') }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <style>
+                .bg-video {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    min-width: 100%;
+                    min-height: 100%;
+                    width: auto;
+                    height: auto;
+                    transform: translate(-50%, -50%);
+                    object-fit: cover;
+                    z-index: 1;
+                }
+
+                .hero-box::after {
+                    content: "";
+                    position: absolute;
+                    inset: 0;
+                    background: rgba(0, 0, 0, 0.4);
+                    /* overlay for readability */
+                    z-index: 1;
+                }
+            </style>
+            <div class="container position-relative" style="z-index: 2;">
+                <div class="row">
+                    <div class="col-xl-8 mx-auto">
+                        <!-- Hero Content Start -->
+                        <div class="hero-content text-center">
+                            <!-- Section Title Start -->
+                            <div class="section-title">
+                                <!-- Header End -->
+                                <h1 class="text-anime-style-3" data-cursor="-opaque">India’s Most Trusted Personal Car Consultant</h1>
+                                <p class="text-center mx-auto">New Cars • Pre Owned Cars • 288+ Point Inspections</p>
+                            </div>
+                            <!-- Section Title End -->
+
+                            <!-- Hero Button Start -->
+                            <div class="hero-btn wow fadeInUp gap-3 d-flex flex-wrap justify-content-center" data-wow-delay="0.8s">
+                                <a href="javascript:void(0)" class="btn-default">Book Expert Consultation</a>
+                                <a href="https://api.whatsapp.com/send?phone=918007500740" target="_blank" class="btn-primary">Call / WhatsApp</a>
+                            </div>
+                            <!-- Hero Button End -->
+                        </div>
+                        <!-- Hero Content End -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Hero Box End -->
+
+        <div class="our-faqs bg-white bg-section mb-2r mx-0 w-100 d-none">
+            <div class="container">
+                <div class="faqs-content">
+                    <!-- Section Title Start -->
+                    <div class="section-title section-title-center text-center">
+                        <h2 class="text-anime-style-3 text-black" data-cursor="-opaque">Trusted by Car Buyers Across India</h2>
+                        <p class="text-black">Real people. Real experiences. Real trust.</p>
+                    </div>
+                    <script src="https://elfsightcdn.com/platform.js" async></script>
+                    <div class="rts-section-gap">
+                        <div class="elfsight-app-57b13d5b-d445-432c-827d-7d4dfb588c0d" data-elfsight-app-lazy></div>
+                    </div>
+                    <a href="https://www.google.com/search?sca_esv=7ad0477d9eecaf23&si=AMgyJEtREmoPL4P1I5IDCfuA8gybfVI2d5Uj7QMwYCZHKDZ-EyGd9SNS2QSzk5CPVFcTZQ-JOqMPqpDdKtn5TNrxjncLEtWzhS1ZDd0PNsKyrLe_f8tI0gcgRY9grNtJslMlyTsEkdS9--rdeee865WZriniMkgBOQ%3D%3D&q=AutoGenius+Private+Limited+Reviews&sa=X&ved=2ahUKEwiIsMKQ6_ORAxUcSGcHHZvlMBkQ0bkNegQIIRAE&biw=1680&bih=780&dpr=2" target="_blank" class="btn-default w-fit mx-auto d-block">Read Our Google Reviews</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Our Services Section Start -->
+        <div class="our-services bg-section mb-2r mx-0 w-100">
+            <div class="container">
+                <div class="row section-row">
+                    <div class="col-lg-12">
+                        <!-- Section Title Start -->
+                        <div class="section-title section-title-center">
+                            <h3 class="wow fadeInUp">Our services</h3>
+                            <h2 class="text-anime-style-3" data-cursor="-opaque">Complete car support</h2>
+                            <p class="custom_tag mt-0">- <span>I</span><span>'m AutoGenius</span></p>
+                        </div>
+                        <!-- Section Title End -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="service-item-prime wow fadeInUp">
+                            <div class="service-item-image-prime">
+                                <a href="javascript:void(0)">
+                                    <figure>
+                                        <img src="{{ asset('images/new-car-con.jpg') }}" alt="">
+                                    </figure>
+                                </a>
+                            </div>
+                            <div class="service-item-body-prime">
+                                <div class="service-item-content-prime">
+                                    <h3><a href="javascript:void(0)">New Car Consultation</a></h3>
+                                    <p>The Smarter Way to Buy a New Car</p>
+                                </div>
+                                <div class="service-readmore-btn-prime">
+                                    <a href="javascript:void(0)" class="readmore-btn">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="service-item-prime wow fadeInUp">
+                            <div class="service-item-image-prime">
+                                <a href="javascript:void(0)">
+                                    <figure>
+                                        <img src="{{ asset('images/pdi.jpg') }}" alt="">
+                                    </figure>
+                                </a>
+                            </div>
+                            <div class="service-item-body-prime">
+                                <div class="service-item-content-prime">
+                                    <h3><a href="javascript:void(0)">New Car PDI</a></h3>
+                                    <p>Expert inspection to ensure your new car is 100% defect-free before delivery.</p>
+                                </div>
+                                <div class="service-readmore-btn-prime">
+                                    <a href="javascript:void(0)" class="readmore-btn">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="service-item-prime wow fadeInUp">
+                            <div class="service-item-image-prime">
+                                <a href="javascript:void(0)">
+                                    <figure>
+                                        <img src="{{ asset('images/pre-own.jpg') }}" alt="">
+                                    </figure>
+                                </a>
+                            </div>
+                            <div class="service-item-body-prime">
+                                <div class="service-item-content-prime">
+                                    <h3><a href="javascript:void(0)">Used Car Consultation & Testing</a></h3>
+                                    <p>Find the Right Car with Complete Peace of Mind</p>
+                                </div>
+                                <div class="service-readmore-btn-prime">
+                                    <a href="javascript:void(0)" class="readmore-btn">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="service-item-prime wow fadeInUp">
+                            <div class="service-item-image-prime">
+                                <a href="javascript:void(0)">
+                                    <figure>
+                                        <img src="{{ asset('images/sell.jpg') }}" alt="">
+                                    </figure>
+                                </a>
+                            </div>
+                            <div class="service-item-body-prime">
+                                <div class="service-item-content-prime">
+                                    <h3><a href="javascript:void(0)">USED CAR TESTING</a></h3>
+                                    <p>Complete Health & Condition Check Before You Buy</p>
+                                </div>
+                                <div class="service-readmore-btn-prime">
+                                    <a href="javascript:void(0)" class="readmore-btn">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="service-item-prime wow fadeInUp">
+                            <div class="service-item-image-prime">
+                                <a href="javascript:void(0)">
+                                    <figure>
+                                        <img src="{{ asset('images/prem.jpg') }}" alt="">
+                                    </figure>
+                                </a>
+                            </div>
+                            <div class="service-item-body-prime">
+                                <div class="service-item-content-prime">
+                                    <h3><a href="javascript:void(0)">Premium & Luxury Car Inspection</a></h3>
+                                    <p>Complete 360° health check of your car</p>
+                                </div>
+                                <div class="service-readmore-btn-prime">
+                                    <a href="javascript:void(0)" class="readmore-btn">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="service-item-prime wow fadeInUp">
+                            <div class="service-item-image-prime">
+                                <a href="javascript:void(0)">
+                                    <figure>
+                                        <img src="{{ asset('images/car1.jpg') }}" alt="">
+                                    </figure>
+                                </a>
+                            </div>
+                            <div class="service-item-body-prime">
+                                <div class="service-item-content-prime">
+                                    <h3><a href="javascript:void(0)">ON-CALL CAR CONSULTATION</a></h3>
+                                    <p>Expert Car Advice — Anytime, Anywhere.</p>
+                                </div>
+                                <div class="service-readmore-btn-prime">
+                                    <a href="javascript:void(0)" class="readmore-btn">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="service-item-prime wow fadeInUp">
+                            <div class="service-item-image-prime">
+                                <a href="javascript:void(0)">
+                                    <figure>
+                                        <img src="{{ asset('images/call.jpg') }}" alt="">
+                                    </figure>
+                                </a>
+                            </div>
+                            <div class="service-item-body-prime">
+                                <div class="service-item-content-prime">
+                                    <h3><a href="javascript:void(0)">Sell Your Car with AutoGenius</a></h3>
+                                    <p>The Smartest, Fastest & Most Transparent Way to Sell Your Car</p>
+                                </div>
+                                <div class="service-readmore-btn-prime">
+                                    <a href="javascript:void(0)" class="readmore-btn">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="service-item-prime wow fadeInUp">
+                            <div class="service-item-image-prime">
+                                <a href="javascript:void(0)">
+                                    <figure>
+                                        <img src="{{ asset('images/inc.jpg') }}" alt="">
+                                    </figure>
+                                </a>
+                            </div>
+                            <div class="service-item-body-prime">
+                                <div class="service-item-content-prime">
+                                    <h3><a href="javascript:void(0)">Insurance with AutoGenius</a></h3>
+                                    <p>Trusted. Transparent. Hassle-Free.</p>
+                                </div>
+                                <div class="service-readmore-btn-prime">
+                                    <a href="javascript:void(0)" class="readmore-btn">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="javascript:void(0)" class="btn-default mx-auto d-block w-fit mt-3">View All Services</a>
+            </div>
+        </div>
+        <!-- Our Services Section End -->
+
+        <div class="about-us bg-section mx-0 w-100">
+            <div class="container">
+                <div class="section-title section-title-center text-center mb-5">
+                    <h2 class="text-anime-style-3 text-black">India’s Trusted Car Experts Since 2016</h2>
+                </div>
+                <div class="hero-info-list-ultimate row row-cols-md-3 row-cols-1">
+                    <!-- Hero Info Item Start -->
+                    <div class="hero-info-item-ultimate wow fadeInUp col">
+                        <div class="icon-box">
+                            <img src="{{ asset('images/car-inspected.svg') }}" alt="">
+                        </div>
+                        <div class="hero-info-item-content-ultimate">
+                            <h3>35000+ Cars Inspected </h3>
+                        </div>
+                    </div>
+                    <!-- Hero Info Item End -->
+
+                    <!-- Hero Info Item Start -->
+                    <div class="hero-info-item-ultimate wow fadeInUp col">
+                        <div class="icon-box">
+                            <img src="{{ asset('images/google-rating.svg') }}" alt="">
+                        </div>
+                        <div class="hero-info-item-content-ultimate">
+                            <h3>5-Star Google Rating</h3>
+                        </div>
+                    </div>
+                    <!-- Hero Info Item End -->
+
+                    <!-- Hero Info Item Start -->
+                    <div class="hero-info-item-ultimate wow fadeInUp col">
+                        <div class="icon-box">
+                            <img src="{{ asset('images/money.svg') }}" alt="">
+                        </div>
+                        <div class="hero-info-item-content-ultimate">
+                            <h3>₹100+ Crores Saved for Customers</h3>
+                        </div>
+                    </div>
+                    <!-- Hero Info Item End -->
+                </div>
+            </div>
+        </div>
+
+        <!-- our Technology Section Start -->
+        <div class="our-technology mx-auto w-100">
+            <div class="container">
+                <div class="row section-row">
+                    <div class="col-lg-12">
+                        <!-- Section Title Start -->
+                        <div class="section-title section-title-center">
+                            <h3 class="wow fadeInUp">AUTOGENIUS</h3>
+                            <h2 class="text-anime-style-3" data-cursor="-opaque">How AutoGenius Works</h2>
+                        </div>
+                        <!-- Section Title End -->
+                    </div>
+                </div>
+
+                <div class="row align-items-center">
+                    <div class="col-xl-3 col-md-4 order-lg-1">
+                        <!-- Technology Item List Start -->
+                        <div class="technology-item-list-1 wow fadeInUp" data-wow-delay="0.2s">
+                            <!-- Technology Item Start -->
+                            <div class="technology-item">
+                                <h3><i class="fa-solid fa-1 text-primary"></i> Contact Us</h3>
+                                <p>Call or WhatsApp</p>
+                            </div>
+                            <!-- Technology Item End -->
+
+                            <!-- Technology Item Start -->
+                            <div class="technology-item">
+                                <h3><i class="fa-solid fa-2 text-primary"></i> Expert Evaluation</h3>
+                                <p>Consultation, inspection or search</p>
+                            </div>
+                            <!-- Technology Item End -->
+                        </div>
+                        <!-- Technology Item List End -->
+                    </div>
+
+                    <div class="col-xl-6 order-xl-2 col-md-4 order-md-2 order-2">
+                        <!-- Technology Image Start -->
+                        <div class="technology-image wow fadeInUp" data-wow-delay="0.4s">
+                            <figure>
+                                <img src="{{ asset('images/our-technology-image.png') }}" alt="">
+                            </figure>
+                        </div>
+                        <!-- Technology Image End -->
+                    </div>
+
+                    <div class="col-xl-3 col-md-4 order-xl-3 order-md-3 order-2">
+                        <!-- Technology Item List Start -->
+                        <div class="technology-item-list-2 wow fadeInUp" data-wow-delay="0.6s">
+                            <!-- Technology Item Start -->
+                            <div class="technology-item">
+                                <h3><i class="fa-solid fa-3 text-primary"></i> Honest Recommendation</h3>
+                                <p>Clear advice on what to proceed with</p>
+                            </div>
+                            <!-- Technology Item End -->
+
+                            <!-- Technology Item Start -->
+                            <div class="technology-item">
+                                <h3><i class="fa-solid fa-4 text-primary"></i> Smooth Closure</h3>
+                                <p>Support through negotiation, delivery & transfer</p>
+                            </div>
+                            <!-- Technology Item End -->
+                        </div>
+                        <!-- Technology Item List End -->
+                    </div>
+                </div>
+                <a href="#" class="btn-default mt-4 mx-auto d-block w-fit">Start with an Expert Consultation</a>
+            </div>
+        </div>
+        <!-- our Technology Section End -->
+
+        <!-- Faqs Section Start -->
+        <div class="our-faqs mb- 2r mx-0 w-100 pt-0">
+            <div class="container">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-lg-6 col-12">
+                        <!-- Faqs Content Start -->
+                        <div class="faqs-content">
+                            <!-- Section Title Start -->
+                            <div class="section-title section-title-center">
+                                <h3 class="wow fadeInUp">SERVICE AREA</h3>
+                                <h2 class="text-anime-style-3" data-cursor="-opaque">Serving All Over Maharashtra, From Pune</h2>
+                                <p>AutoGenius is headquartered in Pune and proudly serves customers across Maharashtra.</p>
+                                <p>Including but not limited to:</p>
+                                <div class="why-choose-list-ultimate wow fadeInUp mt-2" data-wow-delay="0.4s">
+                                    <ul>
+                                        <li>Pune & Pimpri-Chinchwad</li>
+                                        <li>Mumbai & Thane</li>
+                                        <li>Nashik, Kolhapur, Satara</li>
+                                        <li>Sambhajinagar (Aurangabad)</li>
+                                        <li>Solapur, Jalgaon, Latur</li>
+                                        <li>Nagpur, Akola, Amravati</li>
+                                    </ul>
+                                </div>
+                                <a href="tel:+91 86682 28668" class="btn-default mt-4"><i class="fa-solid fa-phone"></i>  +91 8668 22 8668</a>
+                            </div>
+                            <!-- Section Title End -->
+                        </div>
+                        <!-- Faqs Content End -->
+                    </div>
+
+                    <div class="col-lg-6 col-12">
+                        <div class="map-wrapper mx-auto">
+                            <img src="{{ asset('images/maharashtra-map.svg') }}" alt="Maharashtra Map" class="map-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Faqs Section End -->
+
+        <!-- Why Choose Us Section Start -->
+        <div class="why-choose-us-ultimate bg-section mx-0 w-100 ">
+            <div class="container-fluid">
+                <div class="row no-gutters">
+                    <div class="col-xl-6">
+                        <!-- Why Choose Us Content Start -->
+                        <div class="why-choose-us-content-ultimate">
+                            <!-- Section Title Start -->
+                            <div class="section-title">
+                                <h2 class="text-anime-style-3" data-cursor="-opaque">Why Choose AutoGenius</h2>
+                            </div>
+                            <!-- Section Title End -->
+                            <!-- Why Choose Body Start -->
+                            <div class="why-choose-body-ultimate">
+                                <table class="table table-bordered table-dark custom_table mb-5">
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <div>
+                                                <img src="{{ asset('images/x.svg') }}" alt="check" class="img-fluid"> Dealers push old stock
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <img src="{{ asset('images/check.svg') }}" alt="check" class="img-fluid"> Independent car experts
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div>
+                                                <img src="{{ asset('images/x.svg') }}" alt="check" class="img-fluid"> Odometer & accident fraud
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <img src="{{ asset('images/check.svg') }}" alt="check" class="img-fluid"> 300+ mechanical checkpoints
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div>
+                                                <img src="{{ asset('images/x.svg') }}" alt="check" class="img-fluid"> Hesitant to show Car records
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <img src="{{ asset('images/check.svg') }}" alt="check" class="img-fluid"> Complete Service Records & OBD scan
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div>
+                                                <img src="{{ asset('images/x.svg') }}" alt="check" class="img-fluid"> Hidden mechanical issues
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <img src="{{ asset('images/check.svg') }}" alt="check" class="img-fluid"> Accident & repaint detection
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div>
+                                                <img src="{{ asset('images/x.svg') }}" alt="check" class="img-fluid"> Overpriced deals
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <img src="{{ asset('images/check.svg') }}" alt="check" class="img-fluid"> True market pricing
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div>
+                                                <img src="{{ asset('images/x.svg') }}" alt="check" class="img-fluid"> No after-sale support
+                                            </div>
+                                        </td>
+                                        <th>
+                                            <div>
+                                                <img src="{{ asset('images/check.svg') }}" alt="check" class="img-fluid"> Your Expert Partner Through Every Step
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p class="m-0">Buying a car worth lakhs or crores?</p>
+                            <p>Get an expert on your side.</p>
+                            <p>Book Expert Consultation</p>
+                            <div class="d-flex flex-wrap gap-3">
+                                <a href="https://wa.me/+918007500740?text=Hi%20AutoGenius%2C%0AI%27d%20like%20expert%20guidance%20regarding%20a%20car." class="btn-primary w-fit" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp AutoGenius</a>
+                                <a href="tel:+91 86682 28668" class="btn-default w-fit"><i class="fa-solid fa-phone"></i>  +91 8668 22 8668</a>
+                            </div>
+                            <!-- Why Choose Body End -->
+                        </div>
+                        <!-- Why Choose Us Content End -->
+                    </div>
+
+                    <div class="col-xl-6">
+                        <!-- Why Choose Image Start -->
+                        <div class="why-choose-image-ultimate">
+                            <figure class="image-anime">
+                                <img src="{{ asset('images/car-test.jpg') }}" alt="">
+                            </figure>
+                        </div>
+                        <!-- Why Choose Image End -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Why Choose Us Section End -->
+
+        <div class="why-choose-us mb- 2r mx-0 w-100">
+            <div class="container">
                 <div class="col-lg-12">
-                    <div class="banner-area-one bg_image">
-                        <div class="banner-content-area">
-                            <div class="pre-title wow fadeInUp" data-wow-delay=".2s" data-wow-duration="1s">
-                                <span>Shop With Confidence – Quality Vehicles</span>
+                    <!-- Hero Slider Start -->
+                    <div class="company-logo-slider">
+                        <p>Experience across the world’s leading automotive brands</p>
+                        <div class="swiper">
+                            <div class="swiper-wrapper">
+                                <!-- Hero Slide Start -->
+                                <div class="swiper-slide">
+                                    <div class="company-logo">
+                                        <img src="{{ asset('images/company-logo-1.svg') }}" alt="">
+                                    </div>
+                                </div>
+                                <!-- Hero Slide End -->
+
+                                <!-- Hero Slide Start -->
+                                <div class="swiper-slide">
+                                    <div class="company-logo">
+                                        <img src="{{ asset('images/company-logo-2.svg') }}" alt="">
+                                    </div>
+                                </div>
+                                <!-- Hero Slide End -->
+
+                                <!-- Hero Slide Start -->
+                                <div class="swiper-slide">
+                                    <div class="company-logo">
+                                        <img src="{{ asset('images/company-logo-3.svg') }}" alt="">
+                                    </div>
+                                </div>
+                                <!-- Hero Slide End -->
+
+                                <!-- Hero Slide Start -->
+                                <div class="swiper-slide">
+                                    <div class="company-logo">
+                                        <img src="{{ asset('images/company-logo-4.svg') }}" alt="">
+                                    </div>
+                                </div>
+                                <!-- Hero Slide End -->
+
+                                <!-- Hero Slide Start -->
+                                <div class="swiper-slide">
+                                    <div class="company-logo">
+                                        <img src="{{ asset('images/company-logo-5.svg') }}" alt="">
+                                    </div>
+                                </div>
+                                <!-- Hero Slide End -->
+
+                                <!-- Hero Slide Start -->
+                                <div class="swiper-slide">
+                                    <div class="company-logo">
+                                        <img src="{{ asset('images/company-logo-6.svg') }}" alt="">
+                                    </div>
+                                </div>
+                                <!-- Hero Slide End -->
                             </div>
-                            <h1 class="title wow fadeInUp" data-wow-delay=".4s" data-wow-duration="1s">Discover Our Best Deals On New And Used <span>Cars</span></h1>
                         </div>
+                    </div>
+                    <!-- Hero Slider End -->
+                </div>
+            </div>
+        </div>
+
+        <!-- About Us Section Start -->
+        <div class="about-us bg-section mb-2r mx-0 w-100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xxl-4 col-xl-3">
+                        <div class="logo mt-5 mb-3">
+                            <img src="{{ asset('images/logo-icon.png') }}" class="img-fluid py-3 w-75 mx-auto d-block" alt="">
+                        </div>
+                        <!-- Section Sub Title End -->
+                    </div>
+
+                    <div class="col-xxl-8 col-xl-9">
+                        <!-- About Us Content Start -->
+                        <div class="about-us-content">
+                            <!-- Section Title Start -->
+                            <div class="section-title">
+                                <h2 class="text-effect" data-cursor="-opaque">Protecting Buyers from Costly Car Mistakes</h2>
+                                <p>Most buyers discover issues after the purchase. <br> At <span>AutoGenius</span>, we help identify hidden problems early — so you avoid unexpected expenses and make the right decision before committing your money.</p>
+                                <p>Most regrets in car buying start with “I thought it was fine.”</p>
+                            </div>
+                            <!-- Section Title End -->
+
+                            <!-- About Us Body Start -->
+                            <div class="about-us-body wow fadeInUp" data-wow-delay="0.2s">
+                                <!-- About Us Button Start -->
+                                <div class="about-us-btn">
+                                    <a href="javascript:void(0)" class="btn-default">Talk to an Expert Before You Decide</a>
+                                </div>
+                                <!-- About Us Button End -->
+
+                                <!-- About Contact Item List Start -->
+                                <div class="about-contact-items-list d-none">
+                                    <!-- About Contact Item Start -->
+                                    <div class="about-contact-item">
+                                        <div class="icon-box">
+                                            <img src="{{ asset('images/icon-clock-accent.svg') }}" alt="">
+                                        </div>
+                                        <div class="about-contact-item-content">
+                                            <h3>Opening Hours</h3>
+                                            <p>Monday - Saturday: 10 AM - 8 PM</p>
+                                        </div>
+                                    </div>
+                                    <!-- About Contact Item End -->
+
+                                    <!-- About Contact Item Start -->
+                                    <div class="about-contact-item">
+                                        <div class="icon-box">
+                                            <img src="{{ asset('images/icon-phone-accent.svg') }}" alt="">
+                                        </div>
+                                        <div class="about-contact-item-content">
+                                            <h3>Contact Info</h3>
+                                            <p><a href="tel:+918007500740">+91 80075 00740</a></p>
+                                        </div>
+                                    </div>
+                                    <!-- About Contact Item End -->
+                                </div>
+                                <!-- About Contact Item List End -->
+                            </div>
+                            <!-- About Us Body End -->
+                        </div>
+                        <!-- About Us Content End -->
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- Banner area end -->
+        <!-- About Us Section End -->
 
-    <section class="rts-why-choose-us3 rts-section-gap">
-        <div class="container">
-            <div class="section-title-area2">
-                <p class="sub-title wow fadeInUp">Our Services</p>
-                <h2 class="section-title wow move-right custom_tag">Complete car support — <span>I</span><span>'m AutoGenius</span></h2>
-            </div>
-            <div class="section-inner mt--80">
-                <div class="row gy-6">
-                    <div class="col-xl-4 col-lg-6 col-md-6">
-                        <div class="why-choose-us-wrapper">
-                            <h6 class="title wow move-right">New Car Consultation</h6>
-                            <p class="desc">Get expert guidance before you buy. Our team helps you choose the right model, trim, and financing options based on your needs — so you drive off with confidence.</p>
-                            <div class="icon">
-                                <img src="{{ asset('images/icon-05.svg') }}" alt="">
-                                <div class="left"></div>
-                                <div class="right"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-6 col-md-6">
-                        <div class="why-choose-us-wrapper">
-                            <h6 class="title wow move-right">New Car PDI</h6>
-                            <p class="desc">We meticulously inspect every aspect of your brand-new car — from body panels to electricals — to catch and fix issues before you drive it home.</p>
-                            <div class="icon">
-                                <img src="{{ asset('images/icon-06.svg') }}" alt="">
-                                <div class="left"></div>
-                                <div class="right"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-6 col-md-6">
-                        <div class="why-choose-us-wrapper">
-                            <h6 class="title wow move-right">Used Car PDI / Checking/ Testing</h6>
-                            <p class="desc">Avoid hidden problems: we perform full inspections, test drives, and diagnostic checks to ensure your used car is safe, reliable, and worth the price.</p>
-                            <div class="icon">
-                                <img src="{{ asset('images/icon-07.svg') }}" alt="">
-                                <div class="left"></div>
-                                <div class="right"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-6 col-md-6">
-                        <div class="why-choose-us-wrapper">
-                            <h6 class="title wow move-right">User Car Consultation & Unlimited Testing</h6>
-                            <p class="desc">Make informed decisions. We advise you on purchase based on car history, condition, and value — plus unlimited test drives to help you choose the right one.</p>
-                            <div class="icon">
-                                <img src="{{ asset('images/icon-07.svg') }}" alt="">
-                                <div class="left"></div>
-                                <div class="right"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-6 col-md-6">
-                        <div class="why-choose-us-wrapper">
-                            <h6 class="title wow move-right">Car Servicing / Denting / Painting</h6>
-                            <p class="desc">Our certified technicians keep your car running smoothly with regular servicing, and restore its looks with expert dent removal and premium-quality painting.</p>
-                            <div class="icon">
-                                <img src="{{ asset('images/icon-08.svg') }}" alt="">
-                                <div class="left"></div>
-                                <div class="right"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-6 col-md-6">
-                        <div class="why-choose-us-wrapper">
-                            <h6 class="title wow move-right">Car Accessories</h6>
-                            <p class="desc">Customize your ride with high-quality accessories — from performance upgrades to comfort and safety add-ons. We offer fitment and expert recommendations.</p>
-                            <div class="icon">
-                                <img src="{{ asset('images/icon-09.svg') }}" alt="">
-                                <div class="left"></div>
-                                <div class="right"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Area Start -->
-    <section class="rts-about-area rts-section-gapBottom pt-5">
-        <div class="container">
-            <div class="section-inner">
+        <!-- Our Approach Section Start -->
+        <div class="our-approach bg-section mx-0 w-100">
+            <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-lg-5">
-                        <div class="about-image-area">
-                            <div class="image-main">
-                                <img class="wow scaleIn" data-wow-delay=".5s" data-wow-duration="1.5s"
-                                     src="{{ asset('images/03.webp') }}" width="371" alt="">
-                                <div class="counter-area">
-                                    <div class="inner wow zoomIn" data-wow-delay=".9s" data-wow-duration="1s">
-                                        <h2 class="title"><span class="counter">1000</span><span>+</span></h2>
-                                        <p class="desc">Car Sold Already</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <img src="{{ asset('images/01.webp') }}" alt="" width="223" class="floating-img-01 wow scaleIn"
-                                 data-wow-delay=".5s" data-wow-duration="1.5s">
-                            <img src="{{ asset('images/02.webp') }}" alt="" width="266" class="floating-img-02 wow scaleIn"
-                                 data-wow-delay=".5s" data-wow-duration="1.5s">
-                        </div>
-                    </div>
-                    <div class="col-lg-7">
-                        <div class="about-content-area">
-                            <div class="section-title-area">
-                                <p class="sub-title wow fadeInUp" data-wow-delay=".1s" data-wow-duration=".8s">
-                                    About
-                                    Us</p>
-                                <h2 class="section-title wow move-right">Driven by Excellence: Your Trusted
-                                    Partner
-                                    for Premium
-                                    <span>Vehicles</span>
-                                </h2>
-                            </div>
-                            <p class="desc">Welcome to AutoGenius Private Limited — where innovation fuels every drive. Discover a range of solutions designed to elevate your automotive experience.</p>
-                            <a href="javascript:void(0)" class="rts-btn btn-primary radius-big">Learn More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- About Area End -->
-
-    <!-- Category Area Start -->
-    <section class="rts-category-area rts-section-gap mt-0">
-        <div class="container">
-            <div class="section-title-area">
-                <p class="sub-title wow fadeInUp" data-wow-delay=".1s" data-wow-duration=".8s">Car Category</p>
-                <h2 class="section-title wow move-right">Browse By <span>Car</span> Type</h2>
-            </div>
-            <div class="section-inner wow fadeInUp" data-wow-delay=".3s" data-wow-duration="1s">
-                <div class="swiper category-slider">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="category-wrapper">
-                                <div class="icon">
-                                    <img src="{{ asset('images/01.svg') }}" alt="">
-                                </div>
-                                <h6 class="title"><a href="#">Hatchback</a></h6>
-                                <p class="desc">30+ Car</p>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="category-wrapper">
-                                <div class="icon">
-                                    <img src="{{ asset('images/02.svg') }}" alt="">
-                                </div>
-                                <h6 class="title"><a href="#">Minivans</a></h6>
-                                <p class="desc">20+ Car</p>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="category-wrapper">
-                                <div class="icon">
-                                    <img src="{{ asset('images/03.svg') }}" alt="">
-                                </div>
-                                <h6 class="title"><a href="#">Luxury Cars</a></h6>
-                                <p class="desc">15+ Car</p>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="category-wrapper">
-                                <div class="icon">
-                                    <img src="{{ asset('images/04.svg') }}" alt="">
-                                </div>
-                                <h6 class="title"><a href="#">Sedans</a></h6>
-                                <p class="desc">25+ Car</p>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="category-wrapper">
-                                <div class="icon">
-                                    <img src="{{ asset('images/05.svg') }}" alt="">
-                                </div>
-                                <h6 class="title"><a href="#">Convertible</a></h6>
-                                <p class="desc">55+ Car</p>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="category-wrapper">
-                                <div class="icon">
-                                    <img src="{{ asset('images/06.svg') }}" alt="">
-                                </div>
-                                <h6 class="title"><a href="#">Sports Car</a></h6>
-                                <p class="desc">35+ Car</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-pagination"></div>
-                </div>
-            </div>
-        </div>
-        <div class="bg-shape-area">
-            <img src="{{ asset('images/shape-01.svg') }}" alt="">
-            <img src="{{ asset('images/shape-02.svg') }}" alt="">
-        </div>
-    </section>
-    <!-- Category Area End -->
-
-    <!-- Video Area Start -->
-    <div class="rts-video-area bg-video-five bg_image jarallax" style="background-image: url('{{ asset('images/video-bg.jpg') }}');">
-        <video muted="" loop="" id="myVideo">
-            <source src="{{ asset('media/video-01.webm') }}">
-        </video>
-        <div class="content">
-            <button id="myBtn"></button>
-        </div>
-    </div>
-    <!-- Video Area End -->
-
-    <!-- Brand Area Start -->
-    <section class="rts-brand-area rts-section-gap">
-        <div class="container">
-            <div class="section-title-area2">
-                <p class="sub-title wow fadeInUp" data-wow-delay=".1s" data-wow-duration="1s">Car Brand</p>
-                <h2 class="section-title wow move-right">Our Premium <span>Brands</span></h2>
-            </div>
-            <div class="section-inner mt--80">
-                <ul>
-                    <li class="wow fadeInUp" data-wow-delay=".2s" data-wow-duration="1s">
-                        <img src="{{ asset('images/01-w.svg') }}" alt="">
-                    </li>
-                    <li class="wow fadeInUp" data-wow-delay=".4s" data-wow-duration="1s">
-                        <img src="{{ asset('images/02_2.svg') }}" alt="">
-                    </li>
-                    <li class="wow fadeInUp" data-wow-delay=".6s" data-wow-duration="1s">
-                        <img src="{{ asset('images/03_2.svg') }}" alt="">
-                    </li>
-                    <li class="wow fadeInUp" data-wow-delay=".8s" data-wow-duration="1s">
-                        <img src="{{ asset('images/04_2.svg') }}" alt="">
-                    </li>
-                    <li class="wow fadeInUp" data-wow-delay="1s" data-wow-duration="1s">
-                        <img src="{{ asset('images/05_1.svg') }}" alt="">
-                    </li>
-                    <li class="wow fadeInUp" data-wow-delay="1.2s" data-wow-duration="1s">
-                        <img src="{{ asset('images/06_1.svg') }}" alt="">
-                    </li>
-                    <li class="wow fadeInUp" data-wow-delay="1.4s" data-wow-duration="1s">
-                        <img src="{{ asset('images/07.svg') }}" alt="">
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </section>
-    <!-- Brand Area End -->
-
-    <!-- Why Choose Us Area End -->
-    <section class="rts-why-choose-us">
-        <div class="right-image jarallax jara-mask-1">
-            <img src="{{ asset('images/why-choose-bg.webp') }}" width="886" class="jarallax-img" alt="">
-        </div>
-        <div class="container">
-            <div class="section-inner">
-                <div class="row justify-content-end">
-                    <div class="col-lg-6">
-                        <div class="content-area">
-                            <div class="section-title-area">
-                                <p class="sub-title wow fadeInUp" data-wow-delay=".1s" data-wow-duration=".8s">Why Choose Us</p>
-                                <h2 class="section-title cw wow move-right">Simplifying
-                                    <span>Your Drive</span>
-                                </h2>
-                            </div>
-                            <ul class="why-choose-feature-list mt--60">
-                                <li class="wow fadeInUp" data-wow-delay=".2s" data-wow-duration="1s">
-                                    <div class="icon"><img src="{{ asset('images/expert.svg') }}" alt=""></div>
-                                    <div class="content">
-                                        <h6 class="title cw">Expert Guidance</h6>
-                                        <p class="desc">Rely on our experienced professionals to help you make
-                                            the right automotive choice, every time.</p>
-                                    </div>
-                                </li>
-                                <li class="wow fadeInUp" data-wow-delay=".4s" data-wow-duration="1s">
-                                    <div class="icon"><img src="{{ asset('images/price.svg')}}" alt=""></div>
-                                    <div class="content">
-                                        <h6 class="title cw">Competitive Pricing</h6>
-                                        <p class="desc">Get the best value for your money with fair,
-                                            transparent, and market-driven pricing.</p>
-                                    </div>
-                                </li>
-                                <li class="wow fadeInUp" data-wow-delay=".6s" data-wow-duration="1s">
-                                    <div class="icon"><img src="{{ asset('images/premium.svg')}}" alt=""></div>
-                                    <div class="content">
-                                        <h6 class="title cw">Premium Range</h6>
-                                        <p class="desc">Choose from a curated range of high-quality vehicles
-                                            that match your style and performance needs.</p>
-                                    </div>
-                                </li>
-                                <li class="wow fadeInUp" data-wow-delay=".8s" data-wow-duration="1s">
-                                    <div class="icon"><img src="{{ asset('images/trust.svg')}}" alt=""></div>
-                                    <div class="content">
-                                        <h6 class="title cw">Trust & Reliability</h6>
-                                        <p class="desc">Enjoy complete peace of mind with honest dealings and
-                                            dependable after-sales support.</p>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Why Choose Us Area End -->
-
-    <!-- Working Process Area Start -->
-    <section class="rts-working-process-area rts-section-gap">
-        <div class="container">
-            <div class="section-title-area2">
-                <p class="sub-title wow fadeInUp" data-wow-delay=".1s" data-wow-duration="1s">Our Work Process
-                </p>
-                <h2 class="section-title wow move-right mb-4">Our Work <span>Process</span></h2>
-                <p>At AutoGenius Private Limited, we combine expertise, technology, and trust to deliver unmatched automotive solutions. </p>
-            </div>
-            <div class="working-inner mt--80">
-                <img class="shape" src="{{ asset('images/line-2.svg')}}" alt="">
-                <div class="row g-5">
-                    <div class="col-lg-4 col-md-6">
-                        <div class="working-process-wrapper">
-                            <div class="icon"><img src="{{ asset('images/registration.svg')}}" alt=""></div>
-                            <h6 class="title mb-3">Registration</h6>
-                            <p class="desc">Create your account to get started with AutoGenius Private Limited.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="working-process-wrapper">
-                            <div class="icon"><img src="{{ asset('images/enquiry.svg')}}" alt=""></div>
-                            <h6 class="title mb-3">Submit Enquiry & Fee</h6>
-                            <p class="desc">Fill out the enquiry form and submit the required fee to initiate the process.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="working-process-wrapper">
-                            <div class="icon"><img src="{{ asset('images/consultation.svg')}}" alt=""></div>
-                            <h6 class="title mb-3">Consultation</h6>
-                            <p class="desc">Connect with our experts for personalized guidance and next steps.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Working Process Area End -->
-    <!-- Testimonials Area Start -->
-    <section class="rts-testimonials-area rts-section-gap">
-        <div class="container">
-            <div class="section-title-area">
-                <p class="sub-title wow fadeInUp" data-wow-delay=".1s" data-wow-duration=".8s">Testimonial</p>
-                <h2 class="section-title wow move-right">What Our <span>Clients</span> Say
-                </h2>
-            </div>
-            <div class="section-inner mt--80">
-                <div class="row align-items-center justify-content-end">
-                    <div class="col-xl-5 col-lg-6 wow fadeIn" data-wow-delay=".2s" data-wow-duration="1s">
-                        <div class="left-side-image text-end">
-                            <img src="{{ asset('images/02_1.webp') }}" width="423" alt="" class="main-image wow scaleIn"
-                                 data-wow-delay=".5s" data-wow-duration="1.5s">
-                            <img src="{{ asset('images/01_3.webp') }}" width="373" alt="" class="floating-img wow scaleIn"
-                                 data-wow-delay=".5s" data-wow-duration="1.5s">
-                        </div>
-                    </div>
-                    <div class="col-xl-7 col-lg-6">
-                        <div class="slider-inner">
-                            <div class="swiper testimonialSlider">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <div class="review-wrapper">
-                                            <ul class="star-rating">
-                                                <li><i class="rt-icon-star"></i></li>
-                                                <li><i class="rt-icon-star"></i></li>
-                                                <li><i class="rt-icon-star"></i></li>
-                                                <li><i class="rt-icon-star"></i></li>
-                                                <li><i class="rt-icon-star-sharp-half-stroke"></i></li>
-                                            </ul>
-                                            <p class="desc">
-                                                Choosing Bokinn was one of the best decisions we've ever made.
-                                                They
-                                                have proven to be a reliable and innovative partner, always
-                                                ready to
-                                                tackle new challenges with and expertise.Their commitment to and
-                                                delivering tailored.
-                                            </p>
-                                            <div class="author-area">
-                                                <h6 class="title">Sarah Martinez</h6>
+                    <div class="col-xl-6">
+                        <!-- Approach Image Box Start -->
+                        <div class="approach-image-box wow fadeInUp" data-wow-delay="0.2s">
+                            <!-- Approach Image Start -->
+                            <div class="approach-image-box-1 w-100">
+                                <div id="carouselExample" class="carousel slide carousel-fade">
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item active">
+                                            <div class="approach-img">
+                                                <figure class="image-anime">
+                                                    <img src="{{ asset('images/1.jpg') }}" alt="">
+                                                </figure>
+                                            </div>
+                                        </div>
+                                        <div class="carousel-item">
+                                            <div class="approach-img">
+                                                <figure class="image-anime">
+                                                    <img src="{{ asset('images/2.jpg') }}" alt="">
+                                                </figure>
+                                            </div>
+                                        </div>
+                                        <div class="carousel-item">
+                                            <div class="approach-img">
+                                                <figure class="image-anime">
+                                                    <img src="{{ asset('images/new-car-con.jpg') }}" alt="">
+                                                </figure>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="swiper-slide">
-                                        <div class="review-wrapper">
-                                            <ul class="star-rating">
-                                                <li><i class="rt-icon-star"></i></li>
-                                                <li><i class="rt-icon-star"></i></li>
-                                                <li><i class="rt-icon-star"></i></li>
-                                                <li><i class="rt-icon-star"></i></li>
-                                                <li><i class="rt-icon-star-sharp-half-stroke"></i></li>
-                                            </ul>
-                                            <p class="desc">
-                                                Choosing Bokinn was one of the best decisions we've ever made.
-                                                They
-                                                have proven to be a reliable and innovative partner, always
-                                                ready to
-                                                tackle new challenges with and expertise.Their commitment to and
-                                                delivering tailored.
-                                            </p>
-                                            <div class="author-area">
-                                                <h6 class="title">Xavi Alonso</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="review-wrapper">
-                                            <ul class="star-rating">
-                                                <li><i class="rt-icon-star"></i></li>
-                                                <li><i class="rt-icon-star"></i></li>
-                                                <li><i class="rt-icon-star"></i></li>
-                                                <li><i class="rt-icon-star"></i></li>
-                                                <li><i class="rt-icon-star-sharp-half-stroke"></i></li>
-                                            </ul>
-                                            <p class="desc">
-                                                Choosing Bokinn was one of the best decisions we've ever made.
-                                                They
-                                                have proven to be a reliable and innovative partner, always
-                                                ready to
-                                                tackle new challenges with and expertise.Their commitment to and
-                                                delivering tailored.
-                                            </p>
-                                            <div class="author-area">
-                                                <h6 class="title">Jamal Musiala</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="review-wrapper">
-                                            <ul class="star-rating">
-                                                <li><i class="rt-icon-star"></i></li>
-                                                <li><i class="rt-icon-star"></i></li>
-                                                <li><i class="rt-icon-star"></i></li>
-                                                <li><i class="rt-icon-star"></i></li>
-                                                <li><i class="rt-icon-star-sharp-half-stroke"></i></li>
-                                            </ul>
-                                            <p class="desc">
-                                                Choosing Bokinn was one of the best decisions we've ever made.
-                                                They
-                                                have proven to be a reliable and innovative partner, always
-                                                ready to
-                                                tackle new challenges with and expertise.Their commitment to and
-                                                delivering tailored.
-                                            </p>
-                                            <div class="author-area">
-                                                <h6 class="title">Xavi Alonso</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="review-wrapper">
-                                            <ul class="star-rating">
-                                                <li><i class="rt-icon-star"></i></li>
-                                                <li><i class="rt-icon-star"></i></li>
-                                                <li><i class="rt-icon-star"></i></li>
-                                                <li><i class="rt-icon-star"></i></li>
-                                                <li><i class="rt-icon-star-sharp-half-stroke"></i></li>
-                                            </ul>
-                                            <p class="desc">
-                                                Choosing Bokinn was one of the best decisions we've ever made.
-                                                They
-                                                have proven to be a reliable and innovative partner, always
-                                                ready to
-                                                tackle new challenges with and expertise.Their commitment to and
-                                                delivering tailored.
-                                            </p>
-                                            <div class="author-area">
-                                                <h6 class="title">Jamal Musiala</h6>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
                                 </div>
+
                             </div>
-                            <div class="swiper-pagination-4"></div>
+                            <!-- Approach Image End -->
                         </div>
+                        <!-- Approach Image Box End -->
+                    </div>
+                    <div class="col-xl-6">
+                        <!-- Approach Content Start -->
+                        <div class="approach-content">
+                            <!-- Section Title Start -->
+                            <div class="section-title">
+                                <h3 class="wow fadeInUp">About AutoGenius</h3>
+                                <h2 class="text-anime-style-3" data-cursor="-opaque">AutoGenius was founded with one simple belief:</h2>
+                                <p class="wow fadeInUp" data-wow-delay="0.2s">Car buyers deserve expert guidance — not sales pressure. <br> Over the years, we saw too many buyers lose money, peace of mind, and trust due to:</p>
+                            </div>
+                            <!-- Section Title End -->
+
+                            <div class="why-choose-list-ultimate wow fadeInUp mt-2 mb-2" data-wow-delay="0.4s">
+                                <ul>
+                                    <li>Hidden vehicle issues</li>
+                                    <li>Poor or biased advice</li>
+                                    <li>Dealer-driven decisions</li>
+                                    <li>Incomplete or misleading information</li>
+                                </ul>
+                            </div>
+                            <br>
+                            <p>AutoGenius exists to stand firmly on the buyer’s side.</p>
+                            <p>We don’t sell cars. <br> We help people buy the right one.</p>
+                            <a href="javascript:void(0)" class="btn-default mt-3">Speak to an AutoGenius Expert</a>
+                        </div>
+                        <!-- Approach Content End -->
                     </div>
                 </div>
             </div>
         </div>
-        <div class="bg-shape-area">
-            <img src="{{ asset('images/shape-01.svg') }}" alt="">
-        </div>
-    </section>
-    <!-- Testimonials Area End -->
+        <!-- Our Approach Section End -->
 
-    <!-- Elfsight Google Reviews | Untitled Google Reviews -->
-{{--    <script src="https://elfsightcdn.com/platform.js" async></script>--}}
-{{--    <div class="rts-section-gap">--}}
-{{--        <div class="elfsight-app-57b13d5b-d445-432c-827d-7d4dfb588c0d" data-elfsight-app-lazy></div>--}}
-{{--    </div>--}}
-
-    <!-- Blog Area Start -->
-    <section class="rts-blog-area rts-section-gapTop pt-0">
-        <div class="container">
-            <div class="section-inner">
-                <div class="row align-items-center">
-                    <div class="col-xl-4">
-                        <div class="left-side-content">
-                            <div class="section-title-area">
-                                <p class="sub-title wow fadeInUp" data-wow-delay=".1s" data-wow-duration=".8s">
-                                    Latest Blogs</p>
-                                <h2 class="section-title wow move-right">Our Latest <span>Blogs</span></h2>
-                            </div>
-                            <p class="desc wow fadeIn" data-wow-delay=".3s" data-wow-duration="1s">Welcome to AutoGenius Private Limited where innovation drives every journey. Discover expert insights, automotive trends, and tips designed to elevate your driving experience.</p>
-                            <a href="javascript:void(0)" class="text-btn wow fadeIn" data-wow-delay=".5s" data-wow-duration="1s">Read All Blog</a>
+        <!-- What We Do Section Start -->
+        <div class="what-we-do-ultimate">
+            <div class="container">
+                <div class="row section-row">
+                    <div class="col-lg-12">
+                        <!-- Section Title Start -->
+                        <div class="section-title section-title-center">
+                            <h3 class="wow fadeInUp">WHY WE FOUNDED AUTOGENIUS</h3>
                         </div>
+                        <!-- Section Title End -->
                     </div>
-                    <div class="col-xl-8">
-                        <div class="right-side-blog wow fadeInRight" data-wow-delay=".6s" data-wow-duration="1s">
-                            <div class="row g-5">
-                                <div class="col-lg-6">
-                                    <div class="blog-wrapper">
-                                        <div class="image-area">
-                                            <a href="javascript:void(0)">
-                                                <img src="{{ asset('images/thar.jpg') }}" alt="">
-                                            </a>
-                                        </div>
-                                        <div class="content">
-                                            <p class="blog-meta">March 26, 2025</p>
-                                            <h6>
-                                                <a href="javascript:void(0)">Review the Latest Car Models And Compare Them With Similar Car Vehicles</a>
-                                            </h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="blog-wrapper">
-                                        <div class="image-area">
-                                            <a href="javascript:void(0)">
-                                                <img src="{{ asset('images/gv.jpg') }}" alt="">
-                                            </a>
-                                        </div>
-                                        <div class="content">
-                                            <p class="blog-meta">March 26, 2025</p>
-                                            <h6>
-                                                <a href="javascript:void(0)">Focus on the rapidly growing market for electric vehicles and green cars.</a>
-                                            </h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xl-3 col-md-6">
+                        <!-- What We Image Start -->
+                        <div class="what-we-image-ultimate wow fadeInUp">
+                            <figure class="image-anime">
+                                <img src="{{ asset('images/img-1.jpg') }}" alt="">
+                            </figure>
                         </div>
+                        <!-- What We Image End -->
+                    </div>
+
+                    <div class="col-xl-6 col-md-6">
+                        <!-- What We Item Box Start -->
+                        <div class="what-we-item-box-ultimate wow fadeInUp" data-wow-delay="0.2s">
+                            <!-- What We Client Box Start -->
+                            <div class="what-we-client-box-ultimate">
+                                <!-- Happy Client Content Start -->
+                                <div class="what-we-client-content-ultimate">
+                                    <h3>Most car problems don’t start on the road - they start at the time of purchase.</h3>
+                                </div>
+                                <!-- Happy Client Content End -->
+                                <div class="why-choose-list-ultimate w-100 wow fadeInUp mt-3 mb-2" data-wow-delay="0.4s">
+                                    <p class="mb-2">AutoGenius was created to:</p>
+                                    <ul>
+                                        <li>Save buyers from bad car decisions</li>
+                                        <li>Bring transparency into car buying</li>
+                                        <li>Replace guesswork with expert analysis</li>
+                                        <li>Ensure money is spent wisely, not emotionally</li>
+                                    </ul>
+                                </div>
+                                <br />
+                                <p>A car should add comfort to your life - not stress.</p>
+                            </div>
+                            <!-- What We Client Box End -->
+                        </div>
+                        <!-- What We Item Box End -->
+                    </div>
+
+                    <div class="col-xl-3 col-md-12">
+                        <!-- What We Image Start -->
+                        <div class="what-we-image-ultimate wow fadeInUp">
+                            <figure class="image-anime">
+                                <img src="{{ asset('images/car-cust.jpg') }}" alt="">
+                            </figure>
+                        </div>
+                        <!-- What We Image End -->
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- Blog Area End -->
-
-    <div style="height: 80px;"></div>
-
-    <!-- FAQ Area Start -->
-    <section id="contact" class="rts-faq-area contact rts-section-gapBottom mt-5">
-        <div class="container">
-            <div class="section-inner mt--80">
-                <div class="row g-5">
-                    <div class="col-xl-7 col-lg-6">
-                        <div class="section-title-area">
-                            <h5 class="section-title wow cw move-right mb-4">Frequently Asked Questions</h5>
-                        </div>
-                        <div class="rts-faq__accordion">
-                            <div class="accordion accordion-flush" id="rts-accordion">
-                                <div class="accordion-item active">
-                                    <div class="accordion-header" id="first">
-                                        <h4 class="accordion-button show" data-bs-toggle="collapse"
-                                            data-bs-target="#item__one" aria-expanded="false"
-                                            aria-controls="item__one">
-                                            How do I register with AutoGenius Private Limited?
-                                        </h4>
-                                    </div>
-                                    <div id="item__one" class="accordion-collapse collapse show"
-                                         aria-labelledby="first" data-bs-parent="#rts-accordion">
-                                        <div class="accordion-body">
-                                            <p>Click on the <b>Register</b> button and fill in your details — it only takes a minute to get started!</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <div class="accordion-header" id="two">
-                                        <h4 class="accordion-button collapsed" data-bs-toggle="collapse"
-                                            data-bs-target="#item__two" aria-expanded="false"
-                                            aria-controls="item__two">
-                                            Is there a fee for submitting an enquiry?
-                                        </h4>
-                                    </div>
-                                    <div id="item__two" class="accordion-collapse collapse"
-                                         aria-labelledby="two" data-bs-parent="#rts-accordion">
-                                        <div class="accordion-body">
-                                            <p>Yes, a small registration fee applies when you submit your enquiry form. This helps us prioritize and provide personalized attention to every client.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <div class="accordion-header" id="three">
-                                        <h4 class="accordion-button collapsed" data-bs-toggle="collapse"
-                                            data-bs-target="#item__three" aria-expanded="false"
-                                            aria-controls="item__three">
-                                            What happens after I submit my enquiry?
-                                        </h4>
-                                    </div>
-                                    <div id="item__three" class="accordion-collapse collapse"
-                                         aria-labelledby="three" data-bs-parent="#rts-accordion">
-                                        <div class="accordion-body">
-                                            <p>Our team reviews your request and reaches out for a one-on-one consultation to guide you through your options.</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="accordion-item">
-                                    <div class="accordion-header" id="four">
-                                        <h4 class="accordion-button collapsed" data-bs-toggle="collapse"
-                                            data-bs-target="#item__four" aria-expanded="false"
-                                            aria-controls="item__four">
-                                            Can you help me choose the right vehicle?
-                                        </h4>
-                                    </div>
-                                    <div id="item__four" class="accordion-collapse collapse"
-                                         aria-labelledby="four" data-bs-parent="#rts-accordion">
-                                        <div class="accordion-body">
-                                            <p>Of course! Our experts will assist you in finding a vehicle that best fits your preferences, needs, and budget.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-5 col-lg-6">
-                        <div class="contact-form">
-                            <h5 class="cw">Get In Touch</h5>
-                            <form class="form__content" method="post" id="contact-form">
-                                <div class="form__control">
-                                    <span class="icon">
-                                                <svg width="14" height="16" viewBox="0 0 14 16" fill="none"
-                                                     xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M6.57349 7.70726C7.63232 7.70726 8.54907 7.3275 9.29834 6.57823C10.0474 5.82909 10.4272 4.91247 10.4272 3.85351C10.4272 2.79492 10.0475 1.87817 9.29822 1.12878C8.54895 0.37976 7.6322 0 6.57349 0C5.51453 0 4.5979 0.37976 3.84875 1.1289C3.09961 1.87805 2.71973 2.79479 2.71973 3.85351C2.71973 4.91247 3.09961 5.82921 3.84875 6.57836C4.59814 7.32738 5.51489 7.70726 6.57349 7.70726ZM4.51184 1.79187C5.08667 1.21704 5.76099 0.93762 6.57349 0.93762C7.38586 0.93762 8.0603 1.21704 8.63525 1.79187C9.21008 2.36682 9.48962 3.04125 9.48962 3.85351C9.48962 4.66601 9.21008 5.34032 8.63525 5.91527C8.0603 6.49022 7.38586 6.76964 6.57349 6.76964C5.76123 6.76964 5.08691 6.4901 4.51184 5.91527C3.93689 5.34044 3.65735 4.66601 3.65735 3.85351C3.65735 3.04125 3.93689 2.36682 4.51184 1.79187Z"
-                                                        fill="#555555"></path>
-                                                    <path
-                                                        d="M13.3165 12.3031C13.2949 11.9913 13.2512 11.6512 13.1869 11.2921C13.1219 10.9303 13.0383 10.5883 12.9382 10.2756C12.8347 9.95251 12.6942 9.63342 12.5203 9.32763C12.34 9.01025 12.1281 8.73388 11.8903 8.50647C11.6416 8.26855 11.3372 8.07727 10.9851 7.93774C10.6343 7.79895 10.2455 7.72864 9.82959 7.72864C9.66626 7.72864 9.5083 7.79565 9.20325 7.99426C9.0155 8.1167 8.7959 8.2583 8.55078 8.41492C8.34119 8.54846 8.05725 8.67358 7.70654 8.78686C7.36438 8.89758 7.01697 8.95373 6.67395 8.95373C6.33118 8.95373 5.98376 8.89758 5.64136 8.78686C5.29102 8.6737 5.00696 8.54858 4.79773 8.41504C4.55493 8.25989 4.33521 8.11829 4.14465 7.99414C3.83984 7.79553 3.68188 7.72852 3.51855 7.72852C3.10254 7.72852 2.71387 7.79895 2.36316 7.93787C2.01135 8.07715 1.70679 8.26843 1.45789 8.50659C1.22009 8.73413 1.00818 9.01037 0.828003 9.32763C0.654297 9.63342 0.513672 9.95239 0.410156 10.2758C0.310181 10.5884 0.226562 10.9303 0.161621 11.2921C0.097168 11.6507 0.0535889 11.991 0.0319824 12.3035C0.0107422 12.609 0 12.927 0 13.2483C0 14.0835 0.265503 14.7596 0.789062 15.2583C1.30615 15.7503 1.99023 15.9999 2.82239 15.9999H10.5265C11.3584 15.9999 12.0425 15.7503 12.5597 15.2583C13.0834 14.76 13.3489 14.0836 13.3489 13.2482C13.3488 12.9258 13.3379 12.6078 13.3165 12.3031ZM11.9132 14.579C11.5715 14.9042 11.1179 15.0622 10.5264 15.0622H2.82239C2.23071 15.0622 1.7771 14.9042 1.43555 14.5791C1.10046 14.2601 0.937622 13.8247 0.937622 13.2483C0.937622 12.9485 0.94751 12.6525 0.967285 12.3683C0.986572 12.0895 1.026 11.7832 1.08447 11.4578C1.14221 11.1363 1.2157 10.8347 1.3031 10.5616C1.38696 10.2998 1.50134 10.0405 1.64319 9.79077C1.77856 9.55273 1.93433 9.34851 2.1062 9.18396C2.26697 9.03003 2.4696 8.90405 2.70837 8.80957C2.9292 8.72217 3.17737 8.67431 3.44678 8.66711C3.47961 8.68457 3.53809 8.71789 3.63281 8.77966C3.82556 8.90527 4.04773 9.04858 4.29333 9.20544C4.57019 9.38195 4.92688 9.54138 5.35303 9.67895C5.7887 9.81982 6.23303 9.89135 6.67407 9.89135C7.11511 9.89135 7.55957 9.81982 7.995 9.67907C8.42151 9.54126 8.77808 9.38195 9.0553 9.2052C9.30664 9.04455 9.52258 8.90539 9.71533 8.77966C9.81006 8.71802 9.86853 8.68457 9.90137 8.66711C10.1709 8.67431 10.4191 8.72217 10.64 8.80957C10.8787 8.90405 11.0813 9.03015 11.2421 9.18396C11.4139 9.34839 11.5697 9.55261 11.7051 9.79089C11.847 10.0405 11.9615 10.2999 12.0453 10.5615C12.1328 10.835 12.2064 11.1365 12.264 11.4576C12.3224 11.7837 12.3619 12.0901 12.3812 12.3684V12.3686C12.4011 12.6517 12.4111 12.9476 12.4113 13.2483C12.4111 13.8248 12.2483 14.2601 11.9132 14.579Z"
-                                                        fill="#555555"></path>
-                                                </svg>
-                                            </span>
-                                    <input type="text" class="input-form" name="name" id="name"
-                                           placeholder="What is your name?" required="">
-                                </div>
-                                <div class="form__control">
-                                            <span class="icon">
-                                                <svg width="16" height="14" viewBox="0 0 16 14" fill="none"
-                                                     xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M12.6667 0H3.33333C2.4496 0.00101045 1.60237 0.336561 0.97748 0.933049C0.352588 1.52954 0.00105857 2.33826 0 3.18182L0 10.8182C0.00105857 11.6617 0.352588 12.4705 0.97748 13.067C1.60237 13.6634 2.4496 13.999 3.33333 14H12.6667C13.5504 13.999 14.3976 13.6634 15.0225 13.067C15.6474 12.4705 15.9989 11.6617 16 10.8182V3.18182C15.9989 2.33826 15.6474 1.52954 15.0225 0.933049C14.3976 0.336561 13.5504 0.00101045 12.6667 0ZM3.33333 1.27273H12.6667C13.0659 1.27348 13.4557 1.38824 13.786 1.60224C14.1163 1.81624 14.3719 2.11969 14.52 2.47355L9.41467 7.34745C9.03895 7.70465 8.53028 7.90521 8 7.90521C7.46972 7.90521 6.96105 7.70465 6.58533 7.34745L1.48 2.47355C1.6281 2.11969 1.88374 1.81624 2.21403 1.60224C2.54432 1.38824 2.93414 1.27348 3.33333 1.27273ZM12.6667 12.7273H3.33333C2.8029 12.7273 2.29419 12.5261 1.91912 12.1681C1.54405 11.8101 1.33333 11.3245 1.33333 10.8182V4.13636L5.64267 8.24727C6.26842 8.84307 7.11617 9.17766 8 9.17766C8.88383 9.17766 9.73158 8.84307 10.3573 8.24727L14.6667 4.13636V10.8182C14.6667 11.3245 14.456 11.8101 14.0809 12.1681C13.7058 12.5261 13.1971 12.7273 12.6667 12.7273Z"
-                                                        fill="#555555"></path>
-                                                </svg>
-                                            </span>
-                                    <input type="email" class="input-form" name="email" id="email"
-                                           placeholder="Email Address" required="">
-                                </div>
-                                <div class="form__control">
-                                            <span class="icon">
-                                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
-                                                     xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M12.9792 1.02532L12.3258 0.453589C11.7308 -0.141473 10.7217 -0.170643 10.08 0.482759L8.98917 1.91207C8.37667 2.52464 8.37667 3.52224 8.98917 4.12897L9.85834 5.02156C8.91334 7.23846 7.16917 8.98864 5.02251 9.86374L4.13001 8.99448C3.83251 8.69695 3.44167 8.5336 3.02167 8.5336C2.60168 8.5336 2.21084 8.69695 1.94251 8.97114L0.460843 10.1146C-0.151656 10.7272 -0.151656 11.7248 0.449177 12.3198L1.04418 13.0024C1.68584 13.6441 2.54918 14 3.48834 14C8.00917 14 14 8.00271 14 3.48724C14 2.55381 13.6442 1.68455 12.9908 1.03115L12.9792 1.02532ZM3.47667 13.4108C2.69501 13.4108 1.97751 13.1191 1.45834 12.5999L0.863343 11.9114C0.478343 11.5264 0.478344 10.9022 0.834177 10.5405L2.31584 9.39702C2.50251 9.21033 2.74751 9.10532 3.01584 9.10532C3.28417 9.10532 3.52917 9.21033 3.71584 9.39702L4.74834 10.4063C4.83001 10.488 4.94667 10.5113 5.05751 10.4705C7.49 9.54287 9.4675 7.56516 10.4767 5.05657C10.5175 4.95156 10.4942 4.82905 10.4125 4.74154L9.40334 3.70893C9.01834 3.32389 9.01834 2.69966 9.42667 2.28545L10.5175 0.856131C10.9025 0.471091 11.5267 0.471091 11.9292 0.867799L12.5825 1.43953C13.1133 1.97041 13.405 2.68799 13.405 3.46974C13.405 7.64684 7.65334 13.3991 3.47667 13.3991V13.4108Z"
-                                                        fill="#555555"></path>
-                                                </svg>
-                                            </span>
-                                    <input type="text" class="input-form" name="phone" id="phone"
-                                           placeholder="Phone Number" required="">
-                                </div>
-                                <div class="form__control">
-                                            <span class="icon">
-                                                <svg width="21" height="15" viewBox="0 0 21 15" fill="none"
-                                                     xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M14.2309 4.67871H6.49742C6.32626 4.67871 6.1875 4.8373 6.1875 5.03291C6.1875 5.22852 6.32626 5.38711 6.49742 5.38711H14.2309C14.4021 5.38711 14.5408 5.22852 14.5408 5.03291C14.5408 4.8373 14.402 4.67871 14.2309 4.67871Z"
-                                                        fill="#555555"></path>
-                                                    <path
-                                                        d="M3.26685 6.2832H2.12145C1.95029 6.2832 1.81152 6.44179 1.81152 6.6374C1.81152 6.83301 1.95029 6.9916 2.12145 6.9916H3.26685C3.83285 6.9916 4.31014 7.4342 4.44766 8.03247H2.20083C2.02967 8.03247 1.89091 8.19105 1.89091 8.38666C1.89091 8.58227 2.02967 8.74086 2.20083 8.74086H4.79738C4.96854 8.74086 5.10731 8.58227 5.10731 8.38666C5.10735 7.22679 4.28171 6.2832 3.26685 6.2832Z"
-                                                        fill="#555555"></path>
-                                                    <path
-                                                        d="M17.4616 6.9916H18.607C18.7782 6.9916 18.9169 6.83301 18.9169 6.6374C18.9169 6.44179 18.7782 6.2832 18.607 6.2832H17.4616C16.4467 6.2832 15.6211 7.22679 15.6211 8.38666C15.6211 8.58227 15.7599 8.74086 15.931 8.74086H18.5276C18.6987 8.74086 18.8375 8.58227 18.8375 8.38666C18.8375 8.19105 18.6987 8.03247 18.5276 8.03247H16.2808C16.4183 7.4342 16.8956 6.9916 17.4616 6.9916Z"
-                                                        fill="#555555"></path>
-                                                    <path
-                                                        d="M19.5243 4.72735C19.0899 4.20848 18.5 3.92271 17.8631 3.92271C17.8352 3.92271 17.8075 3.92701 17.7806 3.93551L16.7846 4.24999L15.3173 1.02849C15.0546 0.451767 14.4032 0 13.8344 0H6.89271C6.32381 0 5.67243 0.451767 5.40974 1.02849L3.94247 4.24999L2.94645 3.93551C2.91959 3.92701 2.89182 3.92271 2.86393 3.92271C2.2271 3.92271 1.63712 4.20848 1.20273 4.72735C0.768343 5.24623 0.544536 5.93243 0.572677 6.66165L0.7976 11.7866C0.805865 11.9751 0.942025 12.1231 1.10715 12.1231H1.21046V13.6698C1.21046 13.8654 1.34923 14.0239 1.52039 14.0239H4.78125C4.95241 14.0239 5.09118 13.8654 5.09118 13.6698V13.1857C5.09118 12.9901 4.95241 12.8315 4.78125 12.8315C4.61009 12.8315 4.47133 12.9901 4.47133 13.1857V13.3156H1.83027V12.1231H18.8968V13.3156H16.2558V13.1857C16.2558 12.9901 16.117 12.8315 15.9459 12.8315C15.7747 12.8315 15.6359 12.9901 15.6359 13.1857V13.6698C15.6359 13.8654 15.7747 14.0239 15.9459 14.0239H19.2067C19.3779 14.0239 19.5167 13.8654 19.5167 13.6698V12.1231H19.62C19.7851 12.1231 19.9212 11.9751 19.9295 11.7866L20.1545 6.65957C20.1826 5.93243 19.9588 5.24623 19.5243 4.72735ZM19.5353 6.62618L19.3252 11.4146H1.40191L1.19187 6.62831C1.17133 6.09616 1.33422 5.595 1.65064 5.21714C1.95784 4.85019 2.37305 4.64334 2.8236 4.63172L4.01594 5.00821C4.01669 5.00844 4.01743 5.00868 4.01822 5.00892L5.17461 5.37402C5.33953 5.42611 5.51028 5.31551 5.55586 5.12694C5.60144 4.93841 5.50466 4.74332 5.33965 4.69123L4.55344 4.443L5.95959 1.35568C6.11662 1.01093 6.55266 0.708489 6.89275 0.708489H13.8344C14.1745 0.708489 14.6105 1.01093 14.7676 1.35568L16.1737 4.443L15.3875 4.69123C15.2225 4.74332 15.1257 4.93841 15.1713 5.12694C15.2169 5.31551 15.3876 5.42607 15.5525 5.37402L17.9036 4.63172C18.3541 4.64339 18.7693 4.85024 19.0765 5.21714C19.3929 5.595 19.5558 6.09616 19.5353 6.62618Z"
-                                                        fill="#555555"></path>
-                                                    <path
-                                                        d="M17.8636 3.21425H18.9433C19.1145 3.21425 19.2533 3.05567 19.2533 2.86006C19.2533 2.66445 19.1145 2.50586 18.9433 2.50586H17.8636C17.6925 2.50586 17.5537 2.66445 17.5537 2.86006C17.5537 3.05567 17.6925 3.21425 17.8636 3.21425Z"
-                                                        fill="#555555"></path>
-                                                    <path
-                                                        d="M1.78453 3.21425H2.86423C3.03539 3.21425 3.17416 3.05567 3.17416 2.86006C3.17416 2.66445 3.03539 2.50586 2.86423 2.50586H1.78453C1.61337 2.50586 1.47461 2.66445 1.47461 2.86006C1.47461 3.05567 1.61337 3.21425 1.78453 3.21425Z"
-                                                        fill="#555555"></path>
-                                                    <path
-                                                        d="M13.8011 9.05078H6.92614C6.75497 9.05078 6.61621 9.20937 6.61621 9.40498V10.3516C6.61621 10.5472 6.75497 10.7058 6.92614 10.7058C7.0973 10.7058 7.23606 10.5472 7.23606 10.3516V9.75918H13.4912V10.3516C13.4912 10.5472 13.63 10.7058 13.8011 10.7058C13.9723 10.7058 14.1111 10.5472 14.1111 10.3516V9.40498C14.1111 9.20937 13.9723 9.05078 13.8011 9.05078Z"
-                                                        fill="#555555"></path>
-                                                    <path
-                                                        d="M12.0824 7.27578C12.2536 7.27578 12.3923 7.11719 12.3923 6.92158C12.3923 6.72597 12.2536 6.56738 12.0824 6.56738H8.64489C8.47372 6.56738 8.33496 6.72597 8.33496 6.92158C8.33496 7.11719 8.47372 7.27578 8.64489 7.27578H12.0824Z"
-                                                        fill="#555555"></path>
-                                                </svg>
-                                            </span>
-                                    <input type="text" class="input-form" name="car" id="car"
-                                           placeholder="Car Type" required="">
-                                </div>
-                                <div class="form__control">
-                                            <span class="icon">
-                                                <svg width="19" height="18" viewBox="0 0 19 18" fill="none"
-                                                     xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M5.05371 5.68493C5.05371 5.33605 5.33654 5.05322 5.68542 5.05322H9.05454C9.40342 5.05322 9.68625 5.33605 9.68625 5.68493C9.68625 6.03381 9.40342 6.31664 9.05454 6.31664H5.68542C5.33654 6.31664 5.05371 6.03381 5.05371 5.68493Z"
-                                                        fill="#555555"></path>
-                                                    <path
-                                                        d="M5.05371 9.05334C5.05371 8.70447 5.33654 8.42163 5.68542 8.42163H12.4237C12.7725 8.42163 13.0554 8.70447 13.0554 9.05334C13.0554 9.40221 12.7725 9.68505 12.4237 9.68505H5.68542C5.33654 9.68505 5.05371 9.40221 5.05371 9.05334Z"
-                                                        fill="#555555"></path>
-                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                          d="M7.34169 -0.000244141H10.7674C11.9227 -0.000244141 12.8285 -0.000252525 13.5566 0.0592293C14.2979 0.119798 14.9103 0.24518 15.4646 0.527622C16.376 0.991946 17.1168 1.73285 17.5812 2.64414C17.8636 3.19848 17.989 3.8109 18.0496 4.55223C18.109 5.28025 18.109 6.18606 18.109 7.34143V8.36714V8.49087C18.1092 9.79523 18.1094 10.5909 17.9134 11.2593C17.4493 12.8421 16.2115 14.0799 14.6286 14.544C13.9603 14.74 13.1646 14.7398 11.8602 14.7397C11.8195 14.7397 11.7783 14.7397 11.7365 14.7397H11.2743L11.2235 14.7397C10.493 14.7444 9.78157 14.9725 9.18448 15.3932L9.14304 15.4227L6.94411 16.9934C5.67689 17.8985 4.01168 16.5913 4.59004 15.1454C4.66778 14.9511 4.52466 14.7397 4.31535 14.7397H3.80851C1.70512 14.7397 0 13.0346 0 10.9311V7.34144C0 6.18607 -8.38404e-06 5.28026 0.0594735 4.55223C0.120042 3.8109 0.245424 3.19848 0.527866 2.64414C0.99219 1.73285 1.73309 0.991946 2.64438 0.527622C3.19872 0.24518 3.81114 0.119798 4.55248 0.0592293C5.2805 -0.000252525 6.18632 -0.000244141 7.34169 -0.000244141ZM4.65535 1.31846C3.99216 1.37264 3.56451 1.47677 3.21797 1.65334C2.5444 1.99653 1.99678 2.54416 1.65358 3.21772C1.47701 3.56426 1.37288 3.99191 1.3187 4.65511C1.26391 5.32568 1.26342 6.17998 1.26342 7.36971V10.9311C1.26342 12.3368 2.40289 13.4762 3.80851 13.4762H4.31535C5.41848 13.4762 6.1728 14.5904 5.7631 15.6146C5.65336 15.889 5.96932 16.137 6.20976 15.9653L8.45667 14.3604C9.2645 13.7912 10.2271 13.4826 11.2154 13.4763L11.2743 13.4762H11.7365C13.2037 13.4762 13.8019 13.4698 14.2731 13.3316C15.443 12.9886 16.3579 12.0737 16.701 10.9038C16.8392 10.4325 16.8456 9.83431 16.8456 8.36714V7.36971C16.8456 6.17998 16.8451 5.32568 16.7904 4.65511C16.7361 3.99191 16.632 3.56426 16.4555 3.21772C16.1122 2.54416 15.5646 1.99653 14.8911 1.65334C14.5445 1.47677 14.1169 1.37264 13.4537 1.31846C12.7831 1.26367 11.9288 1.26318 10.7391 1.26318H7.36996C6.18023 1.26318 5.32593 1.26367 4.65535 1.31846Z"
-                                                          fill="#555555"></path>
-                                                </svg>
-                                            </span>
-                                    <textarea name="message" id="message" cols="30" rows="10"
-                                              placeholder="Message" required=""></textarea>
-                                </div>
-                                <div class="form__control">
-                                    <button type="submit" class="submit__btn">Submit Now</button>
-                                </div>
-                            </form>
-                            <div id="form-messages"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- FAQ Area End -->
+        <!-- What We Do Section End -->
 @endsection

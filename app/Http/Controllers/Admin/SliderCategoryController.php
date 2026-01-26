@@ -31,7 +31,7 @@ class SliderCategoryController extends Controller
         $allowedSorts = ['id', 'name', 'status', 'created_at'];
 
         if (!in_array($sortBy, $allowedSorts)) { $sortBy = 'id'; }
-        $sortDirection = strtolower($sortDirection) === 'asc' ? 'asc' : 'desc';
+        $sortDirection = strtolower($sortDirection) === 'asc' ? 'asc' : 'asc';
 
         $query->orderBy($sortBy, $sortDirection);
 
