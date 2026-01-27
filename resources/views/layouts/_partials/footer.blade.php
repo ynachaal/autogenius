@@ -1,3 +1,6 @@
+@php
+    $footerMenus = include resource_path('views/layouts/_menus/footer-menus.php');
+@endphp
 <footer class="main-footer bg-section mx-0 w-100">
     <div class="footer-header-prime">
         <div class="container">
@@ -66,14 +69,16 @@
                     <div class="footer-links">
                         <h3>Quick Link</h3>
                         <ul>
-                            <li><a href="javascript:void(0)">Home</a></li>
-                            <li><a href="javascript:void(0)">About us</a></li>
-                            <li><a href="javascript:void(0)">Services</a></li>
-                            <li><a href="javascript:void(0)">Blog</a></li>
-                            <li><a href="javascript:void(0)">Privacy Policy</a></li>
-                            <li><a href="javascript:void(0)">Term and Conditions</a></li>
-                            <li><a href="javascript:void(0)">Contact us</a></li>
+                            @foreach ($footerMenus as $menu)
+                                <li>
+                                    <a href="{{ $menu['route'] ?? 'javascript:void(0)' }}"
+                                        target="{{ $menu['target'] ?? '_self' }}">
+                                        {{ $menu['title'] }}
+                                    </a>
+                                </li>
+                            @endforeach
                         </ul>
+
                     </div>
                     <!-- Footer Links End -->
 
@@ -137,7 +142,7 @@
             <div class="col-lg-12">
                 <!-- Footer Copyright Text Start -->
                 <div class="footer-copyright-text">
-                    <p>Copyright © 2026 All Rights Reserved.</p>
+                    <p>Copyright © {{ now()->year }} {{ config('settings.footer_text', '') }}</p>
                 </div>
                 <!-- Footer Copyright Text End -->
             </div>
