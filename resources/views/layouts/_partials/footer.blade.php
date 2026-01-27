@@ -105,8 +105,8 @@
                             <img src="{{ asset('images/icon-headphone-accent.svg') }}" alt="">
                         </div>
                         <div class="footer-contact-content">
-                            <p><a href="tel:+918668228668">+91 8668 22 8668</a></p>
-                            <p><a href="mailto:autogenius.in@gmail.com">autogenius.in@gmail.com</a></p>
+                            <p><a href="tel:{{ config('settings.phone', '') }}">{{ config('settings.phone', '') }}</a></p>
+                            <p><a href="mailto:{{ config('settings.contact_email', '') }}">{{ config('settings.contact_email', '') }}</a></p>
                         </div>
                     </div>
                     <!-- Footer Contact Item End -->
