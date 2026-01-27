@@ -122,7 +122,7 @@
                             <label class="form-label fw-medium">Meta Keywords</label>
                             <input  maxlength="255" type="text" name="meta_keywords" value="{{ $meta_keywords ?? old('meta_keywords') }}"
                                 class="form-control">
-                            <small class="text-muted">Comma separated</small>
+                            <small class="text-muted">Comma separated 255 characters</small>
                         </div>
 
                     </div>
