@@ -138,7 +138,7 @@
             rules: {
                 name: { required: true, minlength: 2, maxlength: 255 },
                 order: { number: true },
-                image: { extension: "jpg|jpeg|png|gif", filesize: 2097152 }
+                image: { extension: "jpg|jpeg|png|gif|svg", filesize: 2097152 }
             },
             errorElement: "div",
             errorClass: "text-danger small mt-1",
