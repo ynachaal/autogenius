@@ -49,7 +49,12 @@ class SliderCategoryController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => ['required', 'string', 'max:255', 'unique:slider_categories,name'],
+          'name' => [
+                'required', 
+                'string', 
+                'max:255', 
+                'unique:slider_categories,name,NULL,id,deleted_at,NULL'
+            ],
             'description' => ['nullable', 'string'],
             'status' => ['required', 'boolean'],
         ]);
@@ -72,7 +77,12 @@ class SliderCategoryController extends Controller
     public function update(Request $request, SliderCategory $sliderCategory)
     {
         $validatedData = $request->validate([
-            'name' => ['required', 'string', 'max:255', 'unique:slider_categories,name,' . $sliderCategory->id],
+           'name' => [
+                'required', 
+                'string', 
+                'max:255', 
+                'unique:slider_categories,name,' . $sliderCategory->id . ',id,deleted_at,NULL'
+            ],
             'description' => ['nullable', 'string'],
             'status' => ['required', 'boolean'],
         ]);

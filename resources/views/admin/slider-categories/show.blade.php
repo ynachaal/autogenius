@@ -28,7 +28,7 @@
                                     class="btn btn-sm btn-danger" 
                                     data-toggle="tooltip" 
                                     title="Delete Category"
-                                    onclick="return showConfirmationModal('delete-form-{{ $sliderCategory->id }}', '{{ Str::limit($sliderCategory->name, 60) }}', 'Slider Category')">
+                                      onclick="return confirm('This action cannot be undone. Delete this category?')">
                                 <i class="bi bi-trash me-1"></i> Delete
                             </button>
                         </form>
