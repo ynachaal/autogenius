@@ -55,6 +55,7 @@
                 <div class="d-flex gap-2">
                     <a href="{{ route('admin.migrate') }}" class="btn btn-outline-dark btn-sm">Run Migrations</a>
                     <a href="{{ route('admin.clearCache') }}" class="btn btn-outline-secondary btn-sm">Clear Cache</a>
+                      <a href="{{ route('admin.storage.link') }}" class="btn btn-outline-secondary btn-sm">Storage SYM LINK</a>
                 </div>
             </div>
 

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Service;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 
 class ServiceService
@@ -26,6 +27,20 @@ class ServiceService
             ->featured()
             ->orderBy('id', 'asc')
             ->limit($limit)
+            ->get();
+    }
+
+     public function getPaginatedServices(int $perPage = 12): LengthAwarePaginator
+    {
+        return Service::active()
+            ->orderBy('id', 'asc')
+            ->paginate($perPage);
+    }
+
+    public function getAllActiveServices(): Collection
+    {
+        return Service::active()
+            ->orderBy('id', 'asc')
             ->get();
     }
 

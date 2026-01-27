@@ -10,6 +10,7 @@ use App\Services\DeveloperPartnerService;
 use App\Services\WhyChooseUsService;
 use App\Services\EmailService;
 use App\Services\ServiceService;
+use App\Services\BrandService;
 use App\Models\PropertyType;
 use Illuminate\Support\Facades\Artisan;
 use App\Models\ContactSubmission;
@@ -23,16 +24,19 @@ class SiteController extends Controller
     protected EmailService $emailService;
     protected ContentMetaService $metaService;
     protected ServiceService $serviceService;
+    protected BrandService $brandService; // Add this
 
     public function __construct(
         EmailService $emailService,
         ServiceService $serviceService,
-        ContentMetaService $metaService // Inject the service
+        ContentMetaService $metaService,
+         BrandService $brandService // Inject BrandService
         
     ) {
         $this->emailService = $emailService;
         $this->serviceService = $serviceService;
         $this->metaService = $metaService;
+         $this->brandService = $brandService;
         
     }
 
@@ -47,6 +51,7 @@ class SiteController extends Controller
         'about'              => $this->metaService->getAllValues('about-autogenius'),
         'why_founded'        => $this->metaService->getAllValues('why-we-founded-autogenius'),
         'services'           => $this->serviceService->getFeaturedServices(8),
+        'allBrands'          => $this->brandService->getAllBrands(),
      ];
         
         return view('front.home', compact('data'));
@@ -58,13 +63,11 @@ class SiteController extends Controller
         return redirect()->route('admin.dashboard')->with('success', 'Migration completed.');
     }
 
-    public function services(): View
+   public function services(): View
     {
         $data = [
-            'services' => $this->serviceService->getAllActiveServices(),
-            'meta'     => $this->metaService->getAllValues('services-page'),
+                    'services' => $this->serviceService->getPaginatedServices(12),
         ];
-
         return view('front.services.index', compact('data'));
     }
 
