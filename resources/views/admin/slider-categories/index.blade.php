@@ -36,9 +36,9 @@
                             </div>
                         </form>
 
-                        <a href="{{ route('admin.slider-categories.create') }}" class="btn btn-sm btn-success">
+                       <!--  <a href="{{ route('admin.slider-categories.create') }}" class="btn btn-sm btn-success">
                             <i class="fas fa-plus"></i> Create
-                        </a>
+                        </a> -->
                     </div>
                 </div>
 
@@ -104,7 +104,7 @@
                                                 </a>
                                                 
                                                 {{-- Delete Button --}}
-                                                <form action="{{ route('admin.slider-categories.destroy', $category) }}" method="POST" class="d-inline" id="delete-cat-{{ $category->id }}">
+                                               <!--  <form action="{{ route('admin.slider-categories.destroy', $category) }}" method="POST" class="d-inline" id="delete-cat-{{ $category->id }}">
                                                     @csrf @method('DELETE')
                                                   <button type="submit"
                                                         class="btn btn-sm btn-danger"
@@ -112,7 +112,7 @@
                                                     <i class="bi bi-trash"></i>
                                                 </button>
 
-                                                </form>
+                                                </form> -->
                                             </div>
                                         </td>
                                     </tr>
