@@ -32,12 +32,12 @@
 
                         {{-- MODIFIED SEARCH FORM WITH CLEAR BUTTON --}}
 
-                        <form action="{{ route('admin.blogs.index') }}" method="GET" class="d-flex align-items-center me-2">
+                        <form action="{{ route('admin.blogs.index') }}" method="GET"
+                            class="d-flex align-items-center me-2">
 
                             <div class="input-group input-group-sm" style="width: 250px;">
 
                                 <input type="search" name="search" class="form-control float-right"
-
                                     placeholder="Search by title or author..." value="{{ request('search') }}">
 
                                 <div class="input-group-append">
@@ -55,11 +55,12 @@
 
                                     @if(request('search'))
 
-                                    <a href="{{ route('admin.blogs.index', array_merge(request()->except(['search', 'page']), ['search' => ''])) }}" class="btn-sm btn btn-secondary" title="Clear Search">
+                                        <a href="{{ route('admin.blogs.index', array_merge(request()->except(['search', 'page']), ['search' => ''])) }}"
+                                            class="btn-sm btn btn-secondary" title="Clear Search">
 
-                                        Clear
+                                            Clear
 
-                                    </a>
+                                        </a>
 
                                     @endif
 
@@ -117,49 +118,49 @@
 
                                     @php
 
-                                         // Existing sortable columns logic...
+                                        // Existing sortable columns logic...
 
-                                         $sortableColumns = [
+                                        $sortableColumns = [
 
-                                             'id' => 'ID',
+                                            'id' => 'ID',
 
-                                             'title' => 'Title',
+                                            'title' => 'Title',
 
-                                             'author' => 'Author',
+                                            'author' => 'Author',
 
-                                             'category' => 'Category',
+                                            'category' => 'Category',
 
-                                             'is_published' => 'Published',
+                                            'is_published' => 'Published',
 
-                                             'created_at' => 'Created At'
+                                            'created_at' => 'Created At'
 
-                                         ];
+                                        ];
 
-                                         $sortBy = request('sort_by', 'id');
+                                        $sortBy = request('sort_by', 'id');
 
-                                         $sortDirection = request('sort_direction', 'asc');
+                                        $sortDirection = request('sort_direction', 'asc');
 
 
 
-                                         $sort = function ($column, $label) use ($sortBy, $sortDirection) {
+                                        $sort = function ($column, $label) use ($sortBy, $sortDirection) {
 
-                                             $dir = ($column == $sortBy && $sortDirection == 'asc') ? 'desc' : 'asc';
+                                            $dir = ($column == $sortBy && $sortDirection == 'asc') ? 'desc' : 'asc';
 
-                                             $query = array_merge(request()->query(), ['sort_by' => $column, 'sort_direction' => $dir]);
+                                            $query = array_merge(request()->query(), ['sort_by' => $column, 'sort_direction' => $dir]);
 
-                                             $icon = '';
+                                            $icon = '';
 
-                                             // AdminLTE often uses fa-arrow-up/down
+                                            // AdminLTE often uses fa-arrow-up/down
 
-                                             if ($column == $sortBy) {
+                                            if ($column == $sortBy) {
 
-                                                 $icon = $dir == 'asc' ? '<i class="fas fa-arrow-up fa-xs ms-1"></i>' : '<i class="fas fa-arrow-down fa-xs ms-1"></i>';
+                                                $icon = $dir == 'asc' ? '<i class="fas fa-arrow-up fa-xs ms-1"></i>' : '<i class="fas fa-arrow-down fa-xs ms-1"></i>';
 
-                                             }
+                                            }
 
-                                             return '<a class="text-decoration-none text-dark fw-semibold" href="' . route('admin.blogs.index', $query) . '">' . $label . ' ' . $icon . '</a>';
+                                            return '<a class="text-decoration-none text-dark fw-semibold" href="' . route('admin.blogs.index', $query) . '">' . $label . ' ' . $icon . '</a>';
 
-                                         };
+                                        };
 
                                     @endphp
 
@@ -187,11 +188,11 @@
 
                                         <td>
 
-                                         
 
-                                                {{ $blog->title }}
 
-                                           
+                                            {{ $blog->title }}
+
+
 
                                         </td>
 
@@ -219,8 +220,7 @@
 
                                             <div class="btn-group">
 
-                                                  <a href="{{ route('admin.blogs.show', $blog) }}"
-
+                                                <a href="{{ route('admin.blogs.show', $blog) }}"
                                                     class="btn btn-sm btn-primary me-2" data-toggle="tooltip" title="View">
 
                                                     <i class="bi bi-eye"></i>
@@ -228,7 +228,6 @@
                                                 </a>
 
                                                 <a href="{{ route('admin.blogs.edit', $blog) }}"
-
                                                     class="btn btn-sm btn-info me-2" data-toggle="tooltip" title="Edit">
 
                                                     <i class="nav-arrow bi bi-pencil"></i>
@@ -236,7 +235,6 @@
                                                 </a>
 
                                                 <form action="{{ route('admin.blogs.destroy', $blog) }}" method="POST"
-
                                                     class="d-inline" id="delete-form-{{ $blog->id }}">
 
                                                     @csrf
@@ -244,14 +242,11 @@
                                                     @method('DELETE')
 
                                                     <button type="submit" class="btn btn-sm btn-danger"
-
                                                         data-toggle="tooltip" title="Delete"
-
-                                                        onclick="return showConfirmationModal('delete-form-{{ $blog->id }}', '{{ Str::limit($blog->title, 60) }}', 'Blog')">
-
+                                                        onclick="return confirm('Delete this Blog: {{ Str::limit($blog->title, 60) }}? This cannot be undone.')">
                                                         <i class="nav-arrow bi bi-trash"></i>
-
                                                     </button>
+
 
                                                 </form>
 

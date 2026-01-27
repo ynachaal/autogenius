@@ -20,13 +20,13 @@
 
                     <div class="card-tools d-flex align-items-center">
 
-                        <form action="{{ route('admin.menus.index') }}" method="GET" class="d-flex align-items-center me-2">
+                        <form action="{{ route('admin.menus.index') }}" method="GET"
+                            class="d-flex align-items-center me-2">
 
                             <div class="input-group input-group-sm" style="width: 250px;">
 
                                 <input type="search" name="q" class="form-control float-right"
-
-                                       placeholder="Search by title or link..." value="{{ request('q') }}">
+                                    placeholder="Search by title or link..." value="{{ request('q') }}">
 
                                 <div class="input-group-append">
 
@@ -39,8 +39,7 @@
                                     @if(request('q'))
 
                                         <a href="{{ route('admin.menus.index', array_merge(request()->except(['q', 'page']), ['q' => ''])) }}"
-
-                                           class="btn-sm btn btn-secondary" title="Clear Search">
+                                            class="btn-sm btn btn-secondary" title="Clear Search">
 
                                             Clear
 
@@ -110,7 +109,7 @@
 
 
 
-                                        $sort = function($column, $label) use ($sortBy, $sortDirection) {
+                                        $sort = function ($column, $label) use ($sortBy, $sortDirection) {
 
                                             $dir = ($column == $sortBy && $sortDirection == 'asc') ? 'desc' : 'asc';
 
@@ -195,38 +194,32 @@
                                             <div class="btn-group" role="group" aria-label="Menu Actions">
 
                                                 <a href="{{ route('admin.menus.show', $menu) }}"
-
-                                                   class="btn btn-sm btn-primary me-2" data-toggle="tooltip" title="View">
+                                                    class="btn btn-sm btn-primary me-2" data-toggle="tooltip" title="View">
 
                                                     <i class="bi bi-eye"></i>
 
                                                 </a>
 
                                                 <a href="{{ route('admin.menus.edit', $menu) }}"
-
-                                                   class="btn btn-sm btn-info me-2" data-toggle="tooltip" title="Edit">
+                                                    class="btn btn-sm btn-info me-2" data-toggle="tooltip" title="Edit">
 
                                                     <i class="bi bi-pencil"></i>
 
                                                 </a>
 
                                                 <form action="{{ route('admin.menus.destroy', $menu) }}" method="POST"
-
-                                                      class="d-inline" id="delete-form-{{ $menu->id }}">
+                                                    class="d-inline" id="delete-form-{{ $menu->id }}">
 
                                                     @csrf
 
                                                     @method('DELETE')
 
                                                     <button type="submit" class="btn btn-sm btn-danger"
-
-                                                            data-toggle="tooltip" title="Delete"
-
-                                                            onclick="return showConfirmationModal('delete-form-{{ $menu->id }}', '{{ Str::limit($menu->title, 60) }}', 'Menu')">
-
+                                                        data-toggle="tooltip" title="Delete"
+                                                        onclick="return confirm('This action cannot be undone. Delete this Menu?')">
                                                         <i class="bi bi-trash"></i>
-
                                                     </button>
+
 
                                                 </form>
 

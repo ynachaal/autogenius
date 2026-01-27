@@ -20,13 +20,13 @@
 
                     <div class="card-tools d-flex align-items-center">
 
-                        <form action="{{ route('admin.menu-categories.index') }}" method="GET" class="d-flex align-items-center me-2">
+                        <form action="{{ route('admin.menu-categories.index') }}" method="GET"
+                            class="d-flex align-items-center me-2">
 
                             <div class="input-group input-group-sm" style="width: 250px;">
 
                                 <input type="search" name="q" class="form-control float-right"
-
-                                       placeholder="Search by name or slug..." value="{{ request('q') }}">
+                                    placeholder="Search by name or slug..." value="{{ request('q') }}">
 
                                 <div class="input-group-append">
 
@@ -39,8 +39,7 @@
                                     @if(request('q'))
 
                                         <a href="{{ route('admin.menu-categories.index', array_merge(request()->except(['q', 'page']), ['q' => ''])) }}"
-
-                                           class="btn-sm btn btn-secondary" title="Clear Search">
+                                            class="btn-sm btn btn-secondary" title="Clear Search">
 
                                             Clear
 
@@ -66,7 +65,8 @@
 
                         </form>
 
-                        <a href="{{ route('admin.menu-categories.create') }}" class="btn btn-sm btn-success" title="Create Menu Category">
+                        <a href="{{ route('admin.menu-categories.create') }}" class="btn btn-sm btn-success"
+                            title="Create Menu Category">
 
                             <i class="fas fa-plus"></i> Create
 
@@ -108,7 +108,7 @@
 
 
 
-                                        $sort = function($column, $label) use ($sortBy, $sortDirection) {
+                                        $sort = function ($column, $label) use ($sortBy, $sortDirection) {
 
                                             $dir = ($column == $sortBy && $sortDirection == 'asc') ? 'desc' : 'asc';
 
@@ -163,37 +163,30 @@
                                             <div class="btn-group" role="group" aria-label="Category Actions">
 
                                                 <a href="{{ route('admin.menu-categories.show', $category) }}"
-
-                                                   class="btn btn-sm btn-primary me-2" data-toggle="tooltip" title="View">
+                                                    class="btn btn-sm btn-primary me-2" data-toggle="tooltip" title="View">
 
                                                     <i class="bi bi-eye"></i>
 
                                                 </a>
 
                                                 <a href="{{ route('admin.menu_categories.edit', $category) }}"
-
-                                                   class="btn btn-sm btn-info me-2" data-toggle="tooltip" title="Edit">
+                                                    class="btn btn-sm btn-info me-2" data-toggle="tooltip" title="Edit">
 
                                                     <i class="bi bi-pencil"></i>
 
                                                 </a>
 
-                                                <form action="{{ route('admin.menu_categories.destroy', $category) }}" method="POST"
-
-                                                      class="d-inline" id="delete-form-{{ $category->id }}">
+                                                <form action="{{ route('admin.menu_categories.destroy', $category) }}"
+                                                    method="POST" class="d-inline" id="delete-form-{{ $category->id }}">
 
                                                     @csrf
 
                                                     @method('DELETE')
 
                                                     <button type="submit" class="btn btn-sm btn-danger"
-
-                                                            data-toggle="tooltip" title="Delete"
-
-                                                            onclick="return showConfirmationModal('delete-form-{{ $category->id }}', '{{ Str::limit($category->name, 60) }}', 'Menu Category')">
-
+                                                        data-toggle="tooltip" title="Delete"
+                                                        onclick="return confirm('This action cannot be undone. Delete this Menu Category?')">
                                                         <i class="bi bi-trash"></i>
-
                                                     </button>
 
                                                 </form>

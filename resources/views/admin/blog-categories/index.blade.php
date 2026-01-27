@@ -215,11 +215,10 @@
 
                                                     <button type="submit" class="btn btn-sm btn-danger"
                                                         data-toggle="tooltip" title="Delete"
-                                                        onclick="return showConfirmationModal('delete-form-{{ $category->id }}', '{{ Str::limit($category->name, 60) }}', 'Blog Category')">
-
+                                                        onclick="return confirm('Are you sure you want to delete this Blog Category: {{ Str::limit($category->name, 60) }}?')">
                                                         <i class="bi bi-trash"></i>
-
                                                     </button>
+
 
                                                 </form>
 

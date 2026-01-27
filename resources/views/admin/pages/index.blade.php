@@ -169,12 +169,7 @@
                                            <td>{{ $pages->firstItem() + $index }}</td>
 
                                         <td>
-
-                                       
-
                                                 {{ Str::limit($page->title, 40) }}
-
-                                          
 
                                         </td>
 
