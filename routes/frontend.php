@@ -53,6 +53,10 @@ Route::prefix('contact')
 | TinyMCE (shared / frontend usage)
 |--------------------------------------------------------------------------
 */
+
+Route::prefix('pages')->name('pages.')->group(function () {
+    Route::get('/{slug}', [SiteController::class, 'pageDetail'])->name('show'); // single page
+});
 Route::get('/services', [SiteController::class, 'services'])
     ->name('services.index');
 

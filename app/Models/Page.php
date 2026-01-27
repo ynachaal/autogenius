@@ -14,14 +14,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Page extends Model
 {
-    use HasFactory;
-    use SoftDeletes;
+    use HasFactory, SoftDeletes;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'title',
         'slug',
@@ -32,12 +26,15 @@ class Page extends Model
         'meta_keywords',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'is_published' => 'boolean',
     ];
+
+    /**
+     * Scope for active/published pages.
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('is_published', true);
+    }
 }
