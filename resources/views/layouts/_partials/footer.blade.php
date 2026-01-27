@@ -15,9 +15,11 @@
                     <!-- Footer Newsletter Form Start -->
                     <div class="footer-newsletter-form-prime">
                         <div class="section-title">
-                            <p class="text-anime-style-3 h5 mb-4 fw-normal" data-cursor="-opaque">Book Your Expert Consultation Today</p>
+                            <p class="text-anime-style-3 h5 mb-4 fw-normal" data-cursor="-opaque">Book Your Expert
+                                Consultation Today</p>
                         </div>
-                        <a href="tel:{{config('settings.phone', '') }}" class="btn-default"><i class="fa-solid fa-phone"></i> {{config('settings.phone', '') }}</a>
+                        <a href="tel:{{config('settings.phone', '') }}" class="btn-default"><i
+                                class="fa-solid fa-phone"></i> {{config('settings.phone', '') }}</a>
                     </div>
                     <!-- Footer Newsletter Form End -->
                 </div>
@@ -48,8 +50,8 @@
                                         class="fa-brands fa-facebook-f"></i></a></li>
                             <li><a href="{{ config('settings.instagram_url', '') }}" target="_blank"><i
                                         class="fa-brands fa-instagram"></i></a></li>
-                            <li><a href="https://api.whatsapp.com/send?phone={{ preg_replace('/[^0-9]/', '', config('settings.phone', '')) }}" target="_blank"><i
-                                        class="fa-brands fa-whatsapp"></i></a></li>
+                            <li><a href="https://api.whatsapp.com/send?phone={{ preg_replace('/[^0-9]/', '', config('settings.phone', '')) }}"
+                                    target="_blank"><i class="fa-brands fa-whatsapp"></i></a></li>
                         </ul>
                     </div>
                     <!-- Footer Social Link End -->
@@ -76,20 +78,24 @@
                     <!-- Footer Links End -->
 
                     <!-- Footer Links Start -->
+                    <!-- Footer Services Start -->
                     <div class="footer-links">
                         <h3>Services</h3>
                         <ul>
-                            <li><a href="javascript:void(0)">New Car Consultation</a></li>
-                            <li><a href="javascript:void(0)">New Car PDI</a></li>
-                            <li><a href="javascript:void(0)">Used Car Consultation & Testing</a></li>
-                            <li><a href="javascript:void(0)">Used Car Testing</a></li>
-                            <li><a href="javascript:void(0)">Premium & Luxury Car Inspections</a></li>
-                            <li><a href="javascript:void(0)">On-Call Expert Car Consultation</a></li>
-                            <li><a href="javascript:void(0)">Sell Your Car</a></li>
-                            <li><a href="javascript:void(0)">Insurance with AutoGenius</a></li>
-                            <li><a href="javascript:void(0)">AutoGenius Merchandise</a></li>
+                            @php
+                                $serviceService = app(\App\Services\ServiceService::class);
+                                $footerServices = $serviceService->getActiveServices(); // only active services
+                            @endphp
+
+                            @foreach($footerServices as $service)
+                                <li>
+                                    <a href="{{ route('services.show', $service->slug) }}">{{ $service->title }}</a>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
+                    <!-- Footer Services End -->
+
                     <!-- Footer Links End -->
                 </div>
                 <!-- Footer Links Box End -->
@@ -104,8 +110,11 @@
                             <img src="{{ asset('images/icon-headphone-accent.svg') }}" alt="">
                         </div>
                         <div class="footer-contact-content">
-                            <p><a href="tel:{{ config('settings.phone', '') }}">{{ config('settings.phone', '') }}</a></p>
-                            <p><a href="mailto:{{ config('settings.contact_email', '') }}">{{ config('settings.contact_email', '') }}</a></p>
+                            <p><a href="tel:{{ config('settings.phone', '') }}">{{ config('settings.phone', '') }}</a>
+                            </p>
+                            <p><a
+                                    href="mailto:{{ config('settings.contact_email', '') }}">{{ config('settings.contact_email', '') }}</a>
+                            </p>
                         </div>
                     </div>
                     <!-- Footer Contact Item End -->
@@ -136,6 +145,7 @@
     </div>
 </footer>
 <!-- Footer End -->
-<a class="whatsapp_float" target="_blank" href="https://wa.me/{{config('settings.phone', '')}}?text=Hi%20AutoGenius%2C%0AI%27d%20like%20expert%20guidance%20regarding%20a%20car.">
+<a class="whatsapp_float" target="_blank"
+    href="https://wa.me/{{config('settings.phone', '')}}?text=Hi%20AutoGenius%2C%0AI%27d%20like%20expert%20guidance%20regarding%20a%20car.">
     <span><i class="fa-brands fa-whatsapp"></i> Speak with an AutoGenius Expert</span>
 </a>

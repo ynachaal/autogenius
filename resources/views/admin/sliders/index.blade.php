@@ -68,7 +68,7 @@
                                             'id' => 'ID',
                                             'slider_category_id' => 'Category',
                                             'type' => 'Type',
-                                            'heading' => 'Heading',
+                                      /*       'heading' => 'Heading', */
                                             'status' => 'Status',
                                             'created_at' => 'Created At',
                                         ];
@@ -97,8 +97,7 @@
                             <tbody>
                                 @forelse($sliders as $index => $slider)
                                     <tr>
-                                        <td>{{ $sliders->firstItem() + $index }}</td>
-                                        <td>
+                                           <td>
                                             @if($slider->type == 'image')
                                                 <img src="{{ asset('storage/'.$slider->file) }}" class="rounded border shadow-sm" width="80" height="45" style="object-fit: cover;">
                                             @else
@@ -107,17 +106,19 @@
                                                 </div>
                                             @endif
                                         </td>
+                                        <td>{{ $sliders->firstItem() + $index }}</td>
+                                     
                                         <td>
                                             <span class="badge border text-dark bg-light">{{ $slider->category->name }}</span>
                                         </td>
                                         <td><span class="text-capitalize">{{ $slider->type }}</span></td>
-                                        <td>
+                                     <!--    <td>
                                             @if($slider->heading)
                                                 <strong>{{ Str::limit($slider->heading, 40) }}</strong>
                                             @else
                                                 <span class="text-muted small"><em>N/A</em></span>
                                             @endif
-                                        </td>
+                                        </td> -->
                                         <td>
                                             <span class="badge bg-{{ $slider->status ? 'success' : 'danger' }}">
                                                 {{ $slider->status ? 'Active' : 'Inactive' }}
