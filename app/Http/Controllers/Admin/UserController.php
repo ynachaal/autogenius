@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -65,8 +66,14 @@ class UserController extends Controller
     {
         $validatedData = $request->validate([
             'name'         => ['required', 'string', 'max:255'],
-            'email'        => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'phone_number' => ['nullable', 'string', 'max:20', 'unique:users,phone_number'],
+            'email' => [
+        'required',
+        'string',
+        'email',
+        'max:255',
+        Rule::unique('users', 'email')->whereNull('deleted_at'),
+    ],
+              Rule::unique('users', 'phone_number')->whereNull('deleted_at'),
             'role'         => ['required', 'exists:roles,code'],
             'password'     => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -114,8 +121,23 @@ class UserController extends Controller
     {
         $validatedData = $request->validate([
             'name'         => ['required', 'string', 'max:255'],
-            'email'        => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
-            'phone_number' => ['nullable', 'string', 'max:20', 'unique:users,phone_number,' . $user->id],
+          'email' => [
+        'required',
+        'string',
+        'email',
+        'max:255',
+        Rule::unique('users', 'email')
+            ->ignore($user->id)
+            ->whereNull('deleted_at'),
+    ],
+             'phone_number' => [
+        'nullable',
+        'string',
+        'max:20',
+        Rule::unique('users', 'phone_number')
+            ->ignore($user->id)
+            ->whereNull('deleted_at'),
+    ],
             'role'         => ['required', 'exists:roles,code'],
             'password'     => ['nullable', 'string', 'min:8', 'confirmed'],
         ]);
