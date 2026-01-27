@@ -21,8 +21,6 @@ class FrontPageController extends Controller
     }
     public function showPublic(string $slug)
     {
-        $isServicePage = $this->pageService->checkIfServicePage($slug);
-        
         
         $page = Page::where('slug', $slug)
             ->where('is_published', 1)
@@ -42,7 +40,7 @@ class FrontPageController extends Controller
             return response()->view('site.page', compact('page'), 404);
         }
 
-        return view('site.page', compact('page','isServicePage'));
+        return view('site.page', compact('page',));
     }
 
 }
