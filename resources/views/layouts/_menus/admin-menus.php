@@ -131,7 +131,7 @@ return [
         'icon' => 'bi-journal-text',
         'children' => [
             [
-                'title' => 'Slider',
+                'title' => 'Slides',
                 'route' => route('admin.sliders.index'),
                 'active' => Route::is('admin.sliders.*'),
             ],
