@@ -538,7 +538,7 @@
                                 <div class="what-we-client-box-ultimate">
                                     {{-- Main Statement --}}
                                     <div class="what-we-client-content-ultimate">
-                                        <h3>{{ $data['why_founded']['main_statement'] ?? 'Most car problems don’t start on the road - they start at the time of purchase.' }}
+                                        <h3>{{ $data['why_founded']['main_quote'] ?? 'Most car problems don’t start on the road - they start at the time of purchase.' }}
                                         </h3>
                                     </div>
 
