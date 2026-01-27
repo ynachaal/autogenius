@@ -47,7 +47,7 @@
                         <a class="text-white search-toggle" href="#">
                             <i class="fa fa-search"></i> Search
                         </a>
-                    </div> 
+                    </div>
                     <div class="header-auth d-flex align-items-center ms-auto">
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item submenu">

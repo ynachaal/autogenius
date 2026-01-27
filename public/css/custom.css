@@ -161,6 +161,7 @@ h4,
 h5,
 h6{
 	font-family: var(--accent-font);
+    font-weight: 400;
 	text-transform: uppercase;
 	color: var(--primary-color);
 	margin :0;
@@ -716,13 +717,13 @@ header.main-header .header-sticky.active{
 }
 .main-menu ul li a:hover,
 .main-menu ul li a:focus{
-    color: var(--accent-color);
+    color: var(--white-color);
 }
 .nav-link.active:before{
     background-color: var(--accent-color) !important;
 }
 .nav-link.active{
-    color: var(--accent-color) !important;
+    color: var(--white-color) !important;
 }
 .main-menu ul ul{
 	visibility: hidden;
@@ -2569,9 +2570,9 @@ header.main-header .header-sticky.active{
 .page-header{
 	position: relative;
 	background: url('../images/page-header-bg.jpg') no-repeat;
-	background-position: center center;
+	background-position: bottom;
 	background-size: cover;
-	padding: 280px 0 150px;
+	padding: 100px 0;
 	margin-top: 20px;
 	overflow: hidden;
 }
@@ -2584,7 +2585,7 @@ header.main-header .header-sticky.active{
 	bottom: 0;
 	left: 0;
 	background-color: var(--bg-color);
-	opacity: 70%;
+	opacity: 50%;
 	width: 100%;
 	height: 100%;
 	z-index: 1;
@@ -2598,9 +2599,8 @@ header.main-header .header-sticky.active{
 
 .page-header-box h1{
 	display: inline-block;
-    font-size: 50px;
-	font-weight: 500;
-    line-height: 1.1em;
+    font-size: 35px;
+    font-weight: 400;
 	color: var(--primary-color);
 	margin-bottom: 10px;
 	cursor: none;
@@ -3174,7 +3174,8 @@ header.main-header .header-sticky.active{
 .page-single-image img{
     width: 100%;
     aspect-ratio: 1 / 0.61;
-    object-fit: cover;
+    object-fit: contain;
+    object-position: top;
     border-radius: 20px;
 }
 
@@ -10723,6 +10724,7 @@ header.main-header .header-sticky.active{
 	color: #fff;
 	height: 56px;
 	font-size: 18px;
+    font-weight: 400;
 	padding-left: 22px;
 	box-shadow: none;
 }

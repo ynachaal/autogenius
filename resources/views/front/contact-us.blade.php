@@ -7,14 +7,20 @@
 @endsection
 
 @section('header')
-    <section class="inner-header py-5">
+    <div class="page-header bg-section parallaxie1">
         <div class="container">
-            <div class="heading text-center">
-        <h1>Contact Us</h1>
-        <p>We’d love to hear from you! Fill out the form below and we’ll get back to you shortly.</p>
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Page Header Box Start -->
+                    <div class="page-header-box">
+                        <h1 class="text-anime-style-3" data-cursor="-opaque" aria-label="about us" style="perspective: 400px;">Contact Us</h1>
+                        <p class="text-white">We’d love to hear from you! Fill out the form below and we’ll get back to you shortly.</p>
+                    </div>
+                    <!-- Page Header Box End -->
+                </div>
             </div>
+        </div>
     </div>
-</section>
 @endsection
 
 @section('content')
