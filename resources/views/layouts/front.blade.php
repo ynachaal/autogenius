@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
     <!-- DYNAMIC SEO METADATA -->
-    <title>@yield('meta_title', config('settings.meta_title', 'AutoGenius Private Limited - The Automotive Testing Company'))</title>
+     <title>@yield('title', config('settings.meta_title', '')) - AutoGenius</title>
     <meta name="description" content="@yield('meta_description', config('settings.meta_description', 'A brief, default site description.'))">
     <meta name="keywords" content="@yield('meta_keywords', config('settings.meta_keywords', 'default, keywords, tags'))">
     <!-- END SEO -->
