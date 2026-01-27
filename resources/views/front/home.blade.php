@@ -41,9 +41,8 @@
                             <!-- Section Title Start -->
                             <div class="section-title">
                                 <!-- Header End -->
-                                <h1 class="text-anime-style-3" data-cursor="-opaque">India’s Most Trusted Personal Car
-                                    Consultant</h1>
-                                <p class="text-center mx-auto">New Cars • Pre Owned Cars • 288+ Point Inspections</p>
+                                <h1 class="text-anime-style-3" data-cursor="-opaque">{{ config('settings.home_page_banner_title', '') }}</h1>
+                                <p class="text-center mx-auto">{{ config('settings.home_page_banner_text', '') }}</p>
                             </div>
                             <!-- Section Title End -->
 
@@ -349,9 +348,10 @@
                     <!-- Hero Slider Start -->
                     <div class="company-logo-slider">
                         <p>Experience across the world’s leading automotive brands</p>
-                          <div class="swiper">
-                            <div class="swiper-wrapper">      <x-brand-swiper :brands="$data['featuredBrands']" />  </div></div>
-                    
+                        <div class="swiper">
+                            <div class="swiper-wrapper"> <x-brand-swiper :brands="$data['featuredBrands']" /> </div>
+                        </div>
+
                     </div>
                     <!-- Hero Slider End -->
                 </div>
