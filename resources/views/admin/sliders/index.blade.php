@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="h4">{{ __('Sliders') }}</h2>
+        <h2 class="h4">{{ __('Slides') }}</h2>
     </x-slot>
 
     <div class="content">
@@ -9,7 +9,7 @@
 
                 {{-- Card Header --}}
                 <div class="card-header">
-                    <h3 class="card-title">Slider List</h3>
+                    <h3 class="card-title">Slide List</h3>
 
                     <div class="card-tools d-flex align-items-center">
                         {{-- Search & Category Filter Form --}}
