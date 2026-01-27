@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Services\EmailService;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,6 +15,17 @@ use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
+     protected EmailService $emailService;
+
+     public function __construct(
+        EmailService $emailService,
+      
+
+    ) {
+        $this->emailService = $emailService;
+  
+
+    }
     /**
      * Display the registration view.
      */
@@ -41,11 +53,14 @@ class RegisteredUserController extends Controller
             'role' => '02',
             'password' => Hash::make($request->password),
         ]);
+        if ($user) {
+            $this->emailService->welcomeEmail($user);
+        }
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+         return redirect()->route('user.dashboard');
     }
 }

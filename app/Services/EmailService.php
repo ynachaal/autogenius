@@ -177,4 +177,30 @@ class EmailService
             'Password Reset Instructions'
         );
     }
+
+    /**
+     * Send a Welcome email to a newly registered user.
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function welcomeEmail(User $user): bool
+    {
+        $data = [
+            '{name}'          => $user->name ?? 'there',
+            '{email}'         => $user->email,
+            '{dashboard_url}' => url('/dashboard'), // Or config('app.url') . '/dashboard'
+            '{support_email}' => config('settings.contact_email', 'support@autogenious.com'),
+            '{company_name}'  => config('settings.site_name', 'Autogenious'),
+            '{year}'          => now()->year,
+            '{website_link}'  => config('app.url', url('/')),
+        ];
+
+        return $this->sendEmailInstant(
+            $user->email,
+            'Welcome Email',
+            $data,
+            'Welcome to Autogenious!'
+        );
+    }
 }
