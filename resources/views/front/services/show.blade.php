@@ -2,52 +2,65 @@
 
 @section('title', $data['service']->title)
 
+{{-- Breadcrumb --}}
+{{--<nav aria-label="breadcrumb" class="mb-4">--}}
+{{--    <ol class="breadcrumb">--}}
+{{--        <li class="breadcrumb-item">--}}
+{{--            <a href="{{ route('home') }}">Home</a>--}}
+{{--        </li>--}}
+{{--        <li class="breadcrumb-item">--}}
+{{--            <a href="{{ route('services.index') }}">Services</a>--}}
+{{--        </li>--}}
+{{--        <li class="breadcrumb-item active" aria-current="page">--}}
+{{--            {{ $data['service']->title }}--}}
+{{--        </li>--}}
+{{--    </ol>--}}
+{{--</nav>--}}
+
 @section('content')
-<section class="service-detail py-5">
+    <div class="page-header bg-section parallaxie1">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Page Header Box Start -->
+                    <div class="page-header-box">
+                        <h1 class="text-anime-style-3" data-cursor="-opaque" aria-label="about us" style="perspective: 400px;">{{ $data['service']->title }}</h1>
+                    </div>
+                    <!-- Page Header Box End -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="page-service-single py-5">
     <div class="container">
-
-        {{-- Breadcrumb --}}
-        <nav aria-label="breadcrumb" class="mb-4">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="{{ route('home') }}">Home</a>
-                </li>
-                <li class="breadcrumb-item">
-                    <a href="{{ route('services.index') }}">Services</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">
-                    {{ $data['service']->title }}
-                </li>
-            </ol>
-        </nav>
-
         <div class="row">
             <div class="col-lg-8">
-                <h1 class="mb-3">{{ $data['service']->title }}</h1>
-
-                @if(!empty($data['service']->image))
-                    <img
-                        src="{{ asset('storage/' . $data['service']->image) }}"
-                        alt="{{ $data['service']->title }}"
-                        class="img-fluid rounded mb-4"
-                    >
-                @endif
-
-                <div class="service-content">
-                    {!! $data['service']->description !!}
+                <div class="service-single-content">
+                    <div class="page-single-image">
+                        <figure class="image-anime reveal" style="opacity: 1; visibility: inherit; translate: none; rotate: none; scale: none; transform: translate(0px, 0px);">
+                            @if(!empty($data['service']->image))
+                                <img
+                                    src="{{ asset('storage/' . $data['service']->image) }}"
+                                    alt="{{ $data['service']->title }}"
+                                >
+                            @endif
+                        </figure>
+                    </div>
+                    <div class="service-entry">
+                        <h1 class="mb-3">{{ $data['service']->title }}</h1>
+                        {!! $data['service']->description !!}
+                    </div>
                 </div>
             </div>
 
             <div class="col-lg-4">
-                <div class="sticky-top" style="top: 100px;">
-                    <div class="p-4 border rounded">
+                <div class="page-single-sidebar">
+                    <div class="page-category-list wow fadeInUp p-3">
                         <h5 class="mb-3">Need Help?</h5>
-                        <p class="text-muted">
-                            Have questions about this service? Get in touch with our team.
-                        </p>
-
+                        <p>Have questions about this service? Get in touch with our team.</p>
                         <a href="{{ route('frontend.contact.create') }}"
-                           class="btn btn-primary w-100">
+                           class="btn-default">
                             Contact Us
                         </a>
                     </div>
