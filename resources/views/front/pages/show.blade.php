@@ -2,6 +2,12 @@
 
 @section('title', $page->title)
 
+@section('meta_description', $page->meta_description ?? '')
+@section('meta_keywords', $page->meta_keywords ?? '')
+
+
+
+@section('content')
 <div class="page-header bg-section parallaxie1">
     <div class="container">
         <div class="row">
@@ -15,8 +21,6 @@
         </div>
     </div>
 </div>
-
-@section('content')
     <section class="page-detail py-5">
         <div class="container">
             {{-- Page Title --}}
