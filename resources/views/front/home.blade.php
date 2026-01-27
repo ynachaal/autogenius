@@ -349,7 +349,9 @@
                     <!-- Hero Slider Start -->
                     <div class="company-logo-slider">
                         <p>Experience across the world’s leading automotive brands</p>
-                        <x-brand-swiper :brands="$data['allBrands']" />
+                          <div class="swiper">
+                            <div class="swiper-wrapper">      <x-brand-swiper :brands="$data['featuredBrands']" />  </div></div>
+                    
                     </div>
                     <!-- Hero Slider End -->
                 </div>

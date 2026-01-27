@@ -51,9 +51,9 @@ class SiteController extends Controller
         'about'              => $this->metaService->getAllValues('about-autogenius'),
         'why_founded'        => $this->metaService->getAllValues('why-we-founded-autogenius'),
         'services'           => $this->serviceService->getFeaturedServices(8),
-        'allBrands'          => $this->brandService->getAllBrands(),
+        'featuredBrands' => $this->brandService->getFeaturedBrands()['brands'],
      ];
-        
+       
         return view('front.home', compact('data'));
     }
 
@@ -66,7 +66,7 @@ class SiteController extends Controller
    public function services(): View
     {
         $data = [
-                    'services' => $this->serviceService->getPaginatedServices(12),
+            'services' => $this->serviceService->getPaginatedServices(12),
         ];
         return view('front.services.index', compact('data'));
     }
