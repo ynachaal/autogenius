@@ -106,10 +106,12 @@
                                                 {{-- Delete Button --}}
                                                 <form action="{{ route('admin.slider-categories.destroy', $category) }}" method="POST" class="d-inline" id="delete-cat-{{ $category->id }}">
                                                     @csrf @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-danger" 
-                                                        onclick="return showConfirmationModal('delete-cat-{{ $category->id }}', '{{ $category->name }}', 'Category')">
-                                                        <i class="bi bi-trash"></i>
-                                                    </button>
+                                                  <button type="submit"
+        class="btn btn-sm btn-danger"
+        onclick="return confirm('This action cannot be undone. Delete this category?')">
+    <i class="bi bi-trash"></i>
+</button>
+
                                                 </form>
                                             </div>
                                         </td>

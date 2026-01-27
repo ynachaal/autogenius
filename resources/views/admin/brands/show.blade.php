@@ -24,13 +24,14 @@
                               id="delete-form-{{ $brand->id }}">
                             @csrf
                             @method('DELETE')
-                            <button type="submit"
-                                    class="btn btn-sm btn-danger"
-                                    data-toggle="tooltip"
-                                    title="Delete Brand"
-                                    onclick="return showConfirmationModal('delete-form-{{ $brand->id }}', '{{ Str::limit($brand->name, 60) }}', 'Brand')">
-                                <i class="fa-solid fa-trash-can me-1"></i> Delete
-                            </button>
+                          <button type="submit"
+        class="btn btn-sm btn-danger"
+        data-toggle="tooltip"
+        title="Delete Brand"
+        onclick="return confirm('This action cannot be undone. Delete this brand?')">
+    <i class="fa-solid fa-trash-can me-1"></i> Delete
+</button>
+
                         </form>
 
                         <a href="{{ route('admin.brands.index') }}"

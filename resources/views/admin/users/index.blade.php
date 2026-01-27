@@ -182,9 +182,10 @@
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-sm btn-danger"
                                                             data-toggle="tooltip" title="Delete"
-                                                            onclick="return showConfirmationModal('delete-form-{{ $user->id }}', '{{ Str::limit($user->name, 60) }}', 'User')">
+                                                            onclick="return confirm('This action cannot be undone. Delete this User?')">
                                                             <i class="bi bi-trash"></i>
                                                         </button>
+
                                                     </form>
                                                 @endif
 

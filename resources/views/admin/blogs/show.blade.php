@@ -23,13 +23,14 @@
                               id="delete-form-{{ $blog->id }}">
                             @csrf
                             @method('DELETE')
-                            <button type="submit"
-                                    class="btn btn-sm btn-danger"
-                                    data-toggle="tooltip"
-                                    title="Delete Blog"
-                                    onclick="return showConfirmationModal('delete-form-{{ $blog->id }}', '{{ Str::limit($blog->title, 60) }}', 'Blog')">
-                                <i class="fa-solid fa-trash-can me-1"></i> Delete
-                            </button>
+                         <button type="submit"
+                                class="btn btn-sm btn-danger"
+                                data-toggle="tooltip"
+                                title="Delete Blog"
+                                onclick="return confirm('This action cannot be undone. Delete this blog?')">
+                            <i class="fa-solid fa-trash-can me-1"></i> Delete
+                        </button>
+
                         </form>
                         <a href="{{ route('admin.blogs.index') }}"
                            class="btn btn-sm btn-secondary"

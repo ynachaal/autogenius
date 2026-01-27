@@ -30,12 +30,12 @@
 
                         {{-- Search Form with Clear Button --}}
 
-                        <form action="{{ route('admin.faqs.index') }}" method="GET" class="d-flex align-items-center me-2">
+                        <form action="{{ route('admin.faqs.index') }}" method="GET"
+                            class="d-flex align-items-center me-2">
 
                             <div class="input-group input-group-sm" style="width: 250px;">
 
                                 <input type="search" name="q" class="form-control float-right"
-
                                     placeholder="Search by question or answer..." value="{{ request('q') }}">
 
                                 <div class="input-group-append">
@@ -52,7 +52,6 @@
                                     @if(request('q'))
 
                                         <a href="{{ route('admin.faqs.index', array_merge(request()->except(['q', 'page']), ['q' => ''])) }}"
-
                                             class="btn-sm btn btn-secondary" title="Clear Search">
 
                                             Clear
@@ -129,7 +128,7 @@
 
 
 
-                                        $sort = function($column, $label) use ($sortBy, $sortDirection) {
+                                        $sort = function ($column, $label) use ($sortBy, $sortDirection) {
 
                                             $dir = ($column == $sortBy && $sortDirection == 'asc') ? 'desc' : 'asc';
 
@@ -155,7 +154,8 @@
 
                                     @endforeach
 
-                                    <th class="text-center" style="width: 150px;">Actions</th> {{-- Fixed width for actions --}}
+                                    <th class="text-center" style="width: 150px;">Actions</th> {{-- Fixed width for
+                                    actions --}}
 
                                 </tr>
 
@@ -163,19 +163,19 @@
 
                             <tbody>
 
-                                   @forelse($faqs as $index=>$faq)
+                                @forelse($faqs as $index => $faq)
 
                                     <tr>
 
-                                       <td>{{ $faqs->firstItem() + $index }}</td>
+                                        <td>{{ $faqs->firstItem() + $index }}</td>
 
                                         <td>
 
-                                          
 
-                                                {{ Str::limit($faq->question, 60) }}
 
-                                         
+                                            {{ Str::limit($faq->question, 60) }}
+
+
 
                                         </td>
 
@@ -201,8 +201,7 @@
 
                                             <div class="btn-group" role="group" aria-label="FAQ Actions">
 
-                                                 <a href="{{ route('admin.faqs.show', $faq) }}"
-
+                                                <a href="{{ route('admin.faqs.show', $faq) }}"
                                                     class="btn btn-sm btn-primary me-2" data-toggle="tooltip" title="View">
 
                                                     <i class="bi bi-eye"></i>
@@ -210,7 +209,6 @@
                                                 </a>
 
                                                 <a href="{{ route('admin.faqs.edit', $faq) }}"
-
                                                     class="btn btn-sm btn-info me-2" data-toggle="tooltip" title="Edit">
 
                                                     <i class="bi bi-pencil"></i>
@@ -218,7 +216,6 @@
                                                 </a>
 
                                                 <form action="{{ route('admin.faqs.destroy', $faq) }}" method="POST"
-
                                                     class="d-inline" id="delete-form-{{ $faq->id }}">
 
                                                     @csrf
@@ -226,13 +223,9 @@
                                                     @method('DELETE')
 
                                                     <button type="submit" class="btn btn-sm btn-danger"
-
                                                         data-toggle="tooltip" title="Delete"
-
-                                                        onclick="return showConfirmationModal('delete-form-{{ $faq->id }}', '{{ Str::limit($faq->question, 60) }}', 'FAQ')">
-
+                                                        onclick="return confirm('This action cannot be undone. Delete this FAQ?')">
                                                         <i class="bi bi-trash"></i>
-
                                                     </button>
 
                                                 </form>
