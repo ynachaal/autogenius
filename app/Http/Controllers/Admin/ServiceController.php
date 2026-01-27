@@ -123,7 +123,12 @@ class ServiceController extends Controller
             $validatedData['image'] = $request->file('image')->store('services', 'public');
         }
 
-        $service = Service::create($validatedData);
+        $data = $validatedData + [
+            'status'   => $request->has('status') ? 1 : 0,
+            'featured' => $request->has('featured') ? 1 : 0,
+        ];
+
+        $service = Service::create($data);
 
         return redirect()->route('admin.services.index')->with('success', 'Service created successfully!');
     }
@@ -210,7 +215,15 @@ class ServiceController extends Controller
             $validatedData['image'] = $service->image;
         }
 
-        $service->update($validatedData);
+         $data = $validatedData + [
+            'status'   => $request->has('status') ? 1 : 0,
+            'featured' => $request->has('featured') ? 1 : 0,
+        ];
+
+          $service->update($data);
+
+
+      
 
         return redirect()
             ->route('admin.services.show', $service)
