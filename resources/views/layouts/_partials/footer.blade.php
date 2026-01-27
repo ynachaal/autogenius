@@ -117,7 +117,7 @@
                             <img src="{{ asset('images/icon-location-accent.svg') }}" alt="">
                         </div>
                         <div class="footer-contact-content">
-                            <p>518 & 519 A, 5th floor, 93 Avenue Mall, Wanowrie, Pune 411022</p>
+                            <p>{{ config('settings.address', '') }}</p>
                         </div>
                     </div>
                     <!-- Footer Contact Item End -->
