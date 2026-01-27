@@ -58,6 +58,31 @@ class SiteController extends Controller
         return redirect()->route('admin.dashboard')->with('success', 'Migration completed.');
     }
 
+    public function services(): View
+    {
+        $data = [
+            'services' => $this->serviceService->getAllActiveServices(),
+            'meta'     => $this->metaService->getAllValues('services-page'),
+        ];
+
+        return view('front.services.index', compact('data'));
+    }
+
+    public function serviceDetail(string $slug): View
+    {
+        $service = $this->serviceService->getBySlug($slug);
+
+        if (!$service) {
+            abort(404);
+        }
+
+        $data = [
+            'service' => $service,
+        ];
+
+        return view('front.services.show', compact('data'));
+    }
+
     public function contactUs(Request $request): RedirectResponse|View
     {
         if ($request->isMethod('get')) {
