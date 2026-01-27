@@ -18,11 +18,11 @@
                                 @endphp
 
                                 @if (!empty($menuItem['submenu']))
-                                    <li class="nav-item submenu has-dropdown">
+                                    <li class="nav-item submenu">
                                         <a class="nav-link {{ $isActive ? 'active' : '' }}" href="javascript:void(0)">
                                             {{ $menuItem['title'] }}
                                         </a>
-                                        <ul class="submenu parent-nav">
+                                        <ul>
                                             @foreach ($menuItem['submenu'] as $sub)
                                                 <li class="nav-item">
                                                     <a class="nav-link" href="{{ $sub['route'] ?? 'javascript:void(0)' }}">
@@ -47,20 +47,20 @@
                         @auth
                             @php
                                 // Logic from your example: redirect based on role
-                                $dashboardUrl = Auth::user()->role === '01' 
-                                    ? url('/admin/dashboard') 
+                                $dashboardUrl = Auth::user()->role === '01'
+                                    ? url('/admin/dashboard')
                                     : url('/dashboard');
-                                
+
                                 $isDashboardActive = request()->is('dashboard') || request()->is('admin/dashboard');
                             @endphp
-                            
+
                             <a href="{{ $dashboardUrl }}" class="nav-link text-white me-3 @if($isDashboardActive) active @endif">
                                 <i class="fa fa-tachometer-alt"></i> Dashboard
                             </a>
-                            
+
                             <form method="POST" action="{{ route('logout') }}" class="d-inline">
                                 @csrf
-                                <a href="{{ route('logout') }}" class="nav-link text-white me-3" 
+                                <a href="{{ route('logout') }}" class="nav-link text-white me-3"
                                    onclick="event.preventDefault(); this.closest('form').submit();">
                                     <i class="fa fa-sign-out-alt"></i> Logout
                                 </a>
