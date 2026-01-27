@@ -21,13 +21,22 @@ class ServiceService
      * Get up to 8 featured services for the homepage.
      */
     public function getFeaturedServices(int $limit = 8): Collection
-{
-    return Service::active()
-        ->featured()
-        ->orderBy('id', 'asc')
-        ->limit($limit)
-        ->get();
-}
+    {
+        return Service::active()
+            ->featured()
+            ->orderBy('id', 'asc')
+            ->limit($limit)
+            ->get();
+    }
+
+    public function getBySlug(string $slug): ?Service
+    {
+        return Service::active()
+            ->where('slug', $slug)
+            ->first();
+    }
+
+    
 
     /**
      * Find a specific service by its slug.
