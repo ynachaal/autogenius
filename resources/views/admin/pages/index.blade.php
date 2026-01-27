@@ -169,12 +169,7 @@
                                            <td>{{ $pages->firstItem() + $index }}</td>
 
                                         <td>
-
-                                       
-
                                                 {{ Str::limit($page->title, 40) }}
-
-                                          
 
                                         </td>
 
@@ -225,13 +220,8 @@
                                                     @method('DELETE')
 
                                                     <button type="submit" class="btn btn-sm btn-danger"
-
-                                                        data-toggle="tooltip" title="Delete"
-
-                                                        onclick="return showConfirmationModal('delete-form-{{ $page->id }}', '{{ Str::limit($page->title, 40) }}', 'Page')">
-
+                                                        onclick="return confirm('Are you sure you want to delete this page?')">
                                                         <i class="bi bi-trash"></i>
-
                                                     </button>
 
                                                 </form>
