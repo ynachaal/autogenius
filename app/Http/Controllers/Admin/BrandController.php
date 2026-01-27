@@ -86,7 +86,7 @@ class BrandController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-           'name' => [
+            'name' => [
                 'required', 
                 'string', 
                 'max:191', 
@@ -107,15 +107,23 @@ class BrandController extends Controller
             ],
         ]);
 
-        // Generate unique slug
-        $validatedData['slug'] = Str::slug($validatedData['name']);
+        // --- SLUG GENERATION AND UNIQUENESS CHECK ---
+        $slug = Str::slug($validatedData['name']);
+        $originalSlug = $slug;
+        $count = 1;
+
+        // Check against ALL records (including trashed) to avoid DB constraint errors
+        while (Brand::withTrashed()->where('slug', $slug)->exists()) {
+            $slug = $originalSlug . '-' . $count;
+            $count++;
+        }
+        $validatedData['slug'] = $slug;
 
         // Handle Image Upload
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $imageName = time() . '_' . Str::slug($validatedData['name']) . '.' . $image->getClientOriginalExtension();
+            $imageName = time() . '_' . $slug . '.' . $image->getClientOriginalExtension();
 
-            // Move to public/uploads/brands
             $image->move(public_path('uploads/brands'), $imageName);
             $validatedData['image'] = 'uploads/brands/' . $imageName;
         }
@@ -148,14 +156,13 @@ class BrandController extends Controller
     {
         $validatedData = $request->validate([
           'name' => [
-            'required', 
-            'string', 
-            'max:191', 
-            // Change: Ignore current ID AND ignore soft-deleted records
-            Rule::unique('brands', 'name')
-                ->ignore($brand->id)
-                ->whereNull('deleted_at')
-        ],
+                'required', 
+                'string', 
+                'max:191', 
+                Rule::unique('brands', 'name')
+                    ->ignore($brand->id)
+                    ->whereNull('deleted_at')
+            ],
             'description' => ['nullable', 'string'],
             'status' => ['in:active,inactive'],
             'is_featured' => ['boolean'],
@@ -169,28 +176,36 @@ class BrandController extends Controller
                 'mimes:jpg,jpeg,png,gif,svg',
                 'max:2048',
             ],
-
         ]);
 
         // Update slug if name changed
         if ($brand->name !== $validatedData['name']) {
-            $validatedData['slug'] = Str::slug($validatedData['name']);
+            $slug = Str::slug($validatedData['name']);
+            $originalSlug = $slug;
+            $count = 1;
+
+            // Check against ALL records except current to avoid DB constraint errors
+            while (Brand::withTrashed()
+                ->where('slug', $slug)
+                ->where('id', '!=', $brand->id)
+                ->exists()) {
+                $slug = $originalSlug . '-' . $count;
+                $count++;
+            }
+            $validatedData['slug'] = $slug;
         }
 
         // Handle Image Update
         if ($request->hasFile('image')) {
-            // 1. Delete old image if it exists
             if ($brand->image && File::exists(public_path($brand->image))) {
                 File::delete(public_path($brand->image));
             }
 
-            // 2. Upload new image
             $image = $request->file('image');
             $imageName = time() . '_' . Str::slug($validatedData['name']) . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('uploads/brands'), $imageName);
             $validatedData['image'] = 'uploads/brands/' . $imageName;
         } else {
-            // Keep existing image if no new file is uploaded
             $validatedData['image'] = $brand->image;
         }
 
@@ -206,6 +221,6 @@ class BrandController extends Controller
     {
         $brand->delete();
 
-        return redirect()->route('admin.brands.index')->with('success', 'Brand deleted successfully!');
+        return redirect()->route('admin.brands.index')->with('success', 'Brand moved to trash!');
     }
 }
