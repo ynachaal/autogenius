@@ -92,7 +92,7 @@ class ServiceController extends Controller
                 'nullable',
                 'string',
                 'max:255',
-                Rule::unique('services', 'slug'),
+               Rule::unique('services', 'slug')->whereNull('deleted_at') // Check uniqueness only against non-deleted
             ],
             'sub_heading' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
@@ -160,7 +160,9 @@ class ServiceController extends Controller
                 'nullable',
                 'string',
                 'max:255',
-                Rule::unique('services', 'slug')->ignore($service->id),
+               Rule::unique('services', 'slug')
+                ->ignore($service->id)
+                ->whereNull('deleted_at'),
             ],
             'sub_heading'  => ['nullable', 'string', 'max:255'],
             'description'  => ['nullable', 'string'],

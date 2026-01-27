@@ -23,7 +23,7 @@
                         <label for="type" class="form-label fw-medium text-dark">Media Type</label>
                         <select name="type" id="type" class="form-control">
                             <option value="image" {{ (isset($slider) && $slider->type == 'image') ? 'selected' : '' }}>Image</option>
-                            <option value="video" {{ (isset($slider) && $slider->type == 'video') ? 'selected' : '' }}>Video</option>
+                            <!-- <option value="video" {{ (isset($slider) && $slider->type == 'video') ? 'selected' : '' }}>Video</option> -->
                         </select>
                     </div>
 

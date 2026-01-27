@@ -22,11 +22,7 @@ return [
         ],
     ],
     [
-        'title' => 'Reviews',
-        'route' => route('pages.show', 'reviews'), // assuming a page exists for reviews
-    ],
-    [
-        'title' => 'Blog',
+        'title' => 'Car Deliveries',
         'route' => '', // assuming you have a blog route like Route::get('/blog', [BlogController::class, 'index'])->name('blog.index')
     ],
     [

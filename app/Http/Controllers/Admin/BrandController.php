@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 
 class BrandController extends Controller
@@ -85,7 +86,12 @@ class BrandController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => ['required', 'string', 'max:191', 'unique:brands,name'],
+           'name' => [
+                'required', 
+                'string', 
+                'max:191', 
+                Rule::unique('brands')->whereNull('deleted_at')
+            ],
             'description' => ['nullable', 'string'],
             'status' => ['in:active,inactive'],
             'is_featured' => ['boolean'],
@@ -141,7 +147,15 @@ class BrandController extends Controller
     public function update(Request $request, Brand $brand)
     {
         $validatedData = $request->validate([
-            'name' => ['required', 'string', 'max:191', 'unique:brands,name,' . $brand->id],
+          'name' => [
+            'required', 
+            'string', 
+            'max:191', 
+            // Change: Ignore current ID AND ignore soft-deleted records
+            Rule::unique('brands', 'name')
+                ->ignore($brand->id)
+                ->whereNull('deleted_at')
+        ],
             'description' => ['nullable', 'string'],
             'status' => ['in:active,inactive'],
             'is_featured' => ['boolean'],

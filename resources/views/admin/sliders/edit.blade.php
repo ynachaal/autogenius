@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="h4 fw-bold text-dark mb-0">
-            {{ __('Edit Slider') }}
+            {{ __('Edit Slide') }}
         </h2>
     </x-slot>
 
