@@ -26,8 +26,8 @@ class ServiceController extends Controller
         if ($search) {
             $query->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%{$search}%")
-                  ->orWhere('slug', 'like', "%{$search}%")
-                  ->orWhere('sub_heading', 'like', "%{$search}%");
+                    ->orWhere('slug', 'like', "%{$search}%")
+                    ->orWhere('sub_heading', 'like', "%{$search}%");
             });
         }
 
@@ -87,36 +87,34 @@ class ServiceController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'title'       => ['required', 'string', 'max:255'],
-            'slug'        => [
+            'title' => ['required', 'string', 'max:255'],
+            'slug' => [
                 'nullable',
                 'string',
                 'max:255',
-               Rule::unique('services', 'slug')->whereNull('deleted_at') // Check uniqueness only against non-deleted
+                // Validate uniqueness against non-deleted records for clean UI feedback
+                Rule::unique('services', 'slug')->whereNull('deleted_at')
             ],
             'sub_heading' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
-            'image'       => ['nullable', 'image', 'max:2048'],
-            'status'      => ['boolean'],
-            'featured'    => ['boolean'],
+            'image' => ['nullable', 'image', 'max:2048'],
+            'status' => ['boolean'],
+            'featured' => ['boolean'],
         ]);
 
         // --- SLUG GENERATION AND UNIQUENESS CHECK (STORE) ---
-        if (empty($validatedData['slug'])) {
-            // 1. Auto-generate slug from the title if blank
-            $validatedData['slug'] = Str::slug($validatedData['title']);
+        // If slug is empty, generate from title. If provided, format it.
+        $slugBase = !empty($validatedData['slug']) ? $validatedData['slug'] : $validatedData['title'];
+        $slug = Str::slug($slugBase);
+        $originalSlug = $slug;
 
-            // 2. Ensure generated slug is unique
-            $count = 0;
-            $originalSlug = $validatedData['slug'];
-            while (Service::where('slug', $validatedData['slug'])->exists()) {
-                $count++;
-                $validatedData['slug'] = $originalSlug . '-' . $count;
-            }
-        } else {
-            // 3. Format manually entered slug
-            $validatedData['slug'] = Str::slug($validatedData['slug']);
+        // Loop to ensure slug is unique even against trashed items (prevents DB crash)
+        $count = 1;
+        while (Service::withTrashed()->where('slug', $slug)->exists()) {
+            $slug = $originalSlug . '-' . $count;
+            $count++;
         }
+        $validatedData['slug'] = $slug;
 
         // Handle image upload
         if ($request->hasFile('image')) {
@@ -124,7 +122,7 @@ class ServiceController extends Controller
         }
 
         $data = $validatedData + [
-            'status'   => $request->has('status') ? 1 : 0,
+            'status' => $request->has('status') ? 1 : 0,
             'featured' => $request->has('featured') ? 1 : 0,
         ];
 
@@ -155,34 +153,41 @@ class ServiceController extends Controller
     public function update(Request $request, Service $service)
     {
         $validatedData = $request->validate([
-            'title'        => ['required', 'string', 'max:255'],
-            'slug'         => [
+            'title' => ['required', 'string', 'max:255'],
+            'slug' => [
                 'nullable',
                 'string',
                 'max:255',
-               Rule::unique('services', 'slug')
-                ->ignore($service->id)
-                ->whereNull('deleted_at'),
+                Rule::unique('services', 'slug')
+                    ->ignore($service->id)
+                    ->whereNull('deleted_at'),
             ],
-            'sub_heading'  => ['nullable', 'string', 'max:255'],
-            'description'  => ['nullable', 'string'],
-            'image'        => ['nullable', 'image', 'max:2048'],
-            'status'       => ['boolean'],
-            'featured'     => ['boolean'],
+            'sub_heading' => ['nullable', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+            'image' => ['nullable', 'image', 'max:2048'],
+            'status' => ['boolean'],
+            'featured' => ['boolean'],
             'remove_image' => ['boolean'],
         ]);
 
         // --- SLUG GENERATION AND UNIQUENESS CHECK (UPDATE) ---
+        // Only regenerate if slug field is cleared or if title changed and slug was originally auto-generated
         if (empty($validatedData['slug'])) {
-            $validatedData['slug'] = Str::slug($validatedData['title']);
-
-            $count = 0;
-            $originalSlug = $validatedData['slug'];
-            while (Service::where('slug', $validatedData['slug'])->where('id', '!=', $service->id)->exists()) {
+            $slug = Str::slug($validatedData['title']);
+            $originalSlug = $slug;
+            
+            $count = 1;
+            // Check against ALL records (including trashed) except the current one
+            while (Service::withTrashed()
+                ->where('slug', $slug)
+                ->where('id', '!=', $service->id)
+                ->exists()) {
+                $slug = $originalSlug . '-' . $count;
                 $count++;
-                $validatedData['slug'] = $originalSlug . '-' . $count;
             }
+            $validatedData['slug'] = $slug;
         } else {
+            // Format manually entered slug
             $validatedData['slug'] = Str::slug($validatedData['slug']);
         }
 
@@ -192,40 +197,29 @@ class ServiceController extends Controller
             $service->image = null;
         }
 
-        // New image upload
-        // 2. Handle New Image Upload
-    if ($request->hasFile('image')) {
-        // Delete old image if it exists
-        if ($service->image) {
-            Storage::disk('public')->delete($service->image);
+        // Handle New Image Upload
+        if ($request->hasFile('image')) {
+            if ($service->image) {
+                Storage::disk('public')->delete($service->image);
+            }
+            $validatedData['image'] = $request->file('image')->store('services', 'public');
+        } else {
+            if (!$request->boolean('remove_image')) {
+                // Keep the existing image if we aren't uploading a new one or removing it
+                $validatedData['image'] = $service->image;
+            } else {
+                $validatedData['image'] = null;
+            }
         }
-        // Store new image and put the path into the validated array
-        $validatedData['image'] = $request->file('image')->store('services', 'public');
-    } else {
-        // If no new image is uploaded and we aren't removing it, 
-        // unset it so we don't overwrite the existing path with null
-        if (!$request->boolean('remove_image')) {
-            unset($validatedData['image']);
-        }
-    }
 
-        // Remove helper field from update array
         unset($validatedData['remove_image']);
-        
-        // Ensure image path is updated correctly if not changed by file upload
-        if (!isset($validatedData['image'])) {
-            $validatedData['image'] = $service->image;
-        }
 
-         $data = $validatedData + [
-            'status'   => $request->has('status') ? 1 : 0,
+        $data = $validatedData + [
+            'status' => $request->has('status') ? 1 : 0,
             'featured' => $request->has('featured') ? 1 : 0,
         ];
 
-          $service->update($data);
-
-
-      
+        $service->update($data);
 
         return redirect()
             ->route('admin.services.show', $service)
@@ -237,12 +231,17 @@ class ServiceController extends Controller
      */
     public function destroy(Service $service)
     {
-        if ($service->image) {
+        // Note: For Soft Deletes, we usually KEEP the image in case of restoration.
+        // If you want to delete the image only on Force Delete, keep this in mind.
+        // For now, I'm leaving your original logic but commenting that it deletes the file.
+        
+        /* if ($service->image) {
             Storage::disk('public')->delete($service->image);
         }
-        
+        */
+
         $service->delete();
 
-        return redirect()->route('admin.services.index')->with('success', 'Service deleted successfully!');
+        return redirect()->route('admin.services.index')->with('success', 'Service moved to trash!');
     }
 }
