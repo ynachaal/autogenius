@@ -1,6 +1,6 @@
 @extends('layouts.front')
 
-@section('title', 'Home Page')
+@section('title', config('settings.meta_title', ''))
 
 @section('content')
     <div class="hero">
