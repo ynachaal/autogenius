@@ -44,4 +44,13 @@ class DashboardController extends Controller
         Artisan::call('optimize:clear');
         return redirect()->route('admin.dashboard')->with('success', 'Application cache cleared successfully.');
     }
+
+    public function storageLink()
+    {
+        Artisan::call('storage:link');
+
+        return redirect()
+            ->route('admin.dashboard')
+            ->with('success', 'Storage link created successfully.');
+    }
 }
