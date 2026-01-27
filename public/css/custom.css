@@ -290,7 +290,7 @@ a:focus{
 	left: 0;
 	right: 0;
 	opacity: 1;
-} 
+}
 
 .readmore-btn{
 	position: relative;
@@ -407,7 +407,7 @@ a:focus{
 }
 
 .section-row .section-title{
-	margin-bottom: 0; 
+	margin-bottom: 0;
 }
 
 .section-row .section-title.section-title-center{
@@ -431,7 +431,7 @@ a:focus{
 }
 
 .section-title-content p:last-child{
-	margin-bottom: 0;	
+	margin-bottom: 0;
 }
 
 .section-title{
@@ -2604,7 +2604,7 @@ header.main-header .header-sticky.active{
 
 .approach-image-box-2{
 	position: relative;
-	width: 38%;	
+	width: 38%;
 	z-index: 1;
 }
 
@@ -3237,7 +3237,7 @@ header.main-header .header-sticky.active{
     transition: all 0.3s ease-in-out;
 }
 
-.page-pagination ul li.active a, 
+.page-pagination ul li.active a,
 .page-pagination ul li a:hover{
     background: var(--accent-color);
 }
@@ -3276,7 +3276,7 @@ header.main-header .header-sticky.active{
 }
 
 .post-image figure{
-	display: block;	
+	display: block;
 	border-radius: 20px;
 	overflow: hidden;
 }
@@ -4530,15 +4530,15 @@ header.main-header .header-sticky.active{
 /************************************/
 
 @media only screen and (max-width: 1880px){
-	
+
 	.bg-section{
 		width: calc(100% - 40px);
 	}
-	
+
 	.navbar{
 		padding: 16px 0;
 	}
-	
+
 	.hero{
 		width: calc(100% - 40px);
 	}
@@ -4599,7 +4599,7 @@ header.main-header .header-sticky.active{
 
 	.pricing-item{
 		padding: 30px;
-	}	
+	}
 
 	.pricing-item-header{
 		margin-bottom: 30px;
@@ -4635,7 +4635,7 @@ header.main-header .header-sticky.active{
 	.post-featured-image{
 		margin-bottom: 20px;
 	}
-	
+
 	.post-item-content{
 		margin-bottom: 20px;
 		padding-bottom: 20px;
@@ -4752,7 +4752,7 @@ header.main-header .header-sticky.active{
 		padding: 12px 14px;
 		margin-right: 42px;
 	}
-	
+
 	.main-header.header .header-btn .btn-default::before{
 		right: -42px;
 		width: 42px;
@@ -4807,7 +4807,7 @@ header.main-header .header-sticky.active{
 	.service-item-btn{
 		margin-top: 30px;
 	}
-	
+
 	.feature-item-box-1,
 	.feature-item-box-2{
 		width: calc(50% - 40px);
@@ -5074,7 +5074,7 @@ header.main-header .header-sticky.active{
 	.section-content-btn .section-btn{
 		margin-top: 20px;
 	}
-	
+
 	.section-title{
 		margin-bottom: 30px;
 	}
@@ -5197,7 +5197,7 @@ header.main-header .header-sticky.active{
 	.why-choose-card-item:nth-child(odd){
 		top: 30px;
 	}
-	
+
 	.why-choose-card-body{
 		padding: 20px 15px;
 	}
@@ -5217,11 +5217,11 @@ header.main-header .header-sticky.active{
 	.our-product{
 		padding: 50px 0;
 	}
-	
+
 	.product-item-content{
 		padding: 20px 0 5px;
 	}
-	
+
 	.product-item-content p{
 		margin-top: 5px;
 	}
@@ -5264,7 +5264,7 @@ header.main-header .header-sticky.active{
 
 	.our-pricing{
 		padding: 50px 0;
-	}	
+	}
 
 	.pricing-item-header{
 		margin-bottom: 20px;
@@ -5472,7 +5472,7 @@ header.main-header .header-sticky.active{
     .page-category-list h3{
         padding: 20px;
     }
-    
+
     .page-category-list{
         margin-bottom: 30px;
     }
@@ -5513,11 +5513,11 @@ header.main-header .header-sticky.active{
 	.page-single-post{
         padding: 50px 0;
     }
-    
+
     .post-image{
         margin-bottom: 20px;
     }
-    
+
     .post-entry h1,
     .post-entry h2,
     .post-entry h3,
@@ -5526,40 +5526,40 @@ header.main-header .header-sticky.active{
     .post-entry h6{
         margin: 0 0 0.4em;
     }
-    
+
     .post-entry h2{
         font-size: 38px;
     }
-    
+
     .post-entry p{
         margin-bottom: 15px;
     }
-    
+
     .post-entry ol li,
     .post-entry ul li{
 		font-size: 16px;
         margin-bottom: 10px;
     }
-    
+
     .post-entry blockquote{
         background-position: 20px 20px;
         background-size: 40px;
         padding: 20px 20px 20px 70px;
         margin-bottom: 20px;
     }
-    
+
     .post-entry blockquote p{
         font-size: 18px;
     }
-    
+
     .post-tags{
         margin-bottom: 20px;
     }
-    
+
     .post-tags .tag-links a{
         padding: 10px 15px;
     }
-    
+
     .post-social-sharing ul{
         text-align: left;
     }
@@ -5693,11 +5693,11 @@ header.main-header .header-sticky.active{
 	.page-gallery{
 		padding: 50px 0 20px;
 	}
-	
+
 	.page-video-gallery{
 		padding: 50px 0 20px;
 	}
-	
+
 	.page-faqs{
 		padding: 50px 0;
 	}
@@ -5753,7 +5753,7 @@ header.main-header .header-sticky.active{
 	.error-page{
 		padding: 50px 0px;
 	}
-	
+
 	.error-page-image{
 		margin-bottom: 20px;
 	}
@@ -5845,7 +5845,7 @@ header.main-header .header-sticky.active{
 		position: initial;
 		width: calc(50% - 10px);
 	}
-	
+
 	.why-choose-card-item:nth-child(odd){
 		top: 0;
 	}
@@ -6049,7 +6049,7 @@ header.main-header .header-sticky.active{
 	.sidebar-cta-box{
 		padding: 20px;
 	}
-	
+
 	.page-category-list h3{
         font-size: 18px;
     }
@@ -6171,7 +6171,7 @@ header.main-header .header-sticky.active{
     .member-biography-counter-list ul li{
         width: 100%;
     }
-    
+
     .team-skills-item{
         margin-bottom: 20px;
     }
@@ -7696,7 +7696,7 @@ header.main-header .header-sticky.active{
 
 	.faqs-image-ultimate{
 		height: auto;
-		margin: 0 0 30px;	
+		margin: 0 0 30px;
 	}
 
 	.faqs-img-ultimate figure img{
@@ -7837,7 +7837,7 @@ header.main-header .header-sticky.active{
 	.product-rating-star-ultimate{
 		margin-bottom: 15px;
 	}
-	
+
 	.product-rating-star-ultimate i{
 		font-size: 18px;
 	}
@@ -7987,7 +7987,7 @@ header.main-header .header-sticky.active{
 	.about-item-list-ultimate{
 		padding: 20px 15px;
 	}
-	
+
 	.about-item-ultimate{
 		gap: 15px;
 		margin-bottom: 20px;
@@ -8607,7 +8607,7 @@ header.main-header .header-sticky.active{
 .why-choose-image-prime figure img{
 	width: 100%;
 	height: 100%;
-    aspect-ratio: 1 / 0.817;	
+    aspect-ratio: 1 / 0.817;
 	object-fit: cover;
 }
 
@@ -9062,7 +9062,7 @@ header.main-header .header-sticky.active{
 }
 
 .pricing-item-prime.highlighted-box .pricing-item-title-prime{
-	background-color: var(--accent-color);	
+	background-color: var(--accent-color);
 }
 
 .pricing-item-prime.highlighted-box .btn-default{
@@ -9678,11 +9678,11 @@ header.main-header .header-sticky.active{
 	.product-item-tag-prime{
 		margin-bottom: 40px;
 	}
-	
+
 	.product-item-image-prime{
 		margin-bottom: 40px;
 	}
-	
+
 	.product-item-image-prime img{
 		max-width: 190px;
 	}
@@ -9774,7 +9774,7 @@ header.main-header .header-sticky.active{
 	.benefits-item-prime{
 		min-height: initial;
 	}
-	
+
 	.how-work-title-box{
 		position: initial;
 		max-width: 100%;
@@ -9818,7 +9818,7 @@ header.main-header .header-sticky.active{
 	.faqs-content-prime{
 		margin: 0 0 30px 0;
 	}
-	
+
 	.footer-newsletter-form-prime .form-group{
 		margin: 30px 0 0 0;
 	}
@@ -10416,7 +10416,7 @@ header.main-header .header-sticky.active{
 		font-size: 16px;
 	}
 
-	.faq-accordion-prime .accordion-item-prime .accordion-button::after, 
+	.faq-accordion-prime .accordion-item-prime .accordion-button::after,
 	.faq-accordion-prime .accordion-item-prime .accordion-button.collapsed::after{
 		font-size: 16px;
 	}
@@ -10609,4 +10609,23 @@ header.main-header .header-sticky.active{
 	.search-box .form-control {
 		font-size: 16px;
 	}
+}
+.bg-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    z-index: 1;
+}
+.hero-box::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
 }

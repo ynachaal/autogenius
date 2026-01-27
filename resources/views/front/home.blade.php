@@ -10,29 +10,6 @@
                 <source src="{{ asset('video/video-bg.mp4') }}" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
-            <style>
-                .bg-video {
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    min-width: 100%;
-                    min-height: 100%;
-                    width: auto;
-                    height: auto;
-                    transform: translate(-50%, -50%);
-                    object-fit: cover;
-                    z-index: 1;
-                }
-
-                .hero-box::after {
-                    content: "";
-                    position: absolute;
-                    inset: 0;
-                    background: rgba(0, 0, 0, 0.4);
-                    /* overlay for readability */
-                    z-index: 1;
-                }
-            </style>
             <div class="container position-relative" style="z-index: 2;">
                 <div class="row">
                     <div class="col-xl-8 mx-auto">
@@ -438,11 +415,11 @@
                 <div class="logo mt-5 mb-3">
                     {{-- Using the "image" key from your array --}}
                     @if(isset($data['protecting_buyers']['image']))
-                        <img src="{{ asset($data['protecting_buyers']['image']) }}" 
+                        <img src="{{ asset($data['protecting_buyers']['image']) }}"
                              class="img-fluid py-3 w-75 mx-auto d-block"
                              alt="AutoGenius Logo Icon">
                     @else
-                        <img src="{{ asset('images/logo-icon.png') }}" 
+                        <img src="{{ asset('images/logo-icon.png') }}"
                              class="img-fluid py-3 w-75 mx-auto d-block"
                              alt="Default Icon">
                     @endif
@@ -455,7 +432,7 @@
                         <h2 class="text-effect" data-cursor="-opaque">
                             {{ $data['protecting_buyers']['heading'] ?? 'Protecting Buyers from Costly Car Mistakes' }}
                         </h2>
-                        
+
                         {{-- Handling description1 --}}
                         @if(isset($data['protecting_buyers']['description1']))
                             <p>{!! nl2br(e($data['protecting_buyers']['description1'])) !!}</p>
@@ -548,7 +525,7 @@
                         <h2 class="text-anime-style-3" data-cursor="-opaque">
                             {{ $data['about']['heading'] ?? 'AUTOGENIUS WAS FOUNDED WITH ONE SIMPLE BELIEF:' }}
                         </h2>
-                        
+
                         @if(isset($data['about']['description1']))
                             <p class="wow fadeInUp" data-wow-delay="0.2s">
                                 {!! nl2br(e($data['about']['description1'])) !!}
@@ -639,14 +616,14 @@
                             @if(isset($data['why_founded']['mission_intro']))
                                 <p class="mb-2">{{ $data['why_founded']['mission_intro'] }}</p>
                             @endif
-                            
+
                             <ul>
                                 @php
                                     // Filters keys like purpose_1, purpose_2, etc.
                                     $purposes = array_filter($data['why_founded'], function($key) {
                                         return str_contains($key, 'purpose_');
                                     }, ARRAY_FILTER_USE_KEY);
-                                    
+
                                     ksort($purposes);
                                 @endphp
 
