@@ -29,7 +29,7 @@ class Service extends Model
     ];
 
     protected $casts = [
-        'status'   => 'boolean',
+      'status'   => 'boolean',
         'featured' => 'boolean',
     ];
 
@@ -38,7 +38,7 @@ class Service extends Model
      */
     public function scopeActive($query)
     {
-        return $query->where('status', true);
+       return $query->where('status', 1);
     }
 
     public function scopeFeatured($query)
