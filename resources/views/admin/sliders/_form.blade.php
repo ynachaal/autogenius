@@ -8,7 +8,8 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="slider_category_id" class="form-label fw-medium text-dark">Category</label>
-                        <select name="slider_category_id" id="slider_category_id" class="form-control @error('slider_category_id') is-invalid @enderror">
+                        <select name="slider_category_id" id="slider_category_id"
+                            class="form-control @error('slider_category_id') is-invalid @enderror">
                             <option value="">-- Select Category --</option>
                             @foreach($categories as $category)
                                 <option value="{{ $category->id }}" {{ (isset($slider) && $slider->slider_category_id == $category->id) ? 'selected' : (old('slider_category_id') == $category->id ? 'selected' : '') }}>
@@ -22,14 +23,17 @@
                     <div class="col-md-6 mb-3">
                         <label for="type" class="form-label fw-medium text-dark">Media Type</label>
                         <select name="type" id="type" class="form-control">
-                            <option value="image" {{ (isset($slider) && $slider->type == 'image') ? 'selected' : '' }}>Image</option>
+                            <option value="image" {{ (isset($slider) && $slider->type == 'image') ? 'selected' : '' }}>
+                                Image</option>
                             <!-- <option value="video" {{ (isset($slider) && $slider->type == 'video') ? 'selected' : '' }}>Video</option> -->
                         </select>
                     </div>
 
                     <div class="col-md-12 mb-3">
-                        <label for="file" class="form-label fw-medium text-dark">Upload File {{ !isset($slider) ? '(Required)' : '' }}</label>
-                        <input type="file" name="file" id="file" class="form-control @error('file') is-invalid @enderror">
+                        <label for="file" class="form-label fw-medium text-dark">Upload File
+                            {{ !isset($slider) ? '(Required)' : '' }}</label>
+                        <input type="file" name="file" id="file"
+                            class="form-control @error('file') is-invalid @enderror">
                         @if(isset($slider))
                             <div class="mt-2">
                                 <small class="text-muted">Current File: <code>{{ $slider->file }}</code></small>
@@ -38,7 +42,22 @@
                         @error('file') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
 
-                    <div class="col-md-12 mb-3">
+                    <div class="col-md-6 mb-3">
+                        <label for="status" class="form-label fw-medium text-dark">Status</label>
+                        <select name="status" id="status" class="form-control @error('status') is-invalid @enderror">
+                            <option value="1" {{ (isset($slider) && $slider->status == 1) || old('status') == '1' ? 'selected' : '' }}>
+                                Active
+                            </option>
+                            <option value="0" {{ (isset($slider) && $slider->status == 0) || old('status') == '0' ? 'selected' : '' }}>
+                                Inactive
+                            </option>
+                        </select>
+                        @error('status')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <!--   <div class="col-md-12 mb-3">
                         <label for="heading" class="form-label fw-medium text-dark">Heading</label>
                         <input type="text" name="heading" id="heading" value="{{ $slider->heading ?? old('heading') }}" class="form-control @error('heading') is-invalid @enderror">
                         @error('heading') <div class="invalid-feedback">{{ $message }}</div> @enderror
@@ -66,7 +85,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="button2_link" class="form-label fw-medium text-dark">Button 2 Link</label>
                         <input type="url" name="button2_link" id="button2_link" value="{{ $slider->button2_link ?? old('button2_link') }}" class="form-control" placeholder="https://...">
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="d-flex gap-2 mt-3">
@@ -85,7 +104,7 @@
 @if($includeValidation ?? false)
     @push('scripts')
         <script>
-            $(document).ready(function() {
+            $(document).ready(function () {
                 $("#{{ $formId ?? 'sliderForm' }}").validate({
                     rules: {
                         slider_category_id: {
@@ -101,7 +120,7 @@
                         button1_link: {
                             url: true
                         },
-                         button2_link: {
+                        button2_link: {
                             url: true
                         }
                     },
@@ -116,16 +135,16 @@
                     errorElement: "div",
                     errorClass: "invalid-feedback",
                     validClass: "is-valid",
-                    highlight: function(element) {
+                    highlight: function (element) {
                         $(element).addClass("is-invalid").removeClass("is-valid");
                     },
-                    unhighlight: function(element) {
+                    unhighlight: function (element) {
                         $(element).removeClass("is-invalid").addClass("is-valid");
                     },
-                    errorPlacement: function(error, element) {
+                    errorPlacement: function (error, element) {
                         error.insertAfter(element);
                     },
-                    submitHandler: function(form) {
+                    submitHandler: function (form) {
                         form.submit();
                     }
                 });

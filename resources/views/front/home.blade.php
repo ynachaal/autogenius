@@ -405,47 +405,51 @@
             <div class="our-approach bg-section mx-0 w-100">
                 <div class="container">
                     <div class="row align-items-center">
+                       @php
+                            $sliders = app(\App\Services\SliderService::class)
+                                ->getByCategoryName('About AutoGenius'); // change category name if needed
+                        @endphp
+
+                        @if($sliders->count())
                         <div class="col-xl-6">
                             <div class="approach-image-box wow fadeInUp" data-wow-delay="0.2s">
                                 <div class="approach-image-box-1 w-100">
                                     <div id="carouselExample" class="carousel slide carousel-fade">
                                         <div class="carousel-inner">
-                                            <div class="carousel-item active">
-                                                <div class="approach-img">
-                                                    <figure class="image-anime">
-                                                        <img src="{{ asset('images/1.jpg') }}" alt="Car Inspection 1">
-                                                    </figure>
+
+                                            @foreach($sliders as $index => $slider)
+                                                <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                                                    <div class="approach-img">
+                                                        <figure class="image-anime">
+                                                            <img src="{{ asset($slider->file) }}"
+                                                                alt="{{ $slider->heading ?? 'Slider Image' }}">
+                                                        </figure>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="carousel-item">
-                                                <div class="approach-img">
-                                                    <figure class="image-anime">
-                                                        <img src="{{ asset('images/2.jpg') }}" alt="Car Inspection 2">
-                                                    </figure>
-                                                </div>
-                                            </div>
-                                            <div class="carousel-item">
-                                                <div class="approach-img">
-                                                    <figure class="image-anime">
-                                                        <img src="{{ asset('images/new-car-con.jpg') }}" alt="Car Consultation">
-                                                    </figure>
-                                                </div>
-                                            </div>
+                                            @endforeach
+
                                         </div>
-                                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
-                                            data-bs-slide="prev">
-                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                            <span class="visually-hidden">Previous</span>
-                                        </button>
-                                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
-                                            data-bs-slide="next">
-                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                            <span class="visually-hidden">Next</span>
-                                        </button>
+
+                                        @if($sliders->count() > 1)
+                                            <button class="carousel-control-prev" type="button"
+                                                    data-bs-target="#carouselExample" data-bs-slide="prev">
+                                                <span class="carousel-control-prev-icon"></span>
+                                                <span class="visually-hidden">Previous</span>
+                                            </button>
+
+                                            <button class="carousel-control-next" type="button"
+                                                    data-bs-target="#carouselExample" data-bs-slide="next">
+                                                <span class="carousel-control-next-icon"></span>
+                                                <span class="visually-hidden">Next</span>
+                                            </button>
+                                        @endif
+
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        @endif
+
 
                         <div class="col-xl-6">
                             <div class="approach-content">

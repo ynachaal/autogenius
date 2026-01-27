@@ -20,8 +20,8 @@
                 </li>
             </ul>
 
-            <form action="{{ $action }}" method="POST" id="{{ $formId ?? 'service-form' }}" enctype="multipart/form-data"
-                class="p-3 pt-4">
+            <form action="{{ $action }}" method="POST" id="{{ $formId ?? 'service-form' }}"
+                enctype="multipart/form-data" class="p-3 pt-4">
 
                 @csrf
                 {{ $method ?? '' }}
@@ -29,72 +29,77 @@
                 <div class="tab-content">
 
                     <div class="tab-pane fade show active" id="general">
-    <div class="row g-3">
-        {{-- Title --}}
-        <div class="col-md-6">
-            <label class="form-label fw-medium">Title</label>
-            <input type="text" name="title" value="{{ $title ?? old('title') }}"
-                class="form-control @error('title') is-invalid @enderror" required>
-            @error('title')<div class="text-danger small">{{ $message }}</div>@enderror
-        </div>
+                        <div class="row g-3">
+                            {{-- Title --}}
+                            <div class="col-md-6">
+                                <label class="form-label fw-medium">Title</label>
+                                <input type="text" name="title" value="{{ $title ?? old('title') }}"
+                                    class="form-control @error('title') is-invalid @enderror" required>
+                                @error('title')<div class="text-danger small">{{ $message }}</div>@enderror
+                            </div>
 
-        {{-- Slug --}}
-        <div class="col-md-6">
-            <label class="form-label fw-medium">Slug (optional)</label>
-            <input type="text" name="slug" value="{{ $slug ?? old('slug') }}"
-                class="form-control @error('slug') is-invalid @enderror">
-            <small class="text-muted">Leave blank to auto-generate. Lowercase, numbers, and hyphens only.</small>
-            @error('slug')<div class="text-danger small">{{ $message }}</div>@enderror
-        </div>
+                            {{-- Slug --}}
+                            <div class="col-md-6">
+                                <label class="form-label fw-medium">Slug (optional)</label>
+                                <input type="text" name="slug" value="{{ $slug ?? old('slug') }}"
+                                    class="form-control @error('slug') is-invalid @enderror">
+                                <small class="text-muted">Leave blank to auto-generate. Lowercase, numbers, and hyphens
+                                    only.</small>
+                                @error('slug')<div class="text-danger small">{{ $message }}</div>@enderror
+                            </div>
 
-        {{-- Sub Heading --}}
-        <div class="col-md-6">
-            <label class="form-label fw-medium">Sub Heading</label>
-            <input type="text" name="sub_heading" value="{{ $sub_heading ?? old('sub_heading') }}"
-                class="form-control @error('sub_heading') is-invalid @enderror">
-            @error('sub_heading')<div class="text-danger small">{{ $message }}</div>@enderror
-        </div>
+                            {{-- Sub Heading --}}
+                            <div class="col-md-6">
+                                <label class="form-label fw-medium">Sub Heading</label>
+                                <input type="text" name="sub_heading" value="{{ $sub_heading ?? old('sub_heading') }}"
+                                    class="form-control @error('sub_heading') is-invalid @enderror">
+                                @error('sub_heading')<div class="text-danger small">{{ $message }}</div>@enderror
+                            </div>
 
-        {{-- Image --}}
-        <div class="col-md-6">
-            <label class="form-label fw-medium">Service Image</label>
-            <input type="file" name="image" class="form-control @error('image') is-invalid @enderror">
-            @if(!empty($image))
-                <div class="mt-2">
-                    <img src="{{ asset('storage/' . $image) }}" class="img-thumbnail" style="max-width:200px">
-                    <div class="form-check mt-1">
-                        <input type="checkbox" name="remove_image" value="1" class="form-check-input" id="removeImg">
-                        <label class="form-check-label text-danger small" for="removeImg">Remove existing image</label>
+                            {{-- Image --}}
+                            <div class="col-md-6">
+                                <label class="form-label fw-medium">Service Image</label>
+                                <input type="file" name="image"
+                                    class="form-control @error('image') is-invalid @enderror">
+                                @if(!empty($image))
+                                    <div class="mt-2">
+                                        <img src="{{ asset('storage/' . $image) }}" class="img-thumbnail"
+                                            style="max-width:200px">
+                                        <div class="form-check mt-1">
+                                            <input type="checkbox" name="remove_image" value="1" class="form-check-input"
+                                                id="removeImg">
+                                            <label class="form-check-label text-danger small" for="removeImg">Remove
+                                                existing image</label>
+                                        </div>
+                                    </div>
+                                @endif
+                                @error('image')<div class="text-danger small">{{ $message }}</div>@enderror
+                            </div>
+
+                            {{-- Description --}}
+                            <div class="col-12">
+                                <label for="editor" class="form-label fw-medium">Description</label>
+                                <textarea name="description" id="editor" rows="4"
+                                    class="form-control tinymce-editor @error('description') is-invalid @enderror">{{ $description ?? old('description') }}</textarea>
+                                @error('description')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
+                            </div>
+
+                            {{-- Status & Featured --}}
+                            <div class="col-12 d-flex gap-4">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="status" value="1"
+                                        @checked($status ?? old('status', true))>
+                                    <label class="form-check-label">Active</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="featured" value="1"
+                                        @checked($featured ?? old('featured'))>
+                                    <label class="form-check-label">Featured</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            @endif
-            @error('image')<div class="text-danger small">{{ $message }}</div>@enderror
-        </div>
-
-        {{-- Description --}}
-        <div class="col-12">
-            <label for="editor" class="form-label fw-medium">Description</label>
-            <textarea name="description" id="editor" rows="4"
-                class="form-control tinymce-editor @error('description') is-invalid @enderror">{{ $description ?? old('description') }}</textarea>
-            @error('description')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
-        </div>
-
-        {{-- Status & Featured --}}
-        <div class="col-12 d-flex gap-4">
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="status" value="1"
-                    @checked($status ?? old('status', true))>
-                <label class="form-check-label">Active</label>
-            </div>
-
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="featured" value="1"
-                    @checked($featured ?? old('featured'))>
-                <label class="form-check-label">Featured</label>
-            </div>
-        </div>
-    </div>
-</div>
 
                     {{-- ================= SEO TAB ================= --}}
                     <div class="tab-pane fade" id="seo">

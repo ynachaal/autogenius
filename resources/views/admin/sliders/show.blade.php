@@ -63,7 +63,7 @@
                                     <span>{{ $slider->created_at->format('M d, Y H:i') }}</span>
                                 </div>
                                 
-                                <div class="col-12 mb-3">
+                               <!--  <div class="col-12 mb-3">
                                     <small class="text-uppercase text-muted fw-bold d-block">Heading</small>
                                     <h4 class="fw-bold">{{ $slider->heading ?: 'N/A' }}</h4>
                                 </div>
@@ -71,12 +71,12 @@
                                 <div class="col-12 mb-3">
                                     <small class="text-uppercase text-muted fw-bold d-block">Sub Heading</small>
                                     <p class="text-muted fs-5">{{ $slider->subheading ?: 'N/A' }}</p>
-                                </div>
+                                </div> -->
                             </div>
 
                             <hr class="my-3">
 
-                            <div class="row">
+                           <!--  <div class="row">
                                 {{-- Button 1 --}}
                                 <div class="col-md-6 mb-3">
                                     <label class="small fw-bold text-muted">Button 1</label>
@@ -104,7 +104,7 @@
                                         <p class="text-muted small">Not configured</p>
                                     @endif
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 
