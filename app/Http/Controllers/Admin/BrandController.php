@@ -25,7 +25,7 @@ class BrandController extends Controller
         if ($search) {
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('slug', 'like', "%{$search}%");
+                    ->orWhere('slug', 'like', "%{$search}%");
             });
         }
 
@@ -93,7 +93,12 @@ class BrandController extends Controller
             'meta_title' => ['nullable', 'string', 'max:191'],
             'meta_description' => ['nullable', 'string'],
             'meta_keywords' => ['nullable', 'string'],
-           'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'image' => [
+                'nullable',
+                'file',
+                'mimes:jpg,jpeg,png,gif,svg',
+                'max:2048',
+            ],
         ]);
 
         // Generate unique slug
@@ -103,7 +108,7 @@ class BrandController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '_' . Str::slug($validatedData['name']) . '.' . $image->getClientOriginalExtension();
-            
+
             // Move to public/uploads/brands
             $image->move(public_path('uploads/brands'), $imageName);
             $validatedData['image'] = 'uploads/brands/' . $imageName;
@@ -144,8 +149,13 @@ class BrandController extends Controller
             'meta_title' => ['nullable', 'string', 'max:191'],
             'meta_description' => ['nullable', 'string'],
             'meta_keywords' => ['nullable', 'string'],
-           'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-            
+            'image' => [
+                'nullable',
+                'file',
+                'mimes:jpg,jpeg,png,gif,svg',
+                'max:2048',
+            ],
+
         ]);
 
         // Update slug if name changed
