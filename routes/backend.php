@@ -42,6 +42,8 @@ Route::middleware(['auth', AdminMiddleware::class])
 
         Route::get('/migrate', [DashboardController::class, 'migrate'])->name('migrate');
         Route::get('/clearCache', [DashboardController::class, 'clearCache'])->name('clearCache');
+          Route::get('/storage-link', [DashboardController::class, 'storageLink'])
+        ->name('storage.link');
 
         Route::resource('contact-submissions', ContactSubmissionController::class);
         Route::resource('services', ServiceController::class);
