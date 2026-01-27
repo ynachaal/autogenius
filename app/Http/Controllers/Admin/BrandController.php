@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 
 class BrandController extends Controller
@@ -25,7 +26,7 @@ class BrandController extends Controller
         if ($search) {
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('slug', 'like', "%{$search}%");
+                    ->orWhere('slug', 'like', "%{$search}%");
             });
         }
 
@@ -85,7 +86,12 @@ class BrandController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => ['required', 'string', 'max:191', 'unique:brands,name'],
+           'name' => [
+                'required', 
+                'string', 
+                'max:191', 
+                Rule::unique('brands')->whereNull('deleted_at')
+            ],
             'description' => ['nullable', 'string'],
             'status' => ['in:active,inactive'],
             'is_featured' => ['boolean'],
@@ -93,7 +99,12 @@ class BrandController extends Controller
             'meta_title' => ['nullable', 'string', 'max:191'],
             'meta_description' => ['nullable', 'string'],
             'meta_keywords' => ['nullable', 'string'],
-           'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'image' => [
+                'nullable',
+                'file',
+                'mimes:jpg,jpeg,png,gif,svg',
+                'max:2048',
+            ],
         ]);
 
         // Generate unique slug
@@ -103,7 +114,7 @@ class BrandController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '_' . Str::slug($validatedData['name']) . '.' . $image->getClientOriginalExtension();
-            
+
             // Move to public/uploads/brands
             $image->move(public_path('uploads/brands'), $imageName);
             $validatedData['image'] = 'uploads/brands/' . $imageName;
@@ -136,7 +147,15 @@ class BrandController extends Controller
     public function update(Request $request, Brand $brand)
     {
         $validatedData = $request->validate([
-            'name' => ['required', 'string', 'max:191', 'unique:brands,name,' . $brand->id],
+          'name' => [
+            'required', 
+            'string', 
+            'max:191', 
+            // Change: Ignore current ID AND ignore soft-deleted records
+            Rule::unique('brands', 'name')
+                ->ignore($brand->id)
+                ->whereNull('deleted_at')
+        ],
             'description' => ['nullable', 'string'],
             'status' => ['in:active,inactive'],
             'is_featured' => ['boolean'],
@@ -144,8 +163,13 @@ class BrandController extends Controller
             'meta_title' => ['nullable', 'string', 'max:191'],
             'meta_description' => ['nullable', 'string'],
             'meta_keywords' => ['nullable', 'string'],
-           'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-            
+            'image' => [
+                'nullable',
+                'file',
+                'mimes:jpg,jpeg,png,gif,svg',
+                'max:2048',
+            ],
+
         ]);
 
         // Update slug if name changed

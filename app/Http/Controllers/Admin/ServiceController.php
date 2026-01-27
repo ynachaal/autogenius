@@ -92,7 +92,7 @@ class ServiceController extends Controller
                 'nullable',
                 'string',
                 'max:255',
-                Rule::unique('services', 'slug'),
+               Rule::unique('services', 'slug')->whereNull('deleted_at') // Check uniqueness only against non-deleted
             ],
             'sub_heading' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
@@ -123,7 +123,12 @@ class ServiceController extends Controller
             $validatedData['image'] = $request->file('image')->store('services', 'public');
         }
 
-        $service = Service::create($validatedData);
+        $data = $validatedData + [
+            'status'   => $request->has('status') ? 1 : 0,
+            'featured' => $request->has('featured') ? 1 : 0,
+        ];
+
+        $service = Service::create($data);
 
         return redirect()->route('admin.services.index')->with('success', 'Service created successfully!');
     }
@@ -155,7 +160,9 @@ class ServiceController extends Controller
                 'nullable',
                 'string',
                 'max:255',
-                Rule::unique('services', 'slug')->ignore($service->id),
+               Rule::unique('services', 'slug')
+                ->ignore($service->id)
+                ->whereNull('deleted_at'),
             ],
             'sub_heading'  => ['nullable', 'string', 'max:255'],
             'description'  => ['nullable', 'string'],
@@ -210,7 +217,15 @@ class ServiceController extends Controller
             $validatedData['image'] = $service->image;
         }
 
-        $service->update($validatedData);
+         $data = $validatedData + [
+            'status'   => $request->has('status') ? 1 : 0,
+            'featured' => $request->has('featured') ? 1 : 0,
+        ];
+
+          $service->update($data);
+
+
+      
 
         return redirect()
             ->route('admin.services.show', $service)

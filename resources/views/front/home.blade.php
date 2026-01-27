@@ -18,8 +18,8 @@
                             <!-- Section Title Start -->
                             <div class="section-title">
                                 <!-- Header End -->
-                                <h1 class="text-anime-style-3" data-cursor="-opaque">India’s Most Trusted Personal Car Consultant</h1>
-                                <p class="text-center mx-auto">New Cars • Pre Owned Cars • 288+ Point Inspections</p>
+                                <h1 class="text-anime-style-3" data-cursor="-opaque">{{ config('settings.home_page_banner_title', '') }}</h1>
+                                <p class="text-center mx-auto">{{ config('settings.home_page_banner_text', '') }}</p>
                             </div>
                             <!-- Section Title End -->
 
@@ -73,37 +73,14 @@
                     </div>
                 </div>
 
-             <div class="row">
-                @foreach($data['services'] as $service)
-                    <div class="col-xl-3 col-lg-4 col-md-6">
-                        <div class="service-item-prime wow fadeInUp" data-wow-delay="{{ $loop->iteration * 0.1 }}s">
-                            <div class="service-item-image-prime">
-                                <a href="{{ url('services/' . $service->slug) }}">
-                                    <figure>
-                                        @if($service->image)
-                                            <img src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->title }}">
-                                        @else
-                                            <img src="{{ asset('images/placeholder-car.jpg') }}" alt="Placeholder Image">
-                                        @endif
-                                    </figure>
-                                </a>
-                            </div>
-                            <div class="service-item-body-prime">
-                                <div class="service-item-content-prime">
-                                    <h3>
-                                        <a href="{{ url('services/' . $service->slug) }}">{{ $service->title }}</a>
-                                    </h3>
-                                    <p>{{ $service->sub_heading }}</p>
-                                </div>
-                                <div class="service-readmore-btn-prime">
-                                    <a href="{{ url('services/' . $service->slug) }}" class="readmore-btn">Read More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-                <a href="javascript:void(0)" class="btn-default mx-auto d-block w-fit mt-3">View All Services</a>
+                <div class="row">
+                    @foreach($data['services'] as $service)
+                        <x-service-card :service="$service" :delay="$loop->iteration * 0.1" />
+                    @endforeach
+                </div>
+                <a href="{{ route('services.index') }}" class="btn-default mx-auto d-block w-fit mt-3">
+                    View All Services
+                </a>
             </div>
         </div>
         <!-- Our Services Section End -->
@@ -349,56 +326,9 @@
                     <div class="company-logo-slider">
                         <p>Experience across the world’s leading automotive brands</p>
                         <div class="swiper">
-                            <div class="swiper-wrapper">
-                                <!-- Hero Slide Start -->
-                                <div class="swiper-slide">
-                                    <div class="company-logo">
-                                        <img src="{{ asset('images/company-logo-1.svg') }}" alt="">
-                                    </div>
-                                </div>
-                                <!-- Hero Slide End -->
-
-                                <!-- Hero Slide Start -->
-                                <div class="swiper-slide">
-                                    <div class="company-logo">
-                                        <img src="{{ asset('images/company-logo-2.svg') }}" alt="">
-                                    </div>
-                                </div>
-                                <!-- Hero Slide End -->
-
-                                <!-- Hero Slide Start -->
-                                <div class="swiper-slide">
-                                    <div class="company-logo">
-                                        <img src="{{ asset('images/company-logo-3.svg') }}" alt="">
-                                    </div>
-                                </div>
-                                <!-- Hero Slide End -->
-
-                                <!-- Hero Slide Start -->
-                                <div class="swiper-slide">
-                                    <div class="company-logo">
-                                        <img src="{{ asset('images/company-logo-4.svg') }}" alt="">
-                                    </div>
-                                </div>
-                                <!-- Hero Slide End -->
-
-                                <!-- Hero Slide Start -->
-                                <div class="swiper-slide">
-                                    <div class="company-logo">
-                                        <img src="{{ asset('images/company-logo-5.svg') }}" alt="">
-                                    </div>
-                                </div>
-                                <!-- Hero Slide End -->
-
-                                <!-- Hero Slide Start -->
-                                <div class="swiper-slide">
-                                    <div class="company-logo">
-                                        <img src="{{ asset('images/company-logo-6.svg') }}" alt="">
-                                    </div>
-                                </div>
-                                <!-- Hero Slide End -->
-                            </div>
+                            <div class="swiper-wrapper"> <x-brand-swiper :brands="$data['featuredBrands']" /> </div>
                         </div>
+
                     </div>
                     <!-- Hero Slider End -->
                 </div>
@@ -406,251 +336,254 @@
         </div>
 
         <!-- About Us Section Start -->
-       @if(isset($data['protecting_buyers']))
-<div class="about-us bg-section mb-2r mx-0 w-100">
-    <div class="container">
-        <div class="row">
-            <div class="col-xxl-4 col-xl-3">
-                <div class="logo mt-5 mb-3">
-                    {{-- Using the "image" key from your array --}}
-                    @if(isset($data['protecting_buyers']['image']))
-                        <img src="{{ asset($data['protecting_buyers']['image']) }}"
-                             class="img-fluid py-3 w-75 mx-auto d-block"
-                             alt="AutoGenius Logo Icon">
-                    @else
-                        <img src="{{ asset('images/logo-icon.png') }}"
-                             class="img-fluid py-3 w-75 mx-auto d-block"
-                             alt="Default Icon">
-                    @endif
-                </div>
-            </div>
-
-            <div class="col-xxl-8 col-xl-9">
-                <div class="about-us-content">
-                    <div class="section-title">
-                        <h2 class="text-effect" data-cursor="-opaque">
-                            {{ $data['protecting_buyers']['heading'] ?? 'Protecting Buyers from Costly Car Mistakes' }}
-                        </h2>
-
-                        {{-- Handling description1 --}}
-                        @if(isset($data['protecting_buyers']['description1']))
-                            <p>{!! nl2br(e($data['protecting_buyers']['description1'])) !!}</p>
-                        @endif
-
-                        {{-- Handling description2 (The Quote) --}}
-                        @if(isset($data['protecting_buyers']['description2']))
-                            <p><strong>{{ $data['protecting_buyers']['description2'] }}</strong></p>
-                        @endif
-                    </div>
-                    <div class="about-us-body wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="about-us-btn">
-                            {{-- Link to contact or lead form --}}
-                            <a href="tel:{{ $data['site']['phone'] ?? '+918668228668' }}" class="btn-default">
-                                Talk to an Expert Before You Decide
-                            </a>
+        @if(isset($data['protecting_buyers']))
+            <div class="about-us bg-section mb-2r mx-0 w-100">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xxl-4 col-xl-3">
+                            <div class="logo mt-5 mb-3">
+                                {{-- Using the "image" key from your array --}}
+                                @if(isset($data['protecting_buyers']['image']))
+                                    <img src="{{ asset($data['protecting_buyers']['image']) }}"
+                                        class="img-fluid py-3 w-75 mx-auto d-block" alt="AutoGenius Logo Icon">
+                                @else
+                                    <img src="{{ asset('images/logo-icon.png') }}" class="img-fluid py-3 w-75 mx-auto d-block"
+                                        alt="Default Icon">
+                                @endif
+                            </div>
                         </div>
 
-                        {{-- Hidden contact list from original template --}}
-                        <div class="about-contact-items-list d-none">
-                            <div class="about-contact-item">
-                                <div class="icon-box">
-                                    <img src="{{ asset('images/icon-phone-accent.svg') }}" alt="">
+                        <div class="col-xxl-8 col-xl-9">
+                            <div class="about-us-content">
+                                <div class="section-title">
+                                    <h2 class="text-effect" data-cursor="-opaque">
+                                        {{ $data['protecting_buyers']['heading'] ?? 'Protecting Buyers from Costly Car Mistakes' }}
+                                    </h2>
+
+                                    {{-- Handling description1 --}}
+                                    @if(isset($data['protecting_buyers']['description1']))
+                                        <p>{!! nl2br(e($data['protecting_buyers']['description1'])) !!}</p>
+                                    @endif
+
+                                    {{-- Handling description2 (The Quote) --}}
+                                    @if(isset($data['protecting_buyers']['description2']))
+                                        <p><strong>{{ $data['protecting_buyers']['description2'] }}</strong></p>
+                                    @endif
                                 </div>
-                                <div class="about-contact-item-content">
-                                    <h3>Contact Info</h3>
-                                    <p>{{ $data['site']['phone_display'] ?? '+91 8668 22 8668' }}</p>
+                                <div class="about-us-body wow fadeInUp" data-wow-delay="0.2s">
+                                    <div class="about-us-btn">
+                                        {{-- Link to contact or lead form --}}
+                                        <a href="tel:{{ $data['site']['phone'] ?? '+918668228668' }}" class="btn-default">
+                                            Talk to an Expert Before You Decide
+                                        </a>
+                                    </div>
+
+                                    {{-- Hidden contact list from original template --}}
+                                    <div class="about-contact-items-list d-none">
+                                        <div class="about-contact-item">
+                                            <div class="icon-box">
+                                                <img src="{{ asset('images/icon-phone-accent.svg') }}" alt="">
+                                            </div>
+                                            <div class="about-contact-item-content">
+                                                <h3>Contact Info</h3>
+                                                <p>{{ $data['site']['phone_display'] ?? '+91 8668 22 8668' }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    </div>
                 </div>
-        </div>
-    </div>
-</div>
-@endif
+            </div>
+        @endif
         <!-- About Us Section End -->
 
         <!-- Our Approach Section Start -->
 
-@if(isset($data['about']))
-<div class="our-approach bg-section mx-0 w-100">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-xl-6">
-                <div class="approach-image-box wow fadeInUp" data-wow-delay="0.2s">
-                    <div class="approach-image-box-1 w-100">
-                        <div id="carouselExample" class="carousel slide carousel-fade">
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <div class="approach-img">
-                                        <figure class="image-anime">
-                                            <img src="{{ asset('images/1.jpg') }}" alt="Car Inspection 1">
-                                        </figure>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="approach-img">
-                                        <figure class="image-anime">
-                                            <img src="{{ asset('images/2.jpg') }}" alt="Car Inspection 2">
-                                        </figure>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="approach-img">
-                                        <figure class="image-anime">
-                                            <img src="{{ asset('images/new-car-con.jpg') }}" alt="Car Consultation">
-                                        </figure>
+        @if(isset($data['about']))
+            <div class="our-approach bg-section mx-0 w-100">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-xl-6">
+                            <div class="approach-image-box wow fadeInUp" data-wow-delay="0.2s">
+                                <div class="approach-image-box-1 w-100">
+                                    <div id="carouselExample" class="carousel slide carousel-fade">
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item active">
+                                                <div class="approach-img">
+                                                    <figure class="image-anime">
+                                                        <img src="{{ asset('images/1.jpg') }}" alt="Car Inspection 1">
+                                                    </figure>
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="approach-img">
+                                                    <figure class="image-anime">
+                                                        <img src="{{ asset('images/2.jpg') }}" alt="Car Inspection 2">
+                                                    </figure>
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="approach-img">
+                                                    <figure class="image-anime">
+                                                        <img src="{{ asset('images/new-car-con.jpg') }}" alt="Car Consultation">
+                                                    </figure>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
+                                            data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
+                                            data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
+                        </div>
+
+                        <div class="col-xl-6">
+                            <div class="approach-content">
+                                <div class="section-title">
+                                    <h3 class="wow fadeInUp">About AutoGenius</h3>
+                                    <h2 class="text-anime-style-3" data-cursor="-opaque">
+                                        {{ $data['about']['heading'] ?? 'AUTOGENIUS WAS FOUNDED WITH ONE SIMPLE BELIEF:' }}
+                                    </h2>
+
+                                    @if(isset($data['about']['description1']))
+                                        <p class="wow fadeInUp" data-wow-delay="0.2s">
+                                            {!! nl2br(e($data['about']['description1'])) !!}
+                                        </p>
+                                    @endif
+                                </div>
+                                <div class="why-choose-list-ultimate wow fadeInUp mt-2 mb-2" data-wow-delay="0.4s">
+                                    <ul>
+                                        @php
+                                            // Pulling market_issue_1, market_issue_2, etc.
+                                            $issues = array_filter($data['about'], function ($key) {
+                                                return str_contains($key, 'market_issue_');
+                                            }, ARRAY_FILTER_USE_KEY);
+                                            ksort($issues);
+                                        @endphp
+
+                                        @foreach($issues as $issue)
+                                            <li>{{ $issue }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                                <br>
+
+                                {{-- Dynamic Mission Text --}}
+                                @if(isset($data['about']['mission_text']))
+                                    <p>{{ $data['about']['mission_text'] }}</p>
+                                @endif
+
+                                {{-- Dynamic Closing Hook --}}
+                                @if(isset($data['about']['closing_hook']))
+                                    @php
+                                        // Splitting "We don’t sell cars. We help people buy the right one." into two lines
+                                        $hooks = explode('. ', $data['about']['closing_hook']);
+                                    @endphp
+                                    <p>
+                                        @foreach($hooks as $hook)
+                                            {{ $hook }}{{ !$loop->last ? '.' : '' }} @if(!$loop->last) <br> @endif
+                                        @endforeach
+                                    </p>
+                                @endif
+
+                                <a href="tel:{{ $data['site']['phone'] ?? '+918668228668' }}" class="btn-default mt-3">
+                                    Speak to an AutoGenius Expert
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-                </div>
+            </div>
 
-            <div class="col-xl-6">
-                <div class="approach-content">
-                    <div class="section-title">
-                        <h3 class="wow fadeInUp">About AutoGenius</h3>
-                        <h2 class="text-anime-style-3" data-cursor="-opaque">
-                            {{ $data['about']['heading'] ?? 'AUTOGENIUS WAS FOUNDED WITH ONE SIMPLE BELIEF:' }}
-                        </h2>
-
-                        @if(isset($data['about']['description1']))
-                            <p class="wow fadeInUp" data-wow-delay="0.2s">
-                                {!! nl2br(e($data['about']['description1'])) !!}
-                            </p>
-                        @endif
-                    </div>
-                    <div class="why-choose-list-ultimate wow fadeInUp mt-2 mb-2" data-wow-delay="0.4s">
-                        <ul>
-                            @php
-                                // Pulling market_issue_1, market_issue_2, etc.
-                                $issues = array_filter($data['about'], function($key) {
-                                    return str_contains($key, 'market_issue_');
-                                }, ARRAY_FILTER_USE_KEY);
-                                ksort($issues);
-                            @endphp
-
-                            @foreach($issues as $issue)
-                                <li>{{ $issue }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    <br>
-
-                    {{-- Dynamic Mission Text --}}
-                    @if(isset($data['about']['mission_text']))
-                        <p>{{ $data['about']['mission_text'] }}</p>
-                    @endif
-
-                    {{-- Dynamic Closing Hook --}}
-                    @if(isset($data['about']['closing_hook']))
-                        @php
-                            // Splitting "We don’t sell cars. We help people buy the right one." into two lines
-                            $hooks = explode('. ', $data['about']['closing_hook']);
-                        @endphp
-                        <p>
-                            @foreach($hooks as $hook)
-                                {{ $hook }}{{ !$loop->last ? '.' : '' }} @if(!$loop->last) <br> @endif
-                            @endforeach
-                        </p>
-                    @endif
-
-                    <a href="tel:{{ $data['site']['phone'] ?? '+918668228668' }}" class="btn-default mt-3">
-                        Speak to an AutoGenius Expert
-                    </a>
-                </div>
-                </div>
-        </div>
-    </div>
-</div>
-
-@endif
+        @endif
         <!-- Our Approach Section End -->
 
         <!-- What We Do Section Start -->
-       @if(isset($data['why_founded']))
-<div class="what-we-do-ultimate">
-    <div class="container">
-        <div class="row section-row">
-            <div class="col-lg-12">
-                <div class="section-title section-title-center">
-                    <h3 class="wow fadeInUp">
-                        {{ $data['why_founded']['blocks_heading'] ?? 'WHY WE FOUNDED AUTOGENIUS' }}
-                    </h3>
-                </div>
-            </div>
-        </div>
+        @if(isset($data['why_founded']))
+            <div class="what-we-do-ultimate">
+                <div class="container">
+                    <div class="row section-row">
+                        <div class="col-lg-12">
+                            <div class="section-title section-title-center">
+                                <h3 class="wow fadeInUp">
+                                    {{ $data['why_founded']['blocks_heading'] ?? 'WHY WE FOUNDED AUTOGENIUS' }}
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
 
-        <div class="row">
-            {{-- Left Image --}}
-            <div class="col-xl-3 col-md-6">
-                <div class="what-we-image-ultimate wow fadeInUp">
-                    <figure class="image-anime">
-                        <img src="{{ asset($data['why_founded']['image1'] ?? 'images/img-1.jpg') }}" alt="Car Inspection">
-                    </figure>
-                </div>
-            </div>
-
-            <div class="col-xl-6 col-md-6">
-                <div class="what-we-item-box-ultimate wow fadeInUp" data-wow-delay="0.2s">
-                    <div class="what-we-client-box-ultimate">
-                        {{-- Main Statement --}}
-                        <div class="what-we-client-content-ultimate">
-                            <h3>{{ $data['why_founded']['main_statement'] ?? 'Most car problems don’t start on the road - they start at the time of purchase.' }}</h3>
+                    <div class="row">
+                        {{-- Left Image --}}
+                        <div class="col-xl-3 col-md-6">
+                            <div class="what-we-image-ultimate wow fadeInUp">
+                                <figure class="image-anime">
+                                    <img src="{{ asset($data['why_founded']['image1'] ?? 'images/img-1.jpg') }}"
+                                        alt="Car Inspection">
+                                </figure>
+                            </div>
                         </div>
 
-                        <div class="why-choose-list-ultimate w-100 wow fadeInUp mt-3 mb-2" data-wow-delay="0.4s">
-                            {{-- Database Key: why-we-founded-autogenius_mission_intro --}}
-                            @if(isset($data['why_founded']['mission_intro']))
-                                <p class="mb-2">{{ $data['why_founded']['mission_intro'] }}</p>
-                            @endif
+                        <div class="col-xl-6 col-md-6">
+                            <div class="what-we-item-box-ultimate wow fadeInUp" data-wow-delay="0.2s">
+                                <div class="what-we-client-box-ultimate">
+                                    {{-- Main Statement --}}
+                                    <div class="what-we-client-content-ultimate">
+                                        <h3>{{ $data['why_founded']['main_statement'] ?? 'Most car problems don’t start on the road - they start at the time of purchase.' }}
+                                        </h3>
+                                    </div>
 
-                            <ul>
-                                @php
-                                    // Filters keys like purpose_1, purpose_2, etc.
-                                    $purposes = array_filter($data['why_founded'], function($key) {
-                                        return str_contains($key, 'purpose_');
-                                    }, ARRAY_FILTER_USE_KEY);
+                                    <div class="why-choose-list-ultimate w-100 wow fadeInUp mt-3 mb-2" data-wow-delay="0.4s">
+                                        {{-- Database Key: why-we-founded-autogenius_mission_intro --}}
+                                        @if(isset($data['why_founded']['mission_intro']))
+                                            <p class="mb-2">{{ $data['why_founded']['mission_intro'] }}</p>
+                                        @endif
 
-                                    ksort($purposes);
-                                @endphp
+                                        <ul>
+                                            @php
+                                                // Filters keys like purpose_1, purpose_2, etc.
+                                                $purposes = array_filter($data['why_founded'], function ($key) {
+                                                    return str_contains($key, 'purpose_');
+                                                }, ARRAY_FILTER_USE_KEY);
 
-                                @foreach($purposes as $purpose)
-                                    <li>{{ $purpose }}</li>
-                                @endforeach
-                            </ul>
+                                                ksort($purposes);
+                                            @endphp
+
+                                            @foreach($purposes as $purpose)
+                                                <li>{{ $purpose }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                    <br />
+                                    {{-- Database Key: why-we-founded-autogenius_closing_text --}}
+                                    @if(isset($data['why_founded']['closing_text']))
+                                        <p>{{ $data['why_founded']['closing_text'] }}</p>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
-                        <br />
-                        {{-- Database Key: why-we-founded-autogenius_closing_text --}}
-                        @if(isset($data['why_founded']['closing_text']))
-                            <p>{{ $data['why_founded']['closing_text'] }}</p>
-                        @endif
+
+                        {{-- Right Image --}}
+                        <div class="col-xl-3 col-md-12">
+                            <div class="what-we-image-ultimate wow fadeInUp">
+                                <figure class="image-anime">
+                                    <img src="{{ asset($data['why_founded']['image2'] ?? 'images/car-cust.jpg') }}"
+                                        alt="Customer Satisfaction">
+                                </figure>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            {{-- Right Image --}}
-            <div class="col-xl-3 col-md-12">
-                <div class="what-we-image-ultimate wow fadeInUp">
-                    <figure class="image-anime">
-                        <img src="{{ asset($data['why_founded']['image2'] ?? 'images/car-cust.jpg') }}" alt="Customer Satisfaction">
-                    </figure>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endif
+        @endif
         <!-- What We Do Section End -->
 @endsection

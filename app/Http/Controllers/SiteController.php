@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\PropertyService;
-use App\Services\PropertyAreaService;
+
+use App\Services\PageService;
+
 use App\Services\ContentMetaService; // Import the service
-use App\Services\BlogService;
-use App\Services\DeveloperPartnerService;
-use App\Services\WhyChooseUsService;
+
+
+
 use App\Services\EmailService;
 use App\Services\ServiceService;
-use App\Models\PropertyType;
+use App\Services\BrandService;
+
 use Illuminate\Support\Facades\Artisan;
 use App\Models\ContactSubmission;
 use Illuminate\Http\Request;
@@ -23,32 +25,39 @@ class SiteController extends Controller
     protected EmailService $emailService;
     protected ContentMetaService $metaService;
     protected ServiceService $serviceService;
+    protected BrandService $brandService; // Add this
+    protected PageService $pageService;
 
     public function __construct(
         EmailService $emailService,
         ServiceService $serviceService,
-        ContentMetaService $metaService // Inject the service
-        
+        ContentMetaService $metaService,
+         PageService $pageService,
+        BrandService $brandService // Inject BrandService
+
     ) {
         $this->emailService = $emailService;
         $this->serviceService = $serviceService;
         $this->metaService = $metaService;
-        
+        $this->brandService = $brandService;
+         $this->pageService = $pageService;
+
     }
 
     public function index(): View
     {
         $data = [
-        'trusted_experts'    => $this->metaService->getAllValues('trusted-car-expert'),
-        'how_it_works'       => $this->metaService->getAllValues('how-autogenius-works'),
-        'service_area'       => $this->metaService->getAllValues('service-area'),
-        'why_choose'         => $this->metaService->getAllValues('why-choose-autogenius'),
-        'protecting_buyers'  => $this->metaService->getAllValues('protecting-buyers'),
-        'about'              => $this->metaService->getAllValues('about-autogenius'),
-        'why_founded'        => $this->metaService->getAllValues('why-we-founded-autogenius'),
-        'services'           => $this->serviceService->getFeaturedServices(8),
-     ];
-        
+            'trusted_experts' => $this->metaService->getAllValues('trusted-car-expert'),
+            'how_it_works' => $this->metaService->getAllValues('how-autogenius-works'),
+            'service_area' => $this->metaService->getAllValues('service-area'),
+            'why_choose' => $this->metaService->getAllValues('why-choose-autogenius'),
+            'protecting_buyers' => $this->metaService->getAllValues('protecting-buyers'),
+            'about' => $this->metaService->getAllValues('about-autogenius'),
+            'why_founded' => $this->metaService->getAllValues('why-we-founded-autogenius'),
+            'services' => $this->serviceService->getFeaturedServices(8),
+            'featuredBrands' => $this->brandService->getFeaturedBrands()['brands'],
+        ];
+
         return view('front.home', compact('data'));
     }
 
@@ -61,10 +70,8 @@ class SiteController extends Controller
     public function services(): View
     {
         $data = [
-            'services' => $this->serviceService->getAllActiveServices(),
-            'meta'     => $this->metaService->getAllValues('services-page'),
+            'services' => $this->serviceService->getPaginatedServices(12),
         ];
-
         return view('front.services.index', compact('data'));
     }
 
@@ -83,6 +90,17 @@ class SiteController extends Controller
         return view('front.services.show', compact('data'));
     }
 
+    public function pageDetail(string $slug): View
+{
+    $page = $this->pageService->getBySlug($slug);
+
+    if (!$page) {
+        abort(404);
+    }
+
+    return view('front.pages.show', compact('page'));
+}
+
     public function contactUs(Request $request): RedirectResponse|View
     {
         if ($request->isMethod('get')) {
@@ -90,8 +108,8 @@ class SiteController extends Controller
         }
 
         $validated = $request->validate([
-            'name'    => 'required|string|max:255',
-            'email'   => 'required|email|max:255',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
             'message' => 'required|string|max:2000',
         ]);
 

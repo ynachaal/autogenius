@@ -3,38 +3,60 @@
 namespace App\Services;
 
 use App\Models\Page;
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class PageService
 {
     /**
-     * Fetch published pages for dropdown.
-     *
-     * @return Collection
+     * Get all active pages.
      */
-    public function fetchPageDD(): Collection
+    public function getAllActivePages(): Collection
     {
-        return Page::where('is_published', true)
-            ->orderBy('title', 'asc')
-            ->get(['title', 'slug']);
+        return Page::active()
+            ->orderBy('id', 'asc')
+            ->get();
     }
 
     /**
-     * Get a published page by slug.
-     *
-     * @param string $slug
-     * @return Page|null
+     * Get paginated pages.
      */
-    public function getPageBySlug(string $slug): ?Page
+    public function getPaginatedPages(int $perPage = 12): LengthAwarePaginator
     {
-        return Page::where('slug', $slug)
+        return Page::active()
+            ->orderBy('id', 'asc')
+            ->paginate($perPage);
+    }
+
+    /**
+     * Get featured pages (optional if you have a 'featured' column).
+     */
+    public function getFeaturedPages(int $limit = 5): Collection
+    {
+        return Page::active()
+            ->where('is_featured', true)
+            ->orderBy('id', 'asc')
+            ->limit($limit)
+            ->get();
+    }
+
+    /**
+     * Get a page by slug.
+     */
+    public function getBySlug(string $slug): ?Page
+    {
+        return Page::active()
+            ->where('slug', $slug)
             ->first();
     }
 
-    public function getPageById(string $id): ?Page
+    /**
+     * Find a page by slug or fail.
+     */
+    public function findBySlug(string $slug): Page
     {
-        return Page::where('is_published', true)
-            ->where('id', $id)
-            ->first();
+        return Page::active()
+            ->where('slug', $slug)
+            ->firstOrFail();
     }
 }

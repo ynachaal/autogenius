@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="h4 fw-bold text-dark mb-0">
-            {{ __('Slider Detail: :id', ['id' => $slider->id]) }}
+            {{ __('Slide Detail: :id', ['id' => $slider->id]) }}
         </h2>
     </x-slot>
 

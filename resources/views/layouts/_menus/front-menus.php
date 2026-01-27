@@ -1,37 +1,29 @@
 <?php
 
-// Note: The routes are based on the standard naming conventions inferred from
-// the admin config and the single 'Contact' route provided in the HTML.
-// Placeholders are used for routes that linked to 'javascript:void(0)'.
-
 return [
     [
         'title' => 'Home',
-        'route' => "javascript:void(0)", // Inferred/Placeholder
+        'route' => route('home'),
     ],
     [
         'title' => 'About Us',
-        'route' => "javascript:void(0)", // Inferred/Placeholder
+        'route' => route('pages.show', 'about-us'), // assuming 'about-us' is the slug of your About page
     ],
     [
         'title' => 'Services',
-        'route' => "javascript:void(0)", // Inferred/Placeholder
+        'route' => route('services.index'),
         'submenu' => [
-            ['title' => 'New Car Consultation', 'route' => "javascript:void(0)"],
-            ['title' => 'New Car PDI', 'route' => "javascript:void(0)"],
-            ['title' => 'Used Car PDI / Checking / Testing', 'route' => "javascript:void(0)"],
-            ['title' => 'Used Car Consultation & Unlimited Testing', 'route' => "javascript:void(0)"],
-            ['title' => 'Car Servicing / Denting / Painting', 'route' => "javascript:void(0)"],
-            ['title' => 'Car Accessories', 'route' => "javascript:void(0)"],
-        ]
+            ['title' => 'New Car Consultation', 'route' => route('services.show', 'new-car-consultation')],
+            ['title' => 'New Car PDI', 'route' => route('services.show', 'new-car-pdi')],
+            ['title' => 'Used Car PDI / Checking / Testing', 'route' => route('services.show', 'used-car-testing')],
+            ['title' => 'Used Car Consultation & Unlimited Testing', 'route' => route('services.show', 'used-car-consultation-testing')],
+            ['title' => 'Car Servicing / Denting / Painting', 'route' => route('services.show', 'car-servicing-denting-painting')],
+            ['title' => 'Car Accessories', 'route' => route('services.show', 'car-accessories')],
+        ],
     ],
     [
-        'title' => 'Reviews',
-        'route' => "javascript:void(0)", // Inferred/Placeholder
-    ],
-    [
-        'title' => 'Blog',
-        'route' => "javascript:void(0)", // Inferred/Placeholder
+        'title' => 'Car Deliveries',
+        'route' => '', // assuming you have a blog route like Route::get('/blog', [BlogController::class, 'index'])->name('blog.index')
     ],
     [
         'title' => 'Contact Us',

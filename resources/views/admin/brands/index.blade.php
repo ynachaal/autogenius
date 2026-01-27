@@ -11,17 +11,20 @@
 
                     <div class="card-tools d-flex align-items-center">
                         {{-- Improved Search Form (Preserves Sort State) --}}
-                        <form action="{{ route('admin.brands.index') }}" method="GET" class="d-flex align-items-center me-2">
+                        <form action="{{ route('admin.brands.index') }}" method="GET"
+                            class="d-flex align-items-center me-2">
                             <div class="input-group input-group-sm" style="width: 250px;">
                                 <input type="search" name="search" class="form-control float-right"
                                     placeholder="Search brands..." value="{{ request('search') }}">
-                                
+
                                 <div class="input-group-append">
-                                    <button class="btn btn-default" type="submit"><i class="fas fa-search"></i> Search</button>
-                                    
+                                    <button class="btn btn-default" type="submit"><i class="fas fa-search"></i>
+                                        Search</button>
+
                                     @if(request('search'))
                                         {{-- Clear button keeps sorting but removes search/page --}}
-                                        <a href="{{ route('admin.brands.index', request()->except(['search', 'page'])) }}" class="btn btn-secondary btn-sm">Clear</a>
+                                        <a href="{{ route('admin.brands.index', request()->except(['search', 'page'])) }}"
+                                            class="btn btn-secondary btn-sm">Clear</a>
                                     @endif
                                 </div>
 
@@ -68,7 +71,7 @@
                                             return '<a class="text-dark fw-semibold text-decoration-none" href="' . route('admin.brands.index', $query) . '">' . $label . ' ' . $icon . '</a>';
                                         };
                                     @endphp
-                                    
+
                                     @foreach($sortableColumns as $column => $label)
                                         <th>{!! $sort($column, $label) !!}</th>
                                     @endforeach
@@ -82,9 +85,11 @@
                                         <td>
                                             @if($brand->image)
                                                 {{-- FIXED: Removed 'storage/' because you store in 'uploads/' directly --}}
-                                                <img src="{{ asset($brand->image) }}" alt="{{ $brand->name }}" style="width: 40px; height: 40px; object-fit: cover;" class="img-thumbnail">
+                                                <img src="{{ asset($brand->image) }}" alt="{{ $brand->name }}"
+                                                    style="width: 40px; height: 40px; object-fit: cover;" class="img-thumbnail">
                                             @else
-                                                <div class="bg-light text-center rounded border" style="width: 40px; height: 40px; line-height: 40px;">
+                                                <div class="bg-light text-center rounded border"
+                                                    style="width: 40px; height: 40px; line-height: 40px;">
                                                     <i class="fas fa-image text-muted"></i>
                                                 </div>
                                             @endif
@@ -103,20 +108,26 @@
                                         <td>{{ $brand->created_at->format('Y-m-d') }}</td>
                                         <td class="text-left">
                                             @if($brand->is_featured)
-                                            Yes
+                                                Yes
                                             @else
-                                              No
+                                                No
                                             @endif
                                         </td>
                                         <td class="text-center">
                                             <div class="btn-group">
-                                                <a href="{{ route('admin.brands.show', $brand) }}" class="btn btn-sm btn-primary me-1" title="View"><i class="bi bi-eye"></i></a>
-                                                <a href="{{ route('admin.brands.edit', $brand) }}" class="btn btn-sm btn-info me-1" title="Edit"><i class="bi bi-pencil"></i></a>
-                                                
-                                                <form action="{{ route('admin.brands.destroy', $brand) }}" method="POST" class="d-inline" id="delete-brand-{{ $brand->id }}">
-                                                    @csrf @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-danger" 
-                                                        onclick="return showConfirmationModal('delete-brand-{{ $brand->id }}', '{{ $brand->name }}', 'Brand')">
+                                                <a href="{{ route('admin.brands.show', $brand) }}"
+                                                    class="btn btn-sm btn-primary me-1" title="View"><i
+                                                        class="bi bi-eye"></i></a>
+                                                <a href="{{ route('admin.brands.edit', $brand) }}"
+                                                    class="btn btn-sm btn-info me-1" title="Edit"><i
+                                                        class="bi bi-pencil"></i></a>
+
+                                                <form action="{{ route('admin.brands.destroy', $brand) }}" method="POST"
+                                                    class="d-inline" id="delete-brand-{{ $brand->id }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger"
+                                                        onclick="return confirm('Are you sure you want to delete this brand?')">
                                                         <i class="bi bi-trash"></i>
                                                     </button>
                                                 </form>
@@ -124,7 +135,9 @@
                                         </td>
                                     </tr>
                                 @empty
-                                    <tr><td colspan="8" class="text-center">No brands found matching your criteria.</td></tr>
+                                    <tr>
+                                        <td colspan="8" class="text-center">No brands found matching your criteria.</td>
+                                    </tr>
                                 @endforelse
                             </tbody>
                         </table>

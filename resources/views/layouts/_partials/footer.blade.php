@@ -17,7 +17,7 @@
                         <div class="section-title">
                             <p class="text-anime-style-3 h5 mb-4 fw-normal" data-cursor="-opaque">Book Your Expert Consultation Today</p>
                         </div>
-                        <a href="tel:+91 86682 28668" class="btn-default"><i class="fa-solid fa-phone"></i> +91 8668 22 8668</a>
+                        <a href="tel:{{config('settings.phone', '') }}" class="btn-default"><i class="fa-solid fa-phone"></i> {{config('settings.phone', '') }}</a>
                     </div>
                     <!-- Footer Newsletter Form End -->
                 </div>
@@ -45,11 +45,11 @@
                     <!-- Footer Social Link Start -->
                     <div class="footer-social-links">
                         <ul>
-                            <li><a href="https://www.facebook.com/Autogenius.in" target="_blank"><i
+                            <li><a href="{{ config('settings.facebook_url', '') }}" target="_blank"><i
                                         class="fa-brands fa-facebook-f"></i></a></li>
-                            <li><a href="https://www.instagram.com/autogenius.in/" target="_blank"><i
+                            <li><a href="{{ config('settings.instagram_url', '') }}" target="_blank"><i
                                         class="fa-brands fa-instagram"></i></a></li>
-                            <li><a href="https://api.whatsapp.com/send?phone=918007500740" target="_blank"><i
+                            <li><a href="https://api.whatsapp.com/send?phone={{ preg_replace('/[^0-9]/', '', config('settings.phone', '')) }}" target="_blank"><i
                                         class="fa-brands fa-whatsapp"></i></a></li>
                         </ul>
                     </div>
@@ -105,8 +105,8 @@
                             <img src="{{ asset('images/icon-headphone-accent.svg') }}" alt="">
                         </div>
                         <div class="footer-contact-content">
-                            <p><a href="tel:+918668228668">+91 8668 22 8668</a></p>
-                            <p><a href="mailto:autogenius.in@gmail.com">autogenius.in@gmail.com</a></p>
+                            <p><a href="tel:{{ config('settings.phone', '') }}">{{ config('settings.phone', '') }}</a></p>
+                            <p><a href="mailto:{{ config('settings.contact_email', '') }}">{{ config('settings.contact_email', '') }}</a></p>
                         </div>
                     </div>
                     <!-- Footer Contact Item End -->
@@ -117,7 +117,7 @@
                             <img src="{{ asset('images/icon-location-accent.svg') }}" alt="">
                         </div>
                         <div class="footer-contact-content">
-                            <p>518 & 519 A, 5th floor, 93 Avenue Mall, Wanowrie, Pune 411022</p>
+                            <p>{{ config('settings.address', '') }}</p>
                         </div>
                     </div>
                     <!-- Footer Contact Item End -->
@@ -137,6 +137,6 @@
     </div>
 </footer>
 <!-- Footer End -->
-<a class="whatsapp_float" target="_blank" href="https://wa.me/+918007500740?text=Hi%20AutoGenius%2C%0AI%27d%20like%20expert%20guidance%20regarding%20a%20car.">
+<a class="whatsapp_float" target="_blank" href="https://wa.me/{{config('settings.phone', '')}}?text=Hi%20AutoGenius%2C%0AI%27d%20like%20expert%20guidance%20regarding%20a%20car.">
     <span><i class="fa-brands fa-whatsapp"></i> Speak with an AutoGenius Expert</span>
 </a>
