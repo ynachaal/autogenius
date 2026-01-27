@@ -37,8 +37,7 @@
 
                     <!-- About Footer Content Start -->
                     <div class="about-footer-content">
-                        <p>Welcome to AutoGenius Private Limited — where innovation fuels every drive. Discover a
-                            range of solutions designed to elevate your automotive experience.</p>
+                        <p>{{ config('settings.footer_text', '') }}</p>
                     </div>
                     <!-- About Footer Content End -->
 
