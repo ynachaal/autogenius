@@ -37,7 +37,7 @@
 
                     <!-- About Footer Content Start -->
                     <div class="about-footer-content">
-                        <p>{{ config('settings.footer_text', '') }}</p>
+                        <p>{{ config('settings.footer_about', '') }}</p>
                     </div>
                     <!-- About Footer Content End -->
 
