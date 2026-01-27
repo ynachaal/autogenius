@@ -15,7 +15,7 @@
                     <!-- Footer Newsletter Form Start -->
                     <div class="footer-newsletter-form-prime">
                         <div class="section-title">
-                            <p class="text-anime-style-3 h5 mb-4" data-cursor="-opaque">Book Your Expert Consultation Today</p>
+                            <p class="text-anime-style-3 h5 mb-4 fw-normal" data-cursor="-opaque">Book Your Expert Consultation Today</p>
                         </div>
                         <a href="tel:{{config('settings.phone', '') }}" class="btn-default"><i class="fa-solid fa-phone"></i> {{config('settings.phone', '') }}</a>
                     </div>

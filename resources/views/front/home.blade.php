@@ -10,32 +10,9 @@
                 <source src="{{ asset('video/video-bg.mp4') }}" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
-            <style>
-                .bg-video {
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    min-width: 100%;
-                    min-height: 100%;
-                    width: auto;
-                    height: auto;
-                    transform: translate(-50%, -50%);
-                    object-fit: cover;
-                    z-index: 1;
-                }
-
-                .hero-box::after {
-                    content: "";
-                    position: absolute;
-                    inset: 0;
-                    background: rgba(0, 0, 0, 0.4);
-                    /* overlay for readability */
-                    z-index: 1;
-                }
-            </style>
             <div class="container position-relative" style="z-index: 2;">
                 <div class="row">
-                    <div class="col-xl-8 mx-auto">
+                    <div class="col-xl-10 mx-auto">
                         <!-- Hero Content Start -->
                         <div class="hero-content text-center">
                             <!-- Section Title Start -->
