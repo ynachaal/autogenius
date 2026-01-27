@@ -75,9 +75,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse($categories as $category)
+                                @forelse($categories as $index =>$category)
                                     <tr>
-                                        <td>{{ $category->id }}</td>
+                                         <td>{{ $categories->firstItem() + $index }}</td>
                                         <td>
                                             @if($category->name)
                                                 <strong>{{ $category->name }}</strong>
@@ -117,7 +117,7 @@
                                         </td>
                                     </tr>
                                 @empty
-                                    <tr><td colspan="5" class="text-center py-4">No categories found matching your criteria.</td></tr>
+                                    <tr><td colspan="5" class="text-center ">No categories found matching your criteria.</td></tr>
                                 @endforelse
                             </tbody>
                         </table>
