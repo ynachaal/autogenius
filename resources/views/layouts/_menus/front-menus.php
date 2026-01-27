@@ -15,8 +15,8 @@ return [
         'submenu' => [
             ['title' => 'New Car Consultation', 'route' => route('services.show', 'new-car-consultation')],
             ['title' => 'New Car PDI', 'route' => route('services.show', 'new-car-pdi')],
-            ['title' => 'Used Car PDI / Checking / Testing', 'route' => route('services.show', 'used-car-pdi-checking-testing')],
-            ['title' => 'Used Car Consultation & Unlimited Testing', 'route' => route('services.show', 'used-car-consultation-unlimited-testing')],
+            ['title' => 'Used Car PDI / Checking / Testing', 'route' => route('services.show', 'used-car-testing')],
+            ['title' => 'Used Car Consultation & Unlimited Testing', 'route' => route('services.show', 'used-car-consultation-testing')],
             ['title' => 'Car Servicing / Denting / Painting', 'route' => route('services.show', 'car-servicing-denting-painting')],
             ['title' => 'Car Accessories', 'route' => route('services.show', 'car-accessories')],
         ],
