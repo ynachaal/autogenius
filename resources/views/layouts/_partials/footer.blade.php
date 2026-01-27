@@ -33,7 +33,7 @@
                 <div class="about-footer">
                     <!-- Footer Logo Start -->
                     <div class="footer-logo">
-                        <img src="{{ config('settings.site_logo', '') }}" alt="" style="filter: invert(1);">
+                        <img src="{{ url(config('settings.site_logo')) }}" alt="" style="filter: invert(1);">
                     </div>
                     <!-- Footer Logo End -->
 
