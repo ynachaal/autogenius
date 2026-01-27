@@ -3,11 +3,24 @@
 @section('title', 'Our Services')
 
 @section('content')
+    <div class="page-header bg-section parallaxie1">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Page Header Box Start -->
+                    <div class="page-header-box">
+                        <h1 class="text-anime-style-3" data-cursor="-opaque" aria-label="about us" style="perspective: 400px;">Our Services</h1>
+                    </div>
+                    <!-- Page Header Box End -->
+                </div>
+            </div>
+        </div>
+    </div>
     <section class="services-page py-5">
         <div class="container">
             <div class="text-center mb-5">
                 <h1 class="mb-3">Our Services</h1>
-                <p class="text-muted">
+                <p>
                     Explore the services we offer to help you make confident decisions.
                 </p>
             </div>

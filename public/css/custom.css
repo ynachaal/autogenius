@@ -3174,7 +3174,7 @@ header.main-header .header-sticky.active{
 .page-single-image img{
     width: 100%;
     aspect-ratio: 1 / 0.61;
-    object-fit: contain;
+    object-fit: cover;
     object-position: top;
     border-radius: 20px;
 }
