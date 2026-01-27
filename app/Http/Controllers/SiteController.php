@@ -69,10 +69,11 @@ class SiteController extends Controller
 
     public function services(): View
     {
+        $page = $this->pageService->getBySlug('services');
         $data = [
             'services' => $this->serviceService->getPaginatedServices(12),
         ];
-        return view('front.services.index', compact('data'));
+        return view('front.services.index', compact('data','page'));
     }
 
     public function serviceDetail(string $slug): View
@@ -91,20 +92,21 @@ class SiteController extends Controller
     }
 
     public function pageDetail(string $slug): View
-{
-    $page = $this->pageService->getBySlug($slug);
+    {
+        $page = $this->pageService->getBySlug($slug);
 
-    if (!$page) {
-        abort(404);
+        if (!$page) {
+            abort(404);
+        }
+
+        return view('front.pages.show', compact('page'));
     }
-
-    return view('front.pages.show', compact('page'));
-}
 
     public function contactUs(Request $request): RedirectResponse|View
     {
+        $page = $this->pageService->getBySlug('contact-us');
         if ($request->isMethod('get')) {
-            return view('front.contact-us');
+            return view('front.contact-us', compact('page'));
         }
 
         $validated = $request->validate([
