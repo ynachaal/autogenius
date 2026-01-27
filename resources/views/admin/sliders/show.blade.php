@@ -15,13 +15,13 @@
                             <i class="bi bi-pencil me-1"></i> Edit
                         </a>
 
-                        <form action="{{ route('admin.sliders.destroy', $slider) }}" method="POST" class="d-inline" id="delete-form-{{ $slider->id }}">
+                    <!--     <form action="{{ route('admin.sliders.destroy', $slider) }}" method="POST" class="d-inline" id="delete-form-{{ $slider->id }}">
                             @csrf @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-danger" 
                                     onclick="return confirm('Are you sure you want to delete this slider?')">
                                 <i class="bi bi-trash me-1"></i> Delete
                             </button>
-                        </form>
+                        </form> -->
 
                         <a href="{{ route('admin.sliders.index') }}" class="btn btn-sm btn-secondary">
                             <i class="bi bi-list me-1"></i> Back

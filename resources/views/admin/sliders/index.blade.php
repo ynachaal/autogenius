@@ -51,9 +51,9 @@
                         </form>
 
                         {{-- Create Button --}}
-                        <a href="{{ route('admin.sliders.create') }}" class="btn btn-sm btn-success" title="Create Slider">
+                    <!--     <a href="{{ route('admin.sliders.create') }}" class="btn btn-sm btn-success" title="Create Slider">
                             <i class="fas fa-plus"></i> Create
-                        </a>
+                        </a> -->
                     </div>
                 </div>
 
@@ -138,13 +138,13 @@
                                                 </a>
                                                 
                                                 {{-- Delete Button --}}
-                                                <form action="{{ route('admin.sliders.destroy', $slider) }}" method="POST" class="d-inline" id="delete-form-{{ $slider->id }}">
+                                              <!--   <form action="{{ route('admin.sliders.destroy', $slider) }}" method="POST" class="d-inline" id="delete-form-{{ $slider->id }}">
                                                     @csrf @method('DELETE')
                                                     <button type="submit" class="btn btn-sm btn-danger" 
                                                         onclick="return confirm('Are you sure you want to delete this slider?')">
                                                         <i class="bi bi-trash"></i>
                                                     </button>
-                                                </form>
+                                                </form> -->
                                             </div>
                                         </td>
                                     </tr>
