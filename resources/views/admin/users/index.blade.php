@@ -137,11 +137,11 @@
 
                             <tbody>
 
-                                @forelse($users as $user)
+                                @forelse($users as  $index =>$user)
 
                                     <tr>
 
-                                        <td>{{ $user->id }}</td>
+                                        <td>{{ $users->firstItem() + $index }}</td>
 
                                         <td>
 
