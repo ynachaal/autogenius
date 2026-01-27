@@ -43,44 +43,46 @@
                         </ul>
                     </div>
 
-                    <div class="header-auth d-flex align-items-center ms-auto">
-                        @auth
-                            @php
-                                // Logic from your example: redirect based on role
-                                $dashboardUrl = Auth::user()->role === '01'
-                                    ? url('/admin/dashboard')
-                                    : url('/dashboard');
-
-                                $isDashboardActive = request()->is('dashboard') || request()->is('admin/dashboard');
-                            @endphp
-
-                            <a href="{{ $dashboardUrl }}" class="nav-link text-white me-3 @if($isDashboardActive) active @endif">
-                                <i class="fa fa-tachometer-alt"></i> Dashboard
-                            </a>
-
-                            <form method="POST" action="{{ route('logout') }}" class="d-inline">
-                                @csrf
-                                <a href="{{ route('logout') }}" class="nav-link text-white me-3"
-                                   onclick="event.preventDefault(); this.closest('form').submit();">
-                                    <i class="fa fa-sign-out-alt"></i> Logout
-                                </a>
-                            </form>
-                        @else
-                            <a href="{{ route('login') }}" class="nav-link text-white me-3 @if(request()->is('login')) active @endif">
-                                Login
-                            </a>
-                            @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="nav-link text-white me-3 @if(request()->is('register')) active @endif">
-                                    Register
-                                </a>
-                            @endif
-                        @endauth
-                    </div>
-
                     <div class="search">
                         <a class="text-white search-toggle" href="#">
                             <i class="fa fa-search"></i> Search
                         </a>
+                    </div> 
+                    <div class="header-auth d-flex align-items-center ms-auto">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item submenu">
+                                <a href="javascript:void(0)" class="nav-link bg-transparent">
+                                    <img src="{{ asset('images/user-icon.svg') }}" class="img-fluid" alt="User">
+                                </a>
+                                <ul class="submenu-dropdown">
+                                    @auth
+                                        @php
+                                            $dashboardUrl = Auth::user()->role === '01'
+                                                ? url('/admin/dashboard')
+                                                : url('/dashboard');
+                                        @endphp
+                                        <li>
+                                            <a class="nav-link" href="{{ $dashboardUrl }}">Dashboard</a>
+                                        </li>
+                                        <li>
+                                            <form method="POST" action="{{ route('logout') }}">
+                                                @csrf
+                                                <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); this.closest('form').submit();">Logout</a>
+                                            </form>
+                                        </li>
+                                    @else
+                                        <li>
+                                            <a class="nav-link" href="{{ route('login') }}">Login</a>
+                                        </li>
+                                        @if (Route::has('register'))
+                                            <li>
+                                                <a class="nav-link" href="{{ route('register') }}">Register</a>
+                                            </li>
+                                        @endif
+                                    @endauth
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
                 </div>
                 <div class="navbar-toggle"></div>
@@ -91,7 +93,6 @@
 </header>
 <div class="search_main" id="searchOverlay">
     <button type="button" class="btn-close search-close shadow-none"></button>
-
     <div class="container">
         <div class="col-md-8 mx-auto">
             <div class="input-group search-box">

@@ -8,8 +8,107 @@
 	--white-color				: #FFFFFF;
 	--divider-color				: #FFFFFF1A;
 	--error-color				: rgb(230, 87, 87);
-	--default-font				: "Inter", sans-serif;
-	--accent-font				: "Inter", sans-serif;
+	--default-font				: "Ferrari Sans";
+	--accent-font				: "Ferrari Sans";
+}
+/* Ferrari Sans Light */
+@font-face {
+    font-family: "Ferrari Sans";
+    src: url("../ferrari-sans/ferrari-sanslight.eot");
+    src: url("../ferrari-sans/ferrari-sanslight.eot?#iefix") format("embedded-opentype"),
+    url("../ferrari-sans/ferrari-sanslight.woff2") format("woff2"),
+    url("../ferrari-sans/ferrari-sanslight.woff") format("woff"),
+    url("../ferrari-sans/ferrari-sanslight.ttf") format("truetype");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Ferrari Sans";
+    src: url("../ferrari-sans/ferrari-sanslightitalic.eot");
+    src: url("../ferrari-sans/ferrari-sanslightitalic.eot?#iefix") format("embedded-opentype"),
+    url("../ferrari-sans/ferrari-sanslightitalic.woff2") format("woff2"),
+    url("../ferrari-sans/ferrari-sanslightitalic.woff") format("woff"),
+    url("../ferrari-sans/ferrari-sanslightitalic.ttf") format("truetype");
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* Ferrari Sans Regular */
+@font-face {
+    font-family: "Ferrari Sans";
+    src: url("../ferrari-sans/ferrari-sansregular.eot");
+    src: url("../ferrari-sans/ferrari-sansregular.eot?#iefix") format("embedded-opentype"),
+    url("../ferrari-sans/ferrari-sansregular.woff2") format("woff2"),
+    url("../ferrari-sans/ferrari-sansregular.woff") format("woff"),
+    url("../ferrari-sans/ferrari-sansregular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Ferrari Sans";
+    src: url("../ferrari-sans/ferrari-sansregularitalic.eot");
+    src: url("../ferrari-sans/ferrari-sansregularitalic.eot?#iefix") format("embedded-opentype"),
+    url("../ferrari-sans/ferrari-sansregularitalic.woff2") format("woff2"),
+    url("../ferrari-sans/ferrari-sansregularitalic.woff") format("woff"),
+    url("../ferrari-sans/ferrari-sansregularitalic.ttf") format("truetype");
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* Ferrari Sans Medium */
+@font-face {
+    font-family: "Ferrari Sans";
+    src: url("../ferrari-sans/ferrari-sansmedium.eot");
+    src: url("../ferrari-sans/ferrari-sansmedium.eot?#iefix") format("embedded-opentype"),
+    url("../ferrari-sans/ferrari-sansmedium.woff2") format("woff2"),
+    url("../ferrari-sans/ferrari-sansmedium.woff") format("woff"),
+    url("../ferrari-sans/ferrari-sansmedium.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Ferrari Sans";
+    src: url("../ferrari-sans/ferrari-sansmediumitalic.eot");
+    src: url("../ferrari-sans/ferrari-sansmediumitalic.eot?#iefix") format("embedded-opentype"),
+    url("../ferrari-sans/ferrari-sansmediumitalic.woff2") format("woff2"),
+    url("../ferrari-sans/ferrari-sansmediumitalic.woff") format("woff"),
+    url("../ferrari-sans/ferrari-sansmediumitalic.ttf") format("truetype");
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* Ferrari Sans Bold */
+@font-face {
+    font-family: "Ferrari Sans";
+    src: url("../ferrari-sans/ferrari-sansbold.eot");
+    src: url("../ferrari-sans/ferrari-sansbold.eot?#iefix") format("embedded-opentype"),
+    url("../ferrari-sans/ferrari-sansbold.woff2") format("woff2"),
+    url("../ferrari-sans/ferrari-sansbold.woff") format("woff"),
+    url("../ferrari-sans/ferrari-sansbold.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Ferrari Sans";
+    src: url("../ferrari-sans/ferrari-sansbolditalic.eot");
+    src: url("../ferrari-sans/ferrari-sansbolditalic.eot?#iefix") format("embedded-opentype"),
+    url("../ferrari-sans/ferrari-sansbolditalic.woff2") format("woff2"),
+    url("../ferrari-sans/ferrari-sansbolditalic.woff") format("woff"),
+    url("../ferrari-sans/ferrari-sansbolditalic.ttf") format("truetype");
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
 }
 
 /************************************/
@@ -24,9 +123,10 @@ body{
 
 body{
 	font-family: var(--default-font);
-	font-size: 16px;
-	font-weight: 400;
-	line-height: 1em;
+	font-size: 13px;
+	font-weight: 300;
+    letter-spacing: .015em;
+    line-height: 1.5;
 	color: var(--text-color);
 	background: var(--bg-color);
 }
@@ -61,8 +161,6 @@ h4,
 h5,
 h6{
 	font-family: var(--accent-font);
-	font-weight: 700;
-	line-height: 1.2em;
 	text-transform: uppercase;
 	color: var(--primary-color);
 	margin :0;
@@ -193,9 +291,12 @@ a:focus{
 
 .btn-default{
 	position: relative;
-	display: inline-block;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: fit-content;
 	font-family: var(--accent-font);
-	font-weight: 500;
+	font-weight: 400;
 	line-height: 1em;
 	text-transform: capitalize;
 	background: var(--accent-color);
@@ -209,10 +310,12 @@ a:focus{
 }
 .btn-primary{
 	position: relative;
-	display: inline-block;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: fit-content;
 	font-family: var(--accent-font);
-
-	font-weight: 500;
+	font-weight: 400;
 	line-height: 1em;
 	text-transform: capitalize;
 	background: var(--bs-light);
@@ -224,12 +327,17 @@ a:focus{
 	transition: all 0.4s ease-in-out;
 	z-index: 1;
 }
+.btn-primary i{
+    font-size: 16px;
+}
 .btn-whatsapp{
 	position: relative;
-	display: inline-block;
 	font-family: var(--accent-font);
-
-	font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: fit-content;
+	font-weight: 400;
 	line-height: 1em;
 	text-transform: capitalize;
 	background: #25D366;
@@ -241,7 +349,9 @@ a:focus{
 	transition: all 0.4s ease-in-out;
 	z-index: 1;
 }
-
+.btn-whatsapp i{
+    font-size: 16px;
+}
 .btn-default:hover{
 	/*color: var(--bg-color);*/
 }
@@ -254,6 +364,9 @@ a:focus{
 	width: 50px;
 	height: 50px;
 	border-radius: 50%;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 	background-color: var(--divider-color);
 	background-image: url('../images/arrow-white.svg');
 	background-repeat: no-repeat;
@@ -291,13 +404,16 @@ a:focus{
 	right: 0;
 	opacity: 1;
 }
+.btn-default i{
+    font-size: 16px;
+}
 
 .readmore-btn{
 	position: relative;
 	display: inline-block;
 	font-family: var(--accent-font);
-	font-size: 15px;
-	font-weight: 600;
+	font-size: 13px;
+	font-weight: 300;
 	line-height: normal;
 	text-transform: capitalize;
 	color: var(--primary-color);
@@ -442,7 +558,7 @@ a:focus{
 .section-title h3{
 	position: relative;
 	display: inline-block;
-	font-size: 14px;
+	font-size: 13px;
 	line-height: normal;
 	background: var(--secondary-color) url('../images/wheel.svg') no-repeat;
 	background-position: center left 16px;
@@ -451,6 +567,7 @@ a:focus{
 	border-radius: 100px;
 	padding: 11px 16px 9px 42px;
     margin-bottom: 20px;
+    font-weight: 400;
 }
 
 .section-sub-title h3{
@@ -458,13 +575,15 @@ a:focus{
 }
 
 .section-title h1{
-	font-size: 35px;
+	font-size: 30px;
 	margin-bottom: 0;
 	cursor: none;
+    font-weight: 500;
 }
 
 .section-title h2{
-	font-size: 40px;
+    font-size: 30px;
+    font-weight: 400;
 	margin-bottom: 0;
 	cursor: none;
 }
@@ -553,17 +672,24 @@ header.main-header .header-sticky.active{
 }
 
 .main-menu ul li a{
-	font-size: 16px;
-	font-weight: 500;
+	font-weight: 400;
 	line-height: 1.2em;
 	padding: 12px 15px !important;
 	color: var(--white-color);
 	background: transparent;
-	border-radius: 0px;
+	border-radius: 0;
 	text-transform: capitalize;
 	transition: all 0.3s ease-in-out;
+    position: relative;
 }
-
+.header-auth .nav-link{
+    font-weight: 300;
+}
+.header-auth img{
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+}
 .main-menu ul li.submenu > a:after{
 	content: '\f107';
 	font-family: 'FontAwesome';
@@ -571,14 +697,33 @@ header.main-header .header-sticky.active{
 	font-size: 14px;
 	margin-left: 8px;
 }
-
+.main-menu ul li a:before{
+    content: '';
+    position: absolute;
+    width: 70%;
+    height: 3px;
+    background: transparent;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+    display: block;
+    right: 0;
+    border-radius: 100px;
+}
+.main-menu ul li a:hover:before,
+.main-menu ul li a:focus:before{
+    background-color: var(--accent-color);
+}
 .main-menu ul li a:hover,
 .main-menu ul li a:focus{
-	background-color: var(--bg-color);
-	border-radius: 100px;
-	color: var(--accent-color);
+    color: var(--accent-color);
 }
-
+.nav-link.active:before{
+    background-color: var(--accent-color) !important;
+}
+.nav-link.active{
+    color: var(--accent-color) !important;
+}
 .main-menu ul ul{
 	visibility: hidden;
 	opacity: 0;
@@ -639,6 +784,14 @@ header.main-header .header-sticky.active{
 
 .main-menu ul li.highlighted-menu{
     display: none;
+}
+.submenu .nav-link.bg-transparent:after{
+    display: none;
+}
+.header-auth .navbar-nav li.submenu:first-child ul{
+    width: 160px;
+    right: 0;
+    left: unset;
 }
 
 .responsive-menu,
@@ -712,7 +865,6 @@ header.main-header .header-sticky.active{
 .slicknav_nav .slicknav_row,
 .slicknav_nav li a{
 	position: relative;
-	font-size: 16px;
 	font-weight: 400;
 	text-transform: capitalize;
 	padding: 7px 20px;
@@ -880,7 +1032,7 @@ header.main-header .header-sticky.active{
 
 .hero-content .section-title p{
 	max-width: 735px;
-	font-size: 18px;
+	font-size: 16px;
 	color: #fff;
 }
 
@@ -967,11 +1119,10 @@ header.main-header .header-sticky.active{
 	font-size: 20px;
 	line-height: normal;
 	color: var(--white-color);
-	font-weight: 700;
+	font-weight: 500;
 }
 
 .hero-review-content ul li i{
-	font-size: 16px;
 	color: var(--accent-color);
 }
 
@@ -1256,7 +1407,7 @@ header.main-header .header-sticky.active{
 	width: 100px;
 	height: 100px;
 	color: var(--white-color);
-	font-weight: 700;
+	font-weight: 500;
 	border: 1px solid var(--white-color);
 	border-radius: 50%;
 	display: flex;
@@ -1386,7 +1537,6 @@ header.main-header .header-sticky.active{
 
 .section-footer-text p span{
 	display: inline-block;
-	font-size: 16px;
 	font-weight: 500;
 	background: var(--accent-color);
 	color: var(--white-color);
@@ -1397,7 +1547,7 @@ header.main-header .header-sticky.active{
 }
 
 .section-footer-text p a{
-	font-weight: 700;
+	font-weight: 500;
 	text-transform: capitalize;
 	text-decoration: underline;
 	text-underline-offset: 3px;
@@ -1417,7 +1567,7 @@ header.main-header .header-sticky.active{
 
 .section-footer-text ul li{
 	display: inline-block;
-	font-weight: 700;
+	font-weight: 500;
 	line-height: normal;
 	color: var(--primary-color);
 	margin-right: 5px;
@@ -1601,7 +1751,6 @@ header.main-header .header-sticky.active{
 }
 
 .why-choose-card-content h3{
-	font-size: 16px;
 	color: var(--bg-color);
 }
 
@@ -1699,7 +1848,6 @@ header.main-header .header-sticky.active{
 }
 
 .product-item-content p span{
-	font-size: 16px;
 	text-decoration-line: line-through;
 	margin-left: 10px;
 }
@@ -1932,7 +2080,6 @@ header.main-header .header-sticky.active{
 
 .pricing-item-price h2 sub{
 	font-family: var(--default-font);
-	font-size: 16px;
 	font-weight: 400;
 	text-transform: capitalize;
 	bottom: 0;
@@ -1963,7 +2110,6 @@ header.main-header .header-sticky.active{
     content: '\f058';
     position: absolute;
     font-family: 'Font Awesome 7 Free';
-    font-size: 16px;
     font-weight: 900;
     color: var(--accent-color);
     left: 0px;
@@ -2176,7 +2322,7 @@ header.main-header .header-sticky.active{
 
 .testimonial-item-author sub{
 	font-family: var(--default-font);
-	font-size: 16px;
+	font-size: 15px;
 	font-weight: 400;
 	text-transform: capitalize;
 	bottom: 0;
@@ -2334,8 +2480,9 @@ header.main-header .header-sticky.active{
 }
 
 .footer-links h3{
-	font-size: 20px;
-	margin-bottom: 30px;
+    font-size: 18px;
+    font-weight: 400;
+	margin-bottom: 20px;
 }
 
 .footer-links ul{
@@ -2452,7 +2599,7 @@ header.main-header .header-sticky.active{
 .page-header-box h1{
 	display: inline-block;
     font-size: 50px;
-	font-weight: 700;
+	font-weight: 500;
     line-height: 1.1em;
 	color: var(--primary-color);
 	margin-bottom: 10px;
@@ -2808,7 +2955,8 @@ header.main-header .header-sticky.active{
 }
 
 .technology-item h3{
-	font-size: 20px;
+	font-size: 16px;
+    font-weight: 400;
 }
 
 .technology-item p{
@@ -3075,7 +3223,6 @@ header.main-header .header-sticky.active{
 	content: '\f058';
     position: absolute;
     font-family: 'Font Awesome 7 Free';
-    font-size: 16px;
     font-weight: 900;
     color: var(--accent-color);
     top: 0;
@@ -3316,7 +3463,7 @@ header.main-header .header-sticky.active{
 .post-entry h4,
 .post-entry h5,
 .post-entry h6{
-	font-weight: 700;
+	font-weight: 500;
 	line-height: 1.2em;
 	margin: 0 0 0.4em;
 }
@@ -3423,7 +3570,7 @@ header.main-header .header-sticky.active{
 .tag-links{
 	font-family: var(--accent-font);
     font-size: 20px;
-	font-weight: 700;
+	font-weight: 500;
     text-transform: uppercase;
 	color: var(--primary-color);
 	display: inline-flex;
@@ -3435,7 +3582,7 @@ header.main-header .header-sticky.active{
 .post-tags .tag-links a{
     display: inline-block;
 	font-family: var(--default-font);
-    font-size: 16px;
+
     font-weight: 500;
     text-transform: capitalize;
     line-height: 1em;
@@ -3651,7 +3798,7 @@ header.main-header .header-sticky.active{
     color: var(--primary-color);
 	font-family: var(--accent-font);
 	font-size: 20px;
-    font-weight: 700;
+    font-weight: 500;
     line-height: 1em;
 	padding: 0;
 	border-radius: 0;
@@ -3665,7 +3812,6 @@ header.main-header .header-sticky.active{
     background: transparent;
     color: var(--accent-color);
 }
-
 .product-step-nav ul li .nav-link::before{
     content: '';
     display: block;
@@ -3679,6 +3825,7 @@ header.main-header .header-sticky.active{
     height: 2px;
     transition: all 0.4s ease-in-out;
 }
+
 
 .product-step-nav ul li .nav-link.active::before,
 .product-step-nav ul li .nav-link:hover:before{
@@ -3770,7 +3917,6 @@ header.main-header .header-sticky.active{
 
 .customer-review-item-rating i{
 	color: var(--accent-color);
-	font-size: 16px;
 }
 
 .review-form-content{
@@ -4015,11 +4161,11 @@ header.main-header .header-sticky.active{
 }
 
 .skillbar .skill-data .skill-title{
-	font-size: 16px;
+	font-size: 15px;
 }
 
 .skillbar .skill-data .skill-no{
-	font-size: 16px;
+	font-size: 15px;
 }
 
 .skillbar .skill-progress{
@@ -4290,13 +4436,12 @@ header.main-header .header-sticky.active{
 
 .contact-form .contact-form-title h3{
 	font-size: 30px;
-	font-weight: 700;
+	font-weight: 500;
 	text-transform: uppercase;
 	margin-bottom: 50px;
 }
 
 .contact-form form .form-control{
-    font-size: 16px;
     font-weight: 400;
     line-height: 1.5em;
     color: var(--text-color);
@@ -4346,7 +4491,6 @@ header.main-header .header-sticky.active{
 }
 
 .appointment-form form .form-control{
-    font-size: 16px;
     font-weight: 400;
     line-height: 1.5em;
     color: var(--text-color);
@@ -5000,7 +5144,7 @@ header.main-header .header-sticky.active{
 	}
 
 	.member-biography-counter-list ul li:before{
-		font-size: 16px;
+		font-size: 15px;
 	}
 
 	.contact-us-content{
@@ -5084,6 +5228,7 @@ header.main-header .header-sticky.active{
 		background-position: center left 12px;
 		background-size: 14px auto;
 		padding: 8px 12px 8px 34px;
+        font-weight: 400;
 	}
 
 	.section-title h1{
@@ -5350,7 +5495,7 @@ header.main-header .header-sticky.active{
 	}
 
 	.testimonial-item-content p{
-		font-size: 16px;
+		font-size: 15px;
 	}
 
 	.testimonial-pagination{
@@ -5411,7 +5556,7 @@ header.main-header .header-sticky.active{
     }
 
 	.page-header-box ol li.breadcrumb-item{
-		font-size: 16px;
+		font-size: 15px;
 	}
 
 	.our-approach{
@@ -5537,7 +5682,7 @@ header.main-header .header-sticky.active{
 
     .post-entry ol li,
     .post-entry ul li{
-		font-size: 16px;
+		font-size: 15px;
         margin-bottom: 10px;
     }
 
@@ -5612,7 +5757,7 @@ header.main-header .header-sticky.active{
 	}
 
 	.product-step-nav ul li .nav-link{
-		font-size: 16px;
+		font-size: 15px;
 	}
 
 	.product-step-nav ul li .nav-link::before{
@@ -5646,7 +5791,6 @@ header.main-header .header-sticky.active{
 	}
 
 	.review-form .form-control{
-		font-size: 16px;
 		padding: 12px 15px;
 	}
 
@@ -5869,7 +6013,6 @@ header.main-header .header-sticky.active{
 	}
 
 	.company-logo-slider p{
-		font-size: 16px;
         margin-bottom: 20px;
     }
 
@@ -5960,7 +6103,7 @@ header.main-header .header-sticky.active{
     }
 
 	.faq-accordion .accordion-header .accordion-button{
-		font-size: 16px;
+		font-size: 15px;
     }
 
 	.testimonial-item{
@@ -6131,7 +6274,7 @@ header.main-header .header-sticky.active{
 
 	.post-single-meta ol li,
 	.post-single-meta ol li i{
-		font-size: 16px;
+		font-size: 15px;
 	}
 
 	.post-image img{
@@ -6144,7 +6287,7 @@ header.main-header .header-sticky.active{
 	}
 
 	.post-entry blockquote p{
-		font-size: 16px;
+		font-size: 15px;
 	}
 
 	.post-entry h2{
@@ -6199,7 +6342,7 @@ header.main-header .header-sticky.active{
 	}
 
 	.customer-rating-box i{
-		font-size: 16px;
+		font-size: 15px;
 	}
 
 	.product-single-content h3{
@@ -6508,11 +6651,11 @@ header.main-header .header-sticky.active{
 	width: 80%;
 }
 .hero-info-item-content-ultimate h3{
-	font-size: 18px;
+	font-size: 16px;
+    font-weight: 400;
 	line-height: 1.4em;
 	color: var(--bg-color);
 }
-
 .about-us-ultimate{
 	padding: 100px 0;
 }
@@ -6782,6 +6925,7 @@ header.main-header .header-sticky.active{
 
 .what-we-client-content-ultimate h3{
 	font-size: 20px;
+    font-weight: 400;
 	line-height: 1.4em;
 }
 
@@ -6891,7 +7035,7 @@ header.main-header .header-sticky.active{
 	content: '\f058';
     position: absolute;
     font-family: 'Font Awesome 7 Free';
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 900;
     color: var(--accent-color);
     top: 0;
@@ -6979,7 +7123,7 @@ header.main-header .header-sticky.active{
 }
 
 .product-item-content-ultimate p span{
-	font-size: 16px;
+	font-size: 15px;
 	text-decoration-line: line-through;
 	margin-left: 10px;
 }
@@ -7089,7 +7233,7 @@ header.main-header .header-sticky.active{
 }
 
 .book-appointment-form-ultimate .form-control{
-	font-size: 16px;
+	font-size: 15px;
 	font-weight: 400;
 	line-height: 1.5em;
 	color: var(--text-color);
@@ -7476,7 +7620,7 @@ header.main-header .header-sticky.active{
 
 .footer-newsletter-form-ultimate .form-group .form-control{
 	width: 100%;
-	font-size: 16px;
+	font-size: 15px;
 	font-weight: 400;
 	line-height: 1.5em;
 	color: var(--text-color);
@@ -7917,7 +8061,7 @@ header.main-header .header-sticky.active{
 	}
 
 	.testimonial-item-content-ultimate p{
-		font-size: 16px;
+		font-size: 15px;
 		margin-top: 15px;
 	}
 
@@ -8097,11 +8241,11 @@ header.main-header .header-sticky.active{
 	}
 
 	.faqs-cta-content-ultimate h3{
-		font-size: 16px;
+		font-size: 15px;
 	}
 
 	.faq-accordion-ultimate .accordion-header .accordion-button{
-		font-size: 16px;
+		font-size: 15px;
 	}
 
 	.testimonial-item-header-ultimate{
@@ -8280,6 +8424,7 @@ header.main-header .header-sticky.active{
 
 .hero-content-prime .section-title p{
 	font-size: 18px;
+    font-weight: 400;
 	max-width: 900px;
 	margin-left: auto;
 	margin-right: auto;
@@ -8300,7 +8445,7 @@ header.main-header .header-sticky.active{
 .hero-image-title-prime h2{
 	display: inline-block;
 	font-size: 15.625vw;
-	font-weight: 700;
+	font-weight: 500;
 	line-height: normal;
 	letter-spacing: 0.02em;
 	color: transparent;
@@ -8367,7 +8512,7 @@ header.main-header .header-sticky.active{
 }
 
 .about-info-box-content-prime h3{
-	font-size: 16px;
+	font-size: 15px;
 	line-height: 1.4em;
 	margin-top: 50px;
 }
@@ -8437,7 +8582,7 @@ header.main-header .header-sticky.active{
 	content: '\f058';
     position: absolute;
     font-family: 'Font Awesome 7 Free';
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 900;
     color: var(--accent-color);
     top: 0;
@@ -8507,7 +8652,8 @@ header.main-header .header-sticky.active{
 }
 
 .service-item-content-prime h3{
-	font-size: 18px;
+    font-size: 15px;
+    font-weight: 400;
 	margin-bottom: 10px;
 }
 
@@ -8521,7 +8667,7 @@ header.main-header .header-sticky.active{
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
-	font-size: 15px;
+	font-size: 13px;
 }
 
 .service-readmore-btn-prime{
@@ -8668,7 +8814,7 @@ header.main-header .header-sticky.active{
 	border-radius: 100px;
 	padding: 5px 15px 5px 35px;
 	font-size: 12px;
-	font-weight: 700;
+	font-weight: 500;
 	line-height: normal;
 	text-transform: uppercase;
     color: var(--white-color);
@@ -8719,14 +8865,14 @@ header.main-header .header-sticky.active{
 }
 
 .product-item-content-prime p span{
-	font-size: 16px;
+	font-size: 15px;
 	text-decoration-line: line-through;
 	margin-left: 10px;
 }
 
 .our-product-footer-prime p{
 	font-size: 20px;
-	font-weight: 700;
+	font-weight: 500;
 	text-transform: uppercase;
 }
 
@@ -8811,7 +8957,7 @@ header.main-header .header-sticky.active{
 	content: '\f058';
     position: absolute;
     font-family: 'Font Awesome 7 Free';
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 900;
     color: var(--accent-color);
     top: 0;
@@ -9006,7 +9152,7 @@ header.main-header .header-sticky.active{
 
 .pricing-price-prime h2 sub{
 	font-family: var(--default-font);
-	font-size: 16px;
+	font-size: 15px;
 	font-weight: 400;
 	text-transform: lowercase;
 	bottom: 0;
@@ -9252,7 +9398,7 @@ header.main-header .header-sticky.active{
 
 .testimonial-cta-client-content-prime p span{
 	font-size: 20px;
-	font-weight: 700;
+	font-weight: 500;
 	color: var(--white-color);
 }
 
@@ -9471,7 +9617,7 @@ header.main-header .header-sticky.active{
 
 .footer-newsletter-form-prime .form-group .form-control{
 	width: 73%;
-	font-size: 16px;
+	font-size: 15px;
 	font-weight: 400;
 	line-height: normal;
 	color: var(--text-color);
@@ -9849,7 +9995,7 @@ header.main-header .header-sticky.active{
 	}
 
 	.hero-content-prime .section-title p{
-		font-size: 16px;
+		font-size: 15px;
 	}
 
 	.hero-image-box-prime{
@@ -9983,7 +10129,7 @@ header.main-header .header-sticky.active{
 	}
 
 	.pricing-item-list-prime ul li::before{
-		font-size: 16px;
+		font-size: 15px;
 	}
 
 	.pricing-item-btn-prime .btn-default{
@@ -10024,7 +10170,7 @@ header.main-header .header-sticky.active{
 	}
 
 	.testimonial-item-content-prime p{
-		font-size: 16px;
+		font-size: 15px;
 	}
 
 	.testimonial-author-prime{
@@ -10413,12 +10559,12 @@ header.main-header .header-sticky.active{
 	}
 
 	.faq-accordion-prime .accordion-header .accordion-button{
-		font-size: 16px;
+		font-size: 15px;
 	}
 
 	.faq-accordion-prime .accordion-item-prime .accordion-button::after,
 	.faq-accordion-prime .accordion-item-prime .accordion-button.collapsed::after{
-		font-size: 16px;
+		font-size: 15px;
 	}
 
 	.footer-header-prime{
@@ -10510,8 +10656,8 @@ header.main-header .header-sticky.active{
 	gap: 8px;
 }
 .custom_table img{
-	width: 16px;
-	height: 16px;
+	width: 14px;
+	height: 14px;
 	vertical-align: sub;
 	margin-right: 5px;
 }
@@ -10525,6 +10671,15 @@ header.main-header .header-sticky.active{
 	z-index: 999;
 	color: #fff;
 	padding: 8px .75rem;
+    font-weight: 400;
+}
+.whatsapp_float i{
+    font-size: 22px;
+}
+.whatsapp_float span{
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 .search_main {
 	position: fixed;
@@ -10607,7 +10762,7 @@ header.main-header .header-sticky.active{
 /* Mobile */
 @media (max-width: 576px) {
 	.search-box .form-control {
-		font-size: 16px;
+		font-size: 15px;
 	}
 }
 .bg-video {

@@ -12,14 +12,13 @@
             </video>
             <div class="container position-relative" style="z-index: 2;">
                 <div class="row">
-                    <div class="col-xl-8 mx-auto">
+                    <div class="col-xl-10 mx-auto">
                         <!-- Hero Content Start -->
                         <div class="hero-content text-center">
                             <!-- Section Title Start -->
                             <div class="section-title">
                                 <!-- Header End -->
-                                <h1 class="text-anime-style-3" data-cursor="-opaque">India’s Most Trusted Personal Car
-                                    Consultant</h1>
+                                <h1 class="text-anime-style-3" data-cursor="-opaque">India’s Most Trusted Personal Car Consultant</h1>
                                 <p class="text-center mx-auto">New Cars • Pre Owned Cars • 288+ Point Inspections</p>
                             </div>
                             <!-- Section Title End -->
