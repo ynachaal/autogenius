@@ -28,7 +28,7 @@
                             <div class="hero-btn wow fadeInUp gap-3 d-flex flex-wrap justify-content-center"
                                 data-wow-delay="0.8s">
                                 <a href="javascript:void(0)" class="btn-default">Book Expert Consultation</a>
-                                <a href="https://api.whatsapp.com/send?phone=918007500740" target="_blank"
+                                <a href="https://api.whatsapp.com/send?phone={{ preg_replace('/[^0-9]/', '', config('settings.phone', '')) }}" target="_blank"
                                     class="btn-primary">Call / WhatsApp</a>
                             </div>
                             <!-- Hero Button End -->
@@ -226,9 +226,9 @@
                                     </div>
 
                                     {{-- Phone number fallback or from meta --}}
-                                    <a href="tel:{{ $data['site']['phone'] ?? '+918668228668' }}" class="btn-default mt-4">
+                                    <a href="tel:{{ config('settings.phone', '') }}" class="btn-default mt-4">
                                         <i class="fa-solid fa-phone"></i>
-                                        {{ $data['site']['phone_display'] ?? '+91 8668 22 8668' }}
+                                      {{ config('settings.phone', '') }}
                                     </a>
                                 </div>
                             </div>
@@ -295,12 +295,12 @@
                                 @endif
 
                                 <div class="d-flex flex-wrap gap-3 mt-4">
-                                    <a href="https://wa.me/+918007500740?text=Hi%20AutoGenius%2C%0AI%27d%20like%20expert%20guidance%20regarding%20a%20car."
+                                    <a href="https://wa.me/{{ config('settings.phone', '') }}?text=Hi%20AutoGenius%2C%0AI%27d%20like%20expert%20guidance%20regarding%20a%20car."
                                         class="btn-primary w-fit" target="_blank">
                                         <i class="fa-brands fa-whatsapp"></i> WhatsApp AutoGenius
                                     </a>
-                                    <a href="tel:+918668228668" class="btn-default w-fit">
-                                        <i class="fa-solid fa-phone"></i> +91 8668 22 8668
+                                    <a href="tel:{{ config('settings.phone', '') }}" class="btn-default w-fit">
+                                        <i class="fa-solid fa-phone"></i> {{ config('settings.phone', '') }}
                                     </a>
                                 </div>
                             </div>
@@ -374,7 +374,7 @@
                                 <div class="about-us-body wow fadeInUp" data-wow-delay="0.2s">
                                     <div class="about-us-btn">
                                         {{-- Link to contact or lead form --}}
-                                        <a href="tel:{{ $data['site']['phone'] ?? '+918668228668' }}" class="btn-default">
+                                        <a href="tel:{{ config('settings.phone', '') }}" class="btn-default">
                                             Talk to an Expert Before You Decide
                                         </a>
                                     </div>
@@ -387,7 +387,7 @@
                                             </div>
                                             <div class="about-contact-item-content">
                                                 <h3>Contact Info</h3>
-                                                <p>{{ $data['site']['phone_display'] ?? '+91 8668 22 8668' }}</p>
+                                                <p>{{ config('settings.phone', '') }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -502,7 +502,7 @@
                                     </p>
                                 @endif
 
-                                <a href="tel:{{ $data['site']['phone'] ?? '+918668228668' }}" class="btn-default mt-3">
+                                <a href="tel:{{ config('settings.phone', '') }}" class="btn-default mt-3">
                                     Speak to an AutoGenius Expert
                                 </a>
                             </div>
