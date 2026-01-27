@@ -18,7 +18,8 @@
                             <!-- Section Title Start -->
                             <div class="section-title">
                                 <!-- Header End -->
-                                <h1 class="text-anime-style-3" data-cursor="-opaque">{{ config('settings.home_page_banner_title', '') }}</h1>
+                                <h1 class="text-anime-style-3" data-cursor="-opaque">
+                                    {{ config('settings.home_page_banner_title', '') }}</h1>
                                 <p class="text-center mx-auto">{{ config('settings.home_page_banner_text', '') }}</p>
                             </div>
                             <!-- Section Title End -->
@@ -405,49 +406,50 @@
             <div class="our-approach bg-section mx-0 w-100">
                 <div class="container">
                     <div class="row align-items-center">
-                       @php
+                        @php
                             $sliders = app(\App\Services\SliderService::class)
                                 ->getByCategoryName('About AutoGenius'); // change category name if needed
+                        
                         @endphp
 
                         @if($sliders->count())
-                        <div class="col-xl-6">
-                            <div class="approach-image-box wow fadeInUp" data-wow-delay="0.2s">
-                                <div class="approach-image-box-1 w-100">
-                                    <div id="carouselExample" class="carousel slide carousel-fade">
-                                        <div class="carousel-inner">
+                            <div class="col-xl-6">
+                                <div class="approach-image-box wow fadeInUp" data-wow-delay="0.2s">
+                                    <div class="approach-image-box-1 w-100">
+                                        <div id="carouselExample" class="carousel slide carousel-fade">
+                                            <div class="carousel-inner">
 
-                                            @foreach($sliders as $index => $slider)
-                                                <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                                                    <div class="approach-img">
-                                                        <figure class="image-anime">
-                                                            <img src="{{ asset($slider->file) }}"
-                                                                alt="{{ $slider->heading ?? 'Slider Image' }}">
-                                                        </figure>
+                                                @foreach($sliders as $index => $slider)
+                                                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                                                        <div class="approach-img">
+                                                            <figure class="image-anime">
+                                                                <img src="{{ Storage::url($slider->file) }}"
+                                                                    alt="{{ $slider->heading ?? 'Slider Image' }}">
+                                                            </figure>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            @endforeach
+                                                @endforeach
+
+                                            </div>
+
+                                            @if($sliders->count() > 1)
+                                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
+                                                    data-bs-slide="prev">
+                                                    <span class="carousel-control-prev-icon"></span>
+                                                    <span class="visually-hidden">Previous</span>
+                                                </button>
+
+                                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
+                                                    data-bs-slide="next">
+                                                    <span class="carousel-control-next-icon"></span>
+                                                    <span class="visually-hidden">Next</span>
+                                                </button>
+                                            @endif
 
                                         </div>
-
-                                        @if($sliders->count() > 1)
-                                            <button class="carousel-control-prev" type="button"
-                                                    data-bs-target="#carouselExample" data-bs-slide="prev">
-                                                <span class="carousel-control-prev-icon"></span>
-                                                <span class="visually-hidden">Previous</span>
-                                            </button>
-
-                                            <button class="carousel-control-next" type="button"
-                                                    data-bs-target="#carouselExample" data-bs-slide="next">
-                                                <span class="carousel-control-next-icon"></span>
-                                                <span class="visually-hidden">Next</span>
-                                            </button>
-                                        @endif
-
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         @endif
 
 

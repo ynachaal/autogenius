@@ -51,9 +51,9 @@
                         </form>
 
                         {{-- Create Button --}}
-                    <!--     <a href="{{ route('admin.sliders.create') }}" class="btn btn-sm btn-success" title="Create Slider">
+                        <a href="{{ route('admin.sliders.create') }}" class="btn btn-sm btn-success" title="Create Slider">
                             <i class="fas fa-plus"></i> Create
-                        </a> -->
+                        </a> 
                     </div>
                 </div>
 
