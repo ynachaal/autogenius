@@ -54,7 +54,7 @@
                         </figure>
                     </div>
                     <div class="service-entry">
-                        <h2 class="mb-3 h5">{{ $data['service']->sub_heading }}</h2>
+                        <h2 class="mb-3 h5 fw-normal">{{ $data['service']->sub_heading }}</h2>
                        {!! $data['service']->description !!} 
                     </div>
                 </div>
