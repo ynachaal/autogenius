@@ -6,7 +6,7 @@
         <nav class="navbar navbar-expand-lg">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="{{ asset('images/logo-icon.png') }}" alt="Logo">
+                    <img src="{{ config('settings.site_logo', '') }}" alt="Logo">
                 </a>
                 <div class="collapse navbar-collapse main-menu">
                     <div class="nav-menu-wrapper">
