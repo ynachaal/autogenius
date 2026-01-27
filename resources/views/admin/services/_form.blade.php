@@ -120,7 +120,7 @@
 
                         <div class="mb-3">
                             <label class="form-label fw-medium">Meta Keywords</label>
-                            <input type="text" name="meta_keywords" value="{{ $meta_keywords ?? old('meta_keywords') }}"
+                            <input  maxlength="255" type="text" name="meta_keywords" value="{{ $meta_keywords ?? old('meta_keywords') }}"
                                 class="form-control">
                             <small class="text-muted">Comma separated</small>
                         </div>
