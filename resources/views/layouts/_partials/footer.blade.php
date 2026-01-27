@@ -31,7 +31,7 @@
                 <div class="about-footer">
                     <!-- Footer Logo Start -->
                     <div class="footer-logo">
-                        <img src="{{ asset('images/logo-icon.png') }}" alt="" style="filter: invert(1);">
+                        <img src="{{ config('settings.site_logo', '') }}" alt="" style="filter: invert(1);">
                     </div>
                     <!-- Footer Logo End -->
 

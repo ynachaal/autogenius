@@ -77,7 +77,7 @@ class SliderController extends Controller
 
     public function create()
     {
-        $categories = SliderCategory::all();
+       $categories = SliderCategory::where('status', 1)->get();
         return view('admin.sliders.create', compact('categories'));
     }
 
@@ -105,7 +105,7 @@ class SliderController extends Controller
 
     public function edit(Slider $slider)
     {
-        $categories = SliderCategory::all();
+         $categories = SliderCategory::where('status', 1)->get();
         return view('admin.sliders.edit', compact('slider', 'categories'));
     }
 
