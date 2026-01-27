@@ -1,6 +1,10 @@
 @extends('layouts.front')
 
-@section('title', $data['service']->title)
+@section('title', $data['service']->meta_title ?? '')
+@section('meta_description', $data['service']->meta_description ?? '')
+@section('meta_keywords', $data['service']->meta_keywords ?? '')
+
+
 
 {{-- Breadcrumb --}}
 {{--<nav aria-label="breadcrumb" class="mb-4">--}}
@@ -26,7 +30,9 @@
                     <div class="page-header-box">
                         <h1 class="text-anime-style-3" data-cursor="-opaque" aria-label="about us" style="perspective: 400px;">{{ $data['service']->title }}</h1>
                     </div>
+                  
                     <!-- Page Header Box End -->
+                    
                 </div>
             </div>
         </div>
@@ -48,8 +54,8 @@
                         </figure>
                     </div>
                     <div class="service-entry">
-                        <h1 class="mb-3">{{ $data['service']->title }}</h1>
-                        {!! $data['service']->description !!}
+                        <h5 class="mb-3">{{ $data['service']->sub_heading }}</h5>
+                       {!! $data['service']->description !!} 
                     </div>
                 </div>
             </div>
