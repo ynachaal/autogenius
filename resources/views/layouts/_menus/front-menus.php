@@ -24,7 +24,7 @@ return [
     ],
     [
         'title' => 'Car Deliveries',
-        'route' =>  route('pages.show', 'car-deliveries'), // update route if needed
+        'route' =>  route('car.deliveries'), // update route if needed
     ],
     [
         'title' => 'Contact Us',
