@@ -61,6 +61,12 @@ class SiteController extends Controller
         return view('front.home', compact('data'));
     }
 
+    public function carDeliveries(): View
+    {
+        $page = $this->pageService->getBySlug('car-deliveries');
+        return view('front.car-deliveries', compact('page'));
+    }
+
     public function queue()
     {
         Artisan::call('queue:work --stop-when-empty');

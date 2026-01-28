@@ -14,8 +14,8 @@ return [
           'route' => route('services.index'),
     ],
     [
-        'title' => 'Blog',
-        'route' => "javascript:void(0)",
+        'title' => ' Our Principles',
+        'route' => route('pages.show', 'our-principles'),
     ],
     [
         'title' => 'Privacy Policy',

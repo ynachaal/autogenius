@@ -100,9 +100,9 @@ class ServiceController extends Controller
             'image' => ['nullable', 'image', 'max:2048'],
             'status' => ['boolean'],
             'featured' => ['boolean'],
-            'meta_title' => ['nullable', 'string', 'max:60'],
-        'meta_description' => ['nullable', 'string', 'max:160'],
-        'meta_keywords' => ['nullable', 'string', 'max:255'],
+            'meta_title' => ['nullable', 'string', 'max:100'],
+        'meta_description' => ['nullable', 'string', 'max:500'],
+        'meta_keywords' => ['nullable', 'string', 'max:500'],
         ]);
 
         // --- SLUG GENERATION AND UNIQUENESS CHECK (STORE) ---
@@ -171,9 +171,9 @@ class ServiceController extends Controller
             'status' => ['boolean'],
             'featured' => ['boolean'],
             'remove_image' => ['boolean'],
-            'meta_title' => ['nullable', 'string', 'max:60'],
-        'meta_description' => ['nullable', 'string', 'max:160'],
-        'meta_keywords' => ['nullable', 'string', 'max:255'],
+            'meta_title' => ['nullable', 'string', 'max:100'],
+        'meta_description' => ['nullable', 'string', 'max:500'],
+        'meta_keywords' => ['nullable', 'string', 'max:500'],
         ]);
 
         // --- SLUG GENERATION AND UNIQUENESS CHECK (UPDATE) ---
