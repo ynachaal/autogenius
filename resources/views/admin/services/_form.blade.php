@@ -107,22 +107,22 @@
                         <div class="mb-3">
                             <label class="form-label fw-medium">Meta Title</label>
                             <input type="text" name="meta_title" value="{{ $meta_title ?? old('meta_title') }}"
-                                class="form-control" maxlength="60">
-                            <small class="text-muted">Recommended: 50–60 characters</small>
+                                class="form-control" maxlength="100">
+                            <small class="text-muted">Recommended: 100 characters</small>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label fw-medium">Meta Description</label>
                             <textarea name="meta_description" rows="3" class="form-control"
-                                maxlength="160">{{ $meta_description ?? old('meta_description') }}</textarea>
-                            <small class="text-muted">Recommended: 150–160 characters</small>
+                                maxlength="500">{{ $meta_description ?? old('meta_description') }}</textarea>
+                            <small class="text-muted">Recommended: 500 characters</small>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label fw-medium">Meta Keywords</label>
-                            <input type="text" name="meta_keywords" value="{{ $meta_keywords ?? old('meta_keywords') }}"
+                            <input  maxlength="500" type="text" name="meta_keywords" value="{{ $meta_keywords ?? old('meta_keywords') }}"
                                 class="form-control">
-                            <small class="text-muted">Comma separated</small>
+                            <small class="text-muted">Comma separated 500 characters</small>
                         </div>
 
                     </div>
@@ -189,6 +189,16 @@
                     image: {
                         filetype: ["jpeg", "jpg", "png", "gif"],
                         filesize: 2097152 // 2MB
+                    },
+                    // === NEW SEO FIELD RULES ===
+                    meta_title: {
+                        maxlength: 100
+                    },
+                    meta_description: {
+                        maxlength: 500
+                    },
+                    meta_keywords: {
+                        maxlength: 500
                     }
                 },
                 messages: {

@@ -60,6 +60,9 @@ Route::prefix('pages')->name('pages.')->group(function () {
 Route::get('/services', [SiteController::class, 'services'])
     ->name('services.index');
 
+    Route::get('/car-deliveries', [SiteController::class, 'carDeliveries'])
+    ->name('car.deliveries');
+
 Route::get('/services/{slug}', [SiteController::class, 'serviceDetail'])
     ->name('services.show');
 Route::get('/queue', [SiteController::class, 'queue'])->name('queue');

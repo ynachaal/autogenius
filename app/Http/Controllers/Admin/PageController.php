@@ -99,7 +99,7 @@ class PageController extends Controller
             'is_published' => 'nullable|boolean',
             
             // --- NEW FIELDS VALIDATION ---
-            'meta_title' => 'nullable|string|max:255',
+            'meta_title' => 'nullable|string|max:100',
             'meta_description' => 'nullable|string|max:500', // Common limit for description
             'meta_keywords' => 'nullable|string|max:500', 
             // -----------------------------
@@ -162,7 +162,7 @@ class PageController extends Controller
             'is_published' => 'nullable|boolean', // Uncommented and restored (using nullable for flexibility)
 
             // --- NEW FIELDS VALIDATION ---
-            'meta_title' => 'nullable|string|max:255',
+            'meta_title' => 'nullable|string|max:100',
             'meta_description' => 'nullable|string|max:500',
             'meta_keywords' => 'nullable|string|max:500',
             // -----------------------------

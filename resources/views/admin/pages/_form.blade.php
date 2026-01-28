@@ -91,11 +91,11 @@
 
                             <div class="mb-3">
                                 <label for="meta_title" class="form-label">Meta Title (SEO)</label>
-                                <input type="text" id="meta_title" name="meta_title"
+                                <input  maxlength="100" type="text" id="meta_title" name="meta_title"
                                     class="form-control @error('meta_title') is-invalid @enderror"
                                     value="{{ $meta_title ?? old('meta_title') }}">
                                 <small class="form-text text-muted">A compelling title for search engine results. Max
-                                    255 characters.</small>
+                                    100 characters.</small>
                                 @error('meta_title')
                                     <div class="text-danger small mt-1">{{ $message }}</div>
                                 @enderror
@@ -103,7 +103,7 @@
 
                             <div class="mb-3">
                                 <label for="meta_description" class="form-label">Meta Description (SEO)</label>
-                                <textarea id="meta_description" name="meta_description" rows="3"
+                                <textarea  maxlength="500" id="meta_description" name="meta_description" rows="3"
                                     class="form-control @error('meta_description') is-invalid @enderror">{{ $meta_description ?? old('meta_description') }}</textarea>
                                 <small class="form-text text-muted">A brief summary of the page content. Max 500
                                     characters (approx).</small>
@@ -114,7 +114,7 @@
 
                             <div class="mb-3">
                                 <label for="meta_keywords" class="form-label">Meta Keywords (Optional)</label>
-                                <input type="text" id="meta_keywords" name="meta_keywords"
+                                <input type="text"  maxlength="500" id="meta_keywords" name="meta_keywords"
                                     class="form-control @error('meta_keywords') is-invalid @enderror"
                                     value="{{ $meta_keywords ?? old('meta_keywords') }}">
                                 <small class="form-text text-muted">Comma-separated keywords (less critical for modern
@@ -182,7 +182,7 @@
 
                     // === NEW SEO FIELD RULES ===
                     meta_title: {
-                        maxlength: 255
+                        maxlength: 100
                     },
                     meta_description: {
                         maxlength: 500
