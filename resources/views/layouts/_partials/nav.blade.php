@@ -95,12 +95,14 @@
     <button type="button" class="btn-close search-close shadow-none"></button>
     <div class="container">
         <div class="col-md-8 mx-auto">
-            <div class="input-group search-box">
-                <input type="text" class="form-control" placeholder="Search...">
-                <button class="btn search-btn" type="submit">
-                    <i class="fa fa-search"></i>
-                </button>
-            </div>
+            <form action="{{ url('/search') }}" method="GET">
+                <div class="input-group search-box">
+                    <input type="text" name="q" class="form-control" placeholder="Search..." required>
+                    <button class="btn search-btn" type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

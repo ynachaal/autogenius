@@ -4,11 +4,9 @@ namespace App\Http\Controllers;
 
 
 use App\Services\PageService;
-
+use Illuminate\Pagination\LengthAwarePaginator;
 use App\Services\ContentMetaService; // Import the service
-
-
-
+use App\Services\SearchService; // 1. Import the Service
 use App\Services\EmailService;
 use App\Services\ServiceService;
 use App\Services\BrandService;
@@ -27,12 +25,14 @@ class SiteController extends Controller
     protected ServiceService $serviceService;
     protected BrandService $brandService; // Add this
     protected PageService $pageService;
+    protected SearchService $searchService; // 2. Add property
 
     public function __construct(
         EmailService $emailService,
         ServiceService $serviceService,
         ContentMetaService $metaService,
-         PageService $pageService,
+        PageService $pageService,
+        SearchService $searchService,
         BrandService $brandService // Inject BrandService
 
     ) {
@@ -40,7 +40,8 @@ class SiteController extends Controller
         $this->serviceService = $serviceService;
         $this->metaService = $metaService;
         $this->brandService = $brandService;
-         $this->pageService = $pageService;
+        $this->pageService = $pageService;
+        $this->searchService = $searchService; // 4. Assign
 
     }
 
@@ -79,7 +80,7 @@ class SiteController extends Controller
         $data = [
             'services' => $this->serviceService->getPaginatedServices(12),
         ];
-        return view('front.services.index', compact('data','page'));
+        return view('front.services.index', compact('data', 'page'));
     }
 
     public function serviceDetail(string $slug): View
@@ -108,35 +109,42 @@ class SiteController extends Controller
         return view('front.pages.show', compact('page'));
     }
 
-    public function contactUs(Request $request): RedirectResponse|View
+    public function search(Request $request): View
     {
-        $page = $this->pageService->getBySlug('contact-us');
-        if ($request->isMethod('get')) {
-            return view('front.contact-us', compact('page'));
-        }
-
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'message' => 'required|string|max:2000',
+            'q' => 'required|string|min:2',
         ]);
 
-        try {
-            $contact = ContactSubmission::create($validated);
-            if ($contact) {
-                $this->emailService->contactUs($contact);
+        $query = trim($validated['q']);
+        $results = $this->searchService->globalSearch($query);
+
+        $combinedResults = collect();
+        foreach ($results as $type => $items) {
+            foreach ($items as $item) {
+                $item->result_type = $type;
+                $combinedResults->push($item);
             }
-
-            return redirect()
-                ->back()
-                ->with('success', 'Thank you for your message! We will be in touch shortly.');
-        } catch (\Throwable $e) {
-            Log::error("Contact form submission error: " . $e->getMessage());
-            return redirect()
-                ->back()
-                ->withInput()
-                ->with('error', 'There was an issue submitting your request. Please try again.');
         }
-    }
 
+        // --- Manual Pagination Logic ---
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $perPage = 10;
+        $currentResults = $combinedResults->slice(($currentPage - 1) * $perPage, $perPage)->all();
+
+        $paginatedResults = new LengthAwarePaginator(
+            $currentResults,
+            $combinedResults->count(),
+            $perPage,
+            $currentPage,
+            ['path' => $request->url(), 'query' => $request->query()]
+        );
+
+        $data = [
+            'results' => $paginatedResults, // This is now a paginator object
+            'query' => $query,
+            'count' => $combinedResults->count()
+        ];
+
+        return view('front.search.index', compact('data'));
+    }
 }

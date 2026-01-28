@@ -119,6 +119,7 @@ class EmailService
             '{name}'          => $contact->name ?? '',
             '{email}'         => $contact->email ?? '',
             '{message}'       => $contact->message ?? '',
+            '{mobile_no}'     => $contact->mobile_no ?? '',
             '{support_email}' => config('mail.from.address', 'support@example.com'),
             '{company_name}'  => config('settings.site_name', 'CC'),
             '{year}'          => now()->year,
@@ -127,19 +128,11 @@ class EmailService
         ];
 
         // Admin
-        $this->sendEmail(
+       return $this->sendEmailInstant(
             config('settings.admin_email', 'anubhav.abstain@gmail.com'),
             'Contact Us - Admin',
             $data,
             'New Contact Inquiry'
-        );
-
-        // Client
-        return $this->sendEmail(
-            $contact->email,
-            'Contact Us',
-            $data,
-            'Thank You for Contacting Us'
         );
     }
 
