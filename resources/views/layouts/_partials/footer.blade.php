@@ -8,8 +8,8 @@
                 <div class="col-xl-8">
                     <!-- Section Title Start -->
                     <div class="section-title">
-                        <h2 class="text-anime-style-3" data-cursor="-opaque">Before You Decide, Talk to an Expert</h2>
-                        <p>A short conversation today can prevent a long regret tomorrow.</p>
+                        <h2 class="text-anime-style-3" data-cursor="-opaque">{{config('settings.footer_heading', '') }}</h2>
+                        <p>{{ config('settings.footer_subheading', '') }}</p>
                     </div>
                     <!-- Section Title End -->
                 </div>
@@ -18,8 +18,7 @@
                     <!-- Footer Newsletter Form Start -->
                     <div class="footer-newsletter-form-prime">
                         <div class="section-title">
-                            <p class="text-anime-style-3 h5 mb-4 fw-normal" data-cursor="-opaque">Book Your Expert
-                                Consultation Today</p>
+                            <p class="text-anime-style-3 h5 mb-4 fw-normal" data-cursor="-opaque">{{config('settings.footer_contactheading', '') }}</p>
                         </div>
                         <a href="tel:{{config('settings.phone', '') }}" class="btn-default"><i
                                 class="fa-solid fa-phone"></i> {{config('settings.phone', '') }}</a>

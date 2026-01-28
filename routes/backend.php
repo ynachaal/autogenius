@@ -36,9 +36,9 @@ Route::middleware(['auth', AdminMiddleware::class])
       Route::get('content-meta/{section}', [ContentMetaController::class, 'index'])->name('content-meta.index');
         Route::post('content-meta/{section}/save', [ContentMetaController::class, 'saveMeta'])->name('content-meta.save');
 
-        Route::get('/dashboard', function () {
-            return view('admin.dashboard');
-        })->name('dashboard');
+      
+
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         Route::get('/migrate', [DashboardController::class, 'migrate'])->name('migrate');
         Route::get('/clearCache', [DashboardController::class, 'clearCache'])->name('clearCache');

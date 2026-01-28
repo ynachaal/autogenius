@@ -109,7 +109,7 @@ return [
             ]),
     ],
 
-    [
+    /* [
         'title' => 'Blogs',
         'icon' => 'bi-journal-text',
         'children' => [
@@ -125,7 +125,7 @@ return [
             ],
         ],
         'active' => Route::is('admin.blogs.*') || Route::is('admin.blog-categories.*'),
-    ],
+    ], */
     [
         'title' => 'Slider',
         'icon' => 'bi-journal-text',
