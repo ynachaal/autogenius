@@ -27,7 +27,7 @@
                             <!-- Hero Button Start -->
                             <div class="hero-btn wow fadeInUp gap-3 d-flex flex-wrap justify-content-center"
                                 data-wow-delay="0.8s">
-                                <a href="javascript:void(0)" class="btn-default">Book Expert Consultation</a>
+                                <a href="{{route('front.bookConsultation')}}" class="btn-default">Book Expert Consultation</a>
                                 <a href="https://api.whatsapp.com/send?phone={{ preg_replace('/[^0-9]/', '', config('settings.phone', '')) }}" target="_blank"
                                     class="btn-primary">Call / WhatsApp</a>
                             </div>

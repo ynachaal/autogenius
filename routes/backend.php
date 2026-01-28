@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\Admin\{
     DashboardController,
+    ConsultationController,
     PageController,
     BrandController,
     ContactSubmissionController,
@@ -46,6 +47,11 @@ Route::middleware(['auth', AdminMiddleware::class])
         ->name('storage.link');
 
         Route::resource('contact-submissions', ContactSubmissionController::class);
+        Route::resource('consultations', ConsultationController::class);
+
+        Route::post('consultations/{consultation}/status', [ConsultationController::class, 'updateStatus'])
+        ->name('consultations.updateStatus');
+   
         Route::resource('services', ServiceController::class);
         Route::resource('brands', BrandController::class);
         Route::resource('blogs', BlogController::class);

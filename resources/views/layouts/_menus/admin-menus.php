@@ -20,10 +20,26 @@ return [
         'active' => Route::is('admin.users.index'),
     ],
     [
-        'title' => 'Contact Submissions',
-        'icon' => 'bi-ui-checks',
-        'route' => route('admin.contact-submissions.index'),
-        'active' => Route::is('admin.contact-submissions.index'),
+        'title' => 'Submissions',
+        'icon' => 'bi-inbox',
+
+        'children' => [
+            [
+                'title' => 'Contact Submissions',
+                'route' => route('admin.contact-submissions.index'),
+                'active' => Route::is('admin.contact-submissions.*'),
+            ],
+            [
+                'title' => 'Consultations',
+                'route' => route('admin.consultations.index'),
+                'active' => Route::is('admin.consultations.*'),
+            ],
+        ],
+
+        // Parent active if any child is active
+        'active' =>
+            Route::is('admin.contact-submissions.*') ||
+            Route::is('admin.consultations.*'),
     ],
     [
         'title' => 'Management',
@@ -45,7 +61,7 @@ return [
         // Parent active if any child is active
         'active' => Route::is('admin.services.index') || Route::is('admin.brands.index'),
     ],
-   
+
     [
         'title' => 'Homepage',
         'icon' => 'bi-house',
@@ -157,12 +173,12 @@ return [
                 'route' => route('admin.pages.index'),
                 'active' => Route::is('admin.pages.index'),
             ],
-             [
-        'title' => 'Email Templates',
-      
-        'route' => route('admin.email-templates.index'),
-        'active' => Route::is('admin.email-templates.index'),
-    ],
+            [
+                'title' => 'Email Templates',
+
+                'route' => route('admin.email-templates.index'),
+                'active' => Route::is('admin.email-templates.index'),
+            ],
         ],
         'active' => Route::is('admin.faqs.index') || Route::is('admin.pages.index') || Route::is('admin.email-templates.index'),
     ],

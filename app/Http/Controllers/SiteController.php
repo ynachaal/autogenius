@@ -12,7 +12,7 @@ use App\Services\ServiceService;
 use App\Services\BrandService;
 
 use Illuminate\Support\Facades\Artisan;
-use App\Models\ContactSubmission;
+use App\Models\Consultation; // <-- 1. Import the Consultation Model
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
@@ -146,5 +146,37 @@ class SiteController extends Controller
         ];
 
         return view('front.search.index', compact('data'));
+    }
+
+    public function bookConsultation(): View
+    {
+        return view('front.book-consultation');
+    }
+    public function storeConsultation(Request $request): RedirectResponse
+    {
+        // 2. Validate the incoming request
+        $validated = $request->validate([
+            'name' => 'required|string|min:2|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|min:7|max:20',
+            'subject' => 'required|string|max:255',
+            'preferred_date' => 'required|date|after_or_equal:today',
+            'message' => 'nullable|string|min:10',
+        ]);
+
+        try {
+            // 3. Add default status
+            $validated['status'] = 'pending';
+            // 4. Create the record
+            Consultation::create($validated);
+            // Optional: You can use your EmailService here if you want to notify the admin
+            // $this->emailService->sendConsultationNotification($validated);
+
+            return back()->with('success', 'Your consultation request has been submitted successfully! We will contact you shortly.');
+
+        } catch (\Exception $e) {
+            Log::error('Consultation Store Error: ' . $e->getMessage());
+            return back()->with('error', 'There was an error processing your request. Please try again.')->withInput();
+        }
     }
 }

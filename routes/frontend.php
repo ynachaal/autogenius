@@ -68,3 +68,11 @@ Route::get('/services/{slug}', [SiteController::class, 'serviceDetail'])->name('
 Route::get('/queue', [SiteController::class, 'queue'])->name('queue');
 Route::get('/tinymce-images', [TinyMCEController::class, 'images'])->name('tinymce.images');
 Route::post('/tinymce-upload', [TinyMCEController::class, 'upload'])->name('tinymce.upload');
+
+
+Route::get('/book-a-consultation', [SiteController::class, 'bookConsultation'])
+    ->name('front.bookConsultation');
+
+// The form submission logic
+Route::post('/book-a-consultation/store', [SiteController::class, 'storeConsultation'])
+    ->name('frontend.consultation.store');
