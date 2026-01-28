@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 use App\Services\EmailService;
 use Illuminate\Http\Request;
 use App\Models\ContactSubmission;
+use App\Services\PageService;
 
 class ContactSubmissionController extends Controller
 {
-
     protected EmailService $emailService;
+    protected PageService $pageService;
 
      public function __construct(
         EmailService $emailService,
+        PageService $pageService,
     ) {
+        $this->pageService = $pageService;
         $this->emailService = $emailService;
     }
     /**
@@ -20,7 +23,8 @@ class ContactSubmissionController extends Controller
      */
     public function create()
     {
-        return view('front.contact-us');
+        $page = $this->pageService->getBySlug('contact-us');
+        return view('front.contact-us',compact('page'));
     }
 
     /**
@@ -31,10 +35,11 @@ class ContactSubmissionController extends Controller
         $validated = $request->validate([
             'name'    => 'required|string|max:255',
             'email'   => 'required|email|max:255',
+            'mobile_no' => 'required|string|max:20',
             'message' => 'required|string',
         ]);
 
-         $this->emailService->contactUs((object) $validated);
+        $this->emailService->contactUs((object) $validated);
 
         ContactSubmission::create($validated);
 

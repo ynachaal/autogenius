@@ -32,6 +32,9 @@
                             <p class="mb-2"><strong>Email:</strong> 
                                 <a href="mailto:{{ $contactSubmission->email }}">{{ $contactSubmission->email }}</a>
                             </p>
+                            <p class="mb-2"><strong>Mobile No:</strong> 
+                                {{ $contactSubmission->mobile_no ?? 'N/A' }}
+                            </p>
                         </div>
                         <div class="col-md-6 text-md-end">
                             <p class="text-muted mb-2">
