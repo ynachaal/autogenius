@@ -38,6 +38,9 @@
                    
                         // Footer
                         'footer_about' => '',
+                        'footer_heading' => '',
+                        'footer_subheading' => '',
+                        'footer_contactheading' => '',
                     ];
                 @endphp
 
@@ -167,7 +170,25 @@
                                 <textarea name="settings[footer_about]" class="form-control" rows="3">{{ old('settings.footer_about', $settings->get('footer_about')?->value ?? '') }}</textarea>
                                 <x-input-error :messages="$errors->get('settings.footer_about')" class="text-danger mt-1" />
                             </div>
+                              <div class="col-md-6 mb-3">
+            <label class="form-label">Footer Heading</label>
+            <input type="text" name="settings[footer_heading]" class="form-control" value="{{ old('settings.footer_heading', $settings->get('footer_heading')?->value ?? '') }}">
+            <x-input-error :messages="$errors->get('settings.footer_heading')" class="text-danger mt-1" />
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Footer Subheading</label>
+            <input type="text" name="settings[footer_subheading]" class="form-control" value="{{ old('settings.footer_subheading', $settings->get('footer_subheading')?->value ?? '') }}">
+            <x-input-error :messages="$errors->get('settings.footer_subheading')" class="text-danger mt-1" />
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Footer Contact Heading</label>
+            <input type="text" name="settings[footer_contactheading]" class="form-control" value="{{ old('settings.footer_contactheading', $settings->get('footer_contactheading')?->value ?? '') }}">
+            <x-input-error :messages="$errors->get('settings.footer_contactheading')" class="text-danger mt-1" />
+        </div>
                         </div>
+                      
                     </div>
 
                 </div>

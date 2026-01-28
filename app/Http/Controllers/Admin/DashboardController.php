@@ -19,9 +19,7 @@ class DashboardController extends Controller
     public function index()
     {
         $stats = [
-            // Blogs where is_published is true
-            'active_blogs' => Blog::where('is_published', true)->count(),
-
+          
             // Brands where status is 'active' (per your model defaults)
             'active_brands' => Brand::where('status', 'active')->count(),
 
@@ -31,6 +29,8 @@ class DashboardController extends Controller
             // Total Users (Non-Admins)
             'total_users' => User::where('role', '02')->count(),
         ];
+
+      
 
         return view('admin.dashboard', compact('stats'));
     }

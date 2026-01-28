@@ -12,43 +12,46 @@
                 Dashboard Overview
             </h2>
 
-            <div class="row g-4">
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="card border border-primary-subtle shadow-sm rounded-4 p-4 text-center bg-primary-subtle">
-                        <p class="text-uppercase small fw-medium text-primary mb-2">Total Users</p>
-                        <p class="display-6 fw-bold text-dark mb-0">
-                            {{ number_format($stats['total_users'] ?? 0) }}
-                        </p>
-                    </div>
-                </div>
+         <div class="row g-4">
 
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="card border border-success-subtle shadow-sm rounded-4 p-4 text-center bg-success-subtle">
-                        <p class="text-uppercase small fw-medium text-success mb-2">Active Blogs</p>
-                        <p class="display-6 fw-bold text-dark mb-0">
-                            {{ number_format($stats['active_blogs'] ?? 0) }}
-                        </p>
-                    </div>
-                </div>
-
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="card border border-warning-subtle shadow-sm rounded-4 p-4 text-center bg-warning-subtle">
-                        <p class="text-uppercase small fw-medium text-warning mb-2">Active Brands</p>
-                        <p class="display-6 fw-bold text-dark mb-0">
-                            {{ number_format($stats['active_brands'] ?? 0) }}
-                        </p>
-                    </div>
-                </div>
-
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="card border border-info-subtle shadow-sm rounded-4 p-4 text-center bg-info-subtle">
-                        <p class="text-uppercase small fw-medium text-info mb-2">Active Services</p>
-                        <p class="display-6 fw-bold text-dark mb-0">
-                            {{ number_format($stats['active_services'] ?? 0) }}
-                        </p>
-                    </div>
-                </div>
+    {{-- Total Users --}}
+    <div class="col-12 col-md-6 col-lg-3">
+        <a href="{{ route('admin.users.index') }}" class="text-decoration-none">
+            <div class="card border border-primary-subtle shadow-sm rounded-4 p-4 text-center bg-primary-subtle hover-shadow">
+                <p class="text-uppercase small fw-medium text-primary mb-2">Total Users</p>
+                <p class="display-6 fw-bold text-dark mb-0">
+                    {{ number_format($stats['total_users'] ?? 0) }}
+                </p>
             </div>
+        </a>
+    </div>
+
+    {{-- Active Brands --}}
+    <div class="col-12 col-md-6 col-lg-3">
+        <a href="{{ route('admin.brands.index') }}" class="text-decoration-none">
+            <div class="card border border-warning-subtle shadow-sm rounded-4 p-4 text-center bg-warning-subtle hover-shadow">
+                <p class="text-uppercase small fw-medium text-warning mb-2">Active Brands</p>
+                <p class="display-6 fw-bold text-dark mb-0">
+                    {{ number_format($stats['active_brands'] ?? 0) }}
+                </p>
+            </div>
+        </a>
+    </div>
+
+    {{-- Active Services --}}
+    <div class="col-12 col-md-6 col-lg-3">
+        <a href="{{ route('admin.services.index') }}" class="text-decoration-none">
+            <div class="card border border-info-subtle shadow-sm rounded-4 p-4 text-center bg-info-subtle hover-shadow">
+                <p class="text-uppercase small fw-medium text-info mb-2">Active Services</p>
+                <p class="display-6 fw-bold text-dark mb-0">
+                    {{ number_format($stats['active_services'] ?? 0) }}
+                </p>
+            </div>
+        </a>
+    </div>
+
+</div>
+
 
             <div class="mt-5 border-top pt-4">
                 <h4 class="h5 fw-bold mb-3">System Actions</h4>
