@@ -37,7 +37,8 @@
                         <div class="section-title">
                             <h3 class="wow fadeInUp">Get in touch</h3>
                             <h2 class="text-anime-style-3">Find Your Perfect Car, Faster</h2>
-                            <p class="wow fadeInUp">Reach out today and discover amazing deals on new and pre-owned cars.</p>
+                            <p class="wow fadeInUp">Reach out today and discover amazing deals on new and pre-owned cars.
+                            </p>
                         </div>
                         <div class="contact-item-box-list">
                             <div class="opening-hours-box wow fadeInUp">
@@ -53,11 +54,14 @@
                             <div class="contact-info-box wow fadeInUp animated">
                                 <div class="contact-info-item">
                                     <h3>Call Us!</h3>
-                                    <p><a href="tel:{{config('settings.phone', '') }}" class="fw-normal">{{config('settings.phone', '') }}</a></p>
+                                    <p><a href="tel:{{config('settings.phone', '') }}"
+                                            class="fw-normal">{{config('settings.phone', '') }}</a></p>
                                 </div>
                                 <div class="contact-info-item">
                                     <h3>E-mail Us!</h3>
-                                    <p><a href="mailto:{{ config('settings.contact_email', '') }}">{{ config('settings.contact_email', '') }}</a></p>
+                                    <p><a
+                                            href="mailto:{{ config('settings.contact_email', '') }}">{{ config('settings.contact_email', '') }}</a>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -66,7 +70,8 @@
                 <div class="col-xl-6">
                     <div class="contact-form">
                         <div class="contact-form-title">
-                            <h3 class="text-anime-style-3" data-cursor="-opaque" style="perspective: 400px;">Contact Us for enrollment</h3>
+                            <h3 class="text-anime-style-3" data-cursor="-opaque" style="perspective: 400px;">Contact Us for
+                                enrollment</h3>
                         </div>
                         {{-- Session Messages --}}
                         @if (session('success'))
@@ -80,90 +85,96 @@
                             @csrf
                             <div class="row">
                                 <div class="form-group col-md-6 mb-4">
-                                    <input placeholder="{{ __('Full Name') }}" type="text" id="name" class="form-control @error('name') is-invalid @enderror"
-                                           name="name" value="{{ old('name') }}" autofocus>
+                                    <input placeholder="{{ __('Full Name') }}" type="text" id="name"
+                                        class="form-control @error('name') is-invalid @enderror" name="name"
+                                        value="{{ old('name') }}" autofocus>
                                     @error('name')
-                                    <div class="text-danger mt-1 small">{{ $message }}</div>
+                                        <div class="text-danger mt-1 small">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="form-group col-md-6 mb-4">
-                                    <input placeholder="{{ __('Email Address') }}" type="email" id="email" class="form-control @error('email') is-invalid @enderror"
-                                           name="email" value="{{ old('email') }}">
+                                    <input placeholder="{{ __('Email Address') }}" type="email" id="email"
+                                        class="form-control @error('email') is-invalid @enderror" name="email"
+                                        value="{{ old('email') }}">
                                     @error('email')
-                                    <div class="text-danger mt-1 small">{{ $message }}</div>
+                                        <div class="text-danger mt-1 small">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="form-group col-md-12 mb-4">
                                     <input placeholder="{{ __('Mobile Number') }}" type="text" id="mobile_no"
-                                           class="form-control @error('mobile_no') is-invalid @enderror" name="mobile_no"
-                                           value="{{ old('mobile_no') }}" >
+                                        class="form-control @error('mobile_no') is-invalid @enderror" name="mobile_no"
+                                        value="{{ old('mobile_no') }}">
                                     @error('mobile_no')
-                                    <div class="text-danger mt-1 small">{{ $message }}</div>
+                                        <div class="text-danger mt-1 small">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="form-group col-md-12 mb-5">
-                                <textarea placeholder="{{ __('Your Message') }}" id="message" class="form-control @error('message') is-invalid @enderror"
-                                          name="message" rows="5">{{ old('message') }}</textarea>
+                                    <textarea placeholder="{{ __('Your Message') }}" id="message"
+                                        class="form-control @error('message') is-invalid @enderror" name="message"
+                                        rows="5">{{ old('message') }}</textarea>
                                     @error('message')
-                                    <div class="text-danger mt-1 small">{{ $message }}</div>
+                                        <div class="text-danger mt-1 small">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-md-12 mb-4">
+                                    <div class="cf-turnstile" data-sitekey="{{ config('services.turnstile.site_key') }}"
+                                        data-theme="dark"></div>
+                                    @error('cf-turnstile-response')
+                                        <div class="text-danger mt-1 small">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="contact-form-btn">
-                                        <button type="submit" class="btn-default text-center w-fit">{{ __('Send Message') }}</button>
+                                        <button type="submit"
+                                            class="btn-default text-center w-fit">{{ __('Send Message') }}</button>
                                     </div>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
-            </div>
-
-            <div class="row mt-md-5 mt-3 align-content-center">
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     <div class="google-map-iframe">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.507321064284!2d73.90389727525861!3d18.505962782584792!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c6c71ca3ae15%3A0x96e26438da383645!2sAutoGenius%20Private%20Limited!5e0!3m2!1sen!2sin!4v1769671107796!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.507321064284!2d73.90389727525861!3d18.505962782584792!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c6c71ca3ae15%3A0x96e26438da383645!2sAutoGenius%20Private%20Limited!5e0!3m2!1sen!2sin!4v1769671107796!5m2!1sen!2sin"
+                            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div>
-                        <div class="approach-image-box wow fadeInUp">
-                            <div class="approach-image-box-1 w-100">
-                                <div class="carousel slide carousel-fade" id="contactGallery">
-                                    <div class="carousel-inner">
-                                        <div class="carousel-item active">
-                                            <div class="approach-img">
-                                                <figure class="image-anime">
-                                                    <img src="https://autogenous.wlslab.com/storage/sliders/2R73AJMgvhaHfCiVnmqJO1DsWUqjT9A7rH6vFJxP.jpg" alt="Slider Image">
-                                                </figure>
-                                            </div>
-                                        </div>
-                                        <div class="carousel-item">
-                                            <div class="approach-img">
-                                                <figure class="image-anime">
-                                                    <img src="https://autogenous.wlslab.com/storage/sliders/2R73AJMgvhaHfCiVnmqJO1DsWUqjT9A7rH6vFJxP.jpg" alt="Slider Image">
-                                                </figure>
-                                            </div>
-                                        </div>
-                                        <div class="carousel-item">
-                                            <div class="approach-img">
-                                                <figure class="image-anime">
-                                                    <img src="https://autogenous.wlslab.com/storage/sliders/2R73AJMgvhaHfCiVnmqJO1DsWUqjT9A7rH6vFJxP.jpg" alt="Slider Image">
-                                                </figure>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <button class="carousel-control-prev" type="button" data-bs-target="#contactGallery" data-bs-slide="prev">
-                                        <span class="carousel-control-prev-icon"></span>
-                                        <span class="visually-hidden">Previous</span>
-                                    </button>
-                                    <button class="carousel-control-next" type="button" data-bs-target="#contactGallery" data-bs-slide="next">
-                                        <span class="carousel-control-next-icon"></span>
-                                        <span class="visually-hidden">Next</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+            </div>
+
+            {{-- Gallery --}}
+            <div class="row gallery-items page-gallery-box mt-5">
+                <div class="col-lg-4 col-6">
+                    <div class="photo-gallery wow fadeInUp">
+                        <a href="https://autogenous.wlslab.com/storage/services/YUEbadQDylRc8KZqTKC1i2R44LZi7zWnANm80AlF.jpg"
+                            data-cursor-text="View">
+                            <figure class="image-anime">
+                                <img src="https://autogenous.wlslab.com/storage/services/YUEbadQDylRc8KZqTKC1i2R44LZi7zWnANm80AlF.jpg"
+                                    alt="">
+                            </figure>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-6">
+                    <div class="photo-gallery wow fadeInUp">
+                        <a href="https://autogenous.wlslab.com/storage/services/WRfMt6DVnqiJKpLIYrRNYFo0TLYdRt7p9nA2pDoS.jpg"
+                            data-cursor-text="View">
+                            <figure class="image-anime">
+                                <img src="https://autogenous.wlslab.com/storage/services/WRfMt6DVnqiJKpLIYrRNYFo0TLYdRt7p9nA2pDoS.jpg"
+                                    alt="">
+                            </figure>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-6">
+                    <div class="photo-gallery wow fadeInUp">
+                        <a href="https://autogenous.wlslab.com/storage/services/kKuUC1C9J2BGmCNCM7YYXOmb4u0N4Qgxf7ZKFh6X.jpg"
+                            data-cursor-text="View">
+                            <figure class="image-anime">
+                                <img src="https://autogenous.wlslab.com/storage/services/kKuUC1C9J2BGmCNCM7YYXOmb4u0N4Qgxf7ZKFh6X.jpg"
+                                    alt="">
+                            </figure>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -209,6 +220,19 @@
                 },
                 unhighlight: function (element) {
                     $(element).removeClass('is-invalid').addClass('is-valid');
+                },
+                submitHandler: function (form) {
+                    // Check if Turnstile has produced a response token
+                    const turnstileResponse = $('[name="cf-turnstile-response"]').val();
+
+                    if (!turnstileResponse) {
+                        // If they haven't checked the box, show an alert or a message
+                        alert("Please verify that you are not a robot.");
+                        return false;
+                    }
+
+                    // Validated and verified, now submit
+                    form.submit();
                 }
             });
         });

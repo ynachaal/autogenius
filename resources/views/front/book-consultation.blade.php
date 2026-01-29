@@ -32,7 +32,8 @@
                 <div class="col-lg-8 col-md-10">
                     <div class="contact-form">
                         <div class="contact-form-title text-center">
-                            <h3 class="text-anime-style-3" data-cursor="-opaque" style="perspective: 400px;">Book a Consultation</h3>
+                            <h3 class="text-anime-style-3" data-cursor="-opaque" style="perspective: 400px;">Book a
+                                Consultation</h3>
                         </div>
                         {{-- Session Messages --}}
                         @if (session('success'))
@@ -45,50 +46,61 @@
                             @csrf
                             <div class="row">
                                 <div class="form-group col-md-6 mb-4">
-                                    <input placeholder="{{ __('Full Name') }}" type="text" id="name" class="form-control @error('name') is-invalid @enderror"
-                                        name="name" value="{{ old('name') }}" autofocus>
+                                    <input placeholder="{{ __('Full Name') }}" type="text" id="name"
+                                        class="form-control @error('name') is-invalid @enderror" name="name"
+                                        value="{{ old('name') }}" autofocus>
                                     @error('name')
                                         <div class="text-danger mt-1 small">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="form-group col-md-6 mb-4">
-                                    <input placeholder="{{ __('Email Address') }}" type="email" id="email" class="form-control @error('email') is-invalid @enderror"
-                                        name="email" value="{{ old('email') }}">
+                                    <input placeholder="{{ __('Email Address') }}" type="email" id="email"
+                                        class="form-control @error('email') is-invalid @enderror" name="email"
+                                        value="{{ old('email') }}">
                                     @error('email')
                                         <div class="text-danger mt-1 small">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="form-group col-md-6 mb-4">
-                                    <input type="text" id="phone" placeholder="{{ __('Phone Number') }}" class="form-control @error('phone') is-invalid @enderror"
-                                        name="phone" value="{{ old('phone') }}">
+                                    <input type="text" id="phone" placeholder="{{ __('Phone Number') }}"
+                                        class="form-control @error('phone') is-invalid @enderror" name="phone"
+                                        value="{{ old('phone') }}">
                                     @error('phone')
                                         <div class="text-danger mt-1 small">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="form-group col-md-6 mb-4">
-                                    <input placeholder="{{ __('Preferred Date') }}" type="date" id="preferred_date" class="form-control @error('preferred_date') is-invalid @enderror"
+                                    <input placeholder="{{ __('Preferred Date') }}" type="date" id="preferred_date"
+                                        class="form-control @error('preferred_date') is-invalid @enderror"
                                         name="preferred_date" value="{{ old('preferred_date') }}">
                                     @error('preferred_date')
                                         <div class="text-danger mt-1 small">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="form-group col-md-12 mb-4">
-                                    <input placeholder="{{ __('Subject') }}" type="text" id="subject" class="form-control @error('subject') is-invalid @enderror"
-                                        name="subject" value="{{ old('subject') }}">
+                                    <input placeholder="{{ __('Subject') }}" type="text" id="subject"
+                                        class="form-control @error('subject') is-invalid @enderror" name="subject"
+                                        value="{{ old('subject') }}">
                                     @error('subject')
                                         <div class="text-danger mt-1 small">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="form-group col-md-12 mb-4">
-                                    <textarea placeholder="{{ __('Additional Information') }}" id="message" class="form-control @error('message') is-invalid @enderror"
-                                        name="message" rows="4">{{ old('message') }}</textarea>
+                                    <textarea placeholder="{{ __('Additional Information') }}" id="message"
+                                        class="form-control @error('message') is-invalid @enderror" name="message"
+                                        rows="4">{{ old('message') }}</textarea>
                                     @error('message')
                                         <div class="text-danger mt-1 small">{{ $message }}</div>
                                     @enderror
                                 </div>
+                                <div class="form-group col-md-12 mb-4">
+                                    <div class="cf-turnstile" data-sitekey="{{ config('services.turnstile.site_key') }}"
+                                        data-theme="dark"></div>
+                                </div>
                                 <div class="col-lg-12">
                                     <div class="contact-form-btn">
-                                        <button type="submit" class="btn-default mx-auto w-fit">{{ __('Request Consultation') }}</button>
+                                        <button type="submit"
+                                            class="btn-default mx-auto w-fit">{{ __('Request Consultation') }}</button>
                                     </div>
                                 </div>
                             </div>
@@ -142,6 +154,18 @@
                 },
                 unhighlight: function (element) {
                     $(element).removeClass('is-invalid').addClass('is-valid');
+                },
+                submitHandler: function (form) {
+                    // Check if Turnstile has produced a response token
+                    const turnstileResponse = $('[name="cf-turnstile-response"]').val();
+
+                    if (!turnstileResponse) {
+                        alert("Please complete the security check.");
+                        return false;
+                    }
+
+                    // If token exists, proceed with submission
+                    form.submit();
                 }
             });
         });
