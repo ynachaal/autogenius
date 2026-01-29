@@ -87,9 +87,9 @@ class BrandController extends Controller
     {
         $validatedData = $request->validate([
             'name' => [
-                'required', 
-                'string', 
-                'max:191', 
+                'required',
+                'string',
+                'max:191',
                 Rule::unique('brands')->whereNull('deleted_at')
             ],
             'description' => ['nullable', 'string'],
@@ -100,7 +100,7 @@ class BrandController extends Controller
             'meta_description' => ['nullable', 'string'],
             'meta_keywords' => ['nullable', 'string'],
             'image' => [
-                'nullable',
+                'required',
                 'file',
                 'mimes:jpg,jpeg,png,gif,svg',
                 'max:2048',
@@ -155,10 +155,10 @@ class BrandController extends Controller
     public function update(Request $request, Brand $brand)
     {
         $validatedData = $request->validate([
-          'name' => [
-                'required', 
-                'string', 
-                'max:191', 
+            'name' => [
+                'required',
+                'string',
+                'max:191',
                 Rule::unique('brands', 'name')
                     ->ignore($brand->id)
                     ->whereNull('deleted_at')
@@ -185,10 +185,12 @@ class BrandController extends Controller
             $count = 1;
 
             // Check against ALL records except current to avoid DB constraint errors
-            while (Brand::withTrashed()
-                ->where('slug', $slug)
-                ->where('id', '!=', $brand->id)
-                ->exists()) {
+            while (
+                Brand::withTrashed()
+                    ->where('slug', $slug)
+                    ->where('id', '!=', $brand->id)
+                    ->exists()
+            ) {
                 $slug = $originalSlug . '-' . $count;
                 $count++;
             }
@@ -204,9 +206,8 @@ class BrandController extends Controller
             $image = $request->file('image');
             $imageName = time() . '_' . Str::slug($validatedData['name']) . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('uploads/brands'), $imageName);
+
             $validatedData['image'] = 'uploads/brands/' . $imageName;
-        } else {
-            $validatedData['image'] = $brand->image;
         }
 
         $brand->update($validatedData);
