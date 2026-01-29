@@ -133,10 +133,7 @@
                         </form>
                     </div>
                 </div>
-            </div>
-
-            <div class="row mt-md-5 mt-3 align-content-center">
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     <div class="google-map-iframe">
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.507321064284!2d73.90389727525861!3d18.505962782584792!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c6c71ca3ae15%3A0x96e26438da383645!2sAutoGenius%20Private%20Limited!5e0!3m2!1sen!2sin!4v1769671107796!5m2!1sen!2sin"
