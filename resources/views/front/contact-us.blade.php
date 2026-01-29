@@ -109,7 +109,7 @@
 
                                 {{-- 🛡️ Cloudflare Turnstile Widget --}}
                                 <div class="form-group col-md-12 mb-4">
-                                    <div class="cf-turnstile" data-sitekey="{{ config('services.turnstile.site_key') }}" data-theme="light"></div>
+                                    <div class="cf-turnstile" data-sitekey="{{ config('services.turnstile.site_key') }}" data-theme="dark"></div>
                                     @error('cf-turnstile-response')
                                         <div class="text-danger mt-1 small">{{ $message }}</div>
                                     @enderror
