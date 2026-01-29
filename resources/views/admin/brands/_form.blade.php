@@ -41,7 +41,7 @@
                             {{-- Image --}}
                             <div class="col-md-6">
                                 <label class="form-label fw-medium">Brand Logo</label>
-                                <input type="file" name="image" class="form-control @error('image') is-invalid @enderror">
+                                <input type="file" name="image" class="form-control @error('image') is-invalid @enderror"  @if(!isset($brand)) required @endif>
                                 @if(isset($brand) && $brand->image)
                                     <img src="{{ asset($brand->image) }}" class="img-thumbnail mt-2" style="max-width:100px">
                                 @endif
@@ -138,7 +138,11 @@
             rules: {
                 name: { required: true, minlength: 2, maxlength: 255 },
                 order: { number: true },
-                image: { extension: "jpg|jpeg|png|gif|svg", filesize: 2097152 }
+                image: {
+                    required: {{ isset($brand) ? 'false' : 'true' }},
+                    extension: "jpg|jpeg|png|gif|svg",
+                    filesize: 2097152
+                }
             },
             errorElement: "div",
             errorClass: "text-danger small mt-1",
