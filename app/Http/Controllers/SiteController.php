@@ -9,6 +9,7 @@ use App\Services\ContentMetaService; // Import the service
 use App\Services\SearchService; // 1. Import the Service
 use App\Services\EmailService;
 use App\Services\ServiceService;
+use App\Services\SliderService;
 use App\Services\BrandService;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Artisan;
@@ -21,6 +22,7 @@ use Illuminate\Support\Facades\Log;
 class SiteController extends Controller
 {
     protected EmailService $emailService;
+    protected SliderService $sliderService;
     protected ContentMetaService $metaService;
     protected ServiceService $serviceService;
     protected BrandService $brandService; // Add this
@@ -33,6 +35,7 @@ class SiteController extends Controller
         ContentMetaService $metaService,
         PageService $pageService,
         SearchService $searchService,
+        SliderService $sliderService,
         BrandService $brandService // Inject BrandService
 
     ) {
@@ -41,6 +44,7 @@ class SiteController extends Controller
         $this->metaService = $metaService;
         $this->brandService = $brandService;
         $this->pageService = $pageService;
+        $this->sliderService = $sliderService; // ✅ assign
         $this->searchService = $searchService; // 4. Assign
 
     }
@@ -58,8 +62,10 @@ class SiteController extends Controller
             'services' => $this->serviceService->getFeaturedServices(8),
             'featuredBrands' => $this->brandService->getFeaturedBrands()['brands'],
         ];
+        $sliders = $this->sliderService
+            ->getByCategoryName('About AutoGenius');
 
-        return view('front.home', compact('data'));
+        return view('front.home', compact('data', 'sliders'));
     }
 
     public function carDeliveries(): View

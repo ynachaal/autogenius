@@ -5,19 +5,23 @@ use App\Services\EmailService;
 use Illuminate\Http\Request;
 use App\Models\ContactSubmission;
 use App\Services\PageService;
+use App\Services\SliderService;
 use Illuminate\Support\Facades\Http;
 
 class ContactSubmissionController extends Controller
 {
     protected EmailService $emailService;
+    protected SliderService $sliderService;
     protected PageService $pageService;
 
     public function __construct(
         EmailService $emailService,
         PageService $pageService,
+        SliderService $sliderService
     ) {
         $this->pageService = $pageService;
         $this->emailService = $emailService;
+        $this->sliderService = $sliderService;
     }
     /**
      * Show contact form
@@ -25,7 +29,9 @@ class ContactSubmissionController extends Controller
     public function create()
     {
         $page = $this->pageService->getBySlug('contact-us');
-        return view('front.contact-us', compact('page'));
+        $sliders = $this->sliderService
+        ->getByCategoryName('Contact Us');
+        return view('front.contact-us', compact('page', 'sliders'));
     }
 
     /**
