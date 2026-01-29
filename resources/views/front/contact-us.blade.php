@@ -146,33 +146,27 @@
             <div class="row gallery-items page-gallery-box mt-5">
                 <div class="col-lg-4 col-6">
                     <div class="photo-gallery wow fadeInUp">
-                        <a href="https://autogenous.wlslab.com/storage/services/YUEbadQDylRc8KZqTKC1i2R44LZi7zWnANm80AlF.jpg"
-                            data-cursor-text="View">
+                        <a href="https://autogenous.wlslab.com/storage/services/YUEbadQDylRc8KZqTKC1i2R44LZi7zWnANm80AlF.jpg" data-cursor-text="View">
                             <figure class="image-anime">
-                                <img src="https://autogenous.wlslab.com/storage/services/YUEbadQDylRc8KZqTKC1i2R44LZi7zWnANm80AlF.jpg"
-                                    alt="">
+                                <img src="https://autogenous.wlslab.com/storage/services/YUEbadQDylRc8KZqTKC1i2R44LZi7zWnANm80AlF.jpg" alt="">
                             </figure>
                         </a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-6">
                     <div class="photo-gallery wow fadeInUp">
-                        <a href="https://autogenous.wlslab.com/storage/services/WRfMt6DVnqiJKpLIYrRNYFo0TLYdRt7p9nA2pDoS.jpg"
-                            data-cursor-text="View">
+                        <a href="https://autogenous.wlslab.com/storage/services/WRfMt6DVnqiJKpLIYrRNYFo0TLYdRt7p9nA2pDoS.jpg" data-cursor-text="View">
                             <figure class="image-anime">
-                                <img src="https://autogenous.wlslab.com/storage/services/WRfMt6DVnqiJKpLIYrRNYFo0TLYdRt7p9nA2pDoS.jpg"
-                                    alt="">
+                                <img src="https://autogenous.wlslab.com/storage/services/WRfMt6DVnqiJKpLIYrRNYFo0TLYdRt7p9nA2pDoS.jpg" alt="">
                             </figure>
                         </a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-6">
                     <div class="photo-gallery wow fadeInUp">
-                        <a href="https://autogenous.wlslab.com/storage/services/kKuUC1C9J2BGmCNCM7YYXOmb4u0N4Qgxf7ZKFh6X.jpg"
-                            data-cursor-text="View">
+                        <a href="https://autogenous.wlslab.com/storage/services/kKuUC1C9J2BGmCNCM7YYXOmb4u0N4Qgxf7ZKFh6X.jpg" data-cursor-text="View">
                             <figure class="image-anime">
-                                <img src="https://autogenous.wlslab.com/storage/services/kKuUC1C9J2BGmCNCM7YYXOmb4u0N4Qgxf7ZKFh6X.jpg"
-                                    alt="">
+                                <img src="https://autogenous.wlslab.com/storage/services/kKuUC1C9J2BGmCNCM7YYXOmb4u0N4Qgxf7ZKFh6X.jpg" alt="">
                             </figure>
                         </a>
                     </div>
