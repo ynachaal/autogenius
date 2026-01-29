@@ -128,7 +128,7 @@ class SiteController extends Controller
 
         // --- Manual Pagination Logic ---
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
-        $perPage = 10;
+        $perPage = 1;
         $currentResults = $combinedResults->slice(($currentPage - 1) * $perPage, $perPage)->all();
 
         $paginatedResults = new LengthAwarePaginator(
