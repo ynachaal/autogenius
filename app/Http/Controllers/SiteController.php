@@ -10,7 +10,7 @@ use App\Services\SearchService; // 1. Import the Service
 use App\Services\EmailService;
 use App\Services\ServiceService;
 use App\Services\BrandService;
-
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Artisan;
 use App\Models\Consultation; // <-- 1. Import the Consultation Model
 use Illuminate\Http\Request;
@@ -128,7 +128,7 @@ class SiteController extends Controller
 
         // --- Manual Pagination Logic ---
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
-        $perPage = 1;
+        $perPage = 12;
         $currentResults = $combinedResults->slice(($currentPage - 1) * $perPage, $perPage)->all();
 
         $paginatedResults = new LengthAwarePaginator(
@@ -154,7 +154,6 @@ class SiteController extends Controller
     }
     public function storeConsultation(Request $request): RedirectResponse
     {
-        // 2. Validate the incoming request
         $validated = $request->validate([
             'name' => 'required|string|min:2|max:255',
             'email' => 'required|email|max:255',
@@ -162,21 +161,41 @@ class SiteController extends Controller
             'subject' => 'required|string|max:255',
             'preferred_date' => 'required|date|after_or_equal:today',
             'message' => 'nullable|string|min:10',
+            'cf-turnstile-response' => 'required',
         ]);
 
+        // 🔐 Verify Turnstile
+        $turnstile = Http::asForm()->post(
+            'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+            [
+                'secret' => config('services.turnstile.secret_key'),
+                'response' => $request->input('cf-turnstile-response'),
+                'remoteip' => $request->ip(),
+            ]
+        );
+
+        if (!$turnstile->json('success')) {
+            return back()
+                ->withErrors(['captcha' => 'Captcha verification failed.'])
+                ->withInput();
+        }
+
         try {
-            // 3. Add default status
             $validated['status'] = 'pending';
-            // 4. Create the record
+            unset($validated['cf-turnstile-response']);
+
             Consultation::create($validated);
-            // Optional: You can use your EmailService here if you want to notify the admin
-            // $this->emailService->sendConsultationNotification($validated);
 
-            return back()->with('success', 'Your consultation request has been submitted successfully! We will contact you shortly.');
-
+            return back()->with(
+                'success',
+                'Your consultation request has been submitted successfully! We will contact you shortly.'
+            );
         } catch (\Exception $e) {
             Log::error('Consultation Store Error: ' . $e->getMessage());
-            return back()->with('error', 'There was an error processing your request. Please try again.')->withInput();
+
+            return back()
+                ->with('error', 'There was an error processing your request. Please try again.')
+                ->withInput();
         }
     }
 }

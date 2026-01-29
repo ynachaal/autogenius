@@ -63,6 +63,7 @@
     <script src="{{ asset('js/jquery.mb.YTPlayer.min.js') }}"></script>
     <script src="{{ asset('js/wow.min.js') }}"></script>
     <script src="{{ asset('js/function.js') }}"></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     @stack('scripts')
 
     <script>
@@ -136,5 +137,33 @@
             map.appendChild(pin);
         });
     </script>
+    <div
+    class="cf-turnstile"
+    data-sitekey="{{ config('services.turnstile.site_key') }}"
+    data-size="invisible"
+    data-callback="onTurnstileSuccess">
+</div>
+<script>
+    const form = document.getElementById('consultationForm');
+    const submitBtn = document.getElementById('submitBtn');
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        submitBtn.disabled = true;
+
+        turnstile.execute();
+    });
+
+    function onTurnstileSuccess(token) {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'cf-turnstile-response';
+        input.value = token;
+
+        form.appendChild(input);
+        form.submit();
+    }
+</script>
 </body>
 </html>
