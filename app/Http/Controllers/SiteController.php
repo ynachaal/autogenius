@@ -161,30 +161,38 @@ class SiteController extends Controller
             'subject' => 'required|string|max:255',
             'preferred_date' => 'required|date|after_or_equal:today',
             'message' => 'nullable|string|min:10',
-            'cf-turnstile-response' => 'required',
+            'cf-turnstile-response' => 'required', // Keep this required
+        ], [
+            'cf-turnstile-response.required' => 'Please complete the security check.',
         ]);
 
-        // 🔐 Verify Turnstile
-        $turnstile = Http::asForm()->post(
-            'https://challenges.cloudflare.com/turnstile/v0/siteverify',
-            [
-                'secret' => config('services.turnstile.secret_key'),
-                'response' => $request->input('cf-turnstile-response'),
-                'remoteip' => $request->ip(),
-            ]
-        );
+        // 🔐 Verify Turnstile with a timeout
+        try {
+            $turnstile = Http::asForm()->timeout(5)->post(
+                'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+                [
+                    'secret' => config('services.turnstile.secret_key'),
+                    'response' => $request->input('cf-turnstile-response'),
+                    'remoteip' => $request->ip(),
+                ]
+            );
+        } catch (\Exception $e) {
+            Log::error('Turnstile Connection Error: ' . $e->getMessage());
+            return back()->with('error', 'Security service unavailable. Please try again later.')->withInput();
+        }
 
         if (!$turnstile->json('success')) {
             return back()
-                ->withErrors(['captcha' => 'Captcha verification failed.'])
+                ->withErrors(['cf-turnstile-response' => 'Captcha verification failed. Please try again.'])
                 ->withInput();
         }
 
         try {
-            $validated['status'] = 'pending';
-            unset($validated['cf-turnstile-response']);
+            // Prepare data for insertion
+            $data = $request->except(['_token', 'cf-turnstile-response']);
+            $data['status'] = 'pending';
 
-            Consultation::create($validated);
+            Consultation::create($data);
 
             return back()->with(
                 'success',

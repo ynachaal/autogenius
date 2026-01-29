@@ -93,8 +93,9 @@
                                         <div class="text-danger mt-1 small">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="cf-turnstile" data-sitekey="{{ config('services.turnstile.site_key') }}" data-size="invisible"
-                                    data-callback="onConsultationCaptcha">
+                                <div class="form-group col-md-12 mb-4">
+                                    <div class="cf-turnstile" data-sitekey="{{ config('services.turnstile.site_key') }}"
+                                        data-theme="dark"></div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="contact-form-btn">
@@ -153,6 +154,18 @@
                 },
                 unhighlight: function (element) {
                     $(element).removeClass('is-invalid').addClass('is-valid');
+                },
+                submitHandler: function (form) {
+                    // Check if Turnstile has produced a response token
+                    const turnstileResponse = $('[name="cf-turnstile-response"]').val();
+
+                    if (!turnstileResponse) {
+                        alert("Please complete the security check.");
+                        return false;
+                    }
+
+                    // If token exists, proceed with submission
+                    form.submit();
                 }
             });
         });
