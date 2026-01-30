@@ -30,7 +30,7 @@
                         </form>
 
                         <a href="{{ route('admin.services.index') }}" class="btn btn-sm btn-secondary" title="Back to List">
-                            <i class="bi bi-list me-1"></i> Back
+                             <i class="bi bi-list me-1"></i> Back
                         </a>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                             {{-- Slug Added --}}
                             <p class="text-muted mb-2"><strong>Slug:</strong> <code class="text-primary">{{ $service->slug ?? '-' }}</code></p>
                             
-                            <p class="text-muted mb-2"><strong>Sub Heading:</strong> <span class="fw-semibold">{{ $service->sub_heading ?? '-' }}</span></p>
+                            <p class="text-muted mb-2"><strong>Sub Heading:</strong> <span class="fw-semibold">{{ $service->sub_heading ?? 'N/A' }}</span></p>
                             
                             <p class="text-muted mb-2"><strong>Status:</strong> 
                                 <span class="badge {{ $service->status ? 'bg-success' : 'bg-secondary' }}">

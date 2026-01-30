@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-
+use Razorpay\Api\Api;
 use App\Services\PageService;
 use Illuminate\Pagination\LengthAwarePaginator;
-use App\Services\ContentMetaService; // Import the service
-use App\Services\SearchService; // 1. Import the Service
+use App\Services\ContentMetaService;
+use App\Services\SearchService;
 use App\Services\EmailService;
 use App\Services\ServiceService;
 use App\Services\SliderService;
 use App\Services\BrandService;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Artisan;
-use App\Models\Consultation; // <-- 1. Import the Consultation Model
+use App\Models\Consultation;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
@@ -108,6 +108,8 @@ class SiteController extends Controller
     {
         $page = $this->pageService->getBySlug($slug);
 
+
+
         if (!$page) {
             abort(404);
         }
@@ -167,12 +169,12 @@ class SiteController extends Controller
             'subject' => 'required|string|max:255',
             'preferred_date' => 'required|date|after_or_equal:today',
             'message' => 'nullable|string|min:10',
-            'cf-turnstile-response' => 'required', // Keep this required
+            'cf-turnstile-response' => 'required',
         ], [
             'cf-turnstile-response.required' => 'Please complete the security check.',
         ]);
 
-        // 🔐 Verify Turnstile with a timeout
+        // 🔐 Verify Turnstile
         try {
             $turnstile = Http::asForm()->timeout(5)->post(
                 'https://challenges.cloudflare.com/turnstile/v0/siteverify',
@@ -184,31 +186,58 @@ class SiteController extends Controller
             );
         } catch (\Exception $e) {
             Log::error('Turnstile Connection Error: ' . $e->getMessage());
-            return back()->with('error', 'Security service unavailable. Please try again later.')->withInput();
+            return back()->with('error', 'Security service unavailable.')->withInput();
         }
 
         if (!$turnstile->json('success')) {
             return back()
-                ->withErrors(['cf-turnstile-response' => 'Captcha verification failed. Please try again.'])
+                ->withErrors(['cf-turnstile-response' => 'Captcha verification failed.'])
                 ->withInput();
         }
 
         try {
-            // Prepare data for insertion
-            $data = $request->except(['_token', 'cf-turnstile-response']);
-            $data['status'] = 'pending';
+            /** 1️⃣ Save consultation (payment pending) */
+            $consultation = Consultation::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'subject' => $request->subject,
+                'message' => $request->message,
+                'preferred_date' => $request->preferred_date,
+                'status' => 'pending',
+                'amount' => 99,
+                'payment_status' => 'pending',
+            ]);
 
-            Consultation::create($data);
-
-            return back()->with(
-                'success',
-                'Your consultation request has been submitted successfully! We will contact you shortly.'
+            /** 2️⃣ Create Razorpay order */
+            $api = new Api(
+                config('services.razorpay.key'),
+                config('services.razorpay.secret')
             );
+
+            $order = $api->order->create([
+                'receipt' => 'consultation_' . $consultation->id,
+                'amount' => 99 * 100, // paise
+                'currency' => 'INR',
+            ]);
+
+            /** 3️⃣ Save order ID */
+            $consultation->update([
+                'razorpay_order_id' => $order['id'],
+            ]);
+
+            /** 4️⃣ Redirect to Razorpay checkout page */
+            return view('front.razorpay-checkout', [
+                'order' => $order,
+                'consultation' => $consultation,
+                'razorpayKey' => config('services.razorpay.key'),
+            ]);
+
         } catch (\Exception $e) {
             Log::error('Consultation Store Error: ' . $e->getMessage());
 
             return back()
-                ->with('error', 'There was an error processing your request. Please try again.')
+                ->with('error', 'Unable to initiate payment. Please try again.')
                 ->withInput();
         }
     }

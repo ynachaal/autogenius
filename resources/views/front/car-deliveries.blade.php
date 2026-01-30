@@ -1,11 +1,11 @@
 @extends('layouts.front')
 
-@section('title', $page->meta_title ?? 'Instagram Feed')
+@section('title', $page->meta_title ?? 'Car Deliveries')
 @section('meta_description', $page->meta_description ?? '')
 @section('meta_keywords', $page->meta_keywords ?? '')
 
 @section('breadcrumbs')
-<li class="breadcrumb-item active" aria-current="page">Instagram Feed</li>
+<li class="breadcrumb-item active" aria-current="page">Car Deliveries</li>
 @endsection
 
 @section('header')
@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="page-header-box text-center">
-                        <h1 class="text-anime-style-3" data-cursor="-opaque" aria-label="instagram feed" style="perspective: 400px;">Instagram Feed</h1>
+                        <h1 class="text-anime-style-3" data-cursor="-opaque" aria-label="car deliveries" style="perspective: 400px;">Car Deliveries</h1>
                         <p class="text-white">Follow our journey and stay updated with our latest posts.</p>
                     </div>
                 </div>

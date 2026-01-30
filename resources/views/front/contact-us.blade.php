@@ -94,7 +94,7 @@
                                     @enderror
                                 </div>
                                 <div class="form-group col-md-12 mb-4">
-                                    <input placeholder="{{ __('Mobile Number') }}" type="text" id="mobile_no"
+                                    <input id="phone" placeholder="{{ __('Mobile Number') }}" type="text" 
                                            class="form-control @error('mobile_no') is-invalid @enderror" name="mobile_no"
                                            value="{{ old('mobile_no') }}" >
                                     @error('mobile_no')

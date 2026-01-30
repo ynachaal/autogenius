@@ -23,7 +23,7 @@
                             </button>
                         </form> --}}
                         <a href="{{ route('admin.email-templates.index') }}" class="btn btn-sm btn-secondary">
-                            <i class="fa-solid fa-arrow-left me-1"></i> Back
+                            <i class="bi bi-list me-1"></i> Back
                         </a>
                     </div>
                 </div>

@@ -106,11 +106,12 @@
                                                 <form action="{{ route('admin.consultations.destroy', $consultation) }}" 
                                                       method="POST" class="d-inline" id="delete-form-{{ $consultation->id }}">
                                                     @csrf
-                                                    @method('DELETE')
+                                                   <!--  @method('DELETE')
                                                     <button type="submit" class="btn btn-sm btn-danger"
-                                                            onclick="return showConfirmationModal('delete-form-{{ $consultation->id }}', '{{ $consultation->email }}', 'Consultation')">
-                                                        <i class="bi bi-trash"></i>
-                                                    </button>
+                                                        onclick="return confirm('Are you sure you want to delete this submission ({{ $consultation->email }})?')">
+                                                    <i class="bi bi-trash"></i>
+                                                </button> -->
+
                                                 </form>
                                             </div>
                                         </td>

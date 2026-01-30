@@ -50,7 +50,7 @@
                         <a href="{{ route('admin.menu_categories.index') }}" class="btn btn-sm btn-secondary"
                             data-toggle="tooltip" title="Back to List">
 
-                            <i class="bi bi-list me-1"></i> Back
+                             <i class="bi bi-list me-1"></i> Back
 
                         </a>
 
