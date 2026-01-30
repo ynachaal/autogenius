@@ -23,7 +23,7 @@ class EmailService
      * @param string|null $fallbackSubject
      * @return bool
      */
-      public function sendEmail(
+    public function sendEmail(
         string $to,
         string $templateTitle,
         array $data = [],
@@ -60,7 +60,7 @@ class EmailService
         ?string $fallbackSubject = null
     ): bool {
         try {
-              
+
             $template = EmailTemplate::firstWhere('title', $templateTitle);
 
             if (!$template) {
@@ -79,7 +79,7 @@ class EmailService
             Log::info("Email sent successfully to {$to} using template '{$templateTitle}'.");
             return true;
         } catch (Exception $e) {
-        
+
             Log::error("Failed to send email to {$to} (Template: {$templateTitle}): " . $e->getMessage());
             return false;
         }
@@ -116,19 +116,19 @@ class EmailService
     public function contactUs($contact): bool
     {
         $data = [
-            '{name}'          => $contact->name ?? '',
-            '{email}'         => $contact->email ?? '',
-            '{message}'       => $contact->message ?? '',
-            '{mobile_no}'     => $contact->mobile_no ?? '',
+            '{name}' => $contact->name ?? '',
+            '{email}' => $contact->email ?? '',
+            '{message}' => $contact->message ?? '',
+            '{mobile_no}' => $contact->mobile_no ?? '',
             '{support_email}' => config('mail.from.address', 'support@example.com'),
-            '{company_name}'  => config('settings.site_name', 'CC'),
-            '{year}'          => now()->year,
-            '{website_link}'  => config('app.url', url('/')),
-            '{date}'          => now()->format('d-m-Y H:i:s')
+            '{company_name}' => config('settings.site_name', 'CC'),
+            '{year}' => now()->year,
+            '{website_link}' => config('app.url', url('/')),
+            '{date}' => now()->format('d-m-Y H:i:s')
         ];
 
         // Admin
-       return $this->sendEmailInstant(
+        return $this->sendEmailInstant(
             config('settings.admin_email', 'anubhav.abstain@gmail.com'),
             'Contact Us - Admin',
             $data,
@@ -136,9 +136,9 @@ class EmailService
         );
     }
 
-   
 
-    
+
+
 
     /**
      * Send a Forget Password email to the client.
@@ -150,17 +150,17 @@ class EmailService
     {
         // Prepare dynamic placeholders for the email template
         $data = [
-            '{name}'          => $request->name ?? '',
-            '{email}'         => $request->email ?? '',
-            '{date}'          => now()->format('d-m-Y H:i:s'),
-            '{reset_url}'     => $request->reset_url ?? '#',
+            '{name}' => $request->name ?? '',
+            '{email}' => $request->email ?? '',
+            '{date}' => now()->format('d-m-Y H:i:s'),
+            '{reset_url}' => $request->reset_url ?? '#',
             '{support_email}' => config('mail.from.address', 'support@example.com'),
-            '{company_name}'  => config('settings.site_name', 'CC'),
-            '{year}'          => now()->year,
-            '{website_link}'  => config('app.url', url('/')),
+            '{company_name}' => config('settings.site_name', 'CC'),
+            '{year}' => now()->year,
+            '{website_link}' => config('app.url', url('/')),
         ];
 
-  
+
 
         // Send to Client (password reset email)
         return $this->sendEmailInstant(
@@ -180,13 +180,13 @@ class EmailService
     public function welcomeEmail(User $user): bool
     {
         $data = [
-            '{name}'          => $user->name ?? 'there',
-            '{email}'         => $user->email,
+            '{name}' => $user->name ?? 'there',
+            '{email}' => $user->email,
             '{dashboard_url}' => url('/dashboard'), // Or config('app.url') . '/dashboard'
             '{support_email}' => config('settings.contact_email', 'support@autogenious.com'),
-            '{company_name}'  => config('settings.site_name', 'Autogenious'),
-            '{year}'          => now()->year,
-            '{website_link}'  => config('app.url', url('/')),
+            '{company_name}' => config('settings.site_name', 'Autogenious'),
+            '{year}' => now()->year,
+            '{website_link}' => config('app.url', url('/')),
         ];
 
         return $this->sendEmailInstant(
@@ -196,4 +196,73 @@ class EmailService
             'Welcome to Autogenious!'
         );
     }
+
+    /**
+     * Send consultation confirmation email to the user.
+     *
+     * @param \App\Models\Consultation $consultation
+     * @return bool
+     */
+    public function consultationUserConfirmation($consultation): bool
+    {
+        $data = [
+            '{name}' => $consultation->name ?? '',
+            '{email}' => $consultation->email ?? '',
+            '{phone}' => $consultation->phone ?? '',
+            '{subject}' => $consultation->subject ?? '',
+            '{preferred_date}' => $consultation->preferred_date ?? '',
+            '{message}' => $consultation->message ?? '',
+            '{status}' => ucfirst($consultation->status),
+            '{amount}' => $consultation->amount,
+            '{payment_status}' => ucfirst($consultation->payment_status),
+            '{year}' => now()->year,
+            '{website_link}' => config('app.url'),
+        ];
+
+        return $this->sendEmail(
+            $consultation->email,
+            'Book a Consultation - Confirmation',
+            $data,
+            'Consultation Request Confirmation'
+        );
+    }
+    /**
+     * Send consultation notification email to admin and consultant.
+     *
+     * @param \App\Models\Consultation $consultation
+     * @return void
+     */
+    public function consultationAdminAndConsultant($consultation): void
+    {
+        $data = [
+            '{name}' => $consultation->name ?? '',
+            '{email}' => $consultation->email ?? '',
+            '{phone}' => $consultation->phone ?? '',
+            '{subject}' => $consultation->subject ?? '',
+            '{preferred_date}' => $consultation->preferred_date ?? '',
+            '{message}' => $consultation->message ?? '',
+            '{status}' => ucfirst($consultation->status),
+            '{amount}' => $consultation->amount,
+            '{payment_status}' => ucfirst($consultation->payment_status),
+            '{year}' => now()->year,
+            '{website_link}' => config('app.url'),
+        ];
+
+        // Admin
+        $this->sendEmail(
+            config('settings.admin_email', 'admin@example.com'),
+            'Book a Consultation - Admin',
+            $data,
+            'New Consultation Booked'
+        );
+
+        // Consultant
+        $this->sendEmail(
+            config('settings.consultant_email', 'consultant@example.com'),
+            'Book a Consultation - Consultant',
+            $data,
+            'New Consultation Assigned'
+        );
+    }
+
 }

@@ -76,3 +76,6 @@ Route::get('/book-a-consultation', [SiteController::class, 'bookConsultation'])
 // The form submission logic
 Route::post('/book-a-consultation/store', [SiteController::class, 'storeConsultation'])
     ->name('frontend.consultation.store');
+
+    Route::post('/razorpay/success', [SiteController::class, 'razorpaySuccess'])
+    ->name('razorpay.success');

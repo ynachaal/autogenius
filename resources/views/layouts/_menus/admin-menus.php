@@ -163,11 +163,11 @@ return [
         'title' => 'Content Management',
         'icon' => 'bi-folder',
         'children' => [
-            [
+          /*   [
                 'title' => 'Faqs',
                 'route' => route('admin.faqs.index'),
                 'active' => Route::is('admin.faqs.index'),
-            ],
+            ], */
             [
                 'title' => 'Pages',
                 'route' => route('admin.pages.index'),
