@@ -103,16 +103,21 @@
                                     <div class="cf-turnstile" data-sitekey="{{ config('services.turnstile.site_key') }}"
                                         data-theme="dark"></div>
                                 </div>
-                                <div class="alert alert-info text-center mb-4">
+                                <div class="alert alert-info text-center mb-4 d-none">
                                     <strong>Consultation Fee:</strong> ₹99<br>
                                     You will be redirected to secure payment after submitting this form.
                                 </div>
                                 <div class="col-lg-12 text-center">
                                     <div class="contact-form-btn mt-4">
-                                        <button type="submit"
+                                        <!-- <button type="submit"
                                             class="btn btn-primary px-5 py-3 fw-semibold d-inline-flex align-items-center gap-2">
                                             <i class="fa fa-lock"></i>
                                             Proceed to Pay ₹99
+                                        </button> -->
+                                        <button type="submit"
+                                            class="btn-default text-center w-fit">
+                                          
+                                            Submit
                                         </button>
                                     </div>
                                 </div>
