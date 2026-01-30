@@ -36,7 +36,7 @@
                            class="btn btn-sm btn-secondary"
                            data-toggle="tooltip"
                            title="Back to List">
-                            <i class="fa-solid fa-arrow-left me-1"></i> Back
+                             <i class="bi bi-list me-1"></i> Back
                         </a>
                     </div>
                 </div>

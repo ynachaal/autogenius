@@ -12,7 +12,7 @@
                     <h3 class="card-title">Booking Details</h3>
                     <div class="card-tools d-flex gap-2">
                         <a href="{{ route('admin.consultations.index') }}" class="btn btn-sm btn-secondary">
-                            <i class="bi bi-arrow-left me-1"></i> Back to List
+                              <i class="bi bi-list me-1"></i> Back
                         </a>
                         
                         {{-- Status Update Form --}}

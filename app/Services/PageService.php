@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\Page;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
@@ -14,27 +13,19 @@ class PageService
      */
     public function getAllActivePages(): Collection
     {
-        return Cache::remember('pages_all_active', 3600, function () {
-            return Page::active()
-                ->orderBy('id', 'asc')
-                ->get();
-        });
+        return Page::active()
+            ->orderBy('id', 'asc')
+            ->get();
     }
 
     /**
      * Get paginated pages.
-     * Note: We include the page number in the cache key.
      */
     public function getPaginatedPages(int $perPage = 12): LengthAwarePaginator
     {
-        $page = request()->get('page', 1);
-        $key = "pages_paginated_{$perPage}_page_{$page}";
-
-        return Cache::remember($key, 3600, function () use ($perPage) {
-            return Page::active()
-                ->orderBy('id', 'asc')
-                ->paginate($perPage);
-        });
+        return Page::active()
+            ->orderBy('id', 'asc')
+            ->paginate($perPage);
     }
 
     /**
@@ -42,13 +33,11 @@ class PageService
      */
     public function getFeaturedPages(int $limit = 5): Collection
     {
-        return Cache::remember("pages_featured_{$limit}", 3600, function () use ($limit) {
-            return Page::active()
-                ->where('is_featured', true)
-                ->orderBy('id', 'asc')
-                ->limit($limit)
-                ->get();
-        });
+        return Page::active()
+            ->where('is_featured', true)
+            ->orderBy('id', 'asc')
+            ->limit($limit)
+            ->get();
     }
 
     /**
@@ -56,11 +45,9 @@ class PageService
      */
     public function getBySlug(string $slug): ?Page
     {
-        return Cache::remember("page_slug_{$slug}", 3600, function () use ($slug) {
-            return Page::active()
-                ->where('slug', $slug)
-                ->first();
-        });
+        return Page::active()
+            ->where('slug', $slug)
+            ->first();
     }
 
     /**

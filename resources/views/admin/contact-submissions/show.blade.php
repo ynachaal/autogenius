@@ -12,7 +12,7 @@
                     <h3 class="card-title">Message Details</h3>
                     <div class="card-tools d-flex gap-2">
                         <a href="{{ route('admin.contact-submissions.index') }}" class="btn btn-sm btn-secondary">
-                            <i class="bi bi-arrow-left me-1"></i> Back to List
+                          <i class="bi bi-list me-1"></i> Back
                         </a>
                         <form action="{{ route('admin.contact-submissions.destroy', $contactSubmission) }}" 
                               method="POST" class="d-inline" id="delete-form-{{ $contactSubmission->id }}">

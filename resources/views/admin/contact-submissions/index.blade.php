@@ -11,7 +11,7 @@
 
                     <div class="card-tools d-flex align-items-center">
                         {{-- Search Form --}}
-                         <form action="{{ route('admin.contact-submissions.index') }}" method="GET"
+                        <form action="{{ route('admin.contact-submissions.index') }}" method="GET"
                             class="d-flex align-items-center me-2">
                             <div class="input-group input-group-sm" style="width: 250px;">
                                 <input type="search" name="search" class="form-control float-right"
@@ -87,18 +87,19 @@
                                         <td>{{ $submission->created_at->format('Y-m-d H:i') }}</td>
                                         <td class="text-center">
                                             <div class="btn-group">
-                                                <a href="{{ route('admin.contact-submissions.show', $submission) }}" 
-                                                   class="btn btn-sm btn-primary me-2" title="View Message">
+                                                <a href="{{ route('admin.contact-submissions.show', $submission) }}"
+                                                    class="btn btn-sm btn-primary me-2" title="View Message">
                                                     <i class="bi bi-eye"></i>
                                                 </a>
-                                                <form action="{{ route('admin.contact-submissions.destroy', $submission) }}" 
-                                                      method="POST" class="d-inline" id="delete-form-{{ $submission->id }}">
+                                                <form action="{{ route('admin.contact-submissions.destroy', $submission) }}"
+                                                    method="POST" class="d-inline" id="delete-form-{{ $submission->id }}">
                                                     @csrf
-                                                    @method('DELETE')
+                                                   <!--  @method('DELETE')
                                                     <button type="submit" class="btn btn-sm btn-danger"
-                                                            onclick="return showConfirmationModal('delete-form-{{ $submission->id }}', '{{ $submission->email }}', 'Submission')">
+                                                        onclick="return confirm('Are you sure you want to delete this submission ({{ $submission->email }})?')">
                                                         <i class="bi bi-trash"></i>
-                                                    </button>
+                                                    </button> -->
+
                                                 </form>
                                             </div>
                                         </td>

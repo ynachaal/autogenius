@@ -13,6 +13,10 @@ return [
     | a conventional file to locate the various service credentials.
     |
     */
+    'razorpay' => [
+    'key' => env('RAZORPAY_KEY'),
+    'secret' => env('RAZORPAY_SECRET'),
+],
     'turnstile' => [
     'site_key' => env('TURNSTILE_SITE_KEY'),
     'secret_key' => env('TURNSTILE_SECRET_KEY'),

@@ -48,7 +48,7 @@
                             <i class="fa fa-search"></i> Search
                         </a>
                     </div>
-                    <div class="header-auth d-flex align-items-center ms-auto">
+                    <div class="header-auth d-flex align-items-center ms-auto d-none">
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item submenu">
                                 <a href="javascript:void(0)" class="nav-link bg-transparent">

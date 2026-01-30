@@ -70,13 +70,19 @@
                                     @enderror
                                 </div>
                                 <div class="form-group col-md-6 mb-4">
-                                    <input placeholder="{{ __('Preferred Date') }}" type="date" id="preferred_date"
-                                        class="form-control @error('preferred_date') is-invalid @enderror"
-                                        name="preferred_date" value="{{ old('preferred_date') }}">
+                                    <input type="date" id="preferred_date" name="preferred_date"
+                                        value="{{ old('preferred_date') }}" placeholder="{{ __('Preferred Date') }}"
+                                        class="form-control @error('preferred_date') is-invalid @enderror">
+
+                                    {{-- Small instruction --}}
+                                    <small style="color:white !important" class="text-muted d-block mt-1">Select your preferred consultation date.</small>
+
+                                    {{-- Validation error --}}
                                     @error('preferred_date')
-                                        <div class="text-danger mt-1 small">{{ $message }}</div>
+                                        <small class="text-danger d-block mt-1">{{ $message }}</small>
                                     @enderror
                                 </div>
+
                                 <div class="form-group col-md-12 mb-4">
                                     <input placeholder="{{ __('Subject') }}" type="text" id="subject"
                                         class="form-control @error('subject') is-invalid @enderror" name="subject"
@@ -97,12 +103,20 @@
                                     <div class="cf-turnstile" data-sitekey="{{ config('services.turnstile.site_key') }}"
                                         data-theme="dark"></div>
                                 </div>
-                                <div class="col-lg-12">
-                                    <div class="contact-form-btn">
+                                <div class="alert alert-info text-center mb-4">
+                                    <strong>Consultation Fee:</strong> ₹99<br>
+                                    You will be redirected to secure payment after submitting this form.
+                                </div>
+                                <div class="col-lg-12 text-center">
+                                    <div class="contact-form-btn mt-4">
                                         <button type="submit"
-                                            class="btn-default mx-auto w-fit">{{ __('Request Consultation') }}</button>
+                                            class="btn btn-primary px-5 py-3 fw-semibold d-inline-flex align-items-center gap-2">
+                                            <i class="fa fa-lock"></i>
+                                            Proceed to Pay ₹99
+                                        </button>
                                     </div>
                                 </div>
+
                             </div>
                         </form>
                     </div>
@@ -156,7 +170,6 @@
                     $(element).removeClass('is-invalid').addClass('is-valid');
                 },
                 submitHandler: function (form) {
-                    // Check if Turnstile has produced a response token
                     const turnstileResponse = $('[name="cf-turnstile-response"]').val();
 
                     if (!turnstileResponse) {
@@ -164,7 +177,10 @@
                         return false;
                     }
 
-                    // If token exists, proceed with submission
+                    $(form).find('button[type="submit"]')
+                        .prop('disabled', true)
+                        .text('Redirecting to payment...');
+
                     form.submit();
                 }
             });

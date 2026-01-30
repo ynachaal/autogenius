@@ -24,7 +24,7 @@
                         </form> -->
 
                         <a href="{{ route('admin.sliders.index') }}" class="btn btn-sm btn-secondary">
-                            <i class="bi bi-list me-1"></i> Back
+                             <i class="bi bi-list me-1"></i> Back
                         </a>
                     </div>
                 </div>
