@@ -116,8 +116,7 @@
                                         </button> -->
                                         <button type="submit"
                                             class="btn-default text-center w-fit">
-                                          
-                                            Submit
+                                            Book Now
                                         </button>
                                     </div>
                                 </div>
