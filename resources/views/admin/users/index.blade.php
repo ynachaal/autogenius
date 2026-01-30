@@ -69,12 +69,12 @@
 
                         </form>
 
-                        <a href="{{ route('admin.users.create') }}" class="btn btn-sm btn-success">
+                       <!--  <a href="{{ route('admin.users.create') }}" class="btn btn-sm btn-success">
 
                             <i class="fas fa-plus"></i> Create
 
                         </a>
-
+ -->
                     </div>
 
                 </div>

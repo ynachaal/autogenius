@@ -42,11 +42,11 @@
                         <div class="contact-item-box-list">
                             <div class="opening-hours-box wow fadeInUp">
                                 <div class="opening-hours-content">
-                                    <h3>Open Hours:</h3>
-                                    <p>Our flexible opening and closing hours are designed to fit your lifestyle.</p>
+                                    <h3>{{config('settings.open_hours_title', '') }}</h3>
+                                    <p>{{config('settings.open_hours_text', '') }}</p>
                                     <ul>
-                                        <li><span>Mon - Sat:</span> 10:00AM - 06:30PM</li>
-                                        <li><span>Sunday:</span> Closed</li>
+                                        <li><span>Mon - Sat:</span> {{config('settings.open_hours_mon_sat', '') }}</li>
+                                        <li><span>Sunday:</span> {{config('settings.open_hours_sun', '') }}</li>
                                     </ul>
                                 </div>
                             </div>
