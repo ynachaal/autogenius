@@ -76,9 +76,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse($consultations as $consultation)
+                                @forelse($consultations as $index => $consultation)
                                     <tr>
-                                        <td>{{ $consultation->id }}</td>
+                                      <td>{{ $consultations->firstItem() + $index }}</td>
                                         <td>
                                             {{ $consultation->name }}<br>
                                             <small class="text-muted">{{ $consultation->email }}</small>

@@ -72,9 +72,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse($submissions as $submission)
+                                @forelse($submissions as $index => $submission)
                                     <tr class="{{ $submission->is_read ? 'text-muted' : 'fw-bold' }}">
-                                        <td>{{ $submission->id }}</td>
+                                          <td>{{ $submissions->firstItem() + $index }}</td>
                                         <td>{{ $submission->name }}</td>
                                         <td>{{ $submission->email }}</td>
                                         <td>
