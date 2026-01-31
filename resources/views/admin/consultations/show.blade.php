@@ -32,11 +32,11 @@
                         <form action="{{ route('admin.consultations.destroy', $consultation) }}" method="POST"
                             class="d-inline" id="delete-form-{{ $consultation->id }}">
                             @csrf
-                            @method('DELETE')
+                          <!--   @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-danger"
                                 onclick="return confirm('Are you sure you want to delete this?') && showConfirmationModal('delete-form-{{ $consultation->id }}', 'this booking', 'Consultation')">
                                 <i class="bi bi-trash me-1"></i> Delete
-                            </button>
+                            </button> -->
                         </form>
                     </div>
                 </div>
