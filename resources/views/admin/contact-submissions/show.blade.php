@@ -17,11 +17,11 @@
                         <form action="{{ route('admin.contact-submissions.destroy', $contactSubmission) }}" 
                               method="POST" class="d-inline" id="delete-form-{{ $contactSubmission->id }}">
                             @csrf
-                            @method('DELETE')
+                           <!--  @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-danger"
                                     onclick="return showConfirmationModal('delete-form-{{ $contactSubmission->id }}', 'this message', 'Submission')">
                                 <i class="bi bi-trash me-1"></i> Delete
-                            </button>
+                            </button> -->
                         </form>
                     </div>
                 </div>
