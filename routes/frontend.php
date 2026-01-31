@@ -77,5 +77,5 @@ Route::get('/book-a-consultation', [SiteController::class, 'bookConsultation'])
 Route::post('/book-a-consultation/store', [SiteController::class, 'storeConsultation'])
     ->name('frontend.consultation.store');
 
-    Route::post('/razorpay/success', [SiteController::class, 'razorpaySuccess'])
+Route::post('/razorpay/success', [SiteController::class, 'razorpaySuccess'])
     ->name('razorpay.success');

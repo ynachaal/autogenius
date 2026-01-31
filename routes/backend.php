@@ -17,9 +17,9 @@ use App\Http\Controllers\Admin\{
     SettingController,
     UserController,
     MenuController,
-	EmailTemplateController,
-	SliderController,
-	SliderCategoryController,
+    EmailTemplateController,
+    SliderController,
+    SliderCategoryController,
     MenuCategoryController
 };
 
@@ -34,24 +34,24 @@ Route::middleware(['auth', AdminMiddleware::class])
     ->group(function () {
 
 
-      Route::get('content-meta/{section}', [ContentMetaController::class, 'index'])->name('content-meta.index');
+        Route::get('content-meta/{section}', [ContentMetaController::class, 'index'])->name('content-meta.index');
         Route::post('content-meta/{section}/save', [ContentMetaController::class, 'saveMeta'])->name('content-meta.save');
 
-      
+
 
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         Route::get('/migrate', [DashboardController::class, 'migrate'])->name('migrate');
         Route::get('/clearCache', [DashboardController::class, 'clearCache'])->name('clearCache');
-          Route::get('/storage-link', [DashboardController::class, 'storageLink'])
-        ->name('storage.link');
+        Route::get('/storage-link', [DashboardController::class, 'storageLink'])
+            ->name('storage.link');
 
         Route::resource('contact-submissions', ContactSubmissionController::class);
         Route::resource('consultations', ConsultationController::class);
 
         Route::post('consultations/{consultation}/status', [ConsultationController::class, 'updateStatus'])
-        ->name('consultations.updateStatus');
-   
+            ->name('consultations.updateStatus');
+
         Route::resource('services', ServiceController::class);
         Route::resource('brands', BrandController::class);
         Route::resource('blogs', BlogController::class);
@@ -61,7 +61,7 @@ Route::middleware(['auth', AdminMiddleware::class])
         Route::resource('sliders', SliderController::class);
         Route::resource('slider-categories', SliderCategoryController::class);
         Route::resource('menus', MenuController::class);
-		Route::resource('email-templates', EmailTemplateController::class);
+        Route::resource('email-templates', EmailTemplateController::class);
         Route::resource('menu-categories', MenuCategoryController::class);
         Route::resource('blog-categories', BlogCategoryController::class);
 
@@ -69,4 +69,3 @@ Route::middleware(['auth', AdminMiddleware::class])
         Route::put('/settings', [SettingController::class, 'update'])->name('settings.update');
     });
 
-    
