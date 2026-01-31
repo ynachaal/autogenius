@@ -36,8 +36,8 @@
                     <div class="contact-us-content">
                         <div class="section-title">
                             <h3 class="wow fadeInUp">Get in touch</h3>
-                            <h2 class="text-anime-style-3">Find Your Perfect Car, Faster</h2>
-                            <p class="wow fadeInUp">Reach out today and discover amazing deals on new and pre-owned cars.</p>
+                            <h2 class="text-anime-style-3">{{config('settings.get_in_touch_heading', '') }}</h2>
+                            <p class="wow fadeInUp">{{config('settings.get_in_touch_description', '') }}</p>
                         </div>
                         <div class="contact-item-box-list">
                             <div class="opening-hours-box wow fadeInUp">

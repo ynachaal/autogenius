@@ -185,6 +185,25 @@
                                 </div>
                             @endforeach
                         </div>
+                         <hr class="my-4">
+    <h5 class="mb-3 text-primary">Get in Touch Section</h5>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Get in Touch Heading</label>
+            <input type="text" name="settings[get_in_touch_heading]" class="form-control"
+                value="{{ old('settings.get_in_touch_heading', $settings->get('get_in_touch_heading')?->value ?? '') }}">
+            <x-input-error :messages="$errors->get('settings.get_in_touch_heading')"
+                class="text-danger mt-1" />
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Get in Touch Description</label>
+            <textarea name="settings[get_in_touch_description]" class="form-control" rows="3">{{ old('settings.get_in_touch_description', $settings->get('get_in_touch_description')?->value ?? '') }}</textarea>
+            <x-input-error :messages="$errors->get('settings.get_in_touch_description')"
+                class="text-danger mt-1" />
+        </div>
+    </div>
                     </div>
 
                     {{-- FOOTER --}}
