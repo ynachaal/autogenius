@@ -57,6 +57,16 @@
                         @enderror
                     </div>
 
+                    <div class="col-md-6 mb-3">
+                        <label for="order" class="form-label fw-medium text-dark">Order</label>
+                        <input type="number" name="order" id="order"
+                            class="form-control @error('order') is-invalid @enderror"
+                            value="{{ old('order', $slider->order ?? 0) }}" min="0">
+                        @error('order')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
                     <!--   <div class="col-md-12 mb-3">
                         <label for="heading" class="form-label fw-medium text-dark">Heading</label>
                         <input type="text" name="heading" id="heading" value="{{ $slider->heading ?? old('heading') }}" class="form-control @error('heading') is-invalid @enderror">

@@ -13,6 +13,7 @@ class Slider extends Model
 
     protected $fillable = [
         'slider_category_id',
+        'order',              
         'type',
         'file',
         'status',
@@ -45,5 +46,9 @@ class Slider extends Model
     public function scopeActive($query)
     {
         return $query->where('status', true);
+    }
+    public function scopeOrdered($query)
+    {
+        return $query->orderBy('order');
     }
 }
