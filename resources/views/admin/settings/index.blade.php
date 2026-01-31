@@ -158,7 +158,7 @@
                                         <input type="text" name="settings[{{ $key }}]"
                                             value="{{ old('settings.' . $key, $val) }}" class="form-control">
                                         @if ($key === 'phone')
-                                            <small class="text-muted">Only numbers, spaces, and + are allowed.</small>
+                                            <small class="text-muted">Only numbers and + are allowed.</small>
                                         @endif
                                     @endif
                                     <x-input-error :messages="$errors->get('settings.' . $key)" class="text-danger mt-1" />
@@ -186,24 +186,24 @@
                             @endforeach
                         </div>
                          <hr class="my-4">
-    <h5 class="mb-3 text-primary">Get in Touch Section</h5>
+                            <h5 class="mb-3 text-primary">Get in Touch Section</h5>
 
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <label class="form-label">Get in Touch Heading</label>
-            <input type="text" name="settings[get_in_touch_heading]" class="form-control"
-                value="{{ old('settings.get_in_touch_heading', $settings->get('get_in_touch_heading')?->value ?? '') }}">
-            <x-input-error :messages="$errors->get('settings.get_in_touch_heading')"
-                class="text-danger mt-1" />
-        </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Get in Touch Heading</label>
+                                    <input type="text" name="settings[get_in_touch_heading]" class="form-control"
+                                        value="{{ old('settings.get_in_touch_heading', $settings->get('get_in_touch_heading')?->value ?? '') }}">
+                                    <x-input-error :messages="$errors->get('settings.get_in_touch_heading')"
+                                        class="text-danger mt-1" />
+                                </div>
 
-        <div class="col-md-6 mb-3">
-            <label class="form-label">Get in Touch Description</label>
-            <textarea name="settings[get_in_touch_description]" class="form-control" rows="3">{{ old('settings.get_in_touch_description', $settings->get('get_in_touch_description')?->value ?? '') }}</textarea>
-            <x-input-error :messages="$errors->get('settings.get_in_touch_description')"
-                class="text-danger mt-1" />
-        </div>
-    </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Get in Touch Description</label>
+                                    <textarea name="settings[get_in_touch_description]" class="form-control" rows="3">{{ old('settings.get_in_touch_description', $settings->get('get_in_touch_description')?->value ?? '') }}</textarea>
+                                    <x-input-error :messages="$errors->get('settings.get_in_touch_description')"
+                                        class="text-danger mt-1" />
+                                </div>
+                            </div>
                     </div>
 
                     {{-- FOOTER --}}
