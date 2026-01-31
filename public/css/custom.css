@@ -10875,3 +10875,6 @@ header.main-header .header-sticky.active{
     font-size: 18px;
     letter-spacing: 0;
 }
+.iti__selected-country {
+    height: 50px !important;
+}
