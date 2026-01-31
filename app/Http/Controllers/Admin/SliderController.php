@@ -86,6 +86,7 @@ class SliderController extends Controller
         $validated = $request->validate([
             'slider_category_id' => 'required|exists:slider_categories,id',
             'type'               => 'required|in:image,video',
+             'order'              => 'nullable|integer|min:0',  // ✅ add
             'file'               => 'required|file|mimes:jpg,jpeg,png,mp4|max:20480',
             'heading'            => 'nullable|string|max:255',
             'subheading'         => 'nullable|string|max:255',
@@ -113,6 +114,7 @@ class SliderController extends Controller
     {
         $validated = $request->validate([
             'slider_category_id' => 'required|exists:slider_categories,id',
+            'order'              => 'nullable|integer|min:0',  // ✅ add
             'type'               => 'required|in:image,video',
             'file'               => 'nullable|file|mimes:jpg,jpeg,png,mp4|max:20480',
             'heading'            => 'nullable|string|max:255',

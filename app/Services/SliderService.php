@@ -18,7 +18,7 @@ class SliderService
             ->when($categoryId, function ($query) use ($categoryId) {
                 $query->where('slider_category_id', $categoryId);
             })
-            ->orderBy('id', 'asc')
+            ->orderBy('order', 'asc')   // ✅ changed
             ->get();
     }
 
@@ -33,7 +33,7 @@ class SliderService
                 $q->where('name', $categoryName)
                   ->where('status', true);
             })
-            ->orderBy('id', 'asc')
+            ->orderBy('order', 'asc')   // ✅ changed
             ->get();
     }
 
@@ -45,7 +45,7 @@ class SliderService
         return Slider::with('category')
             ->active()
             ->where('slider_category_id', $categoryId)
-            ->orderBy('id', 'asc')
+            ->orderBy('order', 'asc')   // ✅ changed
             ->get();
     }
 
@@ -56,7 +56,7 @@ class SliderService
     {
         return SliderCategory::active()
             ->with(['sliders' => function ($q) {
-                $q->active()->orderBy('id', 'asc');
+                $q->active()->orderBy('order', 'asc');   // ✅ changed
             }])
             ->get();
     }
