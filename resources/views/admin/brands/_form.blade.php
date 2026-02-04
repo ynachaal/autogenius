@@ -140,7 +140,7 @@
                 order: { number: true },
                 image: {
                     required: {{ isset($brand) ? 'false' : 'true' }},
-                    extension: "jpg|jpeg|png|gif|svg",
+                    extension: "jpg|jpeg|png|gif|svg|webp",
                     filesize: 2097152
                 }
             },
