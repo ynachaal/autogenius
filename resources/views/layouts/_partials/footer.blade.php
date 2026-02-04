@@ -54,7 +54,7 @@
                                         class="fa-brands fa-facebook-f"></i></a></li>
                             <li><a href="{{ config('settings.instagram_url', '') }}" target="_blank"><i
                                         class="fa-brands fa-instagram"></i></a></li>
-                            <li><a href="https://api.whatsapp.com/send?phone={{ preg_replace('/[^0-9]/', '', config('settings.phone', '')) }}"
+                            <li><a href="https://api.whatsapp.com/send?phone=91{{ str_replace(' ', '', config('settings.phone', '')) }}"
                                     target="_blank"><i class="fa-brands fa-whatsapp"></i></a></li>
                         </ul>
                     </div>
