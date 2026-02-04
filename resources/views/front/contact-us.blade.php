@@ -131,7 +131,7 @@
                 </div>
             </div>
 
-            <div class="row mt-md-5 mt-3 align-content-center">
+            <div class="row mt-md-5 mt-3 align-content-center g-4">
                 <div class="col-xl-6">
                     <div class="google-map-iframe">
                         <iframe src="{{ config('settings.map_embed', '') }}" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
