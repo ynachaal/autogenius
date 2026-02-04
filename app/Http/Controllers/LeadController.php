@@ -6,10 +6,17 @@ use App\Models\Lead;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse; // <--- Ensure this is here
 use Illuminate\View\View;
+use App\Services\EmailService; // <--- Import the Service
 use Illuminate\Support\Facades\Log;
 
 class LeadController extends Controller
 {
+    protected $emailService;
+
+    public function __construct(EmailService $emailService)
+    {
+        $this->emailService = $emailService;
+    }
     public function index(): View
     {
         return view('front.lead.index');
@@ -22,14 +29,15 @@ class LeadController extends Controller
     public function store(Request $request): RedirectResponse
     {
         // 1. Validate incoming data
+        // Note: For Step 1 'Continue', validation might need to be partial. 
+        // If this is the final submit, we validate the 'confirm' checkbox.
         $request->validate([
             'name' => 'required|string|max:255',
             'mobile' => 'required|string|min:10',
             'city' => 'required|string',
-            'confirm' => 'accepted',
         ]);
 
-        // 2. Map HTML input names to Database columns
+        // 2. Map data
         $data = [
             'full_name' => $request->name,
             'mobile' => $request->mobile,
@@ -60,15 +68,20 @@ class LeadController extends Controller
             'declaration' => $request->has('confirm'),
         ];
 
-       
-
         // 3. Save to Database
-        Lead::updateOrCreate(
+        $lead = Lead::updateOrCreate(
             ['mobile' => $request->mobile],
             $data
         );
 
-        // 4. Redirect back with a success message
+        // 4. Trigger Emails ONLY on final submission (when declaration/confirm is checked)
+        if ($request->has('confirm')) {
+            $this->emailService->sendLeadUserConfirmation($lead);
+            $this->emailService->sendLeadAdminNotification($lead);
+        }
+
+        
+
         return redirect()->route('lead.index')->with('success', 'Your car requirements have been submitted successfully!');
     }
 }

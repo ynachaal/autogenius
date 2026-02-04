@@ -530,7 +530,7 @@
                             <div class="form-group mb-4">
                                 <label for="Existing">Existing Car Owned (if any) </label>
                                 <input class="form-control" id="Existing" name="Existing"
-                                    placeholder="Existing Car Owned (if any)*"
+                                    placeholder="Existing Car Owned (if any)"
                                     value="{{ old('Existing') }}">
                             </div>
 
