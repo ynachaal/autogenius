@@ -1781,8 +1781,8 @@ header.main-header .header-sticky.active{
 }
 
 .company-logo img{
-	width: 100%;
-	max-height: 50px;
+	/*width: 100%;*/
+	/*max-height: 50px;*/
 	min-height: 50px;
 	height: 50px;
 	user-select: none;
@@ -4452,7 +4452,7 @@ header.main-header .header-sticky.active{
 	margin-bottom: 50px;
 }
 
-.contact-form form .form-control{
+.form-group .form-control, .form-group .form-select{
     font-weight: 400;
     line-height: 1.5em;
     color: var(--text-color);
@@ -4465,7 +4465,7 @@ header.main-header .header-sticky.active{
     font-size: 12px;
 }
 
-.contact-form form .form-control::placeholder{
+.form-group .form-control::placeholder, .form-group .form-select::placeholder{
     color: var(--text-color);
 }
 
@@ -4577,7 +4577,7 @@ header.main-header .header-sticky.active{
 	left: 30px;
 	background: var(--secondary-color);
 	border-radius: 20px;
-	padding: 30px;
+	padding: 20px;
 	backdrop-filter: saturate(180%) blur(10px);
     -webkit-backdrop-filter: saturate(180%) blur(10px);
 	display: flex;
@@ -4613,8 +4613,8 @@ header.main-header .header-sticky.active{
 	justify-content: space-between;
 	gap: 10px;
 	border-bottom: 1px solid var(--divider-color);
-	margin-bottom: 30px;
-	padding-bottom: 30px;
+	margin-bottom: 20px;
+	padding-bottom: 20px;
 }
 
 .customer-services-item-header .icon-box img{
@@ -4623,8 +4623,9 @@ header.main-header .header-sticky.active{
 }
 
 .customer-services-header-title h3{
-	font-size: 20px;
+	font-size: 15px;
 	line-height: normal;
+    font-weight: 500;
 }
 
 .customer-services-item-body ul{
@@ -4636,7 +4637,7 @@ header.main-header .header-sticky.active{
 .customer-services-item-body ul li{
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: start;
 	color: var(--white-color);
 	gap: 10px;
 	margin-bottom: 20px;
@@ -10878,4 +10879,26 @@ header.main-header .header-sticky.active{
 }
 .iti--allow-dropdown{
     width: 100% !important;
+}
+.form-check{
+    padding-left: 1.7em;
+}
+.form-check .form-check-input{
+    margin-left: -1.7em;
+}
+.form-check-input{
+    box-shadow: none !important;
+    width: 1.2em;
+    height: 1.2em;
+    margin-top: 0.2em;
+}
+.form-check-input:checked{
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+.form-group p{
+    margin-bottom: 8px;
+}
+.form-group .form-check{
+    margin-bottom: 8px;
 }
