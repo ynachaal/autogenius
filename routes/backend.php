@@ -6,6 +6,7 @@ use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\Admin\{
     DashboardController,
     ConsultationController,
+    LeadController,
     PageController,
     BrandController,
     ContactSubmissionController,
@@ -46,6 +47,7 @@ Route::middleware(['auth', AdminMiddleware::class])
         Route::get('/storage-link', [DashboardController::class, 'storageLink'])
             ->name('storage.link');
 
+        Route::resource('leads', LeadController::class);
         Route::resource('contact-submissions', ContactSubmissionController::class);
         Route::resource('consultations', ConsultationController::class);
 
