@@ -15,13 +15,17 @@ return [
         'route' => route('pages.show', 'about-us'),
     ],
     [
-        'title' => 'Services',
-        'route' => route('services.index'),
-        'submenu' => $services->map(fn($service) => [
-            'title' => $service->title,  // assuming 'title' column exists
-            'route' => route('services.show', $service->slug), // assuming 'slug' column exists
-        ])->toArray(),
-    ],
+    'title' => 'Services',
+    'route' => route('services.index'),
+    'submenu' => $services
+        ->where('slug', '!=', 'autogenius-merchandise')
+        ->map(fn($service) => [
+            'title' => $service->title,
+            'route' => route('services.show', $service->slug),
+        ])
+        ->toArray(),
+],
+    
     [
         'title' => 'Car Deliveries',
         'route' =>  route('car.deliveries'), // update route if needed
@@ -29,5 +33,9 @@ return [
     [
         'title' => 'Contact Us',
         'route' => route('frontend.contact.create'),
+    ],
+    [
+        'title' => 'Autogenius Merchandise',
+        'route' => route('services.show', 'autogenius-merchandise'),
     ],
 ];
