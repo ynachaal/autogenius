@@ -82,6 +82,17 @@ class SettingController extends Controller
             );
         }
 
+        if ($request->hasFile('smart_car_requirement_image')) {
+        // Store the file and get the path
+        $carImagePath = $request->file('smart_car_requirement_image')->store('uploads/settings', 'public');
+        
+        // Save the path to the settings table
+        Setting::updateOrCreate(
+            ['key' => 'smart_car_requirement_image'], 
+            ['value' => 'storage/' . $carImagePath]
+        );
+    }
+
         // Loop through the submitted 'settings' array and update or create each one
         foreach ($request->input('settings', []) as $key => $value) {
             // Check if the current key is the phone field

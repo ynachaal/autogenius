@@ -45,6 +45,8 @@
                         'footer_heading' => '',
                         'footer_subheading' => '',
                         'footer_contactheading' => '',
+                        'smart_car_requirement_image' => '',
+                        
                     ];
                 @endphp
 
@@ -69,6 +71,10 @@
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="footer-tab" data-bs-toggle="tab" data-bs-target="#footer"
                             type="button" role="tab">Footer</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="smart-car-tab" data-bs-toggle="tab" data-bs-target="#smart-car"
+                            type="button" role="tab">Smart Car</button>
                     </li>
                 </ul>
 
@@ -123,6 +129,28 @@
                             @endforeach
                         </div>
                     </div>
+
+                    {{-- SMART CAR REQUIREMENT --}}
+                <div class="tab-pane fade" id="smart-car">
+                    <div class="row">
+                    
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Requirement Image</label>
+                            <input type="file" name="smart_car_requirement_image" class="form-control" accept="image/*">
+                            
+                            <x-input-error :messages="$errors->get('smart_car_requirement_image')" class="text-danger mt-1" />
+                            
+                            @if ($settings->get('smart_car_requirement_image'))
+                                <div class="mt-3">
+                                    <p class="small mb-1 text-muted">Current Image:</p>
+                                    <img src="{{ asset($settings->get('smart_car_requirement_image')->value) }}" 
+                                        class="img-thumbnail" style="max-width:300px">
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
 
                     {{-- SOCIAL --}}
                     <div class="tab-pane fade" id="social">
