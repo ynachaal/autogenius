@@ -102,7 +102,7 @@ class BrandController extends Controller
             'image' => [
                 'required',
                 'file',
-                'mimes:jpg,jpeg,png,gif,svg',
+                'mimes:jpg,jpeg,png,gif,svg,webp',
                 'max:2048',
             ],
         ]);
@@ -173,7 +173,7 @@ class BrandController extends Controller
             'image' => [
                 'nullable',
                 'file',
-                'mimes:jpg,jpeg,png,gif,svg',
+                 'mimes:jpg,jpeg,png,gif,svg,webp',
                 'max:2048',
             ],
         ]);
