@@ -39,25 +39,29 @@
                             <h2 class="text-anime-style-3">{{config('settings.get_in_touch_heading', '') }}</h2>
                             <p class="wow fadeInUp">{{config('settings.get_in_touch_description', '') }}</p>
                         </div>
-                        <div class="contact-item-box-list">
-                            <div class="opening-hours-box wow fadeInUp">
-                                <div class="opening-hours-content">
-                                    <h3>{{config('settings.open_hours_title', '') }}</h3>
-                                    <p>{{config('settings.open_hours_text', '') }}</p>
-                                    <ul>
-                                        <li><span>Mon - Sat:</span> {{config('settings.open_hours_mon_sat', '') }}</li>
-                                        <li><span>Sunday:</span> {{config('settings.open_hours_sun', '') }}</li>
-                                    </ul>
+                        <div class="contact-item-box-list row">
+                            <div class="col-6">
+                                <div class="opening-hours-box wow fadeInUp h-100">
+                                    <div class="opening-hours-content">
+                                        <h3>{{config('settings.open_hours_title', '') }}</h3>
+                                        <p>{{config('settings.open_hours_text', '') }}</p>
+                                        <ul>
+                                            <li><span>Mon - Sat:</span> {{config('settings.open_hours_mon_sat', '') }}</li>
+                                            <li><span>Sunday:</span> {{config('settings.open_hours_sun', '') }}</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="contact-info-box wow fadeInUp animated">
-                                <div class="contact-info-item">
-                                    <h3>Call Us!</h3>
-                                    <p><a href="tel:{{config('settings.phone', '') }}" class="fw-normal">{{config('settings.phone', '') }}</a></p>
-                                </div>
-                                <div class="contact-info-item">
-                                    <h3>E-mail Us!</h3>
-                                    <p><a href="mailto:{{ config('settings.contact_email', '') }}">{{ config('settings.contact_email', '') }}</a></p>
+                            <div class="col-6">
+                                <div class="contact-info-box wow fadeInUp animated h-100">
+                                    <div class="contact-info-item">
+                                        <h3>Call Us!</h3>
+                                        <p><a href="tel:{{config('settings.phone', '') }}" class="fw-normal">{{config('settings.phone', '') }}</a></p>
+                                    </div>
+                                    <div class="contact-info-item">
+                                        <h3>E-mail Us!</h3>
+                                        <p><a href="mailto:{{ config('settings.contact_email', '') }}">{{ config('settings.contact_email', '') }}</a></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -94,7 +98,7 @@
                                     @enderror
                                 </div>
                                 <div class="form-group col-md-12 mb-4">
-                                    <input id="phone" placeholder="{{ __('Mobile Number') }}" type="text" 
+                                    <input id="phone" placeholder="{{ __('Mobile Number') }}" type="text"
                                            class="form-control @error('mobile_no') is-invalid @enderror" name="mobile_no"
                                            value="{{ old('mobile_no') }}" >
                                     @error('mobile_no')
@@ -128,7 +132,7 @@
             </div>
 
             <div class="row mt-md-5 mt-3 align-content-center">
-                <div class="col-lg-6">
+                <div class="col-xl-6">
                     <div class="google-map-iframe">
                         <iframe src="{{ config('settings.map_embed', '') }}" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>

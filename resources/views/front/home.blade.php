@@ -28,8 +28,7 @@
                             <div class="hero-btn wow fadeInUp gap-3 d-flex flex-wrap justify-content-center"
                                 data-wow-delay="0.8s">
                                 <a href="{{route('front.bookConsultation')}}" class="btn-default">Book Expert Consultation</a>
-                                <a href="https://api.whatsapp.com/send?phone={{ preg_replace('/[^0-9]/', '', config('settings.phone', '')) }}" target="_blank"
-                                    class="btn-primary">Call / WhatsApp</a>
+                                {{-- <a href="https://api.whatsapp.com/send?phone={{ preg_replace('/[^0-9]/', '', config('settings.phone', '')) }}" target="_blank" class="btn-primary">Call / WhatsApp</a>--}}
                             </div>
                             <!-- Hero Button End -->
                         </div>
@@ -40,7 +39,7 @@
         </div>
         <!-- Hero Box End -->
 
-        <div class="our-faqs bg-white bg-section mb-2r mx-0 w-100 d-none">
+        <div class="our-faqs bg-white bg-section mb-2r mx-0 w-100">
             <div class="container">
                 <div class="faqs-content">
                     <!-- Section Title Start -->
@@ -122,7 +121,7 @@
                     <div class="row section-row">
                         <div class="col-lg-12">
                             <div class="section-title section-title-center">
-                                <h3 class="wow fadeInUp">AUTOGENIUS</h3>
+                                {{-- <h3 class="wow fadeInUp">AUTOGENIUS</h3>--}}
                                 <h2 class="text-anime-style-3" data-cursor="-opaque">
                                     {{ $data['how_it_works']['blocks_heading'] ?? 'How AutoGenius Works' }}
                                 </h2>
@@ -406,7 +405,7 @@
             <div class="our-approach bg-section mx-0 w-100">
                 <div class="container">
                     <div class="row align-items-center">
-                        
+
 
                       <x-slider-carousel :sliders="$sliders" carousel-id="homeSlider" />
 
