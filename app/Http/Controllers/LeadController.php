@@ -60,6 +60,8 @@ class LeadController extends Controller
             'declaration' => $request->has('confirm'),
         ];
 
+       
+
         // 3. Save to Database
         Lead::updateOrCreate(
             ['mobile' => $request->mobile],
