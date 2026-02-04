@@ -266,8 +266,9 @@
     @push('scripts')
         <script>
             $(document).ready(function () {
-                $.validator.addMethod("phoneCharsOnly", function (value, element) {
-                    return this.optional(element) || /^[\d+]+$/.test(value);
+               $.validator.addMethod("phoneCharsOnly", function (value, element) {
+    return this.optional(element) || /^[\d+\s]+$/.test(value);
+}, "Only numbers, spaces and the + symbol are allowed.");
                 }, "Only numbers and the + symbol are allowed.");
                 if (typeof $.fn.validate !== 'undefined') {
                     $("#adminSettingForm").validate({

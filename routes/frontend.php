@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\LeadController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ContactSubmissionController;
 use App\Http\Controllers\TinyMCEController;
@@ -62,6 +63,8 @@ Route::get('/services', [SiteController::class, 'services'])
 
 Route::get('/car-deliveries', [SiteController::class, 'carDeliveries'])->name('car.deliveries');
 
+
+Route::get('/smart-car-requirement', [LeadController::class, 'smartCarRequirement'])->name('smart.car.requirement');
 Route::get('/search', [SiteController::class, 'search'])->name('search');
 
 Route::get('/services/{slug}', [SiteController::class, 'serviceDetail'])->name('services.show');
