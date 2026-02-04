@@ -164,7 +164,6 @@ h6{
     font-weight: 400;
 	text-transform: uppercase;
 	color: var(--primary-color);
-	margin :0;
 }
 
 figure{
@@ -2755,9 +2754,9 @@ header.main-header .header-sticky.active{
 	z-index: 1;
 }
 
-.approach-image-box-1 .approach-img figure img{
-	aspect-ratio: 1 / 1.627;
-}
+/*.approach-image-box-1 .approach-img figure img{*/
+/*	aspect-ratio: 1 / 1.627;*/
+/*}*/
 
 .approach-image-box-2{
 	position: relative;
@@ -2802,9 +2801,9 @@ header.main-header .header-sticky.active{
 	margin-left: -90px;
 }
 
-.approach-image-box-2 .approach-img figure img{
-	aspect-ratio: 1 / 1.369;
-}
+/*.approach-image-box-2 .approach-img figure img{*/
+/*	aspect-ratio: 1 / 1.369;*/
+/*}*/
 
 .our-team{
 	padding: 100px 0 70px;
