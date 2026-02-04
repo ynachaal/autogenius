@@ -43,7 +43,7 @@ return [
 
         // Parent active if any child is active
         'active' =>
-          Route::is('admin.smart-car-requirements.*') ||
+          Route::is('admin.leads.*') ||
             Route::is('admin.contact-submissions.*') ||
             Route::is('admin.consultations.*'),
     ],
