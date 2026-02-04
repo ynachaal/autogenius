@@ -559,8 +559,8 @@
                 <div class="col-xl-5">
                     <div class="book-appointment-image wow fadeInUp">
                         <div class="book-appointment-img">
-                            <figure>
-                                <img src="{{ asset('images/book-appointment-image.jpg') }}" class="img-fluid" alt="">
+                            <figure> 
+                                <img src="{{config('settings.smart_car_requirement_image', '') }}" class="img-fluid" alt="">
                             </figure>
                         </div>
                         <div class="customer-services-box">
@@ -572,8 +572,8 @@
                                 </div>
                                 <div class="customer-services-item-body">
                                     <ul>
-                                        <li>Mon - Sat: <span>8 AM -7 PM</span></li>
-                                        <li>Sunday: <span>Closed</span></li>
+                                        <li>Mon - Sat:  {{config('settings.open_hours_mon_sat', '') }}</li>
+                                        <li>Sunday: {{config('settings.open_hours_sun', '') }}</li>
                                     </ul>
                                 </div>
                             </div>
@@ -585,10 +585,9 @@
                                 </div>
                                 <div class="customer-services-item-body">
                                     <ul>
-                                        <li><i class="fa-solid fa-phone"></i> <span><a href="tel:+123456789">(+123) 456
-                                                    789</a></span></li>
+                                        <li><i class="fa-solid fa-phone"></i> <span><a href="tel:{{config('settings.phone', '') }}">{{config('settings.phone', '') }}</a></span></li>
                                         <li><i class="fa-solid fa-envelope"></i> <span><a
-                                                    href="mailto:support@domain.com">support@domain.com</a></span></li>
+                                                    href="mailto:{{ config('settings.contact_email', '') }}">{{ config('settings.contact_email', '') }}</a></span></li>
                                     </ul>
                                 </div>
                             </div>
