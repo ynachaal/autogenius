@@ -13,10 +13,7 @@ return [
         'title' => 'Services',
           'route' => route('services.index'),
     ],
-    [
-        'title' => ' Our Principles',
-        'route' => route('pages.show', 'our-principles'),
-    ],
+   
     [
         'title' => 'Privacy Policy',
         'route' => route('pages.show', 'privacy-policy'),
