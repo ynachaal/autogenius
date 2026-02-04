@@ -21,7 +21,7 @@ class ServiceService
     /**
      * Get up to 8 featured services for the homepage.
      */
-    public function getFeaturedServices(int $limit = 9): Collection
+    public function getFeaturedServices(int $limit = 8): Collection
     {
         return Service::active()
             ->featured()
