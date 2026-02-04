@@ -265,4 +265,58 @@ class EmailService
         );
     }
 
+    /**
+     * Send lead inquiry confirmation to the user.
+     *
+     * @param \App\Models\Lead $lead
+     * @return bool
+     */
+    public function sendLeadUserConfirmation($lead): bool
+    {
+        $data = [
+            '{full_name}' => $lead->full_name ?? 'Valued Customer',
+            '{service_required}' => $lead->service_required ?? 'Automotive Service',
+            '{fuel_preference}' => is_array($lead->fuel_preference) ? implode(', ', $lead->fuel_preference) : $lead->fuel_preference,
+            '{body_type}' => is_array($lead->body_type) ? implode(', ', $lead->body_type) : $lead->body_type,
+            '{preferred_contact_method}' => ucfirst($lead->preferred_contact_method ?? 'Email'),
+            '{year}' => now()->year,
+            '{website_link}' => config('app.url'),
+        ];
+
+        return $this->sendEmailInstant(
+            $lead->mobile, // Or $lead->email if you add an email field to Lead model
+            'Lead Inquiry Confirmation - User',
+            $data,
+            'We have received your inquiry!'
+        );
+    }
+
+    /**
+     * Send lead notification alert to the admin.
+     *
+     * @param \App\Models\Lead $lead
+     * @return bool
+     */
+    public function sendLeadAdminNotification($lead): bool
+    {
+        $data = [
+            '{full_name}' => $lead->full_name ?? 'N/A',
+            '{mobile}' => $lead->mobile ?? 'N/A',
+            '{city}' => $lead->city ?? 'N/A',
+            '{service_required}' => $lead->service_required ?? 'N/A',
+            '{budget}' => $lead->budget ?? '0',
+            '{max_budget}' => $lead->max_budget ?? '0',
+            '{preferred_contact_method}' => $lead->preferred_contact_method ?? 'N/A',
+            '{admin_url}' => config('app.url') . '/admin/leads/' . $lead->id,
+            '{year}' => now()->year,
+        ];
+
+        return $this->sendEmailInstant(
+            config('settings.admin_email', 'admin@autogenious.com'),
+            'New Lead Alert - Admin',
+            $data,
+            'New Lead: ' . ($lead->full_name ?? 'New Inquiry')
+        );
+    }
+
 }
