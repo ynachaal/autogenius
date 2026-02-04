@@ -76,12 +76,17 @@ class LeadController extends Controller
 
         // 4. Trigger Emails ONLY on final submission (when declaration/confirm is checked)
         if ($request->has('confirm')) {
-            $this->emailService->sendLeadUserConfirmation($lead);
-            $this->emailService->sendLeadAdminNotification($lead);
+           // $this->emailService->sendLeadUserConfirmation($lead);
+          //  $this->emailService->sendLeadAdminNotification($lead);
         }
 
-        
 
-        return redirect()->route('lead.index')->with('success', 'Your car requirements have been submitted successfully!');
+
+       /*  return redirect()->route('lead.index')->with('success', 'Your car requirements have been submitted successfully!'); */
+       return redirect()->route('lead.thank-you');
+    }
+    public function thankYou()
+    {
+        return view('front.lead.thank-you');
     }
 }

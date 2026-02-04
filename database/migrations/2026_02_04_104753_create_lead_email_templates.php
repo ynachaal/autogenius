@@ -8,7 +8,7 @@ return new class extends Migration {
     public function up(): void
     {
         DB::table('email_templates')->insert([
-            // 1. USER CONFIRMATION (REMOVED DASHBOARD/REPLY LINKS)
+            // 1. USER CONFIRMATION
             [
                 'title' => 'Lead Inquiry Confirmation - User',
                 'subject' => 'We have received your inquiry!',
@@ -80,7 +80,8 @@ return new class extends Migration {
 <p style="margin: 0 0 10px 0;"><strong>Name:</strong> {{full_name}}</p>
 <p style="margin: 0 0 10px 0;"><strong>Contact:</strong> {{mobile}} ({{preferred_contact_method}})</p>
 <p style="margin: 0 0 10px 0;"><strong>Service:</strong> {{service_required}}</p>
-<p style="margin: 0 0 10px 0;"><strong>Budget:</strong> {{budget}} to {{max_budget}}</p>
+<p style="margin: 0 0 10px 0;"><strong>Base Budget:</strong> {{budget}}</p>
+<p style="margin: 0 0 10px 0;"><strong>Max Stretch Budget:</strong> {{max_budget}}</p>
 <p style="margin: 0;"><strong>Location:</strong> {{city}}</p>
 </div>
 <p style="margin: 0 0 25px 0;">Please log in to the admin panel to view the full requirements including usage patterns and vehicle preferences.</p>

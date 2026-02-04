@@ -397,7 +397,7 @@
                                         <label class="form-check-label" for="PerformanceFeature">Performance</label>
                                     </div>
                                 </div>
-                                                            <div class="form-group mb-4">
+                                 <div class="form-group mb-4">
                                     <p class="fw-normal">Noise Sensitivity</p>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="noise_sensitivity"
