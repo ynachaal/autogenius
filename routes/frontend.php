@@ -68,6 +68,7 @@ Route::get('/smart-car-requirements', [LeadController::class, 'index'])->name('l
 
 // Add this to handle the form data
 Route::post('/smart-car-requirements', [LeadController::class, 'store'])->name('lead.store');
+Route::get('/thank-you', [LeadController::class, 'thankYou'])->name('lead.thank-you');
 Route::get('/search', [SiteController::class, 'search'])->name('search');
 
 Route::get('/services/{slug}', [SiteController::class, 'serviceDetail'])->name('services.show');

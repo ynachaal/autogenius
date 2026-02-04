@@ -397,7 +397,7 @@
                                         <label class="form-check-label" for="PerformanceFeature">Performance</label>
                                     </div>
                                 </div>
-                                                            <div class="form-group mb-4">
+                                 <div class="form-group mb-4">
                                     <p class="fw-normal">Noise Sensitivity</p>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="noise_sensitivity"
@@ -530,7 +530,7 @@
                             <div class="form-group mb-4">
                                 <label for="Existing">Existing Car Owned (if any) </label>
                                 <input class="form-control" id="Existing" name="Existing"
-                                    placeholder="Existing Car Owned (if any)*"
+                                    placeholder="Existing Car Owned (if any)"
                                     value="{{ old('Existing') }}">
                             </div>
 
