@@ -30,7 +30,7 @@ return [
                 'active' => Route::is('admin.contact-submissions.*'),
             ],
             [
-                'title' => 'Smart car requirements',
+                'title' => 'Leads',
                 'route' => route('admin.leads.index'),
                 'active' => Route::is('admin.leads.*'),
             ],
