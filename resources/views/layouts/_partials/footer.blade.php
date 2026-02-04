@@ -8,7 +8,8 @@
                 <div class="col-xl-8">
                     <!-- Section Title Start -->
                     <div class="section-title">
-                        <h2 class="text-anime-style-3" data-cursor="-opaque">{{config('settings.footer_heading', '') }}</h2>
+                        <h2 class="text-anime-style-3" data-cursor="-opaque">{{config('settings.footer_heading', '') }}
+                        </h2>
                         <p>{{ config('settings.footer_subheading', '') }}</p>
                     </div>
                     <!-- Section Title End -->
@@ -18,7 +19,8 @@
                     <!-- Footer Newsletter Form Start -->
                     <div class="footer-newsletter-form-prime">
                         <div class="section-title">
-                            <p class="text-anime-style-3 h5 mb-4 fw-normal" data-cursor="-opaque">{{config('settings.footer_contactheading', '') }}</p>
+                            <p class="text-anime-style-3 h5 mb-4 fw-normal" data-cursor="-opaque">
+                                {{config('settings.footer_contactheading', '') }}</p>
                         </div>
                         <a href="tel:{{config('settings.phone', '') }}" class="btn-default"><i
                                 class="fa-solid fa-phone"></i> {{config('settings.phone', '') }}</a>
@@ -88,7 +90,8 @@
                         <ul>
                             @php
                                 $serviceService = app(\App\Services\ServiceService::class);
-                                $footerServices = $serviceService->getActiveServices(); // only active services
+                                $footerServices = $serviceService->getActiveServices()
+                                    ->where('slug', '!=', 'autogenius-merchandise');
                             @endphp
 
                             @foreach($footerServices as $service)
@@ -97,6 +100,7 @@
                                 </li>
                             @endforeach
                         </ul>
+
                     </div>
                     <!-- Footer Services End -->
 
