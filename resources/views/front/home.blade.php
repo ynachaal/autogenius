@@ -294,7 +294,7 @@
                                 @endif
 
                                 <div class="d-flex flex-wrap gap-3 mt-4">
-                                    <a href="https://wa.me/{{ config('settings.phone', '') }}?text=Hi%20AutoGenius%2C%0AI%27d%20like%20expert%20guidance%20regarding%20a%20car."
+                                    <a href="https://wa.me/+91{{ str_replace(' ', '', config('settings.phone', '')) }}?text=Hi%20AutoGenius%2C%0AI%27d%20like%20expert%20guidance%20regarding%20a%20car."
                                         class="btn-primary w-fit" target="_blank">
                                         <i class="fa-brands fa-whatsapp"></i> WhatsApp AutoGenius
                                     </a>
