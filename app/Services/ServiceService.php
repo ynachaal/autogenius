@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Models\Service;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-
+use Illuminate\Support\Facades\Cache;
 class ServiceService
 {
     /**
@@ -23,11 +23,13 @@ class ServiceService
      */
     public function getFeaturedServices(int $limit = 8): Collection
     {
-        return Service::active()
-            ->featured()
-            ->orderBy('id', 'asc')
-            ->limit($limit)
-            ->get();
+        return Cache::remember("services_featured_{$limit}", 3600, function () use ($limit) {
+            return Service::active()
+                ->featured()
+                ->orderBy('id', 'asc')
+                ->limit($limit)
+                ->get();
+        });
     }
 
     /**

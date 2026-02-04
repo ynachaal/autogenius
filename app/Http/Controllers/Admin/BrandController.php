@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
-
+use enshrined\svgSanitize\Sanitizer;
 class BrandController extends Controller
 {
     /**
@@ -87,9 +87,7 @@ class BrandController extends Controller
     {
         $validatedData = $request->validate([
             'name' => [
-                'required',
-                'string',
-                'max:191',
+                'required', 'string', 'max:191',
                 Rule::unique('brands')->whereNull('deleted_at')
             ],
             'description' => ['nullable', 'string'],
@@ -100,31 +98,45 @@ class BrandController extends Controller
             'meta_description' => ['nullable', 'string'],
             'meta_keywords' => ['nullable', 'string'],
             'image' => [
-                'required',
-                'file',
+                'required', 'file',
                 'mimes:jpg,jpeg,png,gif,svg,webp',
                 'max:2048',
             ],
         ]);
 
-        // --- SLUG GENERATION AND UNIQUENESS CHECK ---
         $slug = Str::slug($validatedData['name']);
         $originalSlug = $slug;
         $count = 1;
 
-        // Check against ALL records (including trashed) to avoid DB constraint errors
         while (Brand::withTrashed()->where('slug', $slug)->exists()) {
             $slug = $originalSlug . '-' . $count;
             $count++;
         }
         $validatedData['slug'] = $slug;
 
-        // Handle Image Upload
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $imageName = time() . '_' . $slug . '.' . $image->getClientOriginalExtension();
+            $extension = $image->getClientOriginalExtension();
+            $imageName = time() . '_' . $slug . '.' . $extension;
+            $destinationPath = public_path('uploads/brands');
 
-            $image->move(public_path('uploads/brands'), $imageName);
+            // --- SECURE SVG LOGIC START ---
+            if ($extension === 'svg') {
+                $sanitizer = new Sanitizer();
+                $content = file_get_contents($image->getRealPath());
+                $cleanSvg = $sanitizer->sanitize($content);
+
+                // Create directory if not exists
+                if (!File::isDirectory($destinationPath)) {
+                    File::makeDirectory($destinationPath, 0777, true, true);
+                }
+
+                File::put($destinationPath . '/' . $imageName, $cleanSvg);
+            } else {
+                $image->move($destinationPath, $imageName);
+            }
+            // --- SECURE SVG LOGIC END ---
+
             $validatedData['image'] = 'uploads/brands/' . $imageName;
         }
 
@@ -156,12 +168,8 @@ class BrandController extends Controller
     {
         $validatedData = $request->validate([
             'name' => [
-                'required',
-                'string',
-                'max:191',
-                Rule::unique('brands', 'name')
-                    ->ignore($brand->id)
-                    ->whereNull('deleted_at')
+                'required', 'string', 'max:191',
+                Rule::unique('brands', 'name')->ignore($brand->id)->whereNull('deleted_at')
             ],
             'description' => ['nullable', 'string'],
             'status' => ['in:active,inactive'],
@@ -171,41 +179,49 @@ class BrandController extends Controller
             'meta_description' => ['nullable', 'string'],
             'meta_keywords' => ['nullable', 'string'],
             'image' => [
-                'nullable',
-                'file',
-                 'mimes:jpg,jpeg,png,gif,svg,webp',
+                'nullable', 'file',
+                'mimes:jpg,jpeg,png,gif,svg,webp',
                 'max:2048',
             ],
         ]);
 
-        // Update slug if name changed
         if ($brand->name !== $validatedData['name']) {
             $slug = Str::slug($validatedData['name']);
             $originalSlug = $slug;
             $count = 1;
-
-            // Check against ALL records except current to avoid DB constraint errors
-            while (
-                Brand::withTrashed()
-                    ->where('slug', $slug)
-                    ->where('id', '!=', $brand->id)
-                    ->exists()
-            ) {
+            while (Brand::withTrashed()->where('slug', $slug)->where('id', '!=', $brand->id)->exists()) {
                 $slug = $originalSlug . '-' . $count;
                 $count++;
             }
             $validatedData['slug'] = $slug;
         }
 
-        // Handle Image Update
         if ($request->hasFile('image')) {
+            // Delete old image
             if ($brand->image && File::exists(public_path($brand->image))) {
                 File::delete(public_path($brand->image));
             }
 
             $image = $request->file('image');
-            $imageName = time() . '_' . Str::slug($validatedData['name']) . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/brands'), $imageName);
+            $extension = $image->getClientOriginalExtension();
+            $imageName = time() . '_' . Str::slug($validatedData['name']) . '.' . $extension;
+            $destinationPath = public_path('uploads/brands');
+
+            // --- SECURE SVG LOGIC START ---
+            if ($extension === 'svg') {
+                $sanitizer = new Sanitizer();
+                $content = file_get_contents($image->getRealPath());
+                $cleanSvg = $sanitizer->sanitize($content);
+
+                if (!File::isDirectory($destinationPath)) {
+                    File::makeDirectory($destinationPath, 0777, true, true);
+                }
+
+                File::put($destinationPath . '/' . $imageName, $cleanSvg);
+            } else {
+                $image->move($destinationPath, $imageName);
+            }
+            // --- SECURE SVG LOGIC END ---
 
             $validatedData['image'] = 'uploads/brands/' . $imageName;
         }
