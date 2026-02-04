@@ -28,15 +28,18 @@
                             <p><strong>Full Name:</strong> {{ $lead->full_name }}</p>
                             <p><strong>Mobile:</strong> {{ $lead->mobile ?? 'N/A' }}</p>
                             <p><strong>City:</strong> {{ $lead->city ?? 'N/A' }}</p>
-                            <p><strong>Service:</strong> {{ $lead->service_type ?? 'N/A' }}</p>
+                            <p><strong>Service:</strong> {{ $lead->service_required ?? 'N/A' }}</p>
                             <p><strong>Preferred Contact:</strong> {{ $lead->preferred_contact_method ?? 'N/A' }}</p>
 
                             <hr>
 
                             {{-- Budget & Ownership Plan --}}
                             <h5 class="fw-bold text-primary mb-3">Budget & Ownership Plan</h5>
-                            <p><strong>Budget:</strong> {{ $lead->budget ? '₹' . number_format($lead->budget) : 'N/A' }}</p>
-                            <p><strong>Max Stretch Budget:</strong> {{ ($lead->max_budget && $lead->max_budget > 0) ? '₹' . number_format($lead->max_budget) : 'N/A' }}</p>
+                            <p><strong>Budget:</strong> {{ $lead->budget ? '₹' . number_format($lead->budget) : 'N/A' }}
+                            </p>
+                            <p><strong>Max Stretch Budget:</strong>
+                                {{ ($lead->max_budget && $lead->max_budget > 0) ? '₹' . number_format($lead->max_budget) : 'N/A' }}
+                            </p>
                             <p><strong>Expected Ownership Period:</strong> {{ $lead->ownership_period ?? 'N/A' }}</p>
 
                             <hr>
@@ -55,14 +58,17 @@
 
                             {{-- Your Preferences --}}
                             <h5 class="fw-bold text-primary mb-3">Your Preferences</h5>
-                            <p><strong>Preferred Body Type:</strong> {{ !empty($lead->body_type) ? implode(', ', (array)$lead->body_type) : 'N/A' }}</p>
-                            <p><strong>Fuel Preference:</strong> {{ !empty($lead->fuel_preference) ? implode(', ', (array)$lead->fuel_preference) : 'N/A' }}</p>
+                            <p><strong>Preferred Body Type:</strong>
+                                {{ !empty($lead->body_type) ? implode(', ', (array) $lead->body_type) : 'N/A' }}</p>
+                            <p><strong>Fuel Preference:</strong>
+                                {{ !empty($lead->fuel_preference) ? implode(', ', (array) $lead->fuel_preference) : 'N/A' }}
+                            </p>
                             <p><strong>Gearbox Preference:</strong> {{ $lead->gearbox ?? 'N/A' }}</p>
                             <p><strong>Ride Comfort Priority:</strong> {{ $lead->ride_comfort ?? 'N/A' }}</p>
 
                             <div class="mb-3">
                                 <strong>Feature Priority:</strong>
-                                @php $features = (array)$lead->feature_priority; @endphp
+                                @php $features = (array) $lead->feature_priority; @endphp
                                 @forelse($features as $feature)
                                     <span class="badge bg-dark me-1">{{ $feature }}</span>
                                 @empty
@@ -78,10 +84,33 @@
                             {{-- Final Details --}}
                             <h5 class="fw-bold text-primary mb-3">Final Details</h5>
                             <p><strong>Decision Maker:</strong> {{ $lead->decision_maker ?? 'N/A' }}</p>
-                            <p><strong>Max Owners:</strong> {{ $lead->max_owners ?? 'N/A' }}</p>
-                            <p><strong>Accident History:</strong> {{ $lead->accident_history ?? 'N/A' }}</p>
+                            <p>
+                                <strong>Max Owners:</strong>
+                                @php
+                                    $ownersMap = [
+                                        '1max' => '1st Owner',
+                                        '2max' => '2nd Owner',
+                                        'any' => 'Any',
+                                    ];
+                                @endphp
+
+                                {{ $ownersMap[$lead->max_owners] ?? 'N/A' }}
+                            </p>
+
+                            <p>
+                                <strong>Accident History:</strong>
+                                @if($lead->accident_history === 1)
+                                    Zero Tolerance
+                                @elseif($lead->accident_history === 0)
+                                    Minor Acceptable
+                                @else
+                                    N/A
+                                @endif
+                            </p>
                             <p><strong>Purchase Timeline:</strong> {{ $lead->purchase_timeline ?? 'N/A' }}</p>
                             <p><strong>Existing Car Owned:</strong> {{ $lead->existing_car ?: 'N/A' }}</p>
+
+                            <p><strong>Insurance Preference:</strong> {{ $lead->insurance_preference ?? 'N/A' }}</p>    
 
                             <div class="mt-3 p-3 bg-light rounded border">
                                 <strong>Reason for Upgrade / Change:</strong><br>

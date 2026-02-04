@@ -545,6 +545,13 @@
                                     {{ old('confirm') ? 'checked' : '' }}>
                                 <label class="form-check-label" for="confirm">I confirm details are correct</label>
                             </div>
+                             <div class="form-group col-md-12 mb-4">
+                                    <div class="cf-turnstile" data-sitekey="{{ config('services.turnstile.site_key') }}" data-theme="dark"></div>
+                                    @error('cf-turnstile-response')
+                                        <div class="text-danger mt-1 small">{{ $message }}</div>
+                                    @enderror
+                                    <div id="turnstile-error" class="text-danger mt-1 small" style="display:none;">Please verify that you are not a robot.</div>
+                                </div>
                                 <div class="d-flex justify-content-between align-content-center">
                                     <button class="btn-primary w-fit prev"><i class="fa-solid fa-arrow-left"></i>
                                         Back</button>
@@ -657,7 +664,18 @@
                         } else {
                             error.insertAfter(element);
                         }
+                    },
+                     submitHandler: function (form) {
+                    // Check for Turnstile token before submitting
+                   /*  const turnstileResponse = $('[name="cf-turnstile-response"]').val();
+                    if (!turnstileResponse) {
+                        $('#turnstile-error').show();
+                        return false;
                     }
+                    $('#turnstile-error').hide();
+                    form.submit(); */
+                     form.submit();
+                }
                 });
 
                 // 2. Navigation Function
