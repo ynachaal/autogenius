@@ -59,12 +59,11 @@ class SiteController extends Controller
             'protecting_buyers' => $this->metaService->getAllValues('protecting-buyers'),
             'about' => $this->metaService->getAllValues('about-autogenius'),
             'why_founded' => $this->metaService->getAllValues('why-we-founded-autogenius'),
-            'services' => $this->serviceService->getFeaturedServices(9),
-          'featuredBrands' => $this->brandService->getFeaturedBrands(),
+            'services' => $this->serviceService->getFeaturedServices(8),
+            'featuredBrands' => $this->brandService->getFeaturedBrands()['brands'],
         ];
-
-      
-        $sliders = $this->sliderService->getByCategoryName('About AutoGenius');
+        $sliders = $this->sliderService
+            ->getByCategoryName('About AutoGenius');
 
         return view('front.home', compact('data', 'sliders'));
     }

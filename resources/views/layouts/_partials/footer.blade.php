@@ -154,6 +154,6 @@
 </footer>
 <!-- Footer End -->
 <a class="whatsapp_float" target="_blank"
-    href="https://wa.me/{{config('settings.phone', '')}}?text=Hi%20AutoGenius%2C%0AI%27d%20like%20expert%20guidance%20regarding%20a%20car.">
+    href="https://wa.me/{{ str_replace(' ', '', config('settings.phone', '')) }}?text=Hi%20AutoGenius%2C%0AI%27d%20like%20expert%20guidance%20regarding%20a%20car.">
     <span><i class="fa-brands fa-whatsapp"></i> Speak with an AutoGenius Expert</span>
 </a>
