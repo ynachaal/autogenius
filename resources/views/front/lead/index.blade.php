@@ -416,7 +416,7 @@
                                 </div>
 
                                 <div class="form-group mb-4">
-                                    <label class="form-label" for="Colour">Colour Preference <span class="text-danger">*</span></label>
+                                    <label class="form-label" for="Colour">Colour Preference </label>
                                     <input class="form-control" type="text" name="Colour" id="Colour"
                                         placeholder="Colour Preference"
                                         value="{{ old('Colour') }}">
@@ -530,7 +530,7 @@
                             </div>
 
                             <div class="form-group mb-4">
-                                <label for="Existing">Existing Car Owned (if any) <span class="text-danger">*</span></label>
+                                <label for="Existing">Existing Car Owned (if any) </label>
                                 <input class="form-control" id="Existing" name="Existing"
                                     placeholder="Existing Car Owned (if any)*"
                                     value="{{ old('Existing') }}">
@@ -619,8 +619,8 @@
                         ownership: "required",
                         usage: "required",
                         running_pattern: "required",
-                        Colour: "required",
-                        Existing: "required",
+                        //Colour: "required",
+                       // Existing: "required",
                         confirm: "required"
                     },
                     errorPlacement: function (error, element) {
