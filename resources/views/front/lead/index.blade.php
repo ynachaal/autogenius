@@ -189,22 +189,19 @@
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="usage" id="city1" value="city"
                                             required {{ old('usage', 'city') == 'city' ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="city1">City <span
-                                                class="text-danger">*</span></label>
+                                        <label class="form-check-label" for="city1">City </label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="usage" value="highway"
                                             id="highway" {{ old('usage') == 'highway' ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="highway">Highway <span
-                                                class="text-danger">*</span></label>
+                                        <label class="form-check-label" for="highway">Highway </label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="usage" value="mixed" id="mixed"
                                             {{ old('usage') == 'mixed' ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="mixed">Mixed <span
-                                                class="text-danger">*</span></label>
+                                        <label class="form-check-label" for="mixed">Mixed</label>
                                     </div>
                                 </div>
                                 <div class="form-group mb-4">
