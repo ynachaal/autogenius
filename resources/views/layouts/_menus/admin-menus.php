@@ -30,6 +30,11 @@ return [
                 'active' => Route::is('admin.contact-submissions.*'),
             ],
             [
+                'title' => 'Smart car requirements',
+                'route' => route('admin.leads.index'),
+                'active' => Route::is('admin.leads.*'),
+            ],
+            [
                 'title' => 'Consultations',
                 'route' => route('admin.consultations.index'),
                 'active' => Route::is('admin.consultations.*'),
@@ -38,6 +43,7 @@ return [
 
         // Parent active if any child is active
         'active' =>
+          Route::is('admin.smart-car-requirements.*') ||
             Route::is('admin.contact-submissions.*') ||
             Route::is('admin.consultations.*'),
     ],
