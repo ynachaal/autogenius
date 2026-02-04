@@ -184,7 +184,8 @@
                                     <h3 class="wow fadeInUp">How Will You Use the Car?</h3>
                                 </div>
                                 <div class="form-group mb-4">
-                                    <p class="fw-normal">Primary Usage</p>
+                                    <p class="fw-normal">Primary Usage  <span
+                                                class="text-danger">*</span></p>
 
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="usage" id="city1" value="city"
@@ -480,7 +481,7 @@
                             <div class="form-group mb-4">
                                 <p class="fw-normal">Purchase Timeline</p>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="Purchase" value="Immediate" id="Immediate"
+                                    <input class="form-check-input" type="radio" name="Purchase" value="immediate" id="Immediate"
                                         {{ old('Purchase') == 'Immediate' ? 'checked' : '' }}>
                                     <label class="form-check-label" for="Immediate">Immediate (0–7 days)</label>
                                 </div>
@@ -597,7 +598,37 @@
     @push('scripts')
 
         <script>
+
             $(document).ready(function () {
+                function updateRunningPlaceholder() {
+        let pattern = $('input[name="running_pattern"]:checked').val();
+        let placeholderText = "km";
+
+        switch(pattern) {
+            case 'daily':
+            case 'everyday': // Handling both potential values
+                placeholderText = "km/day";
+                break;
+            case 'monthly':
+                placeholderText = "km/month";
+                break;
+            case 'yearly':
+                placeholderText = "km/year";
+                break;
+            default:
+                placeholderText = "km";
+        }
+
+        $('input[name="running_km"]').attr('placeholder', placeholderText);
+    }
+
+    // 1. Trigger on Change
+    $('input[name="running_pattern"]').on('change', function() {
+        updateRunningPlaceholder();
+    });
+
+    // 2. Trigger on Page Load (to handle "old" or pre-filled values)
+    updateRunningPlaceholder();
                 let currentStepNum = 1;
 
                 // 1. Initialize jQuery Validation
