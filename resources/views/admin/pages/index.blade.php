@@ -110,7 +110,7 @@
 
                                         $sortableColumns = [
 
-                                            'id' => 'ID',
+                                            'id' => 'Sr No.',
 
                                             'title' => 'Title',
 

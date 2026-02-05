@@ -30,7 +30,7 @@ use App\Http\Controllers\Admin\{
 |--------------------------------------------------------------------------
 */
 Route::middleware(['auth', AdminMiddleware::class])
-    ->prefix('admin')
+    ->prefix('portal-8l2y1r')
     ->name('admin.')
     ->group(function () {
 

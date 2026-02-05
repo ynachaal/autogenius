@@ -48,7 +48,7 @@
                                 <tr>
                                     @php
                                         $sortableColumns = [
-                                            'id' => 'ID',
+                                            'id' => 'Sr No.',
                                             'name' => 'Sender',
                                             'email' => 'Email',
                                             'is_read' => 'Status',
