@@ -128,7 +128,7 @@ class EmailService
         ];
 
         // Admin
-        return $this->sendEmailInstant(
+        return $this->sendEmail(
             config('settings.admin_email', 'anubhav.abstain@gmail.com'),
             'Contact Us - Admin',
             $data,
@@ -311,7 +311,7 @@ class EmailService
             '{year}' => now()->year,
         ];
 
-        return $this->sendEmailInstant(
+        return $this->sendEmail(
             config('settings.admin_email', 'admin@autogenious.com'),
             'New Lead Alert - Admin',
             $data,
