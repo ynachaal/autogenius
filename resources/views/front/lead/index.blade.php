@@ -102,10 +102,10 @@
                                             </div>
 
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="service" value="testing"
+                                                <input class="form-check-input" type="radio" name="service" value="Pre-Owned Car Consultation & Unlimited Testing"
                                                     id="3pre" {{ old('service') == 'Pre-Owned Car Consultation & Unlimited Testing' ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="3pre">Pre-Owned Car Consultation &
-                                                    Unlimited Testing</label>
+                                                <label class="form-check-label" for="3pre">
+                                                    Pre-Owned Car Consultation & Unlimited Testing</label>
                                             </div>
 
                                             <div class="form-check">
