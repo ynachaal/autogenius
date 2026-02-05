@@ -43,7 +43,7 @@
                                 <label class="form-label fw-medium">Brand Logo</label>
                                 <input type="file" name="image" class="form-control @error('image') is-invalid @enderror"  @if(!isset($brand)) required @endif>
                                 @if(isset($brand) && $brand->image)
-                                    <img src="{{ asset($brand->image) }}" class="img-thumbnail mt-2" style="max-width:100px">
+                                  <img src="{{ asset('storage/' . $brand->image) }}" class="img-thumbnail mt-2" style="max-width:100px" alt="{{ $brand->name }}">
                                 @endif
                                 @error('image')<div class="text-danger small">{{ $message }}</div>@enderror
                             </div>

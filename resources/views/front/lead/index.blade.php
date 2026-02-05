@@ -91,26 +91,27 @@
                                             <p class="fw-normal">Service Required <span class="text-danger">*</span></p>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="service" id="1new"
-                                                    value="new" required {{ old('service', 'new') == 'new' ? 'checked' : '' }}>
+                                                    value="New Car Consultation" required {{ old('service', 'New Car Consultation') == 'New Car Consultation' ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="1new">New Car Consultation</label>
                                             </div>
 
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="service" id="2pre"
-                                                    value="inspection" {{ old('service') == 'inspection' ? 'checked' : '' }}>
+                                                    value="Pre-Owned Car Inspection" {{ old('service') == 'Pre-Owned Car Inspection' ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="2pre">Pre-Owned Car Inspection</label>
                                             </div>
 
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="service" value="testing"
-                                                    id="3pre" {{ old('service') == 'testing' ? 'checked' : '' }}>
+                                                    id="3pre" {{ old('service') == 'Pre-Owned Car Consultation & Unlimited Testing' ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="3pre">Pre-Owned Car Consultation &
                                                     Unlimited Testing</label>
                                             </div>
 
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" id="4pre" name="service"
-                                                    value="selling" {{ old('service') == 'selling' ? 'checked' : '' }}>
+                                                    value="Pre-Owned Car Certification &
+                                                    Selling" {{ old('service') == 'Pre-Owned Car Certification & Selling' ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="4pre">Pre-Owned Car Certification &
                                                     Selling</label>
                                             </div>
@@ -121,13 +122,13 @@
                                             <p class="fw-normal">Preferred Contact <span class="text-danger">*</span></p>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="contact" id="whatsapp"
-                                                    value="whatsapp" required {{ old('contact', 'whatsapp') == 'whatsapp' ? 'checked' : '' }}>
+                                                    value="Whatsapp" required {{ old('contact', 'Whatsapp') == 'Whatsapp' ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="whatsapp">WhatsApp</label>
                                             </div>
 
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="contact" value="call"
-                                                    id="Call" {{ old('contact') == 'call' ? 'checked' : '' }}>
+                                                <input class="form-check-input" type="radio" name="contact" value="Call"
+                                                    id="Call" {{ old('contact') == 'Call' ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="Call">Call</label>
                                             </div>
                                         </div>
@@ -158,15 +159,15 @@
                                     <select required name="ownership" id="ownership" class="form-select">
                                         <option value="">Please Select</option>
 
-                                        <option {{ old('ownership') == 'Less than 2 years' ? 'selected' : '' }}>
+                                        <option value="Less than 2 years" {{ old('ownership') == 'Less than 2 years' ? 'selected' : '' }}>
                                             Less than 2 years
                                         </option>
 
-                                        <option {{ old('ownership') == '3–5 years' ? 'selected' : '' }}>
+                                        <option value="3–5 years" {{ old('ownership') == '3–5 years' ? 'selected' : '' }}>
                                             3–5 years
                                         </option>
 
-                                        <option {{ old('ownership') == 'More than 5 years' ? 'selected' : '' }}>
+                                        <option value="More than 5 years" {{ old('ownership') == 'More than 5 years' ? 'selected' : '' }}>
                                             More than 5 years
                                         </option>
                                     </select>
@@ -188,20 +189,20 @@
                                                 class="text-danger">*</span></p>
 
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="usage" id="city1" value="city"
-                                            required {{ old('usage', 'city') == 'city' ? 'checked' : '' }}>
+                                        <input class="form-check-input" type="radio" name="usage" id="city1" value="City"
+                                            required {{ old('usage', 'City') == 'City' ? 'checked' : '' }}>
                                         <label class="form-check-label" for="city1">City </label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="usage" value="highway"
-                                            id="highway" {{ old('usage') == 'highway' ? 'checked' : '' }}>
+                                        <input class="form-check-input" type="radio" name="usage" value="Highway"
+                                            id="highway" {{ old('usage') == 'Highway' ? 'checked' : '' }}>
                                         <label class="form-check-label" for="highway">Highway </label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="usage" value="mixed" id="mixed"
-                                            {{ old('usage') == 'mixed' ? 'checked' : '' }}>
+                                        <input class="form-check-input" type="radio" name="usage" value="Mixed" id="mixed"
+                                            {{ old('usage') == 'Mixed' ? 'checked' : '' }}>
                                         <label class="form-check-label" for="mixed">Mixed</label>
                                     </div>
                                 </div>
@@ -209,20 +210,20 @@
                                     <p class="form-label">Running Pattern <span class="text-danger">*</span></p>
 
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="running_pattern" value="daily"
-                                            id="daily" required {{ old('running_pattern', 'daily') == 'daily' ? 'checked' : '' }}>
+                                        <input class="form-check-input" type="radio" name="running_pattern" value="Everyday"
+                                            id="daily" required {{ old('running_pattern', 'Everyday') == 'Everyday' ? 'checked' : '' }}>
                                         <label class="form-check-label" for="daily">Everyday</label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="running_pattern" value="monthly"
-                                            id="monthly" {{ old('running_pattern') == 'monthly' ? 'checked' : '' }}>
+                                        <input class="form-check-input" type="radio" name="running_pattern" value="Monthly"
+                                            id="monthly" {{ old('running_pattern') == 'Monthly' ? 'checked' : '' }}>
                                         <label class="form-check-label" for="monthly">Monthly</label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="running_pattern" value="yearly"
-                                            id="yearly" {{ old('running_pattern') == 'yearly' ? 'checked' : '' }}>
+                                        <input class="form-check-input" type="radio" name="running_pattern" value="Yearly"
+                                            id="yearly" {{ old('running_pattern') == 'Yearly' ? 'checked' : '' }}>
                                         <label class="form-check-label" for="yearly">Yearly</label>
                                     </div>
                                 </div>
@@ -434,18 +435,18 @@
                                <div class="form-group mb-4">
                                 <p class="fw-normal">Max Acceptable Owners</p>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="max_acceptable" value="1max" id="m1"
-                                        {{ old('max_acceptable') == '1max' ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="radio" name="max_acceptable" value="1st Owner" id="m1"
+                                        {{ old('max_acceptable') == '1st Owner' ? 'checked' : '' }}>
                                     <label class="form-check-label" for="m1">1st Owner</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="max_acceptable" value="2max" id="m2"
-                                        {{ old('max_acceptable') == '2max' ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="radio" name="max_acceptable" value="2nd Owner" id="m2"
+                                        {{ old('max_acceptable') == '2nd Owner' ? 'checked' : '' }}>
                                     <label class="form-check-label" for="m2">2nd Owner</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="max_acceptable" value="any" id="any"
-                                        {{ old('max_acceptable') == 'any' ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="radio" name="max_acceptable" value="Any" id="any"
+                                        {{ old('max_acceptable') == 'Any' ? 'checked' : '' }}>
                                     <label class="form-check-label" for="any">Any</label>
                                 </div>
                             </div>
@@ -453,13 +454,13 @@
                             <div class="form-group mb-4">
                                 <p class="fw-normal">Accident History Preference</p>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="History" value="1" id="zero"
-                                        {{ old('History') == '1' ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="radio" name="History" value="Zero Tolerance" id="zero"
+                                        {{ old('History') == 'Zero Tolerance' ? 'checked' : '' }}>
                                     <label class="form-check-label" for="zero">Zero Tolerance</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="History" value="2" id="Minor"
-                                        {{ old('History') == '2' ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="radio" name="History" value="Minor Acceptable" id="Minor"
+                                        {{ old('History') == 'Minor Acceptable' ? 'checked' : '' }}>
                                     <label class="form-check-label" for="Minor">Minor Acceptable</label>
                                 </div>
                             </div>
@@ -481,18 +482,18 @@
                             <div class="form-group mb-4">
                                 <p class="fw-normal">Purchase Timeline</p>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="Purchase" value="immediate" id="Immediate"
-                                        {{ old('Purchase') == 'Immediate' ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="radio" name="Purchase" value="Immediate (0–7 days)" id="Immediate"
+                                        {{ old('Purchase') == 'Immediate (0–7 days)' ? 'checked' : '' }}>
                                     <label class="form-check-label" for="Immediate">Immediate (0–7 days)</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="Purchase" value="weeks" id="weeks"
-                                        {{ old('Purchase') == 'weeks' ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="radio" name="Purchase" value="2–4 weeks" id="weeks"
+                                        {{ old('Purchase') == '2–4 weeksweeks' ? 'checked' : '' }}>
                                     <label class="form-check-label" for="weeks">2–4 weeks</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="Purchase" value="months" id="months"
-                                        {{ old('Purchase') == 'months' ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="radio" name="Purchase" value="1–3 months" id="months"
+                                        {{ old('Purchase') == '1–3 months' ? 'checked' : '' }}>
                                     <label class="form-check-label" for="months">1–3 months</label>
                                 </div>
                             </div>
@@ -612,14 +613,13 @@
         let placeholderText = "km";
 
         switch(pattern) {
-            case 'daily':
-            case 'everyday': // Handling both potential values
+            case 'Everyday': // Handling both potential values
                 placeholderText = "km/day";
                 break;
-            case 'monthly':
+            case 'Monthly':
                 placeholderText = "km/month";
                 break;
-            case 'yearly':
+            case 'Yearly':
                 placeholderText = "km/year";
                 break;
             default:

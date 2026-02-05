@@ -62,7 +62,7 @@
                             <p class="text-muted mb-2">
                                 <strong class="d-block mb-2">Brand Logo:</strong>
                                 @if($brand->image)
-                                    <img src="{{ asset($brand->image) }}" alt="{{ $brand->name }}"
+                                    <img src="{{ asset('storage/' . $brand->image) }}" alt="{{ $brand->name }}"
                                         style="max-width: 200px; max-height: 200px;" class="img-thumbnail">
                                 @else
                                     <span class="fw-semibold">-</span>

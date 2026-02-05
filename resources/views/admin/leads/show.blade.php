@@ -86,26 +86,15 @@
                             <p><strong>Decision Maker:</strong> {{ $lead->decision_maker ?? 'N/A' }}</p>
                             <p>
                                 <strong>Max Owners:</strong>
-                                @php
-                                    $ownersMap = [
-                                        '1max' => '1st Owner',
-                                        '2max' => '2nd Owner',
-                                        'any' => 'Any',
-                                    ];
-                                @endphp
+                              
 
-                                {{ $ownersMap[$lead->max_owners] ?? 'N/A' }}
+                                {{ $lead->max_owners ?? 'N/A' }}
                             </p>
 
                             <p>
                                 <strong>Accident History:</strong>
-                                @if($lead->accident_history === 1)
-                                    Zero Tolerance
-                                @elseif($lead->accident_history === 0)
-                                    Minor Acceptable
-                                @else
-                                    N/A
-                                @endif
+                                {{ $lead->accident_history  }}
+                              
                             </p>
                             <p><strong>Purchase Timeline:</strong> {{ $lead->purchase_timeline ?? 'N/A' }}</p>
                             <p><strong>Existing Car Owned:</strong> {{ $lead->existing_car ?: 'N/A' }}</p>
