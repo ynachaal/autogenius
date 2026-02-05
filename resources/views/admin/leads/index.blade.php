@@ -35,7 +35,7 @@
                                     <th>Customer</th>
                                     <th>City</th>
                                     <th>Budget</th>
-                                    <th>Fuel / Gearbox</th>
+                                    <th>Service</th>
                                     <th>Timeline</th>
                                     <th>Date</th>
                                     <th class="text-center">Actions</th>
@@ -57,17 +57,7 @@
                                                 N/A
                                             @endif
                                         </td>
-                                        <td>
-                                            @php $fuels = (array)$lead->fuel_preference; @endphp
-                                            @if(!empty($fuels))
-                                                @foreach($fuels as $fuel)
-                                                    <span class="badge bg-info text-dark" style="font-size: 0.7rem;">{{ $fuel }}</span>
-                                                @endforeach
-                                            @else
-                                                <span class="text-muted small">N/A</span>
-                                            @endif
-                                            <div class="small text-muted">{{ $lead->gearbox ?? 'N/A' }}</div>
-                                        </td>
+                                        <td>{{ $lead->service_required ?? 'N/A' }}</td>
                                         <td>
                                             @if($lead->purchase_timeline)
                                                 <span class="badge bg-warning text-dark">{{ $lead->purchase_timeline }}</span>
