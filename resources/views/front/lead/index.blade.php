@@ -709,7 +709,7 @@
                         // LOGIC: Skip Step 5 if "New Car" is selected
                         if (currentStepNum === 4) {
                             let service = $("input[name='service']:checked").val();
-                            if (service === "new") {
+                            if (service === "New Car Consultation") {
                                 goToStep(6);
                                 return;
                             }
@@ -729,7 +729,7 @@
                     // LOGIC: If going back from Final Step and it was a New Car, jump to Step 4
                     if (currentStepNum === 6) {
                         let service = $("input[name='service']:checked").val();
-                        if (service === "new") {
+                        if (service === "New Car Consultation") {
                             goToStep(4);
                             return;
                         }
