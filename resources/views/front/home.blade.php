@@ -19,7 +19,8 @@
                             <div class="section-title">
                                 <!-- Header End -->
                                 <h1 class="text-anime-style-3" data-cursor="-opaque">
-                                    {{ config('settings.home_page_banner_title', '') }}</h1>
+                                    {{ config('settings.home_page_banner_title', '') }}
+                                </h1>
                                 <p class="text-center mx-auto">{{ config('settings.home_page_banner_text', '') }}</p>
                             </div>
                             <!-- Section Title End -->
@@ -27,8 +28,11 @@
                             <!-- Hero Button Start -->
                             <div class="hero-btn wow fadeInUp gap-3 d-flex flex-wrap justify-content-center"
                                 data-wow-delay="0.8s">
-                                <a href="{{route('front.bookConsultation')}}" class="btn-default">Book Expert Consultation</a>
-                                {{-- <a href="https://api.whatsapp.com/send?phone={{ preg_replace('/[^0-9]/', '', config('settings.phone', '')) }}" target="_blank" class="btn-primary">Call / WhatsApp</a>--}}
+                                <a href="{{route('front.bookConsultation')}}" class="btn-default">Book Expert
+                                    Consultation</a>
+                                {{-- <a
+                                    href="https://api.whatsapp.com/send?phone={{ preg_replace('/[^0-9]/', '', config('settings.phone', '')) }}"
+                                    target="_blank" class="btn-primary">Call / WhatsApp</a>--}}
                             </div>
                             <!-- Hero Button End -->
                         </div>
@@ -101,10 +105,9 @@
                             @if(isset($data['trusted_experts']["counter{$i}_description"]))
                                 <div class="hero-info-item-ultimate wow fadeInUp col" data-wow-delay="{{ $i * 0.2 }}s">
                                     <div class="icon-box">
-                                       <img src="{{ isset($data['trusted_experts']["counter{$i}_image"]) 
-            ? asset('storage/' . $data['trusted_experts']["counter{$i}_image"]) 
-            : asset("images/counter-$i.svg") }}" 
-     alt="icon">
+                                        <img src="{{ isset($data['trusted_experts']["counter{$i}_image"])
+                                ? asset('storage/' . $data['trusted_experts']["counter{$i}_image"])
+                                : asset("images/counter-$i.svg") }}" alt="icon">
                                     </div>
                                     <div class="hero-info-item-content-ultimate">
                                         <h3>{{ $data['trusted_experts']["counter{$i}_description"] }}</h3>
@@ -229,7 +232,7 @@
                                     {{-- Phone number fallback or from meta --}}
                                     <a href="tel:{{ config('settings.phone', '') }}" class="btn-default mt-4">
                                         <i class="fa-solid fa-phone"></i>
-                                      {{ config('settings.phone', '') }}
+                                        {{ config('settings.phone', '') }}
                                     </a>
                                 </div>
                             </div>
@@ -310,10 +313,9 @@
                         <div class="col-xl-6">
                             <div class="why-choose-image-ultimate">
                                 <figure class="image-anime">
-                                   <img src="{{ isset($data['why_choose']['image']) 
-            ? asset('storage/' . $data['why_choose']['image']) 
-            : asset('images/car-test.jpg') }}"
-     alt="Why Choose AutoGenius">
+                                    <img src="{{ isset($data['why_choose']['image'])
+                ? asset('storage/' . $data['why_choose']['image'])
+                : asset('images/car-test.jpg') }}" alt="Why Choose AutoGenius">
                                 </figure>
                             </div>
                         </div>
@@ -348,9 +350,8 @@
                             <div class="logo mt-5 mb-3">
                                 {{-- Using the "image" key from your array --}}
                                 @if(isset($data['protecting_buyers']['image']))
-                                  <img src="{{ asset('storage/' . $data['protecting_buyers']['image']) }}"
-     class="img-fluid py-3 w-75 mx-auto d-block" 
-     alt="AutoGenius Logo Icon">
+                                    <img src="{{ asset('storage/' . $data['protecting_buyers']['image']) }}"
+                                        class="img-fluid py-3 w-75 mx-auto d-block" alt="AutoGenius Logo Icon">
                                 @else
                                     <img src="{{ asset('images/logo-icon.png') }}" class="img-fluid py-3 w-75 mx-auto d-block"
                                         alt="Default Icon">
@@ -412,7 +413,7 @@
                     <div class="row align-items-center">
 
 
-                      <x-slider-carousel :sliders="$sliders" carousel-id="homeSlider" />
+                        <x-slider-carousel :sliders="$sliders" carousel-id="homeSlider" />
 
 
                         <div class="col-xl-6">
@@ -495,10 +496,9 @@
                         <div class="col-xl-3 col-md-6">
                             <div class="what-we-image-ultimate wow fadeInUp">
                                 <figure class="image-anime">
-                                   <img src="{{ isset($data['why_founded']['image1']) 
-            ? asset('storage/' . $data['why_founded']['image1']) 
-            : asset('images/img-1.jpg') }}"
-     alt="Car Inspection">
+                                    <img src="{{ isset($data['why_founded']['image1'])
+                ? asset('storage/' . $data['why_founded']['image1'])
+                : asset('images/img-1.jpg') }}" alt="Car Inspection">
                                 </figure>
                             </div>
                         </div>
@@ -546,10 +546,9 @@
                         <div class="col-xl-3 col-md-12">
                             <div class="what-we-image-ultimate wow fadeInUp">
                                 <figure class="image-anime">
-                                  <img src="{{ isset($data['why_founded']['image2']) 
-            ? asset('storage/' . $data['why_founded']['image2']) 
-            : asset('images/car-cust.jpg') }}"
-     alt="Customer Satisfaction">
+                                    <img src="{{ isset($data['why_founded']['image2'])
+                ? asset('storage/' . $data['why_founded']['image2'])
+                : asset('images/car-cust.jpg') }}" alt="Customer Satisfaction">
                                 </figure>
                             </div>
                         </div>

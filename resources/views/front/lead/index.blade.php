@@ -291,9 +291,9 @@
                                 </div>
 
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="body_type[]" value="suv_muv"
+                                    <input class="form-check-input" type="checkbox" name="body_type[]" value="SUV / MUV"
                                         id="suv_muv"
-                                        {{ (is_array(old('body_type')) && in_array('suv_muv', old('body_type'))) ? 'checked' : '' }}>
+                                        {{ (is_array(old('body_type')) && in_array('SUV / MUV', old('body_type'))) ? 'checked' : '' }}>
                                     <label class="form-check-label" for="suv_muv">SUV / MUV</label>
                                 </div>
                             </div>
