@@ -558,3 +558,77 @@
         @endif
         <!-- What We Do Section End -->
 @endsection
+
+    @push('scripts')
+        <script>
+            const locations = [
+                { name: "", top: "59%", left: "8%" },
+                { name: "", top: "25%", left: "30%" },
+                { name: "", top: "45%", left: "50%" },
+                { name: "", top: "33%", left: "25%" },
+                { name: "", top: "51%", left: "16%" },
+                { name: "", top: "42%", left: "11%" },
+                { name: "", top: "85%", left: "10.5%" },
+                { name: "", top: "33%", left: "4%" },
+                { name: "", top: "24%", left: "12%" },
+                { name: "", top: "72%", left: "17%" },
+                { name: "", top: "15%", left: "34%" },
+                { name: "", top: "22%", left: "44%" },
+                { name: "", top: "9%", left: "72%" },
+                { name: "", top: "22%", left: "67%" },
+                { name: "", top: "22%", left: "44%" },
+                { name: "", top: "45%", left: "30%" },
+                { name: "", top: "52%", left: "38%" },
+                { name: "", top: "35%", left: "42%" },
+                { name: "", top: "52%", left: "38%" },
+                { name: "", top: "61%", left: "25%" },
+                { name: "", top: "23%", left: "57%" },
+                { name: "", top: "14%", left: "57%" },
+                { name: "", top: "14%", left: "85%" },
+                { name: "", top: "26%", left: "81%" },
+                { name: "", top: "14%", left: "17%" },
+                { name: "", top: "4%", left: "17%" },
+                { name: "", top: "22%", left: "22%" },
+                { name: "", top: "33%", left: "15%" },
+                { name: "", top: "62%", left: "16%" },
+                { name: "", top: "49%", left: "5%" },
+                { name: "", top: "70%", left: "8%" },
+                { name: "", top: "13%", left: "49%" },
+                { name: "", top: "33%", left: "64%" },
+                { name: "", top: "34%", left: "33%" },
+                { name: "", top: "11%", left: "27%" },
+                { name: "", top: "41%", left: "21%" },
+                { name: "", top: "43%", left: "38%" },
+                { name: "", top: "62%", left: "33%" },
+                { name: "", top: "71%", left: "28%" },
+                { name: "", top: "52%", left: "26%" },
+                { name: "", top: "26%", left: "37%" },
+                { name: "", top: "54%", left: "46%" },
+                { name: "", top: "63%", left: "41%" },
+                { name: "", top: "38%", left: "56%" },
+                { name: "", top: "48%", left: "58%" },
+                { name: "", top: "29%", left: "50%" },
+                { name: "", top: "4%", left: "54%" },
+                { name: "", top: "17%", left: "77%" },
+                { name: "", top: "31%", left: "73%" },
+                { name: "", top: "36%", left: "88%" },
+                { name: "", top: "23%", left: "90%" },
+                { name: "", top: "6%", left: "89%" },
+                { name: "", top: "7%", left: "80%" },
+                { name: "", top: "81%", left: "19%" },
+                { name: "", top: "13%", left: "64%" },
+                { name: "", top: "91%", left: "17%" },
+            ];
+            const map = document.querySelector(".map-wrapper");
+            locations.forEach(loc => {
+                const pin = document.createElement("div");
+                pin.className = "map-pin";
+                pin.style.top = loc.top;
+                pin.style.left = loc.left;
+
+                //
+                //pin.innerHTML = `<span>${loc.name}</span>`;
+                map.appendChild(pin);
+            });
+        </script>
+    @endpush
