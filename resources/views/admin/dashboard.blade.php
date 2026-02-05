@@ -14,22 +14,11 @@
 
             <div class="row g-4">
 
-                {{-- Total Users --}}
-                <div class="col-12 col-md-6 col-lg-3 d-none">
-                    <a href="{{ route('admin.users.index') }}" class="text-decoration-none">
-                        <div class="card border border-primary-subtle shadow-sm rounded-4 p-4 text-center bg-primary-subtle hover-shadow">
-                            <p class="text-uppercase small fw-medium text-primary mb-2">Total Users</p>
-                            <p class="display-6 fw-bold text-dark mb-0">
-                                {{ number_format($stats['total_users'] ?? 0) }}
-                            </p>
-                        </div>
-                    </a>
-                </div>
-
                 {{-- Active Brands --}}
                 <div class="col-12 col-md-6 col-lg-3">
                     <a href="{{ route('admin.brands.index') }}" class="text-decoration-none">
-                        <div class="card border border-warning-subtle shadow-sm rounded-4 p-4 text-center bg-warning-subtle hover-shadow">
+                        <div
+                            class="card border border-warning-subtle shadow-sm rounded-4 p-4 text-center bg-warning-subtle hover-shadow">
                             <p class="text-uppercase small fw-medium text-warning mb-2">Active Brands</p>
                             <p class="display-6 fw-bold text-dark mb-0">
                                 {{ number_format($stats['active_brands'] ?? 0) }}
@@ -41,7 +30,8 @@
                 {{-- Active Services --}}
                 <div class="col-12 col-md-6 col-lg-3">
                     <a href="{{ route('admin.services.index') }}" class="text-decoration-none">
-                        <div class="card border border-info-subtle shadow-sm rounded-4 p-4 text-center bg-info-subtle hover-shadow">
+                        <div
+                            class="card border border-info-subtle shadow-sm rounded-4 p-4 text-center bg-info-subtle hover-shadow">
                             <p class="text-uppercase small fw-medium text-info mb-2">Active Services</p>
                             <p class="display-6 fw-bold text-dark mb-0">
                                 {{ number_format($stats['active_services'] ?? 0) }}
@@ -50,10 +40,24 @@
                     </a>
                 </div>
 
+                {{-- Total Leads --}}
+                <div class="col-12 col-md-6 col-lg-3">
+                    <a href="{{ route('admin.leads.index') }}" class="text-decoration-none">
+                        <div
+                            class="card border border-primary-subtle shadow-sm rounded-4 p-4 text-center bg-primary-subtle hover-shadow">
+                            <p class="text-uppercase small fw-medium text-primary mb-2">Total Leads</p>
+                            <p class="display-6 fw-bold text-dark mb-0">
+                                {{ number_format($stats['total_leads'] ?? 0) }}
+                            </p>
+                        </div>
+                    </a>
+                </div>
+
                 {{-- Consultation Requests --}}
                 <div class="col-12 col-md-6 col-lg-3">
                     <a href="{{ route('admin.consultations.index') }}" class="text-decoration-none">
-                        <div class="card border border-success-subtle shadow-sm rounded-4 p-4 text-center bg-success-subtle hover-shadow">
+                        <div
+                            class="card border border-success-subtle shadow-sm rounded-4 p-4 text-center bg-success-subtle hover-shadow">
                             <p class="text-uppercase small fw-medium text-success mb-2">Consultation Requests</p>
                             <p class="display-6 fw-bold text-dark mb-0">
                                 {{ number_format($stats['total_consultations'] ?? 0) }}
@@ -69,7 +73,8 @@
                 <div class="d-flex gap-2">
                     <a href="{{ route('admin.migrate') }}" class="btn btn-outline-dark btn-sm">Run Migrations</a>
                     <a href="{{ route('admin.clearCache') }}" class="btn btn-outline-secondary btn-sm">Clear Cache</a>
-                    <a href="{{ route('admin.storage.link') }}" class="btn btn-outline-secondary btn-sm">Storage SYM LINK</a>
+                    <a href="{{ route('admin.storage.link') }}" class="btn btn-outline-secondary btn-sm">Storage SYM
+                        LINK</a>
                 </div>
             </div>
 

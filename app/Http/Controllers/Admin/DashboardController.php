@@ -2,37 +2,43 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Support\Facades\Auth;
-use App\Models\UnittypeAssignedWorkflow;
-use Illuminate\Support\Facades\Artisan;
-use App\Models\ApplicationAssignedWorkflow;
-use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
-use App\Models\Blog;
-use App\Models\Consultation;
-use App\Models\Brand;
-use App\Models\Service;
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Services\BrandService;
+use App\Services\ServiceService;
+use App\Services\LeadService;
+use App\Services\ConsultationService;
+use Illuminate\Support\Facades\Artisan;
 
 class DashboardController extends Controller
 {
+    protected $brandService;
+    protected $serviceService;
+    protected $leadService;
+    protected $consultationService;
+
+    public function __construct(
+        BrandService $brandService, 
+        ServiceService $serviceService,
+        LeadService $leadService,
+        ConsultationService $consultationService
+    ) {
+        $this->brandService = $brandService;
+        $this->serviceService = $serviceService;
+        $this->leadService = $leadService;
+        $this->consultationService = $consultationService;
+    }
+
     public function index()
     {
+        $consultationStats = $this->consultationService->getConsultationStats();
+
         $stats = [
-
-            // Brands where status is 'active' (per your model defaults)
-            'active_brands' => Brand::where('status', 'active')->count(),
-
-            // Services using the active scope (status is true)
-            'active_services' => Service::active()->count(),
-
-            // Total Users (Non-Admins)
-            'total_users' => User::where('role', '02')->count(),
-
-            'total_consultations' => Consultation::count(),
-            'pending_consultations' => Consultation::where('status', 'pending')->count(),
-            'completed_consultations' => Consultation::where('status', 'completed')->count(),
+            'active_brands'   => $this->brandService->getActiveBrandsCount(),
+            'active_services' => $this->serviceService->getActiveServicesCount(),
+            'total_leads'     => $this->leadService->getTotalLeadsCount(),
+            'total_consultations'     => $consultationStats['total'],
+          
         ];
 
         return view('admin.dashboard', compact('stats'));

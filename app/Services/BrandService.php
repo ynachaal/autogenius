@@ -12,6 +12,13 @@ class BrandService
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
+
+    public function getActiveBrandsCount()
+    {
+        return Cache::remember('brands_active_count', 3600, function () {
+            return Brand::where('status', 'active')->count();
+        });
+    }
     public function getAllBrands()
     {
         return Cache::remember('brands_all_active', 3600, function () {

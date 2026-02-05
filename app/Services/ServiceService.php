@@ -73,4 +73,10 @@ class ServiceService
 
         return $service;
     }
+    public function getActiveServicesCount(): int
+    {
+        return Cache::remember('services_active_count', 3600, function () {
+            return Service::active()->count();
+        });
+    }
 }
