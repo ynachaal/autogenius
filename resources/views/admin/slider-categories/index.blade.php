@@ -49,7 +49,7 @@
                                 <tr>
                                     @php
                                         $sortableColumns = [
-                                            'id' => 'ID',
+                                            'id' => 'Sr No.',
                                             'name' => 'Category Name',
                                             'status' => 'Status',
                                             'created_at' => 'Created',

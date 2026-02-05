@@ -52,7 +52,7 @@
                                     <th>Image</th>
                                     @php
                                         $sortableColumns = [
-                                            'id' => 'ID',
+                                            'id' => 'Sr No.',
                                             'name' => 'Brand Name',
                                             'order' => 'Order',
                                             'status' => 'Status',

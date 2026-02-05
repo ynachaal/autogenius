@@ -65,7 +65,7 @@
                                 <tr>
                                     @php
                                         $sortableColumns = [
-                                            'id' => 'ID',
+                                            'id' => 'Sr No.',
                                             'slider_category_id' => 'Category',
                                             'type' => 'Type',
                                       /*       'heading' => 'Heading', */

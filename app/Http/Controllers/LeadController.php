@@ -33,13 +33,13 @@ class LeadController extends Controller
             'name' => 'required|string|max:255',
             'mobile' => 'required|string|min:10',
             'city' => 'required|string',
-          //  'cf-turnstile-response' => 'required',
+          'cf-turnstile-response' => 'required',
         ], [
-           // 'cf-turnstile-response.required' => 'Please complete the security check.',
+           'cf-turnstile-response.required' => 'Please complete the security check.',
         ]);
 
         // 2. Verify Turnstile (5s timeout)
-       /*  try {
+        try {
             $turnstile = Http::asForm()
                 ->timeout(5)
                 ->post('https://challenges.cloudflare.com/turnstile/v0/siteverify', [
@@ -58,7 +58,7 @@ class LeadController extends Controller
             return back()
                 ->withErrors(['cf-turnstile-response' => 'Captcha verification failed. Please try again.'])
                 ->withInput();
-        } */
+        } 
 
         // 3. Map data
         $data = [
@@ -97,7 +97,7 @@ class LeadController extends Controller
         // 5. Trigger Emails ONLY on final submission
         if ($request->has('confirm')) {
             // $this->emailService->sendLeadUserConfirmation($lead);
-            // $this->emailService->sendLeadAdminNotification($lead);
+             $this->emailService->sendLeadAdminNotification($lead);
         }
 
         return redirect()->route('lead.thank-you');
