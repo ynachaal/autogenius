@@ -28,16 +28,39 @@ class LeadController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        // 1. Validate incoming data
-        // Note: For Step 1 'Continue', validation might need to be partial. 
-        // If this is the final submit, we validate the 'confirm' checkbox.
+        // 1. Validate incoming data (basic fields + Turnstile)
         $request->validate([
             'name' => 'required|string|max:255',
             'mobile' => 'required|string|min:10',
             'city' => 'required|string',
+          //  'cf-turnstile-response' => 'required',
+        ], [
+           // 'cf-turnstile-response.required' => 'Please complete the security check.',
         ]);
 
-        // 2. Map data
+        // 2. Verify Turnstile (5s timeout)
+       /*  try {
+            $turnstile = Http::asForm()
+                ->timeout(5)
+                ->post('https://challenges.cloudflare.com/turnstile/v0/siteverify', [
+                    'secret' => config('services.turnstile.secret_key'),
+                    'response' => $request->input('cf-turnstile-response'),
+                    'remoteip' => $request->ip(),
+                ]);
+        } catch (\Exception $e) {
+            \Log::error('Lead Turnstile Error: ' . $e->getMessage());
+            return back()
+                ->with('error', 'Security service temporarily unavailable. Please try again.')
+                ->withInput();
+        }
+
+        if (!$turnstile->json('success')) {
+            return back()
+                ->withErrors(['cf-turnstile-response' => 'Captcha verification failed. Please try again.'])
+                ->withInput();
+        } */
+
+        // 3. Map data
         $data = [
             'full_name' => $request->name,
             'mobile' => $request->mobile,
@@ -68,22 +91,19 @@ class LeadController extends Controller
             'declaration' => $request->has('confirm'),
         ];
 
-        // 3. Save to Database
+        // 4. Save to Database (update if same mobile)
         $lead = Lead::updateOrCreate(
             ['mobile' => $request->mobile],
             $data
         );
 
-        // 4. Trigger Emails ONLY on final submission (when declaration/confirm is checked)
+        // 5. Trigger Emails ONLY on final submission
         if ($request->has('confirm')) {
-           // $this->emailService->sendLeadUserConfirmation($lead);
-          //  $this->emailService->sendLeadAdminNotification($lead);
+            // $this->emailService->sendLeadUserConfirmation($lead);
+            // $this->emailService->sendLeadAdminNotification($lead);
         }
 
-
-
-       /*  return redirect()->route('lead.index')->with('success', 'Your car requirements have been submitted successfully!'); */
-       return redirect()->route('lead.thank-you');
+        return redirect()->route('lead.thank-you');
     }
     public function thankYou()
     {
