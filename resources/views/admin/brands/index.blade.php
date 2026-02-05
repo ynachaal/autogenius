@@ -85,7 +85,7 @@
                                         <td>
                                             @if($brand->image)
                                                 {{-- FIXED: Removed 'storage/' because you store in 'uploads/' directly --}}
-                                                <img src="{{ asset($brand->image) }}" alt="{{ $brand->name }}"
+                                                <img src="{{ asset('storage/' . $brand->image) }}" alt="{{ $brand->name }}"
                                                     style="width: 40px; height: 40px; object-fit: cover;" class="img-thumbnail">
                                             @else
                                                 <div class="bg-light text-center rounded border"

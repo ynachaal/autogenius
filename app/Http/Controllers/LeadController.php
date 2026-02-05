@@ -92,10 +92,7 @@ class LeadController extends Controller
         ];
 
         // 4. Save to Database (update if same mobile)
-        $lead = Lead::updateOrCreate(
-            ['mobile' => $request->mobile],
-            $data
-        );
+        $lead = Lead::create($data);
 
         // 5. Trigger Emails ONLY on final submission
         if ($request->has('confirm')) {

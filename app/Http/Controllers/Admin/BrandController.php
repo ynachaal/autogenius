@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage; // Use Storage instead of File
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 use enshrined\svgSanitize\Sanitizer;
@@ -86,10 +87,7 @@ class BrandController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => [
-                'required', 'string', 'max:191',
-                Rule::unique('brands')->whereNull('deleted_at')
-            ],
+            'name' => ['required', 'string', 'max:191', Rule::unique('brands')->whereNull('deleted_at')],
             'description' => ['nullable', 'string'],
             'status' => ['in:active,inactive'],
             'is_featured' => ['boolean'],
@@ -97,17 +95,13 @@ class BrandController extends Controller
             'meta_title' => ['nullable', 'string', 'max:191'],
             'meta_description' => ['nullable', 'string'],
             'meta_keywords' => ['nullable', 'string'],
-            'image' => [
-                'required', 'file',
-                'mimes:jpg,jpeg,png,gif,svg,webp',
-                'max:2048',
-            ],
+            'image' => ['required', 'file', 'mimes:jpg,jpeg,png,gif,svg,webp', 'max:2048'],
         ]);
 
+        // Slug Generation
         $slug = Str::slug($validatedData['name']);
         $originalSlug = $slug;
         $count = 1;
-
         while (Brand::withTrashed()->where('slug', $slug)->exists()) {
             $slug = $originalSlug . '-' . $count;
             $count++;
@@ -118,26 +112,20 @@ class BrandController extends Controller
             $image = $request->file('image');
             $extension = $image->getClientOriginalExtension();
             $imageName = time() . '_' . $slug . '.' . $extension;
-            $destinationPath = public_path('uploads/brands');
+            $storagePath = 'brands/' . $imageName; // Relative path for storage disk
 
-            // --- SECURE SVG LOGIC START ---
             if ($extension === 'svg') {
                 $sanitizer = new Sanitizer();
-                $content = file_get_contents($image->getRealPath());
-                $cleanSvg = $sanitizer->sanitize($content);
-
-                // Create directory if not exists
-                if (!File::isDirectory($destinationPath)) {
-                    File::makeDirectory($destinationPath, 0777, true, true);
-                }
-
-                File::put($destinationPath . '/' . $imageName, $cleanSvg);
+                $cleanSvg = $sanitizer->sanitize(file_get_contents($image->getRealPath()));
+                
+                // Storage handles directory creation automatically
+                Storage::disk('public')->put($storagePath, $cleanSvg);
             } else {
-                $image->move($destinationPath, $imageName);
+                // storeAs is the standard way to move files to storage
+                $image->storeAs('brands', $imageName, 'public');
             }
-            // --- SECURE SVG LOGIC END ---
 
-            $validatedData['image'] = 'uploads/brands/' . $imageName;
+            $validatedData['image'] = $storagePath;
         }
 
         Brand::create($validatedData);
@@ -167,10 +155,7 @@ class BrandController extends Controller
     public function update(Request $request, Brand $brand)
     {
         $validatedData = $request->validate([
-            'name' => [
-                'required', 'string', 'max:191',
-                Rule::unique('brands', 'name')->ignore($brand->id)->whereNull('deleted_at')
-            ],
+            'name' => ['required', 'string', 'max:191', Rule::unique('brands', 'name')->ignore($brand->id)->whereNull('deleted_at')],
             'description' => ['nullable', 'string'],
             'status' => ['in:active,inactive'],
             'is_featured' => ['boolean'],
@@ -178,13 +163,10 @@ class BrandController extends Controller
             'meta_title' => ['nullable', 'string', 'max:191'],
             'meta_description' => ['nullable', 'string'],
             'meta_keywords' => ['nullable', 'string'],
-            'image' => [
-                'nullable', 'file',
-                'mimes:jpg,jpeg,png,gif,svg,webp',
-                'max:2048',
-            ],
+            'image' => ['nullable', 'file', 'mimes:jpg,jpeg,png,gif,svg,webp', 'max:2048'],
         ]);
 
+        // Update Slug if name changed
         if ($brand->name !== $validatedData['name']) {
             $slug = Str::slug($validatedData['name']);
             $originalSlug = $slug;
@@ -197,33 +179,27 @@ class BrandController extends Controller
         }
 
         if ($request->hasFile('image')) {
-            // Delete old image
-            if ($brand->image && File::exists(public_path($brand->image))) {
-                File::delete(public_path($brand->image));
+            // Delete old image using Storage facade
+            if ($brand->image && Storage::disk('public')->exists($brand->image)) {
+                Storage::disk('public')->delete($brand->image);
             }
 
             $image = $request->file('image');
             $extension = $image->getClientOriginalExtension();
-            $imageName = time() . '_' . Str::slug($validatedData['name']) . '.' . $extension;
-            $destinationPath = public_path('uploads/brands');
+            // Use current slug (either new or existing)
+            $currentSlug = $validatedData['slug'] ?? $brand->slug;
+            $imageName = time() . '_' . $currentSlug . '.' . $extension;
+            $storagePath = 'brands/' . $imageName;
 
-            // --- SECURE SVG LOGIC START ---
             if ($extension === 'svg') {
                 $sanitizer = new Sanitizer();
-                $content = file_get_contents($image->getRealPath());
-                $cleanSvg = $sanitizer->sanitize($content);
-
-                if (!File::isDirectory($destinationPath)) {
-                    File::makeDirectory($destinationPath, 0777, true, true);
-                }
-
-                File::put($destinationPath . '/' . $imageName, $cleanSvg);
+                $cleanSvg = $sanitizer->sanitize(file_get_contents($image->getRealPath()));
+                Storage::disk('public')->put($storagePath, $cleanSvg);
             } else {
-                $image->move($destinationPath, $imageName);
+                $image->storeAs('brands', $imageName, 'public');
             }
-            // --- SECURE SVG LOGIC END ---
 
-            $validatedData['image'] = 'uploads/brands/' . $imageName;
+            $validatedData['image'] = $storagePath;
         }
 
         $brand->update($validatedData);
