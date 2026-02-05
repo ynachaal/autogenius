@@ -6,6 +6,7 @@ use App\Models\Lead;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse; // <--- Ensure this is here
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Http;
 use App\Services\EmailService; // <--- Import the Service
 use Illuminate\Support\Facades\Log;
 
