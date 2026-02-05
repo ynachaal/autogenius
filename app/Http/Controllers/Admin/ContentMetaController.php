@@ -7,6 +7,8 @@ use App\Models\ContentMeta;
 use App\Models\Page; // Import Page Model
 use Illuminate\Support\Facades\File;
 use enshrined\svgSanitize\Sanitizer;
+use Illuminate\Support\Facades\Storage; // Use Storage instead of File
+
 
 class ContentMetaController extends Controller
 {
@@ -48,40 +50,37 @@ class ContentMetaController extends Controller
         // 2. Handle Files inside the meta array
         if ($request->hasFile('meta')) {
             $files = $request->file('meta');
-            $destinationPath = public_path('uploads/meta');
-            $sanitizer = new Sanitizer(); // Initialize once outside the loop
-
-            if (!File::isDirectory($destinationPath)) {
-                File::makeDirectory($destinationPath, 0777, true, true);
-            }
+            $sanitizer = new Sanitizer(); 
 
             foreach ($files as $key => $file) {
                 if ($file->isValid()) {
                     $metaKey = $section . '_' . $key;
                     $extension = $file->getClientOriginalExtension();
                     $fileName = time() . '_' . $file->getClientOriginalName();
+                    $storagePath = 'meta/' . $fileName; // Relative path for storage
 
-                    // --- CLEAN UP OLD FILE START ---
+                    // --- CLEAN UP OLD FILE ---
                     $oldMeta = ContentMeta::where('meta_key', $metaKey)->first();
-                    if ($oldMeta && $oldMeta->meta_value && File::exists(public_path($oldMeta->meta_value))) {
-                        File::delete(public_path($oldMeta->meta_value));
+                    if ($oldMeta && $oldMeta->meta_value && Storage::disk('public')->exists($oldMeta->meta_value)) {
+                        Storage::disk('public')->delete($oldMeta->meta_value);
                     }
-                    // --- CLEAN UP OLD FILE END ---
 
                     // --- SECURE SVG LOGIC ---
                     if ($extension === 'svg') {
                         $content = file_get_contents($file->getRealPath());
                         $cleanSvg = $sanitizer->sanitize($content);
                         
-                        File::put($destinationPath . '/' . $fileName, $cleanSvg);
+                        // Storage::put handles directory creation automatically
+                        Storage::disk('public')->put($storagePath, $cleanSvg);
                     } else {
-                        $file->move($destinationPath, $fileName);
+                        // Standard upload to storage
+                        $file->storeAs('meta', $fileName, 'public');
                     }
 
-                    // Save the path to the database
+                    // Save the relative storage path to the database
                     ContentMeta::updateOrCreate(
                         ['meta_key' => $metaKey],
-                        ['meta_value' => 'uploads/meta/' . $fileName]
+                        ['meta_value' => $storagePath]
                     );
                 }
             }

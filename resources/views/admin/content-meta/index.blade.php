@@ -38,34 +38,36 @@
                 {{-- Blocks Grid (50/50) --}}
                 <div class="row">
                     @for ($i = 1; $i <= 3; $i++)
-                        <div class="col-md-6 mb-4">
-                            <div class="card p-3 bg-light border-0 shadow-sm h-100">
-                                <h6 class="fw-bold text-primary mb-3">Feature Block {{ $i }}</h6>
+                                        <div class="col-md-6 mb-4">
+                                            <div class="card p-3 bg-light border-0 shadow-sm h-100">
+                                                <h6 class="fw-bold text-primary mb-3">Feature Block {{ $i }}</h6>
 
-                                {{-- Image Upload --}}
-                                <div class="mb-3">
-                                    <label class="form-label small fw-bold">Image {{ $i }}</label>
-                                    <input type="file" class="form-control" name="meta[counter{{ $i }}_image]" accept="image/*">
+                                                {{-- Image Upload --}}
+                                                <div class="mb-3">
+                                                    <label class="form-label small fw-bold">Image {{ $i }}</label>
+                                                    <input type="file" class="form-control" name="meta[counter{{ $i }}_image]"
+                                                        accept="image/*">
 
-                                    @if(isset($meta[$section . '_counter' . $i . '_image']))
-                                        <div class="mt-2">
-                                            <img src="{{ asset($meta[$section . '_counter' . $i . '_image']->meta_value) }}"
-                                                class="img-thumbnail" style="max-height:80px">
+                                                    @if(isset($meta[$section . '_counter' . $i . '_image']) && !empty($meta[$section . '_counter' . $i . '_image']->meta_value))
+                                                        <div class="mt-2">
+                                                            {{-- Updated path to include 'storage/' --}}
+                                                            <img src="{{ asset('storage/' . $meta[$section . '_counter' . $i . '_image']->meta_value) }}"
+                                                                class="img-thumbnail" style="max-height:80px" alt="Preview {{ $i }}">
+                                                        </div>
+                                                    @endif
+                                                </div>
+
+                                                {{-- Description --}}
+                                                <div class="mb-0">
+                                                    <label class="form-label small fw-bold">Description {{ $i }}</label>
+                                                    <textarea class="form-control" rows="3" name="meta[counter{{ $i }}_description]"
+                                                        placeholder="Describe this feature...">{{ old(
+                            'meta.counter' . $i . '_description',
+                            $meta[$section . '_counter' . $i . '_description']->meta_value ?? ''
+                        ) }}</textarea>
+                                                </div>
+                                            </div>
                                         </div>
-                                    @endif
-                                </div>
-
-                                {{-- Description --}}
-                                <div class="mb-0">
-                                    <label class="form-label small fw-bold">Description {{ $i }}</label>
-                                    <textarea class="form-control" rows="3" name="meta[counter{{ $i }}_description]"
-                                        placeholder="Describe this feature...">{{ old(
-                                        'meta.counter' . $i . '_description',
-                                        $meta[$section . '_counter' . $i . '_description']->meta_value ?? ''
-                                    ) }}</textarea>
-                                </div>
-                            </div>
-                        </div>
                     @endfor
                 </div>
 
@@ -87,14 +89,14 @@
                         rules: {
                             "meta[blocks_heading]": { required: true, maxlength: 100 },
                             @for ($i = 1; $i <= 3; $i++)
-                            "meta[counter{{ $i }}_description]": { required: true, maxlength: 300 },
+                                "meta[counter{{ $i }}_description]": { required: true, maxlength: 300 },
                             @endfor
-                        },
-                        errorElement: 'span',
-                        errorClass: 'text-danger small'
-                    });
-                }
+                            },
+                errorElement: 'span',
+                    errorClass: 'text-danger small'
             });
+                    }
+                });
         </script>
     @endpush
 </x-app-layout>
