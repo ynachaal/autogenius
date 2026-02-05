@@ -10901,3 +10901,8 @@ header.main-header .header-sticky.active{
 .form-group .form-check{
     margin-bottom: 8px;
 }
+.break-text {
+	word-break: break-all;       
+  overflow-wrap: anywhere;    
+  white-space: normal;      
+}
