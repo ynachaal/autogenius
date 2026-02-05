@@ -87,7 +87,8 @@
 
                             <p>
                                 <strong>Accident History:</strong>
-                                {{ $lead->accident_history  }}
+                                  {{ $lead->accident_history ?? 'N/A' }}
+                            
 
                             </p>
                             <p><strong>Purchase Timeline:</strong> {{ $lead->purchase_timeline ?? 'N/A' }}</p>
