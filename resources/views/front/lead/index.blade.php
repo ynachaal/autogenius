@@ -598,7 +598,7 @@
                                 <div class="customer-services-item-body">
                                     <ul>
                                         <li><i class="fa-solid fa-phone"></i> <span><a href="tel:{{config('settings.phone', '') }}">{{config('settings.phone', '') }}</a></span></li>
-                                        <li><i class="fa-solid fa-envelope"></i> <span><a
+                                        <li><i class="fa-solid fa-envelope"></i> <span><a class="break-text"
                                                     href="mailto:{{ config('settings.contact_email', '') }}">{{ config('settings.contact_email', '') }}</a></span></li>
                                     </ul>
                                 </div>
