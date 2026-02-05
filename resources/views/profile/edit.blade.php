@@ -31,7 +31,7 @@
                 </div>
             </div>
 
-            <div class="card card-primary card-outline  mt-5">
+           <!--  <div class="card card-primary card-outline  mt-5">
                 <div class="card-header">
                     <h3 class="card-title">Delete Account</h3>
                 </div>
@@ -42,7 +42,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </x-app-layout>

@@ -71,7 +71,7 @@
                         </div>
 
                         <!-- Role -->
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-6 mb-3 d-none">
                             <label for="role" class="form-label">Role</label>
                             <select id="role" name="role" class="form-select @error('role') is-invalid @enderror"
                                 required>
