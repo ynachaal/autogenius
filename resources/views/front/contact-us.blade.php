@@ -60,7 +60,7 @@
                                     </div>
                                     <div class="contact-info-item">
                                         <h3>E-mail Us!</h3>
-                                        <p><a href="mailto:{{ config('settings.contact_email', '') }}">{{ config('settings.contact_email', '') }}</a></p>
+                                        <p><a class="break-text" href="mailto:{{ config('settings.contact_email', '') }}">{{ config('settings.contact_email', '') }}</a></p>
                                     </div>
                                 </div>
                             </div>
