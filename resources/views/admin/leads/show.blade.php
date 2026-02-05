@@ -78,15 +78,9 @@
 
                             <p><strong>Noise Sensitivity:</strong> {{ $lead->noise_sensitivity ?? 'N/A' }}</p>
                             <p><strong>Colour Preference:</strong> {{ $lead->color_preference ?? 'N/A' }}</p>
-
-                            <hr>
-
-                            {{-- Final Details --}}
-                            <h5 class="fw-bold text-primary mb-3">Final Details</h5>
-                            <p><strong>Decision Maker:</strong> {{ $lead->decision_maker ?? 'N/A' }}</p>
                             <p>
                                 <strong>Max Owners:</strong>
-                              
+
 
                                 {{ $lead->max_owners ?? 'N/A' }}
                             </p>
@@ -94,12 +88,19 @@
                             <p>
                                 <strong>Accident History:</strong>
                                 {{ $lead->accident_history  }}
-                              
+
                             </p>
                             <p><strong>Purchase Timeline:</strong> {{ $lead->purchase_timeline ?? 'N/A' }}</p>
+                            <p><strong>Insurance Preference:</strong> {{ $lead->insurance_preference ?? 'N/A' }}</p>
+                            <hr>
+
+                            {{-- Final Details --}}
+                            <h5 class="fw-bold text-primary mb-3">Final Details</h5>
+                            <p><strong>Decision Maker:</strong> {{ $lead->decision_maker ?? 'N/A' }}</p>
+
                             <p><strong>Existing Car Owned:</strong> {{ $lead->existing_car ?: 'N/A' }}</p>
 
-                            <p><strong>Insurance Preference:</strong> {{ $lead->insurance_preference ?? 'N/A' }}</p>    
+
 
                             <div class="mt-3 p-3 bg-light rounded border">
                                 <strong>Reason for Upgrade / Change:</strong><br>
