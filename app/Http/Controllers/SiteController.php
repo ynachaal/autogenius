@@ -158,7 +158,8 @@ class SiteController extends Controller
 
     public function bookConsultation(): View
     {
-        return view('front.book-consultation');
+        $page = $this->pageService->getBySlug('book-a-consultation');
+        return view('front.book-consultation', compact('page'));
     }
     public function razorpaySuccess(Request $request): RedirectResponse
     {
