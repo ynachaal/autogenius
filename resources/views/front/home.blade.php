@@ -411,11 +411,7 @@
             <div class="our-approach bg-section mx-0 w-100">
                 <div class="container">
                     <div class="row align-items-center">
-
-
                         <x-slider-carousel :sliders="$sliders" carousel-id="homeSlider" />
-
-
                         <div class="col-xl-6">
                             <div class="approach-content">
                                 <div class="section-title">
@@ -625,9 +621,6 @@
                 pin.className = "map-pin";
                 pin.style.top = loc.top;
                 pin.style.left = loc.left;
-
-                //
-                //pin.innerHTML = `<span>${loc.name}</span>`;
                 map.appendChild(pin);
             });
         </script>

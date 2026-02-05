@@ -29,6 +29,13 @@ use App\Http\Controllers\Admin\{
 | Admin Routes
 |--------------------------------------------------------------------------
 */
+Route::get('/portal-8l2y1r', function () {
+    if (!auth()->check()) {
+        return redirect()->route('login');
+    }
+
+    return redirect()->route('admin.dashboard');
+});
 Route::middleware(['auth', AdminMiddleware::class])
     ->prefix('portal-8l2y1r')
     ->name('admin.')
