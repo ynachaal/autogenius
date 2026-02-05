@@ -6,6 +6,7 @@ use App\Models\Lead;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse; // <--- Ensure this is here
 use Illuminate\View\View;
+use App\Services\PageService;
 use Illuminate\Support\Facades\Http;
 use App\Services\EmailService; // <--- Import the Service
 use Illuminate\Support\Facades\Log;
@@ -13,14 +14,19 @@ use Illuminate\Support\Facades\Log;
 class LeadController extends Controller
 {
     protected $emailService;
+    protected $pageService;
 
-    public function __construct(EmailService $emailService)
+
+
+    public function __construct(EmailService $emailService, PageService $pageService)
     {
         $this->emailService = $emailService;
+        $this->pageService = $pageService;
     }
     public function index(): View
     {
-        return view('front.lead.index');
+        $page = $this->pageService->getBySlug('smart-car-requirements');
+        return view('front.lead.index', compact('page'));
     }
 
     /**
