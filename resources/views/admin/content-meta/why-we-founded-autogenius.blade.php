@@ -23,10 +23,11 @@
                     {{-- Image 1 --}}
                     <div class="col-md-6">
                         <label class="form-label fw-bold">Primary Illustration (Left/Top)</label>
-                        @if(isset($meta[$section . '_image1']))
+                        @if(isset($meta[$section . '_image1']) && !empty($meta[$section . '_image1']->meta_value))
                             <div class="mb-2">
-                                <img src="{{ asset('/' . $meta[$section . '_image1']->meta_value) }}" 
-                                     class="img-thumbnail" style="height: 100px;">
+                                {{-- Updated path --}}
+                                <img src="{{ asset('storage/' . $meta[$section . '_image1']->meta_value) }}"
+                                    class="img-thumbnail" style="height: 100px;" alt="Primary Illustration">
                             </div>
                         @endif
                         <input type="file" class="form-control" name="meta[image1]">
@@ -35,10 +36,11 @@
                     {{-- Image 2 --}}
                     <div class="col-md-6">
                         <label class="form-label fw-bold">Secondary Image (Right/Bottom)</label>
-                        @if(isset($meta[$section . '_image2']))
+                        @if(isset($meta[$section . '_image2']) && !empty($meta[$section . '_image2']->meta_value))
                             <div class="mb-2">
-                                <img src="{{ asset('/' . $meta[$section . '_image2']->meta_value) }}" 
-                                     class="img-thumbnail" style="height: 100px;">
+                                {{-- Updated path --}}
+                                <img src="{{ asset('storage/' . $meta[$section . '_image2']->meta_value) }}"
+                                    class="img-thumbnail" style="height: 100px;" alt="Secondary Image">
                             </div>
                         @endif
                         <input type="file" class="form-control" name="meta[image2]">
@@ -49,7 +51,7 @@
                     {{-- Main Quote/Heading --}}
                     <div class="col-md-12 mb-3">
                         <label class="form-label fw-bold">Main Quote (Problem Statement)</label>
-                        <textarea class="form-control" name="meta[main_quote]" rows="2" 
+                        <textarea class="form-control" name="meta[main_quote]" rows="2"
                             placeholder="e.g. Most car problems don’t start on the road...">{{ 
                             old('meta.main_quote', isset($meta[$section . '_main_quote']) ? $meta[$section . '_main_quote']->meta_value : '') 
                         }}</textarea>
@@ -58,7 +60,7 @@
                     {{-- Intro Text --}}
                     <div class="col-md-12 mb-3">
                         <label class="form-label fw-bold">Mission Intro</label>
-                        <input type="text" class="form-control" name="meta[mission_intro]" 
+                        <input type="text" class="form-control" name="meta[mission_intro]"
                             placeholder="e.g. AutoGenius was created to:"
                             value="{{ old('meta.mission_intro', isset($meta[$section . '_mission_intro']) ? $meta[$section . '_mission_intro']->meta_value : '') }}">
                     </div>
@@ -75,7 +77,7 @@
                             <label class="form-label small">Purpose {{ $i }}</label>
                             <input type="text" class="form-control" name="meta[purpose_{{ $i }}]"
                                 placeholder="e.g. Save buyers from bad car decisions"
-                                value="{{ old('meta.purpose_'.$i, isset($meta[$key]) ? $meta[$key]->meta_value : '') }}">
+                                value="{{ old('meta.purpose_' . $i, isset($meta[$key]) ? $meta[$key]->meta_value : '') }}">
                         </div>
                     @endfor
                 </div>
@@ -85,7 +87,7 @@
                 {{-- Closing Statement --}}
                 <div class="col-md-12 mb-3">
                     <label class="form-label fw-bold">Closing Statement</label>
-                    <input type="text" class="form-control" name="meta[closing_text]" 
+                    <input type="text" class="form-control" name="meta[closing_text]"
                         placeholder="e.g. A car should add comfort to your life - not stress."
                         value="{{ old('meta.closing_text', isset($meta[$section . '_closing_text']) ? $meta[$section . '_closing_text']->meta_value : '') }}">
                 </div>

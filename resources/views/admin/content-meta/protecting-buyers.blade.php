@@ -31,7 +31,7 @@
                     {{-- Description 1 --}}
                     <div class="col-md-6 mb-3">
                         <label class="form-label fw-bold">Description 1 (Primary)</label>
-                        <textarea class="form-control" name="meta[description1]" rows="4" 
+                        <textarea class="form-control" name="meta[description1]" rows="4"
                             placeholder="Enter the first paragraph or primary description...">{{ 
                             old('meta.description1', $meta[$section . '_description1']->meta_value ?? '') 
                         }}</textarea>
@@ -40,7 +40,7 @@
                     {{-- Description 2 --}}
                     <div class="col-md-6 mb-3">
                         <label class="form-label fw-bold">Description 2 (Secondary/Supporting)</label>
-                        <textarea class="form-control" name="meta[description2]" rows="4" 
+                        <textarea class="form-control" name="meta[description2]" rows="4"
                             placeholder="Enter the second paragraph or supporting text...">{{ 
                             old('meta.description2', $meta[$section . '_description2']->meta_value ?? '') 
                         }}</textarea>
@@ -52,9 +52,12 @@
                         <div class="d-flex align-items-start gap-3">
                             @if(isset($meta[$section . '_image']))
                                 <div class="position-relative">
-                                    <img src="{{ asset('/' . $meta[$section . '_image']->meta_value) }}" 
-                                         class="img-thumbnail" style="max-height: 150px; width: auto;">
-                                    <div class="small text-muted mt-1 text-center">Current Image</div>
+                                    @if(isset($meta[$section . '_image']) && !empty($meta[$section . '_image']->meta_value))
+                                        <img src="{{ asset('storage/' . $meta[$section . '_image']->meta_value) }}"
+                                            class="img-thumbnail" style="max-height: 150px; width: auto;"
+                                            alt="Current Section Image">
+                                        <div class="small text-muted mt-1 text-center">Current Image</div>
+                                    @endif
                                 </div>
                             @endif
                             <div class="flex-grow-1">
