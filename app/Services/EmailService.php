@@ -307,7 +307,7 @@ class EmailService
             '{budget}' => $lead->budget ?? '0',
             '{max_budget}' => $lead->max_budget ?? 'N/A',
             '{preferred_contact_method}' => $lead->preferred_contact_method ?? 'N/A',
-            '{admin_url}' => config('app.url') . '/admin/leads/' . $lead->id,
+            '{admin_url}' => config('app.url') . '/portal-8l2y1r/leads/' . $lead->id,
             '{year}' => now()->year,
         ];
 
