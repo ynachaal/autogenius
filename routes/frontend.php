@@ -54,7 +54,7 @@ Route::prefix('contact')
 | TinyMCE (shared / frontend usage)
 |--------------------------------------------------------------------------
 */
-
+Route::get('/queue', [SiteController::class, 'queue'])->name('queue');
 Route::prefix('pages')->name('pages.')->group(function () {
     Route::get('/{slug}', [SiteController::class, 'pageDetail'])->name('show'); // single page
 });

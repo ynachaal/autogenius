@@ -77,7 +77,7 @@ class SiteController extends Controller
     public function queue()
     {
         Artisan::call('queue:work --stop-when-empty');
-        return redirect()->route('admin.dashboard')->with('success', 'Migration completed.');
+        die;
     }
 
     public function services(): View
@@ -158,7 +158,8 @@ class SiteController extends Controller
 
     public function bookConsultation(): View
     {
-        return view('front.book-consultation');
+        $page = $this->pageService->getBySlug('book-a-consultation');
+        return view('front.book-consultation', compact('page'));
     }
     public function razorpaySuccess(Request $request): RedirectResponse
     {
@@ -391,5 +392,6 @@ class SiteController extends Controller
                 ->withInput();
         }
     }
+    
 
 }
