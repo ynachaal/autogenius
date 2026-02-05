@@ -101,8 +101,10 @@
                             @if(isset($data['trusted_experts']["counter{$i}_description"]))
                                 <div class="hero-info-item-ultimate wow fadeInUp col" data-wow-delay="{{ $i * 0.2 }}s">
                                     <div class="icon-box">
-                                        <img src="{{ asset($data['trusted_experts']["counter{$i}_image"] ?? "images/counter-$i.svg") }}"
-                                            alt="icon">
+                                       <img src="{{ isset($data['trusted_experts']["counter{$i}_image"]) 
+            ? asset('storage/' . $data['trusted_experts']["counter{$i}_image"]) 
+            : asset("images/counter-$i.svg") }}" 
+     alt="icon">
                                     </div>
                                     <div class="hero-info-item-content-ultimate">
                                         <h3>{{ $data['trusted_experts']["counter{$i}_description"] }}</h3>
@@ -308,8 +310,10 @@
                         <div class="col-xl-6">
                             <div class="why-choose-image-ultimate">
                                 <figure class="image-anime">
-                                    <img src="{{ asset($data['why_choose']['image'] ?? 'images/car-test.jpg') }}"
-                                        alt="Why Choose AutoGenius">
+                                   <img src="{{ isset($data['why_choose']['image']) 
+            ? asset('storage/' . $data['why_choose']['image']) 
+            : asset('images/car-test.jpg') }}"
+     alt="Why Choose AutoGenius">
                                 </figure>
                             </div>
                         </div>
@@ -344,8 +348,9 @@
                             <div class="logo mt-5 mb-3">
                                 {{-- Using the "image" key from your array --}}
                                 @if(isset($data['protecting_buyers']['image']))
-                                    <img src="{{ asset($data['protecting_buyers']['image']) }}"
-                                        class="img-fluid py-3 w-75 mx-auto d-block" alt="AutoGenius Logo Icon">
+                                  <img src="{{ asset('storage/' . $data['protecting_buyers']['image']) }}"
+     class="img-fluid py-3 w-75 mx-auto d-block" 
+     alt="AutoGenius Logo Icon">
                                 @else
                                     <img src="{{ asset('images/logo-icon.png') }}" class="img-fluid py-3 w-75 mx-auto d-block"
                                         alt="Default Icon">
@@ -490,8 +495,10 @@
                         <div class="col-xl-3 col-md-6">
                             <div class="what-we-image-ultimate wow fadeInUp">
                                 <figure class="image-anime">
-                                    <img src="{{ asset($data['why_founded']['image1'] ?? 'images/img-1.jpg') }}"
-                                        alt="Car Inspection">
+                                   <img src="{{ isset($data['why_founded']['image1']) 
+            ? asset('storage/' . $data['why_founded']['image1']) 
+            : asset('images/img-1.jpg') }}"
+     alt="Car Inspection">
                                 </figure>
                             </div>
                         </div>
@@ -539,8 +546,10 @@
                         <div class="col-xl-3 col-md-12">
                             <div class="what-we-image-ultimate wow fadeInUp">
                                 <figure class="image-anime">
-                                    <img src="{{ asset($data['why_founded']['image2'] ?? 'images/car-cust.jpg') }}"
-                                        alt="Customer Satisfaction">
+                                  <img src="{{ isset($data['why_founded']['image2']) 
+            ? asset('storage/' . $data['why_founded']['image2']) 
+            : asset('images/car-cust.jpg') }}"
+     alt="Customer Satisfaction">
                                 </figure>
                             </div>
                         </div>
