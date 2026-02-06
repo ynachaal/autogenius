@@ -3189,7 +3189,7 @@ header.main-header .header-sticky.active{
 }
 
 .service-entry{
-    margin-bottom: 60px;
+    margin-bottom: 20px;
 }
 
 .service-entry p{
@@ -10902,7 +10902,21 @@ header.main-header .header-sticky.active{
     margin-bottom: 8px;
 }
 .break-text {
-	word-break: break-all;       
-  overflow-wrap: anywhere;    
-  white-space: normal;      
+	word-break: break-all;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+.carousel-control-next-icon, .carousel-control-prev-icon{
+    background-color: var(--accent-color);
+    border-radius: 100px;
+    padding: 5px;
+    background-size: 70%;
+}
+.carousel-control-next, .carousel-control-prev{
+    opacity: 0.75;
+}
+#eapps-instagram-feed-1 .eapps-instagram-feed-posts-slider-nav {
+    background-color: var(--accent-color) !important;
+    box-shadow: none !important;
+    opacity: 1 !important;
 }

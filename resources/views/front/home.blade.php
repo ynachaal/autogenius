@@ -48,8 +48,7 @@
                 <div class="faqs-content">
                     <!-- Section Title Start -->
                     <div class="section-title section-title-center text-center">
-                        <h2 class="text-anime-style-3 text-black" data-cursor="-opaque">Trusted by Car Buyers Across India
-                        </h2>
+                        <h2 class="text-anime-style-3 text-black" data-cursor="-opaque">Chosen by Thousands. Recommended with Confidence</h2>
                         <p class="text-black">Real people. Real experiences. Real trust.</p>
                     </div>
                     <script src="https://elfsightcdn.com/platform.js" async></script>
@@ -70,8 +69,8 @@
                         <!-- Section Title Start -->
                         <div class="section-title section-title-center">
                             <h3 class="wow fadeInUp">Our services</h3>
-                            <h2 class="text-anime-style-3" data-cursor="-opaque">Complete car support</h2>
-                            <p class="custom_tag mt-0">- <span>I</span><span>'m AutoGenius</span></p>
+{{--                            <h2 class="text-anime-style-3" data-cursor="-opaque">Complete car support</h2>--}}
+{{--                            <p class="custom_tag mt-0">- <span>I</span><span>'m AutoGenius</span></p>--}}
                         </div>
                         <!-- Section Title End -->
                     </div>
