@@ -86,3 +86,11 @@ Route::post('/book-a-consultation/store', [SiteController::class, 'storeConsulta
 
 Route::post('/razorpay/success', [SiteController::class, 'razorpaySuccess'])
     ->name('razorpay.success');
+
+    Route::get('/payment-failed', [LeadController::class, 'paymentFailed'])->name('lead.payment.failed');
+
+    Route::get('/lead/payment/{lead}', [LeadController::class, 'payment'])
+    ->name('lead.payment')
+    ->middleware('signed');
+
+Route::post('/lead/payment/verify', [LeadController::class, 'verifyPayment'])->name('lead.payment.verify');
