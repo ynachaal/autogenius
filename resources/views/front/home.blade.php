@@ -51,10 +51,14 @@
                         <h2 class="text-anime-style-3 text-black" data-cursor="-opaque">Chosen by Thousands. Recommended with Confidence</h2>
                         <p class="text-black">Real people. Real experiences. Real trust.</p>
                     </div>
-                    <script src="https://elfsightcdn.com/platform.js" async></script>
-                    <div class="rts-section-gap">
-                        <div class="elfsight-app-57b13d5b-d445-432c-827d-7d4dfb588c0d" data-elfsight-app-lazy></div>
-                    </div>
+{{--                    <script src="https://elfsightcdn.com/platform.js" async></script>--}}
+{{--                    <div class="rts-section-gap">--}}
+{{--                        <div class="elfsight-app-57b13d5b-d445-432c-827d-7d4dfb588c0d" data-elfsight-app-lazy></div>--}}
+{{--                    </div>--}}
+
+                    <script src="https://cdn.commoninja.com/sdk/latest/commonninja.js" defer></script>
+                    <div class="commonninja_component pid-4ba8dad3-119f-4e7f-87eb-e05787fba9ea"></div>
+
                     <a href="https://www.google.com/search?sca_esv=7ad0477d9eecaf23&si=AMgyJEtREmoPL4P1I5IDCfuA8gybfVI2d5Uj7QMwYCZHKDZ-EyGd9SNS2QSzk5CPVFcTZQ-JOqMPqpDdKtn5TNrxjncLEtWzhS1ZDd0PNsKyrLe_f8tI0gcgRY9grNtJslMlyTsEkdS9--rdeee865WZriniMkgBOQ%3D%3D&q=AutoGenius+Private+Limited+Reviews&sa=X&ved=2ahUKEwiIsMKQ6_ORAxUcSGcHHZvlMBkQ0bkNegQIIRAE&biw=1680&bih=780&dpr=2"
                         target="_blank" class="btn-default w-fit mx-auto d-block">Read Our Google Reviews</a>
                 </div>

@@ -1,25 +1,45 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+@extends('layouts.front')
+
+@section('content')
+    <div class="page-header bg-section parallaxie1">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="page-header-box">
+                        <h1 class="text-anime-style-3" data-cursor="-opaque" aria-label="Contact Us" style="perspective: 400px;">Forgot your password</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+    <section class="page-contact-us">
+        <div class="container">
+            <div class="contact-form col-md-6 mx-auto">
+                <div class="contact-form-title mb-2 text-center">
+                    <h3 class="text-anime-style-3 mb-4" data-cursor="-opaque">Forgot your password?</h3>
+                    <p>{{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}</p>
+                </div>
 
-    <form method="POST" action="{{ route('password.email') }}" id="forgotPasswordForm">
-        @csrf
+                <x-auth-session-status class="mb-4" :status="session('status')" />
 
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="forgot_email" :value="old('forgot_email')" required autofocus />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                <form method="POST" action="{{ route('password.email') }}" id="forgotPasswordForm">
+                    @csrf
+                    <div class="form-group mb-4">
+                        <x-input-label class="form-label" for="email" :value="__('Email')" />
+                        <x-text-input id="email" class="form-control" type="email" name="forgot_email" :value="old('forgot_email')" :placeholder="__('Email')" required autofocus />
+                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                    </div>
+                    <div class="flex items-center justify-end mt-4">
+                        <x-primary-button class="btn-default text-center  mx-auto justify-content-center">
+                            {{ __('Email Password Reset Link') }}
+                        </x-primary-button>
+                    </div>
+                </form>
+
+            </div>
         </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Email Password Reset Link') }}
-            </x-primary-button>
-        </div>
-    </form>
+    </section>
 
     @push('scripts')
     <script>
@@ -38,21 +58,21 @@
                     }
                 },
                 errorElement: 'span',
-                errorClass: 'jquery-validation-error', 
+                errorClass: 'jquery-validation-error',
                 errorPlacement: function(error, element) {
-                    error.addClass('text-sm text-red-600 dark:text-red-400 mt-2 block');
+                    error.addClass('small text-danger mt-2 d-block');
                     error.insertAfter(element);
                 },
                 highlight: function (element) {
-                    $(element).addClass('border-red-500 focus:border-red-500 focus:ring-red-500')
+                    $(element).addClass('border-danger')
                               .removeClass('border-gray-300 dark:border-gray-700');
                 },
                 unhighlight: function (element) {
-                    $(element).removeClass('border-red-500 focus:border-red-500 focus:ring-red-500')
+                    $(element).removeClass('border-danger')
                               .addClass('border-gray-300 dark:border-gray-700');
                 }
             });
         });
     </script>
     @endpush
-</x-guest-layout>
+@endsection

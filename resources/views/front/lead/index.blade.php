@@ -37,8 +37,8 @@
     </style>
     <section class="page-contact-us">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-7">
+            <div class="row justify-content-center g-3">
+                <div class="col-lg-7">
                     <div class="contact-form">
                         <div class="contact-form-title">
                             <h3 class="text-anime-style-3 text-center mb-3" data-cursor="-opaque"
@@ -274,7 +274,7 @@
                                 </div>
                                <div class="form-group mb-4">
                                 <p class="fw-normal">Preferred Body Type</p>
-                                
+
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" name="body_type[]" value="Hatchback"
                                         id="Hatchback"
@@ -305,7 +305,7 @@
                             </div>
                                <div class="form-group mb-4">
                                 <p class="fw-normal">Fuel Preference</p>
-                                
+
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" name="fuel[]" value="Petrol"
                                         id="Petrol"
@@ -321,7 +321,7 @@
                                 </div>
 
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="fuel[]" value="CNG" 
+                                    <input class="form-check-input" type="checkbox" name="fuel[]" value="CNG"
                                         id="CNG"
                                         {{ (is_array(old('fuel')) && in_array('CNG', old('fuel'))) ? 'checked' : '' }}>
                                     <label class="form-check-label" for="CNG">CNG</label>
@@ -343,7 +343,7 @@
                             </div>
                                 <div class="form-group mb-4">
                                     <p class="fw-normal">Gearbox Preference</p>
-                                    
+
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="gearbox_preference"
                                             value="Manual" id="Manual"
@@ -381,25 +381,25 @@
                                     <p class="fw-normal">Feature Priority</p>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="checkbox" name="feature_priority[]"
-                                            value="Safety" id="Safety" 
+                                            value="Safety" id="Safety"
                                             {{ (is_array(old('feature_priority')) && in_array('Safety', old('feature_priority'))) ? 'checked' : '' }}>
                                         <label class="form-check-label" for="Safety">Safety</label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="checkbox" name="feature_priority[]"
-                                            value="Comfort" id="ComfortFeature" 
+                                            value="Comfort" id="ComfortFeature"
                                             {{ (is_array(old('feature_priority')) && in_array('Comfort', old('feature_priority'))) ? 'checked' : '' }}>
                                         <label class="form-check-label" for="ComfortFeature">Comfort</label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="checkbox" name="feature_priority[]"
-                                            value="Technology" id="Technology" 
+                                            value="Technology" id="Technology"
                                             {{ (is_array(old('feature_priority')) && in_array('Technology', old('feature_priority'))) ? 'checked' : '' }}>
                                         <label class="form-check-label" for="Technology">Technology</label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="checkbox" name="feature_priority[]"
-                                            value="Performance" id="PerformanceFeature" 
+                                            value="Performance" id="PerformanceFeature"
                                             {{ (is_array(old('feature_priority')) && in_array('Performance', old('feature_priority'))) ? 'checked' : '' }}>
                                         <label class="form-check-label" for="PerformanceFeature">Performance</label>
                                     </div>
@@ -568,10 +568,10 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-xl-5">
+                <div class="col-lg-5">
                     <div class="book-appointment-image wow fadeInUp">
                         <div class="book-appointment-img">
-                            <figure> 
+                            <figure>
                                 <img src="{{config('settings.smart_car_requirement_image', '') }}" class="img-fluid" alt="">
                             </figure>
                         </div>
@@ -679,7 +679,7 @@
                         return false;
                     }
                     $('#turnstile-error').hide();
-                    form.submit(); 
+                    form.submit();
                      form.submit();
                 }
                 });
@@ -746,7 +746,7 @@
                     }
                 });
 
-               
+
             });
         </script>
     @endpush
