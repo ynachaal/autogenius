@@ -495,7 +495,7 @@
                 <div class="d-flex justify-content-between align-content-center">
                     <button class="btn-primary w-fit prev"><i class="fa-solid fa-arrow-left"></i>
                         Back</button>
-                    <button type="submit" class="btn btn-default">Pay & Start Your Journey</button>
+                    <button type="submit" class="btn-default">Pay & Start Your Journey</button>
                 </div>
             </div>
         </form>
