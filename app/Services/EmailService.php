@@ -273,18 +273,19 @@ class EmailService
      */
     public function sendLeadUserConfirmation($lead): bool
     {
+        // Ensure data matches the {{placeholder}} format in your migration
         $data = [
             '{full_name}' => $lead->full_name ?? 'Valued Customer',
             '{service_required}' => $lead->service_required ?? 'Automotive Service',
-            '{fuel_preference}' => is_array($lead->fuel_preference) ? implode(', ', $lead->fuel_preference) : $lead->fuel_preference,
-            '{body_type}' => is_array($lead->body_type) ? implode(', ', $lead->body_type) : $lead->body_type,
+            '{fuel_preference}' => is_array($lead->fuel_preference) ? implode(', ', $lead->fuel_preference) : ($lead->fuel_preference ?? 'Any'),
+            '{body_type}' => is_array($lead->body_type) ? implode(', ', $lead->body_type) : ($lead->body_type ?? 'Any'),
             '{preferred_contact_method}' => ucfirst($lead->preferred_contact_method ?? 'Email'),
             '{year}' => now()->year,
             '{website_link}' => config('app.url'),
         ];
 
         return $this->sendEmailInstant(
-            $lead->mobile, // Or $lead->email if you add an email field to Lead model
+            $lead->mobile, // Note: Ensure your Mail driver/Service supports sending to a mobile 'address' if this is SMS, or use $lead->email
             'Lead Inquiry Confirmation - User',
             $data,
             'We have received your inquiry!'
@@ -293,9 +294,6 @@ class EmailService
 
     /**
      * Send lead notification alert to the admin.
-     *
-     * @param \App\Models\Lead $lead
-     * @return bool
      */
     public function sendLeadAdminNotification($lead): bool
     {
@@ -304,18 +302,20 @@ class EmailService
             '{mobile}' => $lead->mobile ?? 'N/A',
             '{city}' => $lead->city ?? 'N/A',
             '{service_required}' => ucfirst($lead->service_required ?? 'N/A'),
-            '{budget}' => $lead->budget ?? '0',
-            '{max_budget}' => $lead->max_budget ?? 'N/A',
-            '{preferred_contact_method}' => $lead->preferred_contact_method ?? 'N/A',
-            '{admin_url}' => config('app.url') . '/portal-8l2y1r/leads/' . $lead->id,
+            '{payment_status}' => strtoupper($lead->payment_status ?? 'PENDING'),
+            '{budget}' => number_format($lead->budget ?? 0),
+            '{max_budget}' => ($lead->max_budget > 0) ? number_format($lead->max_budget) : 'N/A',
+            '{approx_running}' => $lead->approx_running ?? '0',
+            '{preferred_contact_method}' => ucfirst($lead->preferred_contact_method ?? 'N/A'),
+            '{admin_url}' => url('/portal-8l2y1r/leads/' . $lead->id), // Using url() helper is safer
             '{year}' => now()->year,
         ];
 
-        return $this->sendEmail(
+        return $this->sendEmailInstant(
             config('settings.admin_email', 'admin@autogenious.com'),
             'New Lead Alert - Admin',
             $data,
-            'New Lead: ' . ($lead->full_name ?? 'New Inquiry')
+            'New Lead: ' . ($lead->full_name ?? 'New Inquiry') . ' - ' . strtoupper($lead->payment_status ?? 'PENDING')
         );
     }
 

@@ -41,9 +41,9 @@ class LeadController extends Controller
             'name' => 'required|string|max:255',
             'mobile' => 'required|string|min:10',
             'city' => 'required|string',
-            'cf-turnstile-response' => 'required',
+            // 'cf-turnstile-response' => 'required',
         ], [
-            'cf-turnstile-response.required' => 'Please complete the security check.',
+            //  'cf-turnstile-response.required' => 'Please complete the security check.',
         ]);
 
         // 2. Turnstile verify
@@ -125,11 +125,7 @@ class LeadController extends Controller
             'amount_paid' => $amountInPaise,
         ]);
 
-        // 7. Send admin email (optional before payment)
-        if ($request->has('confirm')) {
-            $this->emailService->sendLeadAdminNotification($lead);
-        }
-
+      
         // 8. Redirect to payment page (or open Razorpay checkout)
         return redirect()->signedRoute('lead.payment', ['lead' => $lead->id]);
     }
@@ -155,6 +151,11 @@ class LeadController extends Controller
                 'payment_status' => 'paid',
                 'paid_at' => now(),
             ]);
+
+            // ✅ Send email after payment is verified
+            if ($lead->declaration) {
+                $this->emailService->sendLeadAdminNotification($lead);
+            }
 
             return redirect()->route('lead.thank-you')->with('success', 'Payment successful');
         } catch (\Exception $e) {
