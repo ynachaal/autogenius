@@ -66,9 +66,11 @@
                         @endif
 
                     </div>
+                    <br>
+                    @if($data['service']->slug === 'new-car-consultation' || $data['service']->slug === 'used-car-consultation-and-unlimited-inspections')
+                        @include('components.forms.lead')
+                    @endif
                 </div>
-
-                   @include('components.forms.lead')
 
                 <div class="col-lg-4">
                     <div class="page-single-sidebar">
