@@ -50,11 +50,17 @@
 
                             {{-- Sub Heading --}}
                             <div class="col-md-6">
-                                <label class="form-label fw-medium">Sub Heading</label>
-                                <input type="text" name="sub_heading" value="{{ $sub_heading ?? old('sub_heading') }}"
-                                    class="form-control @error('sub_heading') is-invalid @enderror">
-                                @error('sub_heading')<div class="text-danger small">{{ $message }}</div>@enderror
+                                <label class="form-label fw-medium">YouTube Video URL</label>
+                                <input type="url" name="youtube_url" value="{{ $youtube_url ?? old('youtube_url') }}"
+                                    class="form-control @error('youtube_url') is-invalid @enderror"
+                                    placeholder="https://www.youtube.com/watch?v=xxxx">
+                                @error('youtube_url')
+                                    <div class="text-danger small">{{ $message }}</div>
+                                @enderror
                             </div>
+
+
+
 
                             {{-- Image --}}
                             <div class="col-md-6">
@@ -120,8 +126,8 @@
 
                         <div class="mb-3">
                             <label class="form-label fw-medium">Meta Keywords</label>
-                            <input  maxlength="500" type="text" name="meta_keywords" value="{{ $meta_keywords ?? old('meta_keywords') }}"
-                                class="form-control">
+                            <input maxlength="500" type="text" name="meta_keywords"
+                                value="{{ $meta_keywords ?? old('meta_keywords') }}" class="form-control">
                             <small class="text-muted">Comma separated 500 characters</small>
                         </div>
 
