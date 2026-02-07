@@ -19,10 +19,8 @@
 
                 <div class="card-body">
                     <div class="row">
-
                         {{-- LEFT COLUMN --}}
                         <div class="col-md-6">
-
                             {{-- Customer Information --}}
                             <h5 class="fw-bold text-primary mb-3">Customer Information</h5>
                             <p><strong>Full Name:</strong> {{ $lead->full_name }}</p>
@@ -35,8 +33,7 @@
 
                             {{-- Budget & Ownership Plan --}}
                             <h5 class="fw-bold text-primary mb-3">Budget & Ownership Plan</h5>
-                            <p><strong>Budget:</strong> {{ $lead->budget ? '₹' . number_format($lead->budget) : 'N/A' }}
-                            </p>
+                            <p><strong>Budget:</strong> {{ $lead->budget ? '₹' . number_format($lead->budget) : 'N/A' }}</p>
                             <p><strong>Max Stretch Budget:</strong>
                                 {{ ($lead->max_budget && $lead->max_budget > 0) ? '₹' . number_format($lead->max_budget) : 'N/A' }}
                             </p>
@@ -50,12 +47,10 @@
                             <p><strong>Running Pattern:</strong> {{ $lead->running_pattern ?? 'N/A' }}</p>
                             <p><strong>Approx KM:</strong> {{ $lead->approx_running ?? '0' }}</p>
                             <p><strong>No. of Passengers Usually:</strong> {{ $lead->passengers ?? 'N/A' }}</p>
-
                         </div>
 
                         {{-- RIGHT COLUMN --}}
                         <div class="col-md-6">
-
                             {{-- Your Preferences --}}
                             <h5 class="fw-bold text-primary mb-3">Your Preferences</h5>
                             <p><strong>Preferred Body Type:</strong>
@@ -78,36 +73,52 @@
 
                             <p><strong>Noise Sensitivity:</strong> {{ $lead->noise_sensitivity ?? 'N/A' }}</p>
                             <p><strong>Colour Preference:</strong> {{ $lead->color_preference ?? 'N/A' }}</p>
-                            <p>
-                                <strong>Max Owners:</strong>
-
-
-                                {{ $lead->max_owners ?? 'N/A' }}
-                            </p>
-
-                            <p>
-                                <strong>Accident History:</strong>
-                                  {{ $lead->accident_history ?? 'N/A' }}
-                            
-
-                            </p>
+                            <p><strong>Max Owners:</strong> {{ $lead->max_owners ?? 'N/A' }}</p>
+                            <p><strong>Accident History:</strong> {{ $lead->accident_history ?? 'N/A' }}</p>
                             <p><strong>Purchase Timeline:</strong> {{ $lead->purchase_timeline ?? 'N/A' }}</p>
                             <p><strong>Insurance Preference:</strong> {{ $lead->insurance_preference ?? 'N/A' }}</p>
+
                             <hr>
 
                             {{-- Final Details --}}
                             <h5 class="fw-bold text-primary mb-3">Final Details</h5>
                             <p><strong>Decision Maker:</strong> {{ $lead->decision_maker ?? 'N/A' }}</p>
-
                             <p><strong>Existing Car Owned:</strong> {{ $lead->existing_car ?: 'N/A' }}</p>
-
-
 
                             <div class="mt-3 p-3 bg-light rounded border">
                                 <strong>Reason for Upgrade / Change:</strong><br>
                                 <p class="text-muted mb-0">{{ $lead->upgrade_reason ?: 'N/A' }}</p>
                             </div>
+                        </div>
+                    </div>
 
+                    {{-- NEW ROW: PAYMENT & SYSTEM INFO --}}
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <hr>
+                            <h5 class="fw-bold text-primary mb-3">Payment & System Information</h5>
+                        </div>
+                        <div class="col-md-4">
+                            <p><strong>Payment Status:</strong> 
+                                <span class="badge {{ $lead->payment_status === 'paid' ? 'bg-success' : 'bg-warning' }}">
+                                    {{ strtoupper($lead->payment_status) }}
+                                </span>
+                            </p>
+                            <p><strong>Amount Paid:</strong> {{ $lead->amount_paid ? '₹' . ($lead->amount_paid / 100) : '0.00' }}</p>
+                            <p><strong>Paid At:</strong> {{ $lead->paid_at ? \Carbon\Carbon::parse($lead->paid_at)->format('d M Y, h:i A') : 'N/A' }}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p><strong>Razorpay Order ID:</strong> <code class="small">{{ $lead->razorpay_order_id ?? 'N/A' }}</code></p>
+                            <p><strong>Razorpay Payment ID:</strong> <code class="small">{{ $lead->razorpay_payment_id ?? 'N/A' }}</code></p>
+                        </div>
+                        <div class="col-md-4">
+                            <p><strong>Declaration Accepted:</strong> 
+                                {!! $lead->declaration 
+                                    ? '<span class="text-success fw-bold">YES</span>' 
+                                    : '<span class="text-danger fw-bold">NO</span>' 
+                                !!}
+                            </p>
+                            <p><strong>Lead Created:</strong> {{ $lead->created_at->format('d M Y, h:i A') }}</p>
                         </div>
                     </div>
                 </div>
@@ -117,6 +128,10 @@
                         <a href="tel:{{ $lead->mobile }}" class="btn btn-success">
                             <i class="bi bi-telephone-fill me-1"></i> Call Lead
                         </a>
+                    @endif
+                    
+                    @if($lead->payment_status !== 'paid')
+                        <span class="text-muted ms-3 small italic">Payment is still pending for this lead.</span>
                     @endif
                 </div>
             </div>

@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -33,6 +33,18 @@ class Lead extends Model
         'existing_car',
         'upgrade_reason',
         'declaration',
+
+        // Razorpay
+        'razorpay_order_id',
+        'razorpay_payment_id',
+        'razorpay_signature',
+        'payment_status',
+        'amount_paid',
+        'currency',
+        'payment_method',
+        'payment_for',
+        'paid_at',
+        'razorpay_payload',
     ];
 
     protected $casts = [
