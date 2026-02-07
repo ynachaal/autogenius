@@ -51,7 +51,7 @@ return [
         ],
         [
             'title' => 'On Call Consultation',
-            'route' => route('services.show', 'on-call-car-consultation'),
+            'route' => route('services.show', 'on-call-consultation'),
         ],
         [
             'title' => 'Insurance With AutoGenius',
