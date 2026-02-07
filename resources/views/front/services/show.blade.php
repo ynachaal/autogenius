@@ -57,6 +57,14 @@
                                 @endif
                             </figure>
                         </div>
+                        {{-- ✅ YouTube Video --}}
+                        @if(!empty($data['service']->youtube_url))
+                            <div class="google-map-iframe mt-4">
+                                <iframe src="{{ str_replace('watch?v=', 'embed/', $data['service']->youtube_url) }}"
+                                    frameborder="0" allowfullscreen loading="lazy">
+                                </iframe>
+                            </div>
+                        @endif
 
                     </div>
                 </div>
