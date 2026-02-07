@@ -44,6 +44,10 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="service-single-content">
+                        <div class="service-entry">
+                            <h2 class="mb-3 h5 fw-normal">{{ $data['service']->sub_heading }}</h2>
+                            {!! $data['service']->description !!}
+                        </div>
                         <div class="page-single-image">
                             <figure class="image-anime reveal"
                                 style="opacity: 1; visibility: inherit; translate: none; rotate: none; scale: none; transform: translate(0px, 0px);">
@@ -53,10 +57,7 @@
                                 @endif
                             </figure>
                         </div>
-                        <div class="service-entry">
-                            <h2 class="mb-3 h5 fw-normal">{{ $data['service']->sub_heading }}</h2>
-                            {!! $data['service']->description !!}
-                        </div>
+
                     </div>
                 </div>
 
@@ -72,7 +73,7 @@
                     </div>
                 </div>
 
-                
+
             </div>
 
         </div>
