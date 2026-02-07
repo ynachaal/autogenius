@@ -38,7 +38,6 @@
             </div>
         </div>
     </div>
-
     <section class="page-service-single py-5">
         <div class="container">
             <div class="row">
@@ -69,6 +68,8 @@
                     </div>
                 </div>
 
+                   @include('components.forms.lead')
+
                 <div class="col-lg-4">
                     <div class="page-single-sidebar">
                         <div class="page-category-list wow fadeInUp p-3">
@@ -80,10 +81,7 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
-
         </div>
     </section>
 @endsection
