@@ -38,7 +38,6 @@
             </div>
         </div>
     </div>
-
     <section class="page-service-single py-5">
         <div class="container">
             <div class="row">
@@ -57,9 +56,19 @@
                                 @endif
                             </figure>
                         </div>
+                        {{-- ✅ YouTube Video --}}
+                        @if(!empty($data['service']->youtube_url))
+                            <div class="google-map-iframe mt-4">
+                                <iframe src="{{ str_replace('watch?v=', 'embed/', $data['service']->youtube_url) }}"
+                                    frameborder="0" allowfullscreen loading="lazy">
+                                </iframe>
+                            </div>
+                        @endif
 
                     </div>
                 </div>
+
+                   @include('components.forms.lead')
 
                 <div class="col-lg-4">
                     <div class="page-single-sidebar">
@@ -72,10 +81,7 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
-
         </div>
     </section>
 @endsection
