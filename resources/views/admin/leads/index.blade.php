@@ -9,7 +9,8 @@
                 <div class="card-header">
                     <h3 class="card-title">Leads List</h3>
                     <div class="card-tools d-flex align-items-center">
-                        <form action="{{ route('admin.leads.index') }}" method="GET" class="d-flex align-items-center me-2">
+                        <form action="{{ route('admin.leads.index') }}" method="GET"
+                            class="d-flex align-items-center me-2">
                             <div class="input-group input-group-sm" style="width: 250px;">
                                 <input type="search" name="search" class="form-control float-right"
                                     placeholder="Search name, mobile or city..." value="{{ request('search') }}">
@@ -18,7 +19,8 @@
                                         <i class="fas fa-search"></i>
                                     </button>
                                     @if(request('search'))
-                                        <a href="{{ route('admin.leads.index') }}" class="btn btn-secondary btn-sm">Clear</a>
+                                        <a href="{{ route('admin.leads.index') }}"
+                                            class="btn btn-secondary btn-sm">Clear</a>
                                     @endif
                                 </div>
                             </div>
@@ -37,14 +39,15 @@
                                     <th>Budget</th>
                                     <th>Service</th>
                                     <th>Timeline</th>
+                                    <th>Payment</th>
                                     <th>Date</th>
                                     <th class="text-center">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse($submissions as  $index => $lead)
+                                @forelse($submissions as $index => $lead)
                                     <tr>
-                                          <td>{{ $submissions->firstItem() + $index }}</td>
+                                        <td>{{ $submissions->firstItem() + $index }}</td>
                                         <td>
                                             <div class="fw-bold">{{ $lead->full_name ?? 'N/A' }}</div>
                                             <small class="text-muted">{{ $lead->mobile ?? 'N/A' }}</small>
@@ -68,7 +71,7 @@
                                         <td>{{ $lead->created_at ? $lead->created_at->format('Y-m-d') : 'N/A' }}</td>
                                         <td class="text-center">
                                             <a href="{{ route('admin.leads.show', $lead) }}" class="btn btn-sm btn-primary">
-                                                <i class="bi bi-eye"></i> 
+                                                <i class="bi bi-eye"></i>
                                             </a>
                                         </td>
                                     </tr>
