@@ -20,7 +20,8 @@
                     <div class="footer-newsletter-form-prime">
                         <div class="section-title">
                             <p class="text-anime-style-3 h5 mb-4 fw-normal" data-cursor="-opaque">
-                                {{config('settings.footer_contactheading', '') }}</p>
+                                {{config('settings.footer_contactheading', '') }}
+                            </p>
                         </div>
                         <a href="tel:{{config('settings.phone', '') }}" class="btn-default"><i
                                 class="fa-solid fa-phone"></i> {{config('settings.phone', '') }}</a>
@@ -83,23 +84,35 @@
                     </div>
                     <!-- Footer Links End -->
 
-                    <!-- Footer Links Start -->
+
                     <!-- Footer Services Start -->
                     <div class="footer-links">
                         <h3>Services</h3>
-                        <ul>
-                            @php
-                                $serviceService = app(\App\Services\ServiceService::class);
-                                $footerServices = $serviceService->getActiveServices()
-                                    ->where('slug', '!=', 'autogenius-merchandise');
-                            @endphp
+                        @php
+                            $services = [
+                                ['title' => 'New Car Consultation', 'slug' => 'new-car-consultation'],
+                                ['title' => 'Used Car Consultation & Unlimited Inspections', 'slug' => 'used-car-consultation-and-unlimited-inspections'],
+                                ['title' => 'Sell Your Car with AutoGenius', 'slug' => 'sell-your-car-with-autogenius'],
+                                ['title' => 'New Car PDI', 'slug' => 'new-car-pdi'],
+                                ['title' => 'Used Car Inspection', 'slug' => 'used-car-inspection'],
+                                ['title' => 'Premium & Luxury Car Inspection', 'slug' => 'premium-luxury-car-inspection'],
+                                ['title' => 'Get Your Own Car Inspected', 'slug' => 'get-your-own-car-inspected'],
+                                ['title' => 'Get Service History & Insurance Claim Details', 'slug' => 'get-service-history-and-insurance-claim-details'],
+                                ['title' => 'On Call Consultation', 'slug' => 'on-call-consultation'],
+                                ['title' => 'Insurance With AutoGenius', 'slug' => 'insurance-with-autogenius'],
+                            ];
+                        @endphp
 
-                            @foreach($footerServices as $service)
+                        <ul>
+                            @foreach($services as $service)
                                 <li>
-                                    <a href="{{ route('services.show', $service->slug) }}">{{ $service->title }}</a>
+                                    <a href="{{ route('services.show', $service['slug']) }}">
+                                        {{ $service['title'] }}
+                                    </a>
                                 </li>
                             @endforeach
                         </ul>
+
 
                     </div>
                     <!-- Footer Services End -->

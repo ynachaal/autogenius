@@ -14,23 +14,24 @@
                 <div class="card-header ">
                     <h3 class="card-title">Service Details</h3>
                     <div class="card-tools d-flex gap-2">
-                        <a href="{{ route('admin.services.edit', $service) }}"
-                           class="btn btn-sm btn-primary"
-                           title="Edit Service">
+                        <a href="{{ route('admin.services.edit', $service) }}" class="btn btn-sm btn-primary"
+                            title="Edit Service">
                             <i class="bi bi-pencil me-1"></i> Edit
                         </a>
 
-                        <form action="{{ route('admin.services.destroy', $service) }}" method="POST" class="d-inline" id="delete-form-{{ $service->id }}">
+                        <form action="{{ route('admin.services.destroy', $service) }}" method="POST" class="d-inline"
+                            id="delete-form-{{ $service->id }}">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-danger"
-                                    onclick="return confirm('Are you sure you want to delete this service?')">
+                                onclick="return confirm('Are you sure you want to delete this service?')">
                                 <i class="bi bi-trash me-1"></i> Delete
                             </button>
                         </form>
 
-                        <a href="{{ route('admin.services.index') }}" class="btn btn-sm btn-secondary" title="Back to List">
-                             <i class="bi bi-list me-1"></i> Back
+                        <a href="{{ route('admin.services.index') }}" class="btn btn-sm btn-secondary"
+                            title="Back to List">
+                            <i class="bi bi-list me-1"></i> Back
                         </a>
                     </div>
                 </div>
@@ -39,30 +40,51 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <p class="text-muted mb-2"><strong>Title:</strong> <span class="fw-semibold text-dark">{{ $service->title }}</span></p>
-                            
+                            <p class="text-muted mb-2"><strong>Title:</strong> <span
+                                    class="fw-semibold text-dark">{{ $service->title }}</span></p>
+
                             {{-- Slug Added --}}
-                            <p class="text-muted mb-2"><strong>Slug:</strong> <code class="text-primary">{{ $service->slug ?? '-' }}</code></p>
-                            
-                            <p class="text-muted mb-2"><strong>Sub Heading:</strong> <span class="fw-semibold">{{ $service->sub_heading ?? 'N/A' }}</span></p>
-                            
-                            <p class="text-muted mb-2"><strong>Status:</strong> 
+                            <p class="text-muted mb-2"><strong>Slug:</strong> <code
+                                    class="text-primary">{{ $service->slug ?? '-' }}</code></p>
+
+                            <p class="text-muted mb-2"><strong>Sub Heading:</strong> <span
+                                    class="fw-semibold">{{ $service->sub_heading ?? 'N/A' }}</span></p>
+
+                            <p class="text-muted mb-2"><strong>Status:</strong>
                                 <span class="badge {{ $service->status ? 'bg-success' : 'bg-secondary' }}">
                                     {{ $service->status ? 'Active' : 'Inactive' }}
                                 </span>
                             </p>
-                            
-                            <p class="text-muted mb-2"><strong>Featured:</strong> {{ $service->featured ? 'Yes' : 'No' }}</p>
-                            <p class="text-muted mb-2"><strong>Created at:</strong> {{ $service->created_at->format('M d, Y') }}</p>
-                            <p class="text-muted mb-2"><strong>Updated at:</strong> {{ $service->updated_at->format('M d, Y') }}</p>
+
+                            <p class="text-muted mb-2"><strong>Featured:</strong>
+                                {{ $service->featured ? 'Yes' : 'No' }}</p>
+                            <p class="text-muted mb-2"><strong>Created at:</strong>
+                                {{ $service->created_at->format('M d, Y') }}</p>
+                            <p class="text-muted mb-2"><strong>Updated at:</strong>
+                                {{ $service->updated_at->format('M d, Y') }}</p>
                         </div>
+
+                        @if($service->youtube_url)
+                            <p class="text-muted mb-2">
+                                <strong>YouTube Video:</strong>
+                                <a href="{{ $service->youtube_url }}" target="_blank" class="text-primary">
+                                    {{ $service->youtube_url }}
+                                </a>
+                            </p>
+                        @else
+                            <p class="text-muted mb-2">
+                                <strong>YouTube Video:</strong> <span class="text-muted">N/A</span>
+                            </p>
+                        @endif
 
                         <div class="col-md-6">
                             @if($service->image)
                                 <p class="text-muted mb-2"><strong>Image:</strong></p>
-                                <img src="{{ asset('storage/' . $service->image) }}" alt="Service Image" class="img-fluid rounded mb-2 border shadow-sm" style="max-height: 250px;">
+                                <img src="{{ asset('storage/' . $service->image) }}" alt="Service Image"
+                                    class="img-fluid rounded mb-2 border shadow-sm" style="max-height: 250px;">
                             @else
-                                <div class="bg-light rounded d-flex align-items-center justify-content-center" style="height: 200px;">
+                                <div class="bg-light rounded d-flex align-items-center justify-content-center"
+                                    style="height: 200px;">
                                     <span class="text-muted">No Image Uploaded</span>
                                 </div>
                             @endif

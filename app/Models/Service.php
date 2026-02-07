@@ -21,6 +21,7 @@ class Service extends Model
         'image',
         'status',
         'featured',
+        'youtube_url',
 
         // ✅ SEO META
         'meta_title',
@@ -29,7 +30,7 @@ class Service extends Model
     ];
 
     protected $casts = [
-      'status'   => 'boolean',
+        'status' => 'boolean',
         'featured' => 'boolean',
     ];
 
@@ -38,12 +39,21 @@ class Service extends Model
      */
     public function scopeActive($query)
     {
-       return $query->where('status', 1);
+        return $query->where('status', 1);
     }
 
     public function scopeFeatured($query)
     {
-        return $query->where('featured', true);
+        return
+            $query->where('featured', true);
+    }
+
+    public function getYoutubeEmbedUrlAttribute()
+    {
+        if (!$this->youtube_url)
+            return null;
+
+        return str_replace('watch?v=', 'embed/', $this->youtube_url);
     }
 
     /**
@@ -62,7 +72,7 @@ class Service extends Model
                 $service->meta_title = Str::limit($service->title, 60, '');
             }
 
-            if (empty($service->meta_description) && ! empty($service->description)) {
+            if (empty($service->meta_description) && !empty($service->description)) {
                 $service->meta_description = Str::limit(
                     strip_tags($service->description),
                     160,
