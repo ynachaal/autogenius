@@ -69,12 +69,18 @@
                                             @endif
                                         </td>
                                         <td>
-                                            @if($lead->payment_status == 'paid')
+                                            @php
+                                                $latestPayment = $lead->payments->sortByDesc('created_at')->first();
+                                            @endphp
+
+                                            @if($latestPayment && $latestPayment->status === 'paid')
                                                 <span class="badge bg-success">Paid</span>
-                                            @elseif($lead->payment_status == 'pending')
+                                            @elseif($latestPayment && $latestPayment->status === 'pending')
                                                 <span class="badge bg-secondary">Pending</span>
+                                            @elseif($latestPayment && $latestPayment->status === 'failed')
+                                                <span class="badge bg-danger">Failed</span>
                                             @else
-                                                <span class="badge bg-light text-dark">{{ ucfirst($lead->payment_status ?? 'Unpaid') }}</span>
+                                                <span class="badge bg-light text-dark">Unpaid</span>
                                             @endif
                                         </td>
                                         <td>{{ $lead->created_at ? $lead->created_at->format('Y-m-d') : 'N/A' }}</td>

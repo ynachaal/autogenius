@@ -7,7 +7,7 @@
         </div>
 
         @if(session('success'))
-            <div id="pdi-success" class="alert alert-success alert-dismissible fade show" role="alert">
+            <div id="sell-car-success" class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>Success!</strong> {{ session('success') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
@@ -28,7 +28,8 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group mb-4">
-                        <label for="customer_name" class="form-label">Your Name <span class="text-danger">*</span></label>
+                        <label for="customer_name" class="form-label">Your Name <span
+                                class="text-danger">*</span></label>
                         <input required type="text" name="customer_name" id="customer_name" placeholder="Full Name"
                             class="form-control" value="{{ old('customer_name') }}">
                     </div>
@@ -36,42 +37,47 @@
 
                 <div class="col-md-6">
                     <div class="form-group mb-4">
-                        <label for="customer_mobile" class="form-label">Mobile Number <span class="text-danger">*</span></label>
-                        <input required type="text" name="customer_mobile" id="phone"
-                            placeholder="Phone Number" class="form-control" value="{{ old('customer_mobile') }}">
+                        <label for="customer_mobile" class="form-label">Mobile Number <span
+                                class="text-danger">*</span></label>
+                        <input required type="text" name="customer_mobile" id="phone" placeholder="Phone Number"
+                            class="form-control" value="{{ old('customer_mobile') }}">
                     </div>
                 </div>
 
                 <div class="col-md-12">
                     <div class="form-group mb-4">
-                        <label for="customer_email" class="form-label">Email Address <span class="text-danger">*</span></label>
-                        <input required type="email" name="customer_email" id="customer_email" placeholder="Email Address"
-                            class="form-control" value="{{ old('customer_email') }}">
+                        <label for="customer_email" class="form-label">Email Address <span
+                                class="text-danger">*</span></label>
+                        <input required type="email" name="customer_email" id="customer_email"
+                            placeholder="Email Address" class="form-control" value="{{ old('customer_email') }}">
                     </div>
                 </div>
-
                 <div class="col-md-12">
                     <div class="form-group mb-4">
-                        <label for="vehicle_name" class="form-label">Vehicle Name <span class="text-danger">*</span></label>
-                        <input required type="text" name="vehicle_name" id="vehicle_name" placeholder="e.g. Toyota Fortuner"
-                            class="form-control" value="{{ old('vehicle_name') }}">
+                        <label for="vehicle_name" class="form-label">Vehicle Name <span
+                                class="text-danger">*</span></label>
+                        <input required type="text" name="vehicle_name" id="vehicle_name"
+                            placeholder="e.g. Toyota Fortuner" class="form-control" value="{{ old('vehicle_name') }}">
                     </div>
                 </div>
 
                 <div class="col-md-6">
                     <div class="form-group mb-4">
-                        <label for="pdi_date" class="form-label">Preferred Date (DDMMYY) <span class="text-danger">*</span></label>
-                        <input required type="text" name="pdi_date" id="pdi_date" placeholder="e.g. 251226"
+                        <label for="pdi_date" class="form-label">Preferred Date (DDMMYY) <span
+                                class="text-danger">*</span></label>
+                        <input required type="text" name="pdi_date" id="datepicker" placeholder="e.g. 251226"
                             maxlength="6" class="form-control" value="{{ old('pdi_date') }}">
-                        <small class="text-muted">Format: Day, Month, Year (6 digits)</small>
+                     
                     </div>
                 </div>
 
                 <div class="col-md-6">
                     <div class="form-group mb-4">
-                        <label for="pdi_location" class="form-label">Inspection Location <span class="text-danger">*</span></label>
-                        <input required type="text" name="pdi_location" id="pdi_location" placeholder="Dealership or City Name"
-                            class="form-control" value="{{ old('pdi_location') }}">
+                        <label for="pdi_location" class="form-label">Inspection Location <span
+                                class="text-danger">*</span></label>
+                        <input required type="text" name="pdi_location" id="pdi_location"
+                            placeholder="Dealership or City Name" class="form-control"
+                            value="{{ old('pdi_location') }}">
                     </div>
                 </div>
 
@@ -86,9 +92,11 @@
                     </div>
                 </div>
             </div>
-
+            <div class="alert alert-light small p-2 px-3 w-fit d-block mb-4" data-bs-theme="dark">
+                Pay ₹500 to register.
+            </div>
             <div class="text-center mt-3">
-                <button type="submit" class="btn-default">Book PDI Inspection</button>
+                <button type="submit" class="btn-default">Book Your Car Inspection</button>
             </div>
         </form>
     </div>

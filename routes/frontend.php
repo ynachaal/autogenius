@@ -86,19 +86,40 @@ Route::get('/book-a-consultation', [SiteController::class, 'bookConsultation'])
 Route::post('/book-a-consultation/store', [SiteController::class, 'storeConsultation'])
     ->name('frontend.consultation.store');
 
+
+
 Route::post('/razorpay/success', [SiteController::class, 'razorpaySuccess'])
     ->name('razorpay.success');
 
-    Route::get('/payment-failed', [LeadController::class, 'paymentFailed'])->name('lead.payment.failed');
+Route::get('/payment-failed', [LeadController::class, 'paymentFailed'])->name('lead.payment.failed');
 
-    Route::get('/lead/payment/{lead}', [LeadController::class, 'payment'])
+Route::get('/lead/payment/{lead}', [LeadController::class, 'payment'])
     ->name('lead.payment')
     ->middleware('signed');
 
 Route::post('/lead/payment/verify', [LeadController::class, 'verifyPayment'])->name('lead.payment.verify');
 
-
+// sell car routes
 Route::post('/sell-car/submit', [SellYourCarController::class, 'store'])->name('car.submit');
+
+
+// inspection routes
 
 Route::post('/pdi/submit', [CarInspectionController::class, 'store'])
     ->name('pdi.submit');
+
+// The payment page (Signed for security)
+Route::get('/inspection/payment/{inspection}', [CarInspectionController::class, 'payment'])
+    ->name('inspection.payment')
+    ->middleware('signed');
+
+// The Razorpay verification callback
+Route::post('/inspection/payment/verify', [CarInspectionController::class, 'verifyPayment'])
+    ->name('inspection.payment.verify');
+
+// Success and Failure pages
+Route::get('/inspection/thank-you', [CarInspectionController::class, 'thankYou'])
+    ->name('inspection.thank-you');
+
+Route::get('/inspection/payment-failed', [CarInspectionController::class, 'paymentFailed'])
+    ->name('inspection.payment.failed');

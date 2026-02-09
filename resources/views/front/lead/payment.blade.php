@@ -41,7 +41,7 @@
     <form id="razorpay-form" action="{{ route('lead.payment.verify') }}" method="POST">
         @csrf
         <input type="hidden" name="razorpay_payment_id" id="razorpay_payment_id">
-        <input type="hidden" name="razorpay_order_id" value="{{ $lead->razorpay_order_id }}">
+        <input type="hidden" name="razorpay_order_id" value="{{ $payment->order_id }}">
         <input type="hidden" name="razorpay_signature" id="razorpay_signature">
     </form>
 </div>
@@ -50,13 +50,12 @@
 <script>
     const options = {
         key: "{{ $razorpayKey }}",
-        amount: "{{ $lead->amount_paid }}",
-        currency: "INR",
+        amount: "{{ $payment->amount }}",
+        currency: "{{ $payment->currency }}",
         name: "AutoGenius",
         description: "Service Booking Fee",
-        order_id: "{{ $lead->razorpay_order_id }}",
+        order_id: "{{ $payment->order_id }}",
         handler: function (response) {
-            // Success UI
             document.getElementById('payment-status-container').innerHTML = `
                 <div class="spinner-border text-success mb-4" role="status"></div>
                 <h3 class="fw-bold">Verifying Payment</h3>
@@ -69,7 +68,6 @@
         },
         modal: {
             ondismiss: function() {
-                // Switch from Loading UI to Retry UI
                 document.getElementById('loading-ui').classList.add('d-none');
                 document.getElementById('action-ui').classList.remove('d-none');
             }
