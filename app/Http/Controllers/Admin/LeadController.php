@@ -36,7 +36,8 @@ class LeadController extends Controller
 
     public function show(Lead $lead)
     {
-        return view('admin.leads.show', compact('lead'));
+          $lead->load('payments');
+         return view('admin.leads.show', compact('lead'));
     }
 
     public function destroy(Lead $lead)

@@ -21,7 +21,7 @@
     </div>
     
     <h3 class="fw-bold text-dark">Payment Failed</h3>
-    <p class="text-muted">We couldn't process your transaction. This could be due to incorrect details, insufficient funds, or a temporary connection issue.</p>
+    <p class="text-muted">We couldn't process your transaction for the car inspection. This could be due to incorrect details, insufficient funds, or a temporary connection issue.</p>
 
     <div class="alert alert-light border text-start small">
         <strong>Common reasons:</strong>
@@ -33,7 +33,7 @@
     </div>
     
     <div class="d-grid gap-2 mt-4">
-        {{-- Redirecting back to the index where they can start over or find their lead --}}
+        {{-- 1. Updated this to the inspection index/form route --}}
         <a href="{{ url('/') }}" class="btn btn-link text-decoration-none text-muted">Back to Homepage</a>
     </div>
     

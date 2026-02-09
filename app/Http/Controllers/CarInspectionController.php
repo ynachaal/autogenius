@@ -2,41 +2,160 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CarInspection;
+use App\Models\Payment;
+use App\Services\EmailService;
+use App\Services\PageService;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+use Razorpay\Api\Api;
 
 class CarInspectionController extends Controller
 {
-    public function store(Request $request)
+    protected $emailService;
+    protected $pageService;
+
+    public function __construct(EmailService $emailService, PageService $pageService)
+    {
+        $this->emailService = $emailService;
+        $this->pageService = $pageService;
+    }
+
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'customer_name'   => 'required|string|max:255',
             'customer_mobile' => 'required|string|max:20',
+            'customer_email'  => 'required|email',
             'vehicle_name'    => 'required|string|max:255',
-            'pdi_date'        => 'required|digits:6', // or change to date if you switch input type
+            'pdi_date'        => 'required|digits:6', 
             'pdi_location'    => 'required|string|max:255',
-            'cf-turnstile-response' => 'required',
+            /* 'cf-turnstile-response' => 'required', */
         ]);
 
-        // Verify Cloudflare Turnstile
-        $response = Http::asForm()->post(
-            'https://challenges.cloudflare.com/turnstile/v0/siteverify',
-            [
-                'secret'   => config('services.turnstile.secret_key'),
-                'response' => $request->input('cf-turnstile-response'),
-                'remoteip' => $request->ip(),
-            ]
-        );
-
-        if (!($response->json('success') ?? false)) {
-            return back()->withErrors([
-                'cf-turnstile-response' => 'Captcha verification failed. Try again.',
-            ])->withInput();
+        // Turnstile verify
+         try {
+            $turnstile = Http::asForm()->timeout(5)->post(
+                'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+                [
+                    'secret'   => config('services.turnstile.secret_key'),
+                    'response' => $request->input('cf-turnstile-response'),
+                    'remoteip' => $request->ip(),
+                ]
+            );
+        } catch (\Exception $e) {
+            Log::error('PDI Turnstile Error: ' . $e->getMessage());
+            return back()->with('error', 'Security service unavailable. Try again.');
         }
 
-        //  Save booking (DB, email, CRM, etc.)
-        // CarInspection::create([...]);
+        if (!$turnstile->json('success')) {
+            return back()->withErrors(['cf-turnstile-response' => 'Captcha verification failed.'])->withInput();
+        } 
 
-        return back()->with('success', 'Your inspection has been booked successfully.');
+        // Create inspection
+        $inspection = CarInspection::create([
+            'customer_name'       => $request->customer_name,
+            'customer_mobile'     => $request->customer_mobile,
+            'customer_email'      => $request->customer_email,
+            'vehicle_name'        => $request->vehicle_name,
+            'inspection_date'     => $request->pdi_date,
+            'inspection_location' => $request->pdi_location,
+            'status'              => 'pending',
+        ]);
+
+        try {
+            $api = new Api(config('services.razorpay.key'), config('services.razorpay.secret'));
+
+            $amountInPaise = 50000; // ₹500
+
+            $order = $api->order->create([
+                'receipt'  => 'car_inspection_' . $inspection->id,
+                'amount'   => $amountInPaise,
+                'currency' => 'INR',
+                'notes'    => [
+                    'inspection_id' => $inspection->id,
+                    'customer'      => $inspection->customer_name,
+                ],
+            ]);
+
+            // Create Payment entry
+            Payment::create([
+                'entity_type'   => CarInspection::class,
+                'entity_id'     => $inspection->id,
+                'gateway'       => 'razorpay',
+                'order_id'      => $order['id'],
+                'amount'        => $amountInPaise,
+                'currency'      => 'INR',
+                'status'        => 'pending',
+                'gateway_payload' => $order->toArray(),
+            ]);
+
+            return redirect()->signedRoute('inspection.payment', ['inspection' => $inspection->id]);
+
+        } catch (\Exception $e) {
+            Log::error('PDI Razorpay Error: ' . $e->getMessage());
+            return back()->with('error', 'Unable to initiate payment. Please try again.');
+        }
+    }
+
+    public function verifyPayment(Request $request)
+    {
+        $api = new Api(config('services.razorpay.key'), config('services.razorpay.secret'));
+
+        try {
+            $api->utility->verifyPaymentSignature([
+                'razorpay_order_id'   => $request->razorpay_order_id,
+                'razorpay_payment_id' => $request->razorpay_payment_id,
+                'razorpay_signature'  => $request->razorpay_signature,
+            ]);
+
+            $payment = Payment::where('order_id', $request->razorpay_order_id)
+                ->where('entity_type', CarInspection::class)
+                ->firstOrFail();
+
+            $payment->update([
+                'payment_id' => $request->razorpay_payment_id,
+                'signature'  => $request->razorpay_signature,
+                'status'     => 'paid',
+                'paid_at'    => now(),
+            ]);
+
+            $inspection = CarInspection::findOrFail($payment->entity_id);
+            $inspection->update(['status' => 'confirmed']);
+
+            $this->emailService->carInspectionAdminNotification($inspection);
+
+            return redirect()->route('inspection.thank-you')->with('success', 'Payment verified successfully');
+
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            Log::error('PDI Payment Verify Failed: ' . $e->getMessage());
+            return redirect()->route('inspection.payment.failed');
+        }
+    }
+
+    public function payment(CarInspection $inspection)
+    {
+        $paid = $inspection->payments()->where('status', 'paid')->exists();
+
+        if ($paid) {
+            return redirect()->route('inspection.thank-you');
+        }
+
+        $payment = $inspection->payments()->latest()->first();
+
+        return view('front.inspection.payment', [
+            'inspection'  => $inspection,
+            'payment'     => $payment,
+            'razorpayKey' => config('services.razorpay.key'),
+        ]);
+    }
+    
+    public function thankYou()
+    {
+        $response = 'Your Inquiry Has Been Successfully Received. We will get back to you within 24 Hours.';
+        return view('front.inspection.thank-you', compact('response'));
     }
 }

@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lead;
+use App\Models\Payment;
 use Razorpay\Api\Api;
 use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse; // <--- Ensure this is here
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use App\Services\PageService;
 use Illuminate\Support\Facades\Http;
-use App\Services\EmailService; // <--- Import the Service
+use App\Services\EmailService;
 use Illuminate\Support\Facades\Log;
 
 class LeadController extends Controller
@@ -17,13 +18,12 @@ class LeadController extends Controller
     protected $emailService;
     protected $pageService;
 
-
-
     public function __construct(EmailService $emailService, PageService $pageService)
     {
         $this->emailService = $emailService;
         $this->pageService = $pageService;
     }
+
     public function index(): View
     {
         $page = $this->pageService->getBySlug('smart-car-requirements');
@@ -31,8 +31,7 @@ class LeadController extends Controller
     }
 
     /**
-     * Handles both the initial "Continue" from Step 1 
-     * and the Final Form Submission.
+     * Handles lead creation + Razorpay order creation
      */
     public function store(Request $request): RedirectResponse
     {
@@ -41,9 +40,6 @@ class LeadController extends Controller
             'name' => 'required|string|max:255',
             'mobile' => 'required|string|min:10',
             'city' => 'required|string',
-            // 'cf-turnstile-response' => 'required',
-        ], [
-            //  'cf-turnstile-response.required' => 'Please complete the security check.',
         ]);
 
         // 2. Turnstile verify
@@ -93,21 +89,18 @@ class LeadController extends Controller
             'existing_car' => $request->Existing,
             'upgrade_reason' => $request->Reason,
             'declaration' => $request->has('confirm'),
-
-            // Payment
-            'payment_status' => 'pending',
         ];
 
         // 4. Create Lead
         $lead = Lead::create($data);
 
         // 5. Create Razorpay Order
-        $api = new \Razorpay\Api\Api(
+        $api = new Api(
             config('services.razorpay.key'),
             config('services.razorpay.secret')
         );
 
-        $amountInPaise = 9900; // ₹499.00 (example)
+        $amountInPaise = 9900; // ₹99.00
 
         $order = $api->order->create([
             'receipt' => 'lead_' . $lead->id,
@@ -119,19 +112,28 @@ class LeadController extends Controller
             ],
         ]);
 
-        // 6. Save order ID
-        $lead->update([
-            'razorpay_order_id' => $order['id'],
-            'amount_paid' => $amountInPaise,
+        // 6. Create Payment record
+        Payment::create([
+            'entity_type' => Lead::class,   // ✅ CORRECT
+            'entity_id' => $lead->id,
+            'gateway' => 'razorpay',
+            'order_id' => $order['id'],
+            'amount' => $amountInPaise,
+            'currency' => 'INR',
+            'status' => 'pending',
+            'gateway_payload' => $order->toArray(),
         ]);
 
-      
-        // 8. Redirect to payment page (or open Razorpay checkout)
+        // 7. Redirect to payment page
         return redirect()->signedRoute('lead.payment', ['lead' => $lead->id]);
     }
+
+    /**
+     * Razorpay verify callback
+     */
     public function verifyPayment(Request $request)
     {
-        $api = new \Razorpay\Api\Api(
+        $api = new Api(
             config('services.razorpay.key'),
             config('services.razorpay.secret')
         );
@@ -143,16 +145,20 @@ class LeadController extends Controller
                 'razorpay_signature' => $request->razorpay_signature,
             ]);
 
-            $lead = Lead::where('razorpay_order_id', $request->razorpay_order_id)->firstOrFail();
+            $payment = Payment::where('order_id', $request->razorpay_order_id)
+                ->where('entity_type', Lead::class)   // ✅ CORRECT
+                ->firstOrFail();
 
-            $lead->update([
-                'razorpay_payment_id' => $request->razorpay_payment_id,
-                'razorpay_signature' => $request->razorpay_signature,
-                'payment_status' => 'paid',
+            $payment->update([
+                'payment_id' => $request->razorpay_payment_id,
+                'signature' => $request->razorpay_signature,
+                'status' => 'paid',
                 'paid_at' => now(),
             ]);
 
-            // ✅ Send email after payment is verified
+            $lead = Lead::findOrFail($payment->entity_id);
+
+            // Send email after payment
             if ($lead->declaration) {
                 $this->emailService->sendLeadAdminNotification($lead);
             }
@@ -166,23 +172,33 @@ class LeadController extends Controller
 
     public function payment(Lead $lead)
     {
-        if ($lead->payment_status === 'paid') {
+        $paid = $lead->payments()
+            ->where('status', 'paid')
+            ->exists();
+
+        if ($paid) {
             return redirect()->route('lead.thank-you');
         }
 
+        $payment = $lead->payments()
+            ->latest()
+            ->first();
+
         return view('front.lead.payment', [
             'lead' => $lead,
+            'payment' => $payment,
             'razorpayKey' => config('services.razorpay.key'),
         ]);
     }
+
     public function paymentFailed()
     {
-        // You can optionally pass data here if you want to show specific error messages
         return view('front.lead.payment-failed');
     }
 
     public function thankYou()
     {
-        return view('front.lead.thank-you');
+        $response = 'Your Inquiry Has Been Successfully Received. We will get back to you within 24 Hours.';
+        return view('front.lead.thank-you', compact('response'));
     }
 }

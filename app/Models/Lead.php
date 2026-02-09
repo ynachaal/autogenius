@@ -1,7 +1,9 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Payment;
 
 class Lead extends Model
 {
@@ -33,18 +35,6 @@ class Lead extends Model
         'existing_car',
         'upgrade_reason',
         'declaration',
-
-        // Razorpay
-        'razorpay_order_id',
-        'razorpay_payment_id',
-        'razorpay_signature',
-        'payment_status',
-        'amount_paid',
-        'currency',
-        'payment_method',
-        'payment_for',
-        'paid_at',
-        'razorpay_payload',
     ];
 
     protected $casts = [
@@ -53,6 +43,22 @@ class Lead extends Model
         'feature_priority' => 'array',
         'declaration' => 'boolean',
     ];
-}
 
-?>
+    /**
+     * Payments linked to this lead
+     */
+    public function payments()
+    {
+        return $this->morphMany(Payment::class, 'payable', 'entity_type', 'entity_id');
+    }
+
+    /**
+     * Check if lead payment is completed
+     */
+    public function isPaid(): bool
+    {
+        return $this->payments()
+            ->where('status', 'paid')
+            ->exists();
+    }
+}

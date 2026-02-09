@@ -320,32 +320,60 @@ class EmailService
     }
 
     /**
- * Send Sell Your Car inquiry notification to admin.
- *
- * @param \App\Models\SellYourCar $sellYourCar
- * @return bool
- */
-public function sellYourCarAdminNotification($sellYourCar): bool
-{
-    $data = [
-        '{customer_name}'        => $sellYourCar->customer_name ?? '',
-        '{customer_mobile}'      => $sellYourCar->customer_mobile ?? '',
-        '{vehicle_name}'         => $sellYourCar->vehicle_name ?? '',
-        '{year}'                 => $sellYourCar->year ?? '',
-        '{kms_driven}'           => $sellYourCar->kms_driven ?? '',
-        '{no_of_owners}'         => $sellYourCar->no_of_owners ?? '',
-        '{registration_number}'  => $sellYourCar->registration_number ?? '',
-        '{car_location}'         => $sellYourCar->car_location ?? '',
-        '{date}'                 => optional($sellYourCar->created_at)->format('d-m-Y H:i:s'),
-        '{website_link}'         => config('app.url', url('/')),
-    ];
+     * Send Sell Your Car inquiry notification to admin.
+     *
+     * @param \App\Models\SellYourCar $sellYourCar
+     * @return bool
+     */
+    public function sellYourCarAdminNotification($sellYourCar): bool
+    {
+        $data = [
+            '{customer_name}' => $sellYourCar->customer_name ?? '',
+            '{customer_mobile}' => $sellYourCar->customer_mobile ?? '',
+            '{vehicle_name}' => $sellYourCar->vehicle_name ?? '',
+            '{year}' => $sellYourCar->year ?? '',
+            '{kms_driven}' => $sellYourCar->kms_driven ?? '',
+            '{no_of_owners}' => $sellYourCar->no_of_owners ?? '',
+            '{registration_number}' => $sellYourCar->registration_number ?? '',
+            '{car_location}' => $sellYourCar->car_location ?? '',
+            '{date}' => optional($sellYourCar->created_at)->format('d-m-Y H:i:s'),
+            '{website_link}' => config('app.url', url('/')),
+        ];
 
-    return $this->sendEmailInstant(
-        config('settings.admin_email', 'admin@autogenious.com'),
-        'Sell Your Car - Admin',
-        $data,
-        'New Sell Your Car Inquiry'
-    );
-}
+        return $this->sendEmailInstant(
+            config('settings.admin_email', 'admin@autogenious.com'),
+            'Sell Your Car - Admin',
+            $data,
+            'New Sell Your Car Inquiry'
+        );
+    }
+    /**
+     * Send Car Inspection request notification to admin.
+     *
+     * @param \App\Models\CarInspection $inspection
+     * @return bool
+     */
+    public function carInspectionAdminNotification($inspection): bool
+    {
+        $data = [
+            '{customer_name}' => $inspection->customer_name ?? 'N/A',
+            '{customer_mobile}' => $inspection->customer_mobile ?? 'N/A',
+            '{customer_email}' => $inspection->customer_email ?? 'N/A',
+            '{vehicle_name}' => $inspection->vehicle_name ?? 'N/A',
+            '{inspection_date}' => $inspection->inspection_date ? \Carbon\Carbon::parse($inspection->inspection_date)->format('l, d F Y') : 'N/A',
+            '{inspection_location}' => $inspection->inspection_location ?? 'N/A',
+            '{payment_status}' => strtoupper($inspection->isPaid() ? 'PAID' : 'PENDING'),
+            '{date}' => optional($inspection->created_at)->format('d-m-Y H:i:s') ?? now()->format('d-m-Y H:i:s'),
+            '{year}' => now()->year,
+            '{website_link}' => config('app.url', url('/')),
+        ];
+
+        return $this->sendEmailInstant(
+            config('settings.admin_email', 'admin@autogenious.com'),
+            'Car Inspection - Admin',
+            $data,
+            'New Car Inspection Request: ' . ($inspection->vehicle_name ?? 'Inquiry')
+        );
+    }
 
 }

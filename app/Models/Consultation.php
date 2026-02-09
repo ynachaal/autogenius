@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Payment;
 
 class Consultation extends Model
 {
@@ -18,9 +19,23 @@ class Consultation extends Model
         'preferred_date',
         'status',
         'amount',
-        'payment_status',
-        'razorpay_order_id',
-        'razorpay_payment_id',
-        'razorpay_signature',
     ];
+
+    /**
+     * Payments related to this consultation
+     */
+    public function payments()
+    {
+        return $this->morphMany(Payment::class, 'payable', 'entity_type', 'entity_id');
+    }
+
+    /**
+     * Check if consultation is paid
+     */
+    public function isPaid(): bool
+    {
+        return $this->payments()
+            ->where('status', 'paid')
+            ->exists();
+    }
 }

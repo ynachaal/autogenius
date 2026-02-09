@@ -30,12 +30,11 @@
     <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
     <link rel="stylesheet" href="{{ asset('css/twentytwenty.css') }}">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css"> 
 
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@26.0.6/build/css/intlTelInput.css">
-
-
-
     <style>
         .iti__dropdown-content {
             background: black !important;
@@ -60,12 +59,12 @@
 
     <!-- Footer -->
     @include('layouts._partials.footer')
-
     <!-- Scripts -->
     <script src="//cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="{{ asset('js/jquery.slicknav.js') }}"></script>
     <script src="{{ asset('js/jquery.slicknav.js') }}"></script>
     <script src="{{ asset('js/swiper-bundle.min.js') }}"></script>
@@ -80,6 +79,7 @@
     <script src="{{ asset('js/jquery.mb.YTPlayer.min.js') }}"></script>
     <script src="{{ asset('js/wow.min.js') }}"></script>
     <script src="{{ asset('js/function.js') }}"></script>
+    <script src="{{ asset('js/serviceforms.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@26.0.6/build/js/intlTelInput.min.js"></script>
     @stack('scripts')
     <script>
@@ -96,10 +96,8 @@
                 loadUtils: () => import("https://cdn.jsdelivr.net/npm/intl-tel-input@26.0.6/build/js/utils.js"),
             });
         });
-        
-    </script>
 
-   
+    </script>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </body>
 

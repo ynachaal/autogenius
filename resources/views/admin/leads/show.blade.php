@@ -33,7 +33,8 @@
 
                             {{-- Budget & Ownership Plan --}}
                             <h5 class="fw-bold text-primary mb-3">Budget & Ownership Plan</h5>
-                            <p><strong>Budget:</strong> {{ $lead->budget ? '₹' . number_format($lead->budget) : 'N/A' }}</p>
+                            <p><strong>Budget:</strong> {{ $lead->budget ? '₹' . number_format($lead->budget) : 'N/A' }}
+                            </p>
                             <p><strong>Max Stretch Budget:</strong>
                                 {{ ($lead->max_budget && $lead->max_budget > 0) ? '₹' . number_format($lead->max_budget) : 'N/A' }}
                             </p>
@@ -93,34 +94,65 @@
                     </div>
 
                     {{-- NEW ROW: PAYMENT & SYSTEM INFO --}}
+                    @php
+                        $latestPayment = $lead->payments->sortByDesc('created_at')->first();
+                    @endphp
+
                     <div class="row mt-4">
                         <div class="col-12">
                             <hr>
                             <h5 class="fw-bold text-primary mb-3">Payment & System Information</h5>
                         </div>
+
                         <div class="col-md-4">
-                            <p><strong>Payment Status:</strong> 
-                                <span class="badge {{ $lead->payment_status === 'paid' ? 'bg-success' : 'bg-warning' }}">
-                                    {{ strtoupper($lead->payment_status) }}
-                                </span>
+                            <p>
+                                <strong>Payment Status:</strong>
+                                @if($latestPayment)
+                                                            <span class="badge 
+                                                {{ $latestPayment->status === 'paid' ? 'bg-success' :
+                                    ($latestPayment->status === 'pending' ? 'bg-warning' : 'bg-danger') }}">
+                                                                {{ strtoupper($latestPayment->status) }}
+                                                            </span>
+                                @else
+                                    <span class="badge bg-secondary">UNPAID</span>
+                                @endif
                             </p>
-                            <p><strong>Amount Paid:</strong> {{ $lead->amount_paid ? '₹' . ($lead->amount_paid / 100) : '0.00' }}</p>
-                            <p><strong>Paid At:</strong> {{ $lead->paid_at ? \Carbon\Carbon::parse($lead->paid_at)->format('d M Y, h:i A') : 'N/A' }}</p>
-                        </div>
-                        <div class="col-md-4">
-                            <p><strong>Razorpay Order ID:</strong> <code class="small">{{ $lead->razorpay_order_id ?? 'N/A' }}</code></p>
-                            <p><strong>Razorpay Payment ID:</strong> <code class="small">{{ $lead->razorpay_payment_id ?? 'N/A' }}</code></p>
-                        </div>
-                        <div class="col-md-4">
-                            <p><strong>Declaration Accepted:</strong> 
-                                {!! $lead->declaration 
-                                    ? '<span class="text-success fw-bold">YES</span>' 
-                                    : '<span class="text-danger fw-bold">NO</span>' 
-                                !!}
+
+                            <p><strong>Amount:</strong>
+                                {{ $latestPayment ? '₹' . number_format($latestPayment->amount / 100, 2) : '0.00' }}
                             </p>
-                            <p><strong>Lead Created:</strong> {{ $lead->created_at->format('d M Y, h:i A') }}</p>
+
+                            <p><strong>Paid At:</strong>
+                                {{ $latestPayment && $latestPayment->paid_at
+    ? $latestPayment->paid_at->format('d M Y, h:i A')
+    : 'N/A' }}
+                            </p>
+                        </div>
+
+                        <div class="col-md-4">
+                            <p><strong>Razorpay Order ID:</strong>
+                                <code class="small">{{ $latestPayment->order_id ?? 'N/A' }}</code>
+                            </p>
+
+                            <p><strong>Razorpay Payment ID:</strong>
+                                <code class="small">{{ $latestPayment->payment_id ?? 'N/A' }}</code>
+                            </p>
+                        </div>
+
+                        <div class="col-md-4">
+                            <p><strong>Declaration Accepted:</strong>
+                                {!! $lead->declaration
+    ? '<span class="text-success fw-bold">YES</span>'
+    : '<span class="text-danger fw-bold">NO</span>' 
+            !!}
+                            </p>
+
+                            <p><strong>Lead Created:</strong>
+                                {{ $lead->created_at->format('d M Y, h:i A') }}
+                            </p>
                         </div>
                     </div>
+
                 </div>
 
                 <div class="card-footer">
@@ -129,8 +161,8 @@
                             <i class="bi bi-telephone-fill me-1"></i> Call Lead
                         </a>
                     @endif
-                    
-                    @if($lead->payment_status !== 'paid')
+
+                    @if(!$lead->isPaid())
                         <span class="text-muted ms-3 small italic">Payment is still pending for this lead.</span>
                     @endif
                 </div>

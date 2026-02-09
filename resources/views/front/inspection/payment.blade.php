@@ -6,8 +6,24 @@
     <title>Processing Payment...</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { background-color: #f8f9fa; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; font-family: sans-serif; }
-        .payment-card { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); max-width: 450px; width: 90%; text-align: center; }
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: sans-serif;
+        }
+        .payment-card {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+        }
         .spinner-border { width: 3rem; height: 3rem; }
     </style>
 </head>
@@ -30,7 +46,6 @@
             </div>
             <h3 class="fw-bold">Payment Interrupted</h3>
             <p class="text-muted">You closed the payment window before completing the transaction.</p>
-            
             <div class="d-grid gap-2 mt-4">
                 <button id="pay-btn" class="btn btn-primary btn-lg">Retry Payment</button>
                 <a href="{{ url('/') }}" class="btn btn-link text-decoration-none">Cancel and Go Back</a>
@@ -38,10 +53,10 @@
         </div>
     </div>
 
-    <form id="razorpay-form" action="{{ route('lead.payment.verify') }}" method="POST">
+    <form id="razorpay-form" action="{{ route('inspection.payment.verify') }}" method="POST">
         @csrf
         <input type="hidden" name="razorpay_payment_id" id="razorpay_payment_id">
-        <input type="hidden" name="razorpay_order_id" value="{{ $payment->order_id }}">
+<input type="hidden" name="razorpay_order_id" value="{{ $payment->order_id }}">
         <input type="hidden" name="razorpay_signature" id="razorpay_signature">
     </form>
 </div>
@@ -50,37 +65,39 @@
 <script>
     const options = {
         key: "{{ $razorpayKey }}",
-        amount: "{{ $payment->amount }}",
-        currency: "{{ $payment->currency }}",
+        amount: "{{ $payment->amount  }}",
+        currency: "INR",
         name: "AutoGenius",
-        description: "Service Booking Fee",
+        description: "Car Inspection Fee",
         order_id: "{{ $payment->order_id }}",
         handler: function (response) {
             document.getElementById('payment-status-container').innerHTML = `
                 <div class="spinner-border text-success mb-4" role="status"></div>
                 <h3 class="fw-bold">Verifying Payment</h3>
-                <p class="text-muted">Transaction successful! Redirecting to confirmation...</p>
+                <p class="text-muted">Transaction successful! Confirming your inspection...</p>
             `;
             
             document.getElementById('razorpay_payment_id').value = response.razorpay_payment_id;
             document.getElementById('razorpay_signature').value = response.razorpay_signature;
             document.getElementById('razorpay-form').submit();
         },
+        prefill: {
+            name: "{{ $inspection->customer_name }}",
+            contact: "{{ $inspection->customer_mobile }}",
+            email: "{{ $inspection->customer_email }}"
+        },
+        theme: { color: "#0d6efd" },
         modal: {
             ondismiss: function() {
                 document.getElementById('loading-ui').classList.add('d-none');
                 document.getElementById('action-ui').classList.remove('d-none');
             }
-        },
-        prefill: {
-            name: "{{ $lead->full_name }}",
-            contact: "{{ $lead->mobile }}"
-        },
-        theme: { color: "#0d6efd" }
+        }
     };
 
     const rzp = new Razorpay(options);
 
+    // Retry button
     document.getElementById('pay-btn').onclick = function(e) {
         e.preventDefault();
         rzp.open();
