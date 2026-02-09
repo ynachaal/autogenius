@@ -75,6 +75,10 @@
                         @include('components.forms.car-inspection')
                            @elseif($data['service']->slug === 'get-service-history-and-insurance-claim-details')
                         @include('components.forms.service-history-insurance')
+                         @elseif($data['service']->slug === 'insurance-with-autogenius')
+                         <a href="tel:{{ config('settings.phone', '') }}" class="btn-default mt-3">
+                                   Protect Your Car with AutoGenius
+                                </a>
                     @endif
                 </div>
 
