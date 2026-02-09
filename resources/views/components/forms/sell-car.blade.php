@@ -38,7 +38,7 @@
                 <div class="col-md-3">
                     <div class="form-group mb-4">
                         <label for="year" class="form-label">Year <span class="text-danger">*</span></label>
-                        <input required type="number" name="year" id="year" placeholder="2022" class="form-control"
+                        <input required type="number" name="year" id="year" placeholder="e.g. 2022" class="form-control"
                             value="{{ old('year') }}">
                     </div>
                 </div>
