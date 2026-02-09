@@ -1,4 +1,82 @@
 $(document).ready(function () {
+	// Scroll to success message if it exists
+	if ($('#pdi-success').length) { // Changed to match the PDI success ID from previous step
+		$('html, body').animate({
+			scrollTop: $('#pdi-success').offset().top - 100
+		}, 600);
+	}
+
+	if (!$("#pdiBooking").length) return; // Matches the PDI form ID
+
+	// Define filesize method BEFORE validate()
+	if ($.validator && !$.validator.methods.filesize) {
+		$.validator.addMethod("filesize", function (value, element, param) {
+			if (element.files && element.files.length) {
+				return element.files[0].size <= param;
+			}
+			return true;
+		}, "File size must be under 2MB");
+	}
+
+	$("#pdiBooking").validate({
+		errorElement: 'span',
+		errorClass: 'text-danger small',
+		highlight: function (element) {
+			$(element).addClass('is-invalid');
+		},
+		unhighlight: function (element) {
+			$(element).removeClass('is-invalid');
+		},
+		submitHandler: function (form) {
+			// Check for Turnstile token before submitting
+			const turnstileResponse = $('[name="cf-turnstile-response"]').val();
+			if (!turnstileResponse) {
+				$('#turnstile-error').show();
+				return false;
+			}
+			$('#turnstile-error').hide();
+
+			form.submit();
+		},
+		rules: {
+			customer_name: {
+				required: true,
+				minlength: 3
+			},
+			customer_mobile: {
+				required: true,
+				minlength: 7,
+				maxlength: 20
+			},
+			customer_email: {
+				required: true,
+				email: true // Ensures valid email format
+			},
+			vehicle_name: {
+				required: true,
+				minlength: 3
+			},
+			pdi_date: {
+				required: true,
+				digits: true,
+				minlength: 6,
+				maxlength: 6
+			},
+			pdi_location: {
+				required: true
+			}
+		},
+		messages: {
+			customer_email: {
+				required: "Please enter your email address",
+				email: "Please enter a valid email address"
+			},
+			pdi_date: {
+				digits: "Please enter only numbers for the date",
+				minlength: "Date must be exactly 6 digits (DDMMYY)"
+			}
+		}
+	});
 	if ($('#sell-car-success').length) {
 		$('html, body').animate({
 			scrollTop: $('#sell-car-success').offset().top - 100

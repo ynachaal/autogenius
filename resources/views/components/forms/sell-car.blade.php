@@ -6,7 +6,7 @@
             </h3>
         </div>
         @if(session('success'))
-            <div class="sell-car-success alert alert-success alert-dismissible fade show" role="alert">
+            <div id="sell-car-success" class=" alert alert-success alert-dismissible fade show" role="alert">
                 <strong>Success!</strong> {{ session('success') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
@@ -38,7 +38,7 @@
                 <div class="col-md-3">
                     <div class="form-group mb-4">
                         <label for="year" class="form-label">Year <span class="text-danger">*</span></label>
-                        <input required type="number" name="year" id="year" placeholder="2022" class="form-control"
+                        <input required type="number" name="year" id="year" placeholder="e.g. 2022" class="form-control"
                             value="{{ old('year') }}">
                     </div>
                 </div>

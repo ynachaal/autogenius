@@ -71,6 +71,8 @@
                         @include('components.forms.lead')
                     @elseif($data['service']->slug === 'sell-your-car-with-autogenius')
                         @include('components.forms.sell-car')
+                    @elseif($data['service']->slug === 'new-car-pdi' || $data['service']->slug === 'premium-luxury-car-inspection' || $data['service']->slug === 'get-your-own-car-inspected'  || $data['service']->slug === 'used-car-inspection')
+                        @include('components.forms.car-inspection')
                     @endif
                 </div>
 
