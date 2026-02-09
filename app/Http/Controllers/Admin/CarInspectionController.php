@@ -52,55 +52,54 @@ class CarInspectionController extends Controller
     /**
      * Verify payment for a car inspection
      */
-    public function verifyPayment(CarInspection $car_inspection, Payment $payment)
-    {
-        try {
-            $api = new Api(config('services.razorpay.key'), config('services.razorpay.secret'));
+public function verifyPayment(CarInspection $car_inspection, Payment $payment)
+{
+    try {
+        $api = new Api(config('services.razorpay.key'), config('services.razorpay.secret'));
 
-            $razorOrder = $api->order->fetch($payment->order_id);
-            $razorPayments = $razorOrder->payments();
+        $razorOrder = $api->order->fetch($payment->order_id);
+        // Get all payments associated with this order
+        $razorPayments = $razorOrder->payments(); 
 
-            $isPaid = false;
-            $verifiedPaymentId = null;
+        $isPaid = false;
+        $verifiedPaymentId = null;
 
-            if ($razorOrder->status === 'paid') {
+        // Iterate through all payment attempts for this order
+        foreach ($razorPayments->items as $rp) {
+            if ($rp->status === 'captured') {
                 $isPaid = true;
-            } else {
-                // FIX: Access the 'items' attribute directly from the Razorpay collection
-                $items = $razorPayments->items ?? [];
-
-                foreach ($items as $rp) {
-                    if ($rp->status === 'captured') {
-                        $isPaid = true;
-                        $verifiedPaymentId = $rp->id;
-                        break;
-                    }
-                }
+                $verifiedPaymentId = $rp->id; // Grab the actual Payment ID (pay_XXXXX)
+                break;
             }
-
-            if ($isPaid) {
-                $payment->update([
-                    'payment_id' => $verifiedPaymentId ?? $payment->payment_id,
-                    'status' => 'paid',
-                    'paid_at' => now(),
-                ]);
-
-                // Update the inspection status if necessary
-                $car_inspection->update(['status' => 'confirmed']);
-
-                // Notify Admin (Make sure this method exists in your EmailService)
-                $this->emailService->carInspectionAdminNotification($car_inspection);
-
-                return back()->with('success', 'Inspection payment verified and confirmed!');
-            }
-
-            return back()->with('error', 'Razorpay status: ' . strtoupper($razorOrder->status));
-
-        } catch (\Exception $e) {
-            Log::error('Inspection Verify Error: ' . $e->getMessage());
-            return back()->with('error', 'Verification failed: ' . $e->getMessage());
         }
+
+        // Alternative check: If order is paid but no 'captured' payment found in loop (edge case)
+        if ($razorOrder->status === 'paid') {
+            $isPaid = true;
+        }
+
+        if ($isPaid) {
+            $payment->update([
+                // If loop found a payment ID, use it. Otherwise, keep existing.
+                'payment_id' => $verifiedPaymentId ?? $payment->payment_id, 
+                'status'     => 'paid',
+                'paid_at'    => now(),
+            ]);
+
+            $car_inspection->update(['status' => 'confirmed']);
+
+            $this->emailService->carInspectionAdminNotification($car_inspection);
+
+            return back()->with('success', 'Inspection payment verified and confirmed!');
+        }
+
+        return back()->with('error', 'No captured payment found. Razorpay Order status: ' . strtoupper($razorOrder->status));
+
+    } catch (\Exception $e) {
+        Log::error('Inspection Verify Error: ' . $e->getMessage());
+        return back()->with('error', 'Verification failed: ' . $e->getMessage());
     }
+}
 
     public function destroy(CarInspection $car_inspection)
     {
