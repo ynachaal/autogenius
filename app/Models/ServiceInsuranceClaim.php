@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
-class CarInsurance extends Model
+class ServiceInsuranceClaim extends Model
 {
     use HasFactory;
 

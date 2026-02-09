@@ -61,15 +61,7 @@
                         class="form-control" value="{{ old('customer_mobile') }}">
                 </div>
             </div>
-
-            <div class="col-md-12">
-                <div class="form-group mb-4">
-                    <label for="vehicle_reg_no" class="form-label">Vehicle Registration Number <span class="text-danger">*</span></label>
-                    <input required type="text" name="vehicle_reg_no" id="vehicle_reg_no"
-                        placeholder="e.g. DL 01 CA 1234" class="form-control" value="{{ old('vehicle_reg_no') }}">
-                </div>
-            </div>
-
+          
             <div class="col-md-6">
                 <div class="form-group mb-4">
                     <label for="rc_photo" class="form-label">Upload RC Copy <span class="text-danger">*</span></label>
@@ -80,9 +72,9 @@
 
             <div class="col-md-6">
                 <div class="form-group mb-4">
-                    <label for="insurance_photo" class="form-label">Latest Insurance Policy <span class="text-danger">*</span></label>
+                    <label for="insurance_photo" class="form-label">Upload Latest Insurance Policy <span class="text-danger">*</span></label>
                     <input required type="file" name="insurance_photo" id="insurance_photo" class="form-control" accept="image/*,.pdf">
-                    <div class="small mt-1">Required for claim history</div>
+                    
                 </div>
             </div>
 

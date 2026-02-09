@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Razorpay\Api\Api;
 
-class CarInsuranceController extends Controller
+class ServiceInsuranceClaimController extends Controller
 {
     protected $emailService;
     protected $pageService;
