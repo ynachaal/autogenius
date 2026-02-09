@@ -55,7 +55,7 @@
                     <div class="form-group mb-4">
                         <label for="no_of_owners" class="form-label">No. of Owners <span
                                 class="text-danger">*</span></label>
-                        <input required type="number" name="no_of_owners" id="no_of_owners" placeholder="1"
+                        <input required type="number" name="no_of_owners" id="no_of_owners" placeholder="e.g. 1"
                             class="form-control" value="{{ old('no_of_owners') }}">
                     </div>
                 </div>
@@ -65,7 +65,7 @@
                         <label for="registration_number" class="form-label">Registration Number <span
                                 class="text-danger">*</span></label>
                         <input required type="text" name="registration_number" id="registration_number"
-                            placeholder="ABC-1234" class="form-control" value="{{ old('registration_number') }}">
+                            placeholder="e.g. ABC-1234" class="form-control" value="{{ old('registration_number') }}">
                     </div>
                 </div>
 

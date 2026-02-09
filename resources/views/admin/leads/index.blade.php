@@ -76,7 +76,22 @@
                                             @if($latestPayment && $latestPayment->status === 'paid')
                                                 <span class="badge bg-success">Paid</span>
                                             @elseif($latestPayment && $latestPayment->status === 'pending')
-                                                <span class="badge bg-secondary">Pending</span>
+                                                <div class="d-flex align-items-center">
+                                                    <span class="badge bg-secondary px-2"
+                                                        style="font-size: 0.75rem;">Pending</span>
+
+                                                    <form
+                                                        action="{{ route('admin.leads.verify-payment', [$lead->id, $latestPayment->id]) }}"
+                                                        method="POST" class="ms-2">
+                                                        @csrf
+                                                        <button type="submit"
+                                                            class="btn btn-link p-0 text-info border-0 btn-verify-sync"
+                                                            title="Verify with Razorpay"
+                                                            style="line-height: 1; vertical-align: middle;">
+                                                            <i class="fas fa-sync-alt fa-xs"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             @elseif($latestPayment && $latestPayment->status === 'failed')
                                                 <span class="badge bg-danger">Failed</span>
                                             @else

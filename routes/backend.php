@@ -57,9 +57,13 @@ Route::middleware(['auth', AdminMiddleware::class])
             ->name('storage.link');
 
         Route::resource('leads', LeadController::class);
+        Route::post('leads/{lead}/payments/{payment}/verify', [LeadController::class, 'verifyPayment'])
+    ->name('leads.verify-payment');
         Route::resource('contact-submissions', ContactSubmissionController::class);
         Route::resource('sell-your-cars', SellYourCarController::class); 
-              Route::resource('car-inspections', CarInspectionController::class);    
+         Route::resource('car-inspections', CarInspectionController::class); 
+         Route::post('car-inspections/{car_inspection}/payments/{payment}/verify', [CarInspectionController::class, 'verifyPayment'])
+    ->name('car-inspections.verify-payment');   
         Route::resource('consultations', ConsultationController::class);
 
         Route::post('consultations/{consultation}/status', [ConsultationController::class, 'updateStatus'])
