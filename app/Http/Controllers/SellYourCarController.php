@@ -69,7 +69,7 @@ class SellYourCarController extends Controller
         $sellYourCar = SellYourCar::create($validated);
 
         // 4. Send Admin Email
-          $this->emailService->sellYourCarAdminNotification($sellYourCar);
+          $this->emailService->sellYourCarAdminNotification($sellYourCar); 
 
         // 5. Redirect
         return back()->with('success', 'Thanks! Your request to sell your car has been submitted.');
