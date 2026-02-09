@@ -130,7 +130,7 @@ class CarInspectionController extends Controller
             return redirect()->route('inspection.thank-you')->with('success', 'Payment verified successfully');
 
         } catch (\Exception $e) {
-            dd($e->getMessage());
+     
             Log::error('PDI Payment Verify Failed: ' . $e->getMessage());
             return redirect()->route('inspection.payment.failed');
         }
