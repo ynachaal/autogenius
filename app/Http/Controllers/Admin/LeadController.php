@@ -52,53 +52,55 @@ class LeadController extends Controller
         return view('admin.leads.show', compact('lead'));
     }
 
-    public function verifyPayment(Lead $lead, Payment $payment)
-    {
-        try {
-            $api = new Api(config('services.razorpay.key'), config('services.razorpay.secret'));
+   public function verifyPayment(Lead $lead, Payment $payment)
+{
+    try {
+        $api = new Api(config('services.razorpay.key'), config('services.razorpay.secret'));
 
-            $razorOrder = $api->order->fetch($payment->order_id);
-            $razorPayments = $razorOrder->payments();
+        $razorOrder = $api->order->fetch($payment->order_id);
+        $razorPayments = $razorOrder->payments();
 
-            $isPaid = false;
-            $verifiedPaymentId = null;
+        $isPaid = false;
+        $verifiedPaymentId = null;
 
-            if ($razorOrder->status === 'paid') {
+        // ALWAYS loop through payments to find the successful Payment ID
+        // This ensures payment_id is never null if a captured payment exists
+        $items = $razorPayments->items ?? [];
+        foreach ($items as $rp) {
+            if ($rp->status === 'captured') {
                 $isPaid = true;
-            } else {
-                $items = $razorPayments->items ?? [];
-                foreach ($items as $rp) {
-                    if ($rp->status === 'captured') {
-                        $isPaid = true;
-                        $verifiedPaymentId = $rp->id;
-                        break;
-                    }
-                }
+                $verifiedPaymentId = $rp->id; // This captures pay_XXXXXXXX
+                break;
             }
-
-            if ($isPaid) {
-                $payment->update([
-                    'payment_id' => $verifiedPaymentId ?? $payment->payment_id,
-                    'status' => 'paid',
-                    'paid_at' => now(),
-                ]);
-
-                // 4. Trigger the Admin Notification
-                // We check for declaration just like in the front-end controller
-                if ($lead->declaration) {
-                    $this->emailService->sendLeadAdminNotification($lead);
-                }
-
-                return back()->with('success', 'Payment verified! Status updated and admin email sent.');
-            }
-
-            return back()->with('error', 'Razorpay reports no successful payment yet (Status: ' . strtoupper($razorOrder->status) . ').');
-
-        } catch (\Exception $e) {
-            Log::error('Manual Verify Error: ' . $e->getMessage());
-            return back()->with('error', 'Could not verify with Razorpay: ' . $e->getMessage());
         }
+
+        // Fallback: Check order status if loop didn't find a captured item for some reason
+        if (!$isPaid && $razorOrder->status === 'paid') {
+            $isPaid = true;
+        }
+
+        if ($isPaid) {
+            $payment->update([
+                'payment_id' => $verifiedPaymentId ?? $payment->payment_id,
+                'status'     => 'paid',
+                'paid_at'    => now(),
+            ]);
+
+            // Trigger the Admin Notification
+            if ($lead->declaration) {
+                $this->emailService->sendLeadAdminNotification($lead);
+            }
+
+            return back()->with('success', 'Payment verified! Status updated and admin email sent.');
+        }
+
+        return back()->with('error', 'Razorpay reports no successful payment yet (Status: ' . strtoupper($razorOrder->status) . ').');
+
+    } catch (\Exception $e) {
+        Log::error('Manual Verify Error: ' . $e->getMessage());
+        return back()->with('error', 'Could not verify with Razorpay: ' . $e->getMessage());
     }
+}
 
     public function destroy(Lead $lead)
     {
