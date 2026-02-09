@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ContactSubmissionController;
 use App\Http\Controllers\TinyMCEController;
 use App\Http\Controllers\SellYourCarController;
+use App\Http\Controllers\CarInspectionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -98,3 +99,6 @@ Route::post('/lead/payment/verify', [LeadController::class, 'verifyPayment'])->n
 
 
 Route::post('/sell-car/submit', [SellYourCarController::class, 'store'])->name('car.submit');
+
+Route::post('/pdi/submit', [CarInspectionController::class, 'store'])
+    ->name('pdi.submit');
