@@ -43,7 +43,7 @@ class LeadController extends Controller
         ]);
 
         // 2. Turnstile verify
-        /* try {
+        try {
             $turnstile = Http::asForm()
                 ->timeout(5)
                 ->post('https://challenges.cloudflare.com/turnstile/v0/siteverify', [
@@ -58,7 +58,7 @@ class LeadController extends Controller
 
         if (!$turnstile->json('success')) {
             return back()->withErrors(['cf-turnstile-response' => 'Captcha verification failed.'])->withInput();
-        } */
+        } 
 
         // 3. Map lead data
         $data = [
