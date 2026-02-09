@@ -46,6 +46,68 @@
                                 <div class="col-sm-8 text-primary"><i class="bi bi-geo-alt"></i>
                                     {{ $inspection->inspection_location }}</div>
                             </div>
+
+                            {{-- ADDED PAYMENT & SYSTEM INFO SECTION --}}
+                            @php
+                                $latestPayment = $inspection->payments->sortByDesc('created_at')->first();
+                            @endphp
+
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <hr>
+                                    <h5 class="fw-bold text-primary mb-3">Payment & System Information</h5>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <p>
+                                        <strong>Payment Status:</strong>
+                                        @if($latestPayment)
+                                            <span class="badge 
+                                                {{ $latestPayment->status === 'paid' ? 'bg-success' :
+                                                ($latestPayment->status === 'pending' ? 'bg-warning' : 'bg-danger') }}">
+                                                {{ strtoupper($latestPayment->status) }}
+                                            </span>
+                                        @else
+                                            <span class="badge bg-secondary">UNPAID</span>
+                                        @endif
+                                    </p>
+
+                                    <p><strong>Amount:</strong>
+                                        {{ $latestPayment ? '₹' . number_format($latestPayment->amount / 100, 2) : '0.00' }}
+                                    </p>
+
+                                    <p><strong>Paid At:</strong>
+                                        {{ $latestPayment && $latestPayment->paid_at
+                                            ? $latestPayment->paid_at->format('d M Y, h:i A')
+                                            : 'N/A' }}
+                                    </p>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <p><strong>Razorpay Order ID:</strong>
+                                        <code class="small">{{ $latestPayment->order_id ?? 'N/A' }}</code>
+                                    </p>
+
+                                    <p><strong>Razorpay Payment ID:</strong>
+                                        <code class="small">{{ $latestPayment->payment_id ?? 'N/A' }}</code>
+                                    </p>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <p><strong>Request Created:</strong>
+                                        {{ $inspection->created_at->format('d M Y, h:i A') }}
+                                    </p>
+                                    
+                                    @if($latestPayment && $latestPayment->status !== 'paid')
+                                        <form action="{{ route('admin.car-inspections.verify-payment', [$inspection->id, $latestPayment->id]) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm btn-outline-primary">
+                                                <i class="bi bi-patch-check"></i> Verify Payment
+                                            </button>
+                                        </form>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -57,7 +119,7 @@
                         </div>
                         <div class="card-body p-0">
                             <ul class="list-group list-group-flush">
-                                @forelse($inspection->payments as $payment)
+                                @forelse($inspection->payments->sortByDesc('created_at') as $payment)
                                     <li class="list-group-item">
                                         <div class="d-flex justify-content-between">
                                             <span>₹{{ number_format($payment->amount / 100, 2) }}</span>
@@ -68,7 +130,7 @@
                                         </div>
                                         <small
                                             class="text-muted d-block">{{ $payment->created_at->format('d M, h:i A') }}</small>
-                                        <small class="text-xs text-uppercase">{{ $payment->payment_id }}</small>
+                                        <small class="text-xs text-uppercase text-muted">ID: {{ $payment->payment_id ?? 'N/A' }}</small>
                                     </li>
                                 @empty
                                     <li class="list-group-item text-center text-muted py-4">No payment attempts found.</li>
