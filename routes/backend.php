@@ -6,6 +6,7 @@ use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\Admin\{
     DashboardController,
     ConsultationController,
+    SellYourCarController,
     LeadController,
     PageController,
     BrandController,
@@ -56,6 +57,8 @@ Route::middleware(['auth', AdminMiddleware::class])
 
         Route::resource('leads', LeadController::class);
         Route::resource('contact-submissions', ContactSubmissionController::class);
+        Route::resource('sell-your-cars', SellYourCarController::class); 
+        
         Route::resource('consultations', ConsultationController::class);
 
         Route::post('consultations/{consultation}/status', [ConsultationController::class, 'updateStatus'])

@@ -56,7 +56,7 @@
                                 @endif
                             </figure>
                         </div>
-                        {{-- ✅ YouTube Video --}}
+                       
                         @if(!empty($data['service']->youtube_url))
                             <div class="google-map-iframe mt-4">
                                 <iframe src="{{ str_replace('watch?v=', 'embed/', $data['service']->youtube_url) }}"
@@ -69,6 +69,8 @@
                     <br>
                     @if($data['service']->slug === 'new-car-consultation' || $data['service']->slug === 'used-car-consultation-and-unlimited-inspections')
                         @include('components.forms.lead')
+                    @elseif($data['service']->slug === 'sell-your-car-with-autogenius')
+                        @include('components.forms.sell-car')
                     @endif
                 </div>
 

@@ -25,6 +25,11 @@ return [
 
         'children' => [
             [
+                'title' => 'Sell Your Car',
+                'route' => route('admin.sell-your-cars.index'),
+                'active' => Route::is('admin.sell-your-cars.*'),
+            ],
+            [
                 'title' => 'Contact Submissions',
                 'route' => route('admin.contact-submissions.index'),
                 'active' => Route::is('admin.contact-submissions.*'),
