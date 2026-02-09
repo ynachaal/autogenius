@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CarInspection;
 use App\Models\Payment;
+use App\Models\Page;
 use App\Services\EmailService;
 use App\Services\PageService;
 use Illuminate\Http\Request;
@@ -32,7 +33,8 @@ class CarInspectionController extends Controller
             'vehicle_name'    => 'required|string|max:255',
             'pdi_date'        => 'required|digits:6', 
             'pdi_location'    => 'required|string|max:255',
-            /* 'cf-turnstile-response' => 'required', */
+            'page_slug'       => 'required|string', // The hidden input from your form
+            'cf-turnstile-response' => 'required', 
         ]);
 
         // Turnstile verify
@@ -54,6 +56,9 @@ class CarInspectionController extends Controller
             return back()->withErrors(['cf-turnstile-response' => 'Captcha verification failed.'])->withInput();
         } 
 
+        $page = Page::where('slug', $request->page_slug)->first();
+        $serviceName = $page ? $page->title : ucwords(str_replace('-', ' ', $request->page_slug));
+
         // Create inspection
         $inspection = CarInspection::create([
             'customer_name'       => $request->customer_name,
@@ -61,6 +66,7 @@ class CarInspectionController extends Controller
             'customer_email'      => $request->customer_email,
             'vehicle_name'        => $request->vehicle_name,
             'inspection_date'     => $request->pdi_date,
+            'service_type'        => $serviceName, // Now saves "Pre-Delivery Inspection" instead of "pre-delivery-inspection"
             'inspection_location' => $request->pdi_location,
             'status'              => 'pending',
         ]);
@@ -77,6 +83,7 @@ class CarInspectionController extends Controller
                 'notes'    => [
                     'inspection_id' => $inspection->id,
                     'customer'      => $inspection->customer_name,
+                    'service_type'  => $inspection->service_type,
                 ],
             ]);
 

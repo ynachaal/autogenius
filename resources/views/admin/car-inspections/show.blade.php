@@ -10,24 +10,41 @@
                     <div class="card card-outline card-primary shadow-sm">
                         <div class="card-header">
                             <h3 class="card-title">Request Details</h3>
+                            <div class="card-tools">
+                                <a href="{{ route('admin.car-inspections.index') }}" class="btn btn-sm btn-secondary">
+                                    <i class="bi bi-list"></i> Back to List
+                                </a>
+                            </div>
                         </div>
+
                         <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-sm-4 fw-bold">Service Type:</div>
+                                <div class="col-sm-8">
+                                    <span class="badge bg-info text-dark">{{ $inspection->service_type ?? 'Standard Inspection' }}</span>
+                                </div>
+                            </div>
                             <div class="row mb-3">
                                 <div class="col-sm-4 fw-bold">Customer Name:</div>
                                 <div class="col-sm-8">{{ $inspection->customer_name }}</div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-sm-4 fw-bold">Mobile / Email:</div>
-                                <div class="col-sm-8">{{ $inspection->customer_mobile }} / {{ $inspection->customer_email ?? 'N/A' }}</div>
+                                <div class="col-sm-8">{{ $inspection->customer_mobile }} /
+                                    {{ $inspection->customer_email ?? 'N/A' }}
+                                </div>
                             </div>
                             <hr>
                             <div class="row mb-3">
                                 <div class="col-sm-4 fw-bold">Inspection Date:</div>
-                                <div class="col-sm-8">{{ \Carbon\Carbon::parse($inspection->inspection_date)->format('l, d F Y') }}</div>
+                                <div class="col-sm-8">
+                                    {{ \Carbon\Carbon::parse($inspection->inspection_date)->format('l, d F Y') }}
+                                </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-sm-4 fw-bold">Location:</div>
-                                <div class="col-sm-8 text-primary"><i class="bi bi-geo-alt"></i> {{ $inspection->inspection_location }}</div>
+                                <div class="col-sm-8 text-primary"><i class="bi bi-geo-alt"></i>
+                                    {{ $inspection->inspection_location }}</div>
                             </div>
                         </div>
                     </div>
@@ -44,11 +61,13 @@
                                     <li class="list-group-item">
                                         <div class="d-flex justify-content-between">
                                             <span>₹{{ number_format($payment->amount / 100, 2) }}</span>
-                                            <span class="badge {{ $payment->status == 'paid' ? 'bg-success' : 'bg-danger' }}">
+                                            <span
+                                                class="badge {{ $payment->status == 'paid' ? 'bg-success' : 'bg-danger' }}">
                                                 {{ strtoupper($payment->status) }}
                                             </span>
                                         </div>
-                                        <small class="text-muted d-block">{{ $payment->created_at->format('d M, h:i A') }}</small>
+                                        <small
+                                            class="text-muted d-block">{{ $payment->created_at->format('d M, h:i A') }}</small>
                                         <small class="text-xs text-uppercase">{{ $payment->payment_id }}</small>
                                     </li>
                                 @empty

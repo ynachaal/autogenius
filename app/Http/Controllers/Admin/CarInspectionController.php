@@ -89,7 +89,7 @@ class CarInspectionController extends Controller
                 $car_inspection->update(['status' => 'confirmed']);
 
                 // Notify Admin (Make sure this method exists in your EmailService)
-                $this->emailService->sendInspectionAdminNotification($car_inspection);
+                $this->emailService->carInspectionAdminNotification($car_inspection);
 
                 return back()->with('success', 'Inspection payment verified and confirmed!');
             }

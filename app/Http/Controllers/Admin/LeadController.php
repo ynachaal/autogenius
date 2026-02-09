@@ -4,11 +4,21 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Lead;
 use Illuminate\Http\Request;
-use App\Models\Payment; // <--- ADD THIS LINE TO FIX THE ERROR
+use App\Models\Payment;
 use Razorpay\Api\Api;
 use Illuminate\Support\Facades\Log;
+use App\Services\EmailService; // 1. Import the EmailService
+
 class LeadController extends Controller
 {
+    protected $emailService; // 2. Define the property
+
+    // 3. Add the constructor for Dependency Injection
+    public function __construct(EmailService $emailService)
+    {
+        $this->emailService = $emailService;
+    }
+
     public function index(Request $request)
     {
         $search = $request->input('search');
@@ -41,16 +51,13 @@ class LeadController extends Controller
         $lead->load('payments');
         return view('admin.leads.show', compact('lead'));
     }
+
     public function verifyPayment(Lead $lead, Payment $payment)
     {
         try {
             $api = new Api(config('services.razorpay.key'), config('services.razorpay.secret'));
 
-            // 1. Fetch the order details from Razorpay
             $razorOrder = $api->order->fetch($payment->order_id);
-
-            // 2. Fetch payments associated with this order
-            // Sometimes the Order status is 'created' but a payment inside it is 'captured'
             $razorPayments = $razorOrder->payments();
 
             $isPaid = false;
@@ -59,8 +66,8 @@ class LeadController extends Controller
             if ($razorOrder->status === 'paid') {
                 $isPaid = true;
             } else {
-                // Check if any individual payment attempt was successful (captured)
-                foreach ($razorPayments->all() as $rp) {
+                $items = $razorPayments->items ?? [];
+                foreach ($items as $rp) {
                     if ($rp->status === 'captured') {
                         $isPaid = true;
                         $verifiedPaymentId = $rp->id;
@@ -70,20 +77,22 @@ class LeadController extends Controller
             }
 
             if ($isPaid) {
-                // 3. Update our database
                 $payment->update([
                     'payment_id' => $verifiedPaymentId ?? $payment->payment_id,
                     'status' => 'paid',
                     'paid_at' => now(),
                 ]);
 
-                // 4. Trigger the Admin Notification now that we have confirmed payment
+                // 4. Trigger the Admin Notification
+                // We check for declaration just like in the front-end controller
+                if ($lead->declaration) {
+                    $this->emailService->sendLeadAdminNotification($lead);
+                }
 
-
-                return back()->with('success', 'Payment verified! Status updated to PAID and notification sent.');
+                return back()->with('success', 'Payment verified! Status updated and admin email sent.');
             }
 
-            return back()->with('error', 'Razorpay reports no successful payment for this order yet (Status: ' . strtoupper($razorOrder->status) . ').');
+            return back()->with('error', 'Razorpay reports no successful payment yet (Status: ' . strtoupper($razorOrder->status) . ').');
 
         } catch (\Exception $e) {
             Log::error('Manual Verify Error: ' . $e->getMessage());

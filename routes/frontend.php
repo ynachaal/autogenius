@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\LeadController;
+use App\Http\Controllers\CarInsuranceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ContactSubmissionController;
 use App\Http\Controllers\TinyMCEController;
@@ -125,3 +126,18 @@ Route::get('/inspection/thank-you', [CarInspectionController::class, 'thankYou']
 
 Route::get('/inspection/payment-failed', [CarInspectionController::class, 'paymentFailed'])
     ->name('inspection.payment.failed');
+
+
+
+    Route::post('/insurance/submit', [CarInsuranceController::class, 'store'])
+    ->name('insurance.submit');
+
+Route::get('/insurance/payment/{insurance}', [CarInsuranceController::class, 'payment'])
+    ->name('insurance.payment')
+    ->middleware('signed');
+
+Route::post('/insurance/payment/verify', [CarInsuranceController::class, 'verifyPayment'])
+    ->name('insurance.payment.verify');
+
+Route::get('/insurance/thank-you', [CarInsuranceController::class, 'thankYou'])
+    ->name('insurance.thank-you');

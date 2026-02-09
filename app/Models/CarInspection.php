@@ -17,6 +17,7 @@ class CarInspection extends Model
         'customer_mobile',
         'customer_email',
         'vehicle_name',
+        'service_type',
         'inspection_date',
         'inspection_location',
         'status',

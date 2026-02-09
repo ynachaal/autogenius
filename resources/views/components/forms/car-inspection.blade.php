@@ -2,7 +2,7 @@
     <div class="contact-form">
         <div class="contact-form-title">
             <h3 class="text-anime-style-3 text-center mb-3" data-cursor="-opaque" style="perspective: 400px;">
-                Book PDI Inspection - AutoGenius
+                Inspection - AutoGenius
             </h3>
         </div>
 
@@ -25,6 +25,8 @@
 
         <form id="pdiBooking" novalidate action="{{ route('pdi.submit') }}" method="POST">
             @csrf
+
+            <input type="hidden" name="page_slug" value="{{ $slug ?? request()->segment(count(request()->segments())) }}">
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group mb-4">
@@ -67,7 +69,7 @@
                                 class="text-danger">*</span></label>
                         <input required type="text" name="pdi_date" id="datepicker" placeholder="e.g. 251226"
                             maxlength="6" class="form-control" value="{{ old('pdi_date') }}">
-                     
+
                     </div>
                 </div>
 
