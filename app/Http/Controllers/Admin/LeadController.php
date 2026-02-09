@@ -56,11 +56,14 @@ class LeadController extends Controller
             $isPaid = false;
             $verifiedPaymentId = null;
 
-            if ($razorOrder->status === 'paid') {
+           if ($razorOrder->status === 'paid') {
                 $isPaid = true;
             } else {
-                // Check if any individual payment attempt was successful (captured)
-                foreach ($razorPayments->all() as $rp) {
+                // FIX: Access the 'items' attribute directly from the collection
+                // We also add a null check to prevent errors if no payments exist
+                $items = $razorPayments->items ?? [];
+
+                foreach ($items as $rp) {
                     if ($rp->status === 'captured') {
                         $isPaid = true;
                         $verifiedPaymentId = $rp->id;
