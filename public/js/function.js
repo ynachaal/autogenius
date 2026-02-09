@@ -1,5 +1,9 @@
 $(document).ready(function () {
-
+	if ($('#sell-car-success').length) {
+		$('html, body').animate({
+			scrollTop: $('#sell-car-success').offset().top - 100
+		}, 600);
+	}
 	if (!$("#sellCar").length) return;
 
 	// Define filesize method BEFORE validate()
@@ -21,6 +25,17 @@ $(document).ready(function () {
 		unhighlight: function (element) {
 			$(element).removeClass('is-invalid');
 		},
+		submitHandler: function (form) {
+			// Check for Turnstile token before submitting
+			const turnstileResponse = $('[name="cf-turnstile-response"]').val();
+			if (!turnstileResponse) {
+				$('#turnstile-error').show();
+				return false;
+			}
+			$('#turnstile-error').hide();
+
+			form.submit();
+		},
 		rules: {
 			vehicle_name: { required: true, minlength: 3 },
 			year: { required: true, digits: true, minlength: 4, maxlength: 4 },
@@ -31,7 +46,8 @@ $(document).ready(function () {
 			customer_name: { required: true, minlength: 3 },
 			mobcustomer_mobileile: { required: true, minlength: 7, maxlength: 20 },
 			car_photos: { extension: "jpg|jpeg|png", filesize: 2097152 }
-		}
+		},
+
 	});
 	function updateRunningPlaceholder() {
 		let pattern = $('input[name="running_pattern"]:checked').val();
