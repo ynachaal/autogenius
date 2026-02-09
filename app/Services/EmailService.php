@@ -297,17 +297,21 @@ class EmailService
      */
     public function sendLeadAdminNotification($lead): bool
     {
+        // Fix: Pull the status from the payments relationship (matching your Blade logic)
+        $latestPayment = $lead->payments->sortByDesc('created_at')->first();
+        $statusText = $latestPayment ? strtoupper($latestPayment->status) : 'PENDING';
+
         $data = [
             '{full_name}' => $lead->full_name ?? 'N/A',
             '{mobile}' => $lead->mobile ?? 'N/A',
             '{city}' => $lead->city ?? 'N/A',
             '{service_required}' => ucfirst($lead->service_required ?? 'N/A'),
-            '{payment_status}' => strtoupper($lead->payment_status ?? 'PENDING'),
+            '{payment_status}' => $statusText, // Fixed: now dynamic
             '{budget}' => number_format($lead->budget ?? 0),
             '{max_budget}' => ($lead->max_budget > 0) ? number_format($lead->max_budget) : 'N/A',
             '{approx_running}' => $lead->approx_running ?? '0',
             '{preferred_contact_method}' => ucfirst($lead->preferred_contact_method ?? 'N/A'),
-            '{admin_url}' => url('/portal-8l2y1r/leads/' . $lead->id), // Using url() helper is safer
+            '{admin_url}' => url('/portal-8l2y1r/leads/' . $lead->id),
             '{year}' => now()->year,
         ];
 
@@ -315,7 +319,7 @@ class EmailService
             config('settings.admin_email', 'admin@autogenious.com'),
             'New Lead Alert - Admin',
             $data,
-            'New Lead: ' . ($lead->full_name ?? 'New Inquiry') . ' - ' . strtoupper($lead->payment_status ?? 'PENDING')
+            'New Lead: ' . ($lead->full_name ?? 'New Inquiry') . ' - ' . $statusText
         );
     }
 
