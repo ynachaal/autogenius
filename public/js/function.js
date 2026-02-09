@@ -1,4 +1,38 @@
 $(document).ready(function () {
+
+	if (!$("#sellCar").length) return;
+
+	// Define filesize method BEFORE validate()
+	if ($.validator && !$.validator.methods.filesize) {
+		$.validator.addMethod("filesize", function (value, element, param) {
+			if (element.files && element.files.length) {
+				return element.files[0].size <= param;
+			}
+			return true;
+		}, "File size must be under 2MB");
+	}
+
+	$("#sellCar").validate({
+		errorElement: 'span',
+		errorClass: 'text-danger small',
+		highlight: function (element) {
+			$(element).addClass('is-invalid');
+		},
+		unhighlight: function (element) {
+			$(element).removeClass('is-invalid');
+		},
+		rules: {
+			vehicle_name: { required: true, minlength: 3 },
+			year: { required: true, digits: true, minlength: 4, maxlength: 4 },
+			kms_driven: { required: true, number: true },
+			no_of_owners: { required: true, digits: true },
+			registration_number: { required: true, minlength: 4 },
+			car_location: { required: true },
+			customer_name: { required: true, minlength: 3 },
+			mobcustomer_mobileile: { required: true, minlength: 7, maxlength: 20 },
+			car_photos: { extension: "jpg|jpeg|png", filesize: 2097152 }
+		}
+	});
 	function updateRunningPlaceholder() {
 		let pattern = $('input[name="running_pattern"]:checked').val();
 		let placeholderText = "km";
@@ -55,13 +89,13 @@ $(document).ready(function () {
 		},
 		submitHandler: function (form) {
 			// Check for Turnstile token before submitting
-			 const turnstileResponse = $('[name="cf-turnstile-response"]').val();
+			const turnstileResponse = $('[name="cf-turnstile-response"]').val();
 			if (!turnstileResponse) {
 				$('#turnstile-error').show();
 				return false;
 			}
 			$('#turnstile-error').hide();
-		
+
 			form.submit();
 		}
 	});
@@ -328,7 +362,11 @@ $(document).ready(function () {
 
 	/* Image Reveal Animation */
 	if ($('.reveal').length) {
-		gsap.registerPlugin(ScrollTrigger);
+		if (typeof ScrollTrigger !== 'undefined') {
+			gsap.registerPlugin(ScrollTrigger);
+		} else {
+			console.error("ScrollTrigger is missing! Check your script tags.");
+		}
 		let revealContainers = document.querySelectorAll(".reveal");
 		revealContainers.forEach((container) => {
 			let image = container.querySelector("img");

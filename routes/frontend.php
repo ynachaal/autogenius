@@ -6,6 +6,7 @@ use App\Http\Controllers\LeadController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ContactSubmissionController;
 use App\Http\Controllers\TinyMCEController;
+use App\Http\Controllers\SellYourCarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,3 +95,6 @@ Route::post('/razorpay/success', [SiteController::class, 'razorpaySuccess'])
     ->middleware('signed');
 
 Route::post('/lead/payment/verify', [LeadController::class, 'verifyPayment'])->name('lead.payment.verify');
+
+
+Route::post('/sell-car/submit', [SellYourCarController::class, 'store'])->name('car.submit');

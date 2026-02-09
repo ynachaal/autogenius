@@ -68,6 +68,15 @@
                                                 <span class="text-muted small">N/A</span>
                                             @endif
                                         </td>
+                                        <td>
+                                            @if($lead->payment_status == 'paid')
+                                                <span class="badge bg-success">Paid</span>
+                                            @elseif($lead->payment_status == 'pending')
+                                                <span class="badge bg-secondary">Pending</span>
+                                            @else
+                                                <span class="badge bg-light text-dark">{{ ucfirst($lead->payment_status ?? 'Unpaid') }}</span>
+                                            @endif
+                                        </td>
                                         <td>{{ $lead->created_at ? $lead->created_at->format('Y-m-d') : 'N/A' }}</td>
                                         <td class="text-center">
                                             <a href="{{ route('admin.leads.show', $lead) }}" class="btn btn-sm btn-primary">

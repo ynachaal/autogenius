@@ -319,4 +319,33 @@ class EmailService
         );
     }
 
+    /**
+ * Send Sell Your Car inquiry notification to admin.
+ *
+ * @param \App\Models\SellYourCar $sellYourCar
+ * @return bool
+ */
+public function sellYourCarAdminNotification($sellYourCar): bool
+{
+    $data = [
+        '{customer_name}'        => $sellYourCar->customer_name ?? '',
+        '{customer_mobile}'      => $sellYourCar->customer_mobile ?? '',
+        '{vehicle_name}'         => $sellYourCar->vehicle_name ?? '',
+        '{year}'                 => $sellYourCar->year ?? '',
+        '{kms_driven}'           => $sellYourCar->kms_driven ?? '',
+        '{no_of_owners}'         => $sellYourCar->no_of_owners ?? '',
+        '{registration_number}'  => $sellYourCar->registration_number ?? '',
+        '{car_location}'         => $sellYourCar->car_location ?? '',
+        '{date}'                 => optional($sellYourCar->created_at)->format('d-m-Y H:i:s'),
+        '{website_link}'         => config('app.url', url('/')),
+    ];
+
+    return $this->sendEmailInstant(
+        config('settings.admin_email', 'admin@autogenious.com'),
+        'Sell Your Car - Admin',
+        $data,
+        'New Sell Your Car Inquiry'
+    );
+}
+
 }
