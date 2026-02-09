@@ -102,6 +102,8 @@ Route::post('/lead/payment/verify', [LeadController::class, 'verifyPayment'])->n
 // sell car routes
 Route::post('/sell-car/submit', [SellYourCarController::class, 'store'])->name('car.submit');
 
+Route::get('/sell-car/thank-you', [SellYourCarController::class, 'thankYou'])->name('car.thank-you');
+
 
 // inspection routes
 

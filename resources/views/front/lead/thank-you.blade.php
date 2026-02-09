@@ -22,7 +22,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="page-content text-center">
-                    <p>Your Inquiry Has Been Successfully Received. We Will Get Back at You Soon.</p>
+                    <p>{{ $response }}</p>
                 </div>
             </div>
         </div>

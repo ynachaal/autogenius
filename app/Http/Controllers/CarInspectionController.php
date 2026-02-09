@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CarInspection;
+use App\Models\Payment;
 use App\Services\EmailService;
 use App\Services\PageService;
 use Illuminate\Http\Request;
@@ -24,7 +25,6 @@ class CarInspectionController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        // 1. Validate (matching your form names)
         $request->validate([
             'customer_name'   => 'required|string|max:255',
             'customer_mobile' => 'required|string|max:20',
@@ -32,11 +32,11 @@ class CarInspectionController extends Controller
             'vehicle_name'    => 'required|string|max:255',
             'pdi_date'        => 'required|digits:6', 
             'pdi_location'    => 'required|string|max:255',
-            'cf-turnstile-response' => 'required',
+            /* 'cf-turnstile-response' => 'required', */
         ]);
 
-        // 2. Verify Cloudflare Turnstile
-        try {
+        // Turnstile verify
+         try {
             $turnstile = Http::asForm()->timeout(5)->post(
                 'https://challenges.cloudflare.com/turnstile/v0/siteverify',
                 [
@@ -52,9 +52,9 @@ class CarInspectionController extends Controller
 
         if (!$turnstile->json('success')) {
             return back()->withErrors(['cf-turnstile-response' => 'Captcha verification failed.'])->withInput();
-        }
+        } 
 
-        // 3. Create Inspection Record (Mapped to your DB columns)
+        // Create inspection
         $inspection = CarInspection::create([
             'customer_name'       => $request->customer_name,
             'customer_mobile'     => $request->customer_mobile,
@@ -62,15 +62,14 @@ class CarInspectionController extends Controller
             'vehicle_name'        => $request->vehicle_name,
             'inspection_date'     => $request->pdi_date,
             'inspection_location' => $request->pdi_location,
-            'payment_status'      => 'pending',
             'status'              => 'pending',
         ]);
 
-        // 4. Create Razorpay Order
         try {
             $api = new Api(config('services.razorpay.key'), config('services.razorpay.secret'));
 
-          $amountInPaise = 50000; // ₹500.00 (Razorpay uses paise)
+            $amountInPaise = 50000; // ₹500
+
             $order = $api->order->create([
                 'receipt'  => 'car_inspection_' . $inspection->id,
                 'amount'   => $amountInPaise,
@@ -81,14 +80,18 @@ class CarInspectionController extends Controller
                 ],
             ]);
 
-            // 5. Update Record with Order Details
-            $inspection->update([
-                'razorpay_order_id' => $order['id'],
-                'amount_paid'       => $amountInPaise,
-                'payment_for'       => 'PDI Car Inspection',
+            // Create Payment entry
+            Payment::create([
+                'entity_type'   => CarInspection::class,
+                'entity_id'     => $inspection->id,
+                'gateway'       => 'razorpay',
+                'order_id'      => $order['id'],
+                'amount'        => $amountInPaise,
+                'currency'      => 'INR',
+                'status'        => 'pending',
+                'gateway_payload' => $order->toArray(),
             ]);
 
-            // 6. Redirect to signed payment route
             return redirect()->signedRoute('inspection.payment', ['inspection' => $inspection->id]);
 
         } catch (\Exception $e) {
@@ -108,21 +111,26 @@ class CarInspectionController extends Controller
                 'razorpay_signature'  => $request->razorpay_signature,
             ]);
 
-            $inspection = CarInspection::where('razorpay_order_id', $request->razorpay_order_id)->firstOrFail();
+            $payment = Payment::where('order_id', $request->razorpay_order_id)
+                ->where('entity_type', CarInspection::class)
+                ->firstOrFail();
 
-            $inspection->update([
-                'razorpay_payment_id' => $request->razorpay_payment_id,
-                'razorpay_signature'  => $request->razorpay_signature,
-                'payment_status'      => 'paid',
-                'status'              => 'confirmed',
-                'paid_at'             => now(),
+            $payment->update([
+                'payment_id' => $request->razorpay_payment_id,
+                'signature'  => $request->razorpay_signature,
+                'status'     => 'paid',
+                'paid_at'    => now(),
             ]);
 
-            // Trigger notification
-           // $this->emailService->sendInspectionAdminNotification($inspection);
+            $inspection = CarInspection::findOrFail($payment->entity_id);
+            $inspection->update(['status' => 'confirmed']);
+
+            $this->emailService->carInspectionAdminNotification($inspection);
 
             return redirect()->route('inspection.thank-you')->with('success', 'Payment verified successfully');
+
         } catch (\Exception $e) {
+            dd($e->getMessage());
             Log::error('PDI Payment Verify Failed: ' . $e->getMessage());
             return redirect()->route('inspection.payment.failed');
         }
@@ -130,13 +138,24 @@ class CarInspectionController extends Controller
 
     public function payment(CarInspection $inspection)
     {
-        if ($inspection->payment_status === 'paid') {
+        $paid = $inspection->payments()->where('status', 'paid')->exists();
+
+        if ($paid) {
             return redirect()->route('inspection.thank-you');
         }
 
+        $payment = $inspection->payments()->latest()->first();
+
         return view('front.inspection.payment', [
             'inspection'  => $inspection,
+            'payment'     => $payment,
             'razorpayKey' => config('services.razorpay.key'),
         ]);
+    }
+    
+    public function thankYou()
+    {
+        $response = 'Your Inquiry Has Been Successfully Received. We will get back to you within 24 Hours.';
+        return view('front.inspection.thank-you', compact('response'));
     }
 }

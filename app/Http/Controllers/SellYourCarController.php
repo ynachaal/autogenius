@@ -30,9 +30,9 @@ class SellYourCarController extends Controller
             'customer_name' => 'required|string|max:255',
             'customer_mobile' => 'required|string|max:20',
             'car_photos' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'cf-turnstile-response' => 'required',
+          'cf-turnstile-response' => 'required', 
         ], [
-            'cf-turnstile-response.required' => 'Please complete the security check.',
+            'cf-turnstile-response.required' => 'Please complete the security check.', 
         ]);
 
         // 🔐 Verify Turnstile (same as Contact)
@@ -72,6 +72,12 @@ class SellYourCarController extends Controller
           $this->emailService->sellYourCarAdminNotification($sellYourCar); 
 
         // 5. Redirect
-        return back()->with('success', 'Thanks! Your request to sell your car has been submitted.');
+        return redirect()->route('car.thank-you');
+    }
+
+    public function thankYou()
+    {
+        $response = 'Your Inquiry Has Been Successfully Received. We will get back to you within 24 Hours.';
+        return view('front.sell-your-car.thank-you', compact('response'));
     }
 }

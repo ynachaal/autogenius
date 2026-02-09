@@ -29,12 +29,12 @@ $(document).ready(function () {
 		},
 		submitHandler: function (form) {
 			// Check for Turnstile token before submitting
-			const turnstileResponse = $('[name="cf-turnstile-response"]').val();
+			 const turnstileResponse = $('[name="cf-turnstile-response"]').val();
 			if (!turnstileResponse) {
 				$('#turnstile-error').show();
 				return false;
 			}
-			$('#turnstile-error').hide();
+			$('#turnstile-error').hide(); 
 
 			form.submit();
 		},

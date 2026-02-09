@@ -27,11 +27,20 @@ class CarInspection extends Model
     ];
 
     /**
-     * Payments related to this inspection
+     * Polymorphic relation using custom entity columns
      */
     public function payments()
     {
         return $this->morphMany(Payment::class, 'payable', 'entity_type', 'entity_id');
+    }
+
+    /**
+     * Check if inspection is paid
+     */
+    public function isPaid(): bool
+    {
+        // Calling the relationship method ensures it uses entity_type/entity_id
+        return $this->payments()->where('status', 'paid')->exists();
     }
 
     /**
@@ -41,16 +50,7 @@ class CarInspection extends Model
     {
         return $this->payments()
             ->where('status', 'paid')
-            ->latest('paid_at');
-    }
-
-    /**
-     * Check if inspection is paid
-     */
-    public function isPaid(): bool
-    {
-        return $this->payments()
-            ->where('status', 'paid')
-            ->exists();
+            ->latest() // Uses created_at by default
+            ->first();
     }
 }

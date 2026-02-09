@@ -198,6 +198,7 @@ class LeadController extends Controller
 
     public function thankYou()
     {
-        return view('front.lead.thank-you');
+        $response = 'Your Inquiry Has Been Successfully Received. We will get back to you within 24 Hours.';
+        return view('front.lead.thank-you', compact('response'));
     }
 }

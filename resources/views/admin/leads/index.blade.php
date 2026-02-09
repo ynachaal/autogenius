@@ -92,7 +92,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="8" class="text-center">No leads found.</td>
+                                        <td colspan="9" class="text-center">No leads found.</td>
                                     </tr>
                                 @endforelse
                             </tbody>
