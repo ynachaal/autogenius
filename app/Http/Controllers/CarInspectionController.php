@@ -33,11 +33,13 @@ class CarInspectionController extends Controller
             'customer_mobile' => 'required|string|max:20',
             'customer_email' => 'required|email',
             'vehicle_name' => 'required|string|max:255',
-            'pdi_date' => 'required|digits:6',
+           'pdi_date' => 'required|date',
             'pdi_location' => 'required|string|max:255',
             'page_slug' => 'required|string', // The hidden input from your form
-           /*  'cf-turnstile-response' => 'required', */
+             'cf-turnstile-response' => 'required', 
         ]);
+
+       
 
         $slug = $request->input('page_slug');
 
@@ -72,7 +74,9 @@ class CarInspectionController extends Controller
         $page = Page::where('slug', $request->page_slug)->first();
         $serviceName = $page ? $page->title : ucwords(str_replace('-', ' ', $request->page_slug));
 
-        $formattedDate = \Carbon\Carbon::createFromFormat('dmY', $request->pdi_date . '20')->format('Y-m-d');
+        
+
+       $formattedDate = $request->pdi_date; // Already Y-m-d from flatpickr
 
         // Create inspection
         $inspection = CarInspection::create([

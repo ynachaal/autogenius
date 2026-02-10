@@ -1,21 +1,21 @@
 
 (function ($) {
 	if ($("#datepicker").length) {
-    const fp = $("#datepicker").flatpickr({
-        dateFormat: "dmy",         // Sends 251226 to your Laravel Controller
-        altInput: true,            // Beautiful display for user
-        altFormat: "F j, Y",       // User sees: February 9, 2026
-        minDate: "today",
-        disableMobile: true,
-        onChange: function(selectedDates, dateStr, instance) {
-            // Re-validate the field whenever the date changes
-            // to remove the "This field is required" error message
-            if (typeof validator !== "undefined") {
-                validator.element("#datepicker");
-            }
-        }
-    });
-}
+		const fp = $("#datepicker").flatpickr({
+			dateFormat: "Y-m-d",       // 2026-02-25 (perfect for DB)
+			altInput: true,            // Beautiful display for user
+			altFormat: "F j, Y",       // User sees: February 9, 2026
+			minDate: "today",
+			disableMobile: true,
+			onChange: function (selectedDates, dateStr, instance) {
+				// Re-validate the field whenever the date changes
+				// to remove the "This field is required" error message
+				if (typeof validator !== "undefined") {
+					validator.element("#datepicker");
+				}
+			}
+		});
+	}
 	"use strict";
 
 	var $window = $(window);
