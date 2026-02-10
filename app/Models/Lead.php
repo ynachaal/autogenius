@@ -35,6 +35,7 @@ class Lead extends Model
         'existing_car',
         'upgrade_reason',
         'declaration',
+        'email',
         'service_type', // New field for service type
     ];
 

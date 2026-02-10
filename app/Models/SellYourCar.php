@@ -18,6 +18,7 @@ class SellYourCar extends Model
         'year',
         'kms_driven',
         'no_of_owners',
+        'customer_email',
         'registration_number',
         'car_location',
         'customer_name',

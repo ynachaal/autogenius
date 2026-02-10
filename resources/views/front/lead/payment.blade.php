@@ -52,6 +52,7 @@
         key: "{{ $razorpayKey }}",
         amount: "{{ $payment->amount }}",
         currency: "{{ $payment->currency }}",
+        email: "{{ $lead->email }}",
         name: "AutoGenius",
         description: "Service Booking Fee",
         order_id: "{{ $payment->order_id }}",

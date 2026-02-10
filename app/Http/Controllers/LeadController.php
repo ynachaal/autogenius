@@ -41,6 +41,7 @@ class LeadController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'mobile' => 'required|string|min:10',
+            'email' => 'required|email|max:255',
             'city' => 'required|string',
             'page_slug' => 'required|string',
         ]);
@@ -81,6 +82,7 @@ class LeadController extends Controller
         // 3. Map lead data
         $data = [
             'full_name' => $request->name,
+            'email' => $request->email,
             'mobile' => $request->mobile,
             'city' => $request->city,
             'service_required' => $request->service,
@@ -128,6 +130,7 @@ class LeadController extends Controller
             'notes' => [
                 'lead_id' => $lead->id,
                 'mobile' => $lead->mobile,
+                'email' => $lead->email,
                 'service_type' => $lead->service_type,
             ],
         ]);

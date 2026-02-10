@@ -61,7 +61,14 @@
                                 id="phone" type="tel" class="form-control">
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-6">
+                        <div class="form-group mb-4">
+                            <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
+                            <input value="{{ old('email') }}" required placeholder="Email Address" name="email" id="email"
+                                type="email" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
                         <div class="form-group mb-4">
                             <label for="city" class="form-label">City <span class="text-danger">*</span></label>
                             <input value="{{ old('city') }}" required placeholder="City" name="city" id="city"

@@ -17,6 +17,7 @@ class ServiceInsuranceClaim extends Model
     protected $fillable = [
         'customer_name',
         'customer_mobile',
+        'customer_email',
         'service_type',     // Added
         'rc_path',
         'insurance_path',
