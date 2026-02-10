@@ -1,19 +1,19 @@
 <div class="">
     <style>
-    .step {
-        display: none;
-    }
+        .step {
+            display: none;
+        }
 
-    .step.active {
-        display: block;
-    }
+        .step.active {
+            display: block;
+        }
 
-    .step-indicator {
-        font-size: 14px;
-        color: #888;
-        margin-bottom: 20px;
-    }
-</style>
+        .step-indicator {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 20px;
+        }
+    </style>
     <div class="contact-form">
         <div class="contact-form-title">
             <h3 class="text-anime-style-3 text-center mb-3" data-cursor="-opaque" style="perspective: 400px;">Car Buying
@@ -48,6 +48,9 @@
                             <label for="name" class="form-label">Full Name <span class="text-danger">*</span></label>
                             <input value="{{ old('name') }}" required placeholder="Full Name" name="name" id="name"
                                 type="text" class="form-control">
+
+                            <input type="hidden" name="page_slug"
+                                value="{{ $slug ?? request()->segment(count(request()->segments())) }}">
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -74,7 +77,7 @@
                                 <label class="form-check-label" for="1new">New Car Consultation</label>
                             </div>
 
-                         <!--    <div class="form-check">
+                            <!--    <div class="form-check">
                                 <input class="form-check-input" type="radio" name="service" id="2pre"
                                     value="Pre-Owned Car Inspection" {{ old('service') == 'Pre-Owned Car Inspection' ? 'checked' : '' }}>
                                 <label class="form-check-label" for="2pre">Pre-Owned Car Inspection</label>
@@ -87,7 +90,7 @@
                                     Pre-Owned Car Consultation & Unlimited Inspections</label>
                             </div>
 
-                           <!--  <div class="form-check">
+                            <!--  <div class="form-check">
                                 <input class="form-check-input" type="radio" id="4pre" name="service" value="Pre-Owned Car Certification &
                                                     Selling" {{ old('service') == 'Pre-Owned Car Certification & Selling' ? 'checked' : '' }}>
                                 <label class="form-check-label" for="4pre">Pre-Owned Car Certification &
@@ -480,9 +483,10 @@
                     <input required type="checkbox" class="form-check-input" name="confirm" id="confirm" {{ old('confirm') ? 'checked' : '' }}>
                     <label class="form-check-label" for="confirm">I confirm details are correct</label>
                 </div>
-                
-              <div class="alert alert-light small p-2 px-3 w-fit d-block mb-4" data-bs-theme="dark">
-                    Pay ₹99 to register. The amount is 100% refundable or can be fully adjusted against our service fees.
+
+                <div class="alert alert-light small p-2 px-3 w-fit d-block mb-4" data-bs-theme="dark">
+                    Pay ₹99 to register. The amount is 100% refundable or can be fully adjusted against our service
+                    fees.
                 </div>
                 <div class="form-group col-md-12 mb-4">
                     <div class="cf-turnstile" data-sitekey="{{ config('services.turnstile.site_key') }}"
@@ -490,7 +494,8 @@
                     @error('cf-turnstile-response')
                         <div class="text-danger mt-1 small">{{ $message }}</div>
                     @enderror
-                    <div id="turnstile-error" class="text-danger mt-1 small" style="display:none;">Please verify that you are not a robot.</div>
+                    <div id="turnstile-error" class="text-danger mt-1 small" style="display:none;">Please verify that
+                        you are not a robot.</div>
                 </div>
                 <div class="d-flex justify-content-between align-content-center">
                     <button class="btn-primary w-fit prev"><i class="fa-solid fa-arrow-left"></i>

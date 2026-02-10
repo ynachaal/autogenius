@@ -79,4 +79,11 @@ class ServiceService
             return Service::active()->count();
         });
     }
+
+    public function getAmountBySlug(string $slug): ?float
+    {
+        return Service::active()
+            ->where('slug', $slug)
+            ->value('amount'); // Returns only the 'amount' column value
+    }
 }
