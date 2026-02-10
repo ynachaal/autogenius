@@ -46,7 +46,7 @@ return [
                 'active' => Route::is('admin.leads.*'),
             ],
             [
-                'title' => 'Service History & Claim Insurance',
+                'title' => 'History & Claim Insurance',
                 'route' => route('admin.service-insurance-claims.index'),
                 'active' => Route::is('admin.service-insurance-claims.*'),
             ],

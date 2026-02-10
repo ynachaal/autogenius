@@ -146,10 +146,9 @@ class CallConsultationController extends Controller
             $consultation = CallConsultation::findOrFail($payment->entity_id);
             $consultation->update(['status' => 'confirmed']);
 
-            // Optional: Create this method in your EmailService
-            /* if (method_exists($this->emailService, 'callConsultationAdminNotification')) {
+            if (method_exists($this->emailService, 'callConsultationAdminNotification')) {
                 $this->emailService->callConsultationAdminNotification($consultation);
-            } */
+            }
 
             return redirect()->route('payment.success')
                 ->with('message', 'Your consultation booking is successful! We will call you soon.');

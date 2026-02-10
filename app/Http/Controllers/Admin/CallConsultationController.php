@@ -80,9 +80,9 @@ class CallConsultationController extends Controller
 
                 $call_consultation->update(['status' => 'confirmed']);
 
-                if (method_exists($this->emailService, 'callConsultationAdminNotification')) {
-                    $this->emailService->callConsultationAdminNotification($call_consultation);
-                }
+               if (method_exists($this->emailService, 'callConsultationAdminNotification')) {
+        $this->emailService->callConsultationAdminNotification($call_consultation);
+    }
 
                 return back()->with('success', 'Consultation payment verified and confirmed!');
             }

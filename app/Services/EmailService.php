@@ -404,4 +404,31 @@ class EmailService
             'New Insurance Claim Request: ' . ($claim->customer_name ?? 'Inquiry')
         );
     }
+    /**
+     * Send Call Consultation notification to admin.
+     *
+     * @param \App\Models\CallConsultation $consultation
+     * @return bool
+     */
+    public function callConsultationAdminNotification($consultation): bool
+    {
+        $data = [
+            '{customer_name}'    => $consultation->customer_name ?? 'N/A',
+            '{customer_mobile}'  => $consultation->customer_mobile ?? 'N/A',
+            '{customer_email}'   => $consultation->customer_email ?? 'N/A',
+            '{selected_service}' => $consultation->selected_service ?? 'Expert Talk',
+            '{service_type}'     => $consultation->service_type ?? 'N/A',
+            '{status}'           => strtoupper($consultation->status ?? 'PENDING'),
+            '{date}'             => optional($consultation->created_at)->format('d-m-Y H:i:s') ?? now()->format('d-m-Y H:i:s'),
+            '{year}'             => now()->year,
+            '{website_link}'     => config('app.url', url('/')),
+        ];
+
+        return $this->sendEmailInstant(
+            config('settings.admin_email', 'admin@autogenious.com'),
+            'Call Consultation - Admin', // This must match the title in your migration
+            $data,
+            'New Consultation Request: ' . ($consultation->selected_service ?? 'Inquiry')
+        );
+    }
 }
