@@ -12,9 +12,7 @@ class LeadService
      */
     public function getTotalLeadsCount(): int
     {
-        return Cache::remember('leads_total_count', 3600, function () {
-            return Lead::count();
-        });
+        return Lead::count();
     }
 
     /**
