@@ -31,7 +31,7 @@ return [
                 'active' => Route::is('admin.sell-your-cars.*'),
             ],
             [
-                'title' => 'Car Inspections',
+                'title' => 'PDI & Car Inspections',
                 'route' => route('admin.car-inspections.index'),
                 'active' => Route::is('admin.car-inspections.*'),
             ],
@@ -41,17 +41,17 @@ return [
                 'active' => Route::is('admin.contact-submissions.*'),
             ],
             [
-                'title' => 'Leads',
+                'title' => 'New Car & Used Car Leads',
                 'route' => route('admin.leads.index'),
                 'active' => Route::is('admin.leads.*'),
             ],
             [
-                'title' => 'Service Claim Insurance',
+                'title' => 'Service History & Claim Insurance',
                 'route' => route('admin.service-insurance-claims.index'),
                 'active' => Route::is('admin.service-insurance-claims.*'),
             ],
              [
-                'title' => 'Call Consultations',
+                'title' => 'On Call Consultations',
                 'route' => route('admin.call-consultations.index'),
                 'active' => Route::is('admin.call-consultations.*'),
             ],
