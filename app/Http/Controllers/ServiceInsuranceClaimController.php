@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CarInsurance; 
+use App\Models\ServiceInsuranceClaim; 
 use App\Models\Payment;
 use App\Services\EmailService;
 use App\Services\PageService;
@@ -62,7 +62,7 @@ class ServiceInsuranceClaimController extends Controller
         $insPath = $request->file('insurance_photo')->store('insurance/insurance', 'public');
 
         // 4. Create record
-        $insurance = CarInsurance::create([
+        $insurance = ServiceInsuranceClaim::create([
             'customer_name'   => $request->customer_name,
             'customer_mobile' => $request->customer_mobile,
             'vehicle_reg_no'  => $request->vehicle_reg_no,
@@ -88,7 +88,7 @@ class ServiceInsuranceClaimController extends Controller
             ]);
 
             Payment::create([
-                'entity_type'     => CarInsurance::class,
+                'entity_type'     => ServiceInsuranceClaim::class,
                 'entity_id'       => $insurance->id,
                 'gateway'         => 'razorpay',
                 'order_id'        => $order['id'],
@@ -98,10 +98,10 @@ class ServiceInsuranceClaimController extends Controller
                 'gateway_payload' => $order->toArray(),
             ]);
 
-            return redirect()->signedRoute('insurance.payment', ['insurance' => $insurance->id]);
+            return redirect()->signedRoute('service-insurance.payment', ['insurance' => $insurance->id]);
 
         } catch (\Exception $e) {
-            Log::error('Insurance Razorpay Error: ' . $e->getMessage());
+            Log::error('Service Insurance Razorpay Error: ' . $e->getMessage());
             return back()->with('error', 'Unable to initiate payment.');
         }
     }
@@ -121,7 +121,7 @@ class ServiceInsuranceClaimController extends Controller
             ]);
 
             $payment = Payment::where('order_id', $request->razorpay_order_id)
-                ->where('entity_type', CarInsurance::class)
+                ->where('entity_type', ServiceInsuranceClaim::class)
                 ->firstOrFail();
 
             $payment->update([
@@ -131,7 +131,7 @@ class ServiceInsuranceClaimController extends Controller
                 'paid_at'    => now(),
             ]);
 
-            $insurance = CarInsurance::findOrFail($payment->entity_id);
+            $insurance = ServiceInsuranceClaim::findOrFail($payment->entity_id);
             $insurance->update(['status' => 'confirmed']);
 
             // Notify Admin (Uncomment when EmailService method is ready)
@@ -140,12 +140,12 @@ class ServiceInsuranceClaimController extends Controller
             return redirect()->route('insurance.thank-you')->with('success', 'Payment successful');
 
         } catch (\Exception $e) {
-            Log::error('Insurance Payment Verify Failed: ' . $e->getMessage());
+            Log::error('Service Insurance Payment Verify Failed: ' . $e->getMessage());
             return redirect()->route('lead.payment.failed');
         }
     }
 
-    public function payment(CarInsurance $insurance)
+    public function payment(ServiceInsuranceClaim $insurance)
     {
         $paid = $insurance->payments()->where('status', 'paid')->exists();
 
@@ -155,7 +155,7 @@ class ServiceInsuranceClaimController extends Controller
 
         $payment = $insurance->payments()->latest()->first();
 
-        return view('front.insurance.payment', [
+        return view('front.service-insurance.payment', [
             'insurance'   => $insurance,
             'payment'     => $payment,
             'razorpayKey' => config('services.razorpay.key'),
@@ -165,6 +165,6 @@ class ServiceInsuranceClaimController extends Controller
     public function thankYou()
     {
         $response = 'Your Inquiry Has Been Successfully Received. We will get back to you within 3 Hours.';
-        return view('front.insurance.thank-you', compact('response'));
+        return view('front.payment.thank-you', compact('response'));
     }
 }

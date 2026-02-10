@@ -9,6 +9,7 @@ use App\Services\ContentMetaService;
 use App\Services\SearchService;
 use App\Services\EmailService;
 use App\Services\ServiceService;
+use App\Services\ServiceFeeService; // 1. Import the Service
 use App\Services\SliderService;
 use App\Services\BrandService;
 use Illuminate\Support\Facades\Http;
@@ -28,6 +29,7 @@ class SiteController extends Controller
     protected BrandService $brandService; // Add this
     protected PageService $pageService;
     protected SearchService $searchService; // 2. Add property
+    protected ServiceFeeService $feeService; // 2. Add property
 
     public function __construct(
         EmailService $emailService,
@@ -36,7 +38,8 @@ class SiteController extends Controller
         PageService $pageService,
         SearchService $searchService,
         SliderService $sliderService,
-        BrandService $brandService // Inject BrandService
+        BrandService $brandService,
+        ServiceFeeService $feeService // 3. Inject the Service
 
     ) {
         $this->emailService = $emailService;
@@ -46,6 +49,7 @@ class SiteController extends Controller
         $this->pageService = $pageService;
         $this->sliderService = $sliderService; // ✅ assign
         $this->searchService = $searchService; // 4. Assign
+        $this->feeService = $feeService; // 4. Assign to property
 
     }
 
@@ -97,11 +101,17 @@ class SiteController extends Controller
             abort(404);
         }
 
+        // 5. Use the Service instead of direct Model query
+        $fees = collect();
+        if ($slug === 'get-service-history-and-insurance-claim-details') {
+            $fees = $this->feeService->getActiveFees();
+        }
+
         $data = [
             'service' => $service,
         ];
 
-        return view('front.services.show', compact('data'));
+        return view('front.services.show', compact('data', 'fees'));
     }
 
     public function pageDetail(string $slug): View

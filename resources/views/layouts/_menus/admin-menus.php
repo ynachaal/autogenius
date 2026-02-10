@@ -45,11 +45,11 @@ return [
                 'route' => route('admin.leads.index'),
                 'active' => Route::is('admin.leads.*'),
             ],
-            [
+           /*  [
                 'title' => 'Consultations',
                 'route' => route('admin.consultations.index'),
                 'active' => Route::is('admin.consultations.*'),
-            ],
+            ], */
         ],
         // Parent active if any child is active
         'active' => Route::is('admin.leads.*') ||

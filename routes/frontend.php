@@ -129,15 +129,15 @@ Route::get('/inspection/payment-failed', [CarInspectionController::class, 'payme
 
 
 
-    Route::post('/insurance/submit', [ServiceInsuranceClaimController::class, 'store'])
-    ->name('insurance.submit');
+    Route::post('/service-insurance/submit', [ServiceInsuranceClaimController::class, 'store'])
+    ->name('service-insurance.submit');
 
-Route::get('/insurance/payment/{insurance}', [ServiceInsuranceClaimController::class, 'payment'])
-    ->name('insurance.payment')
+Route::get('/service-insurance/payment/{insurance}', [ServiceInsuranceClaimController::class, 'payment'])
+    ->name('service-insurance.payment')
     ->middleware('signed');
 
-Route::post('/insurance/payment/verify', [ServiceInsuranceClaimController::class, 'verifyPayment'])
-    ->name('insurance.payment.verify');
+Route::post('/service-insurance/payment/verify', [ServiceInsuranceClaimController::class, 'verifyPayment'])
+    ->name('service-insurance.payment.verify');
 
-Route::get('/insurance/thank-you', [ServiceInsuranceClaimController::class, 'thankYou'])
-    ->name('insurance.thank-you');
+Route::get('/service-insurance/thank-you', [ServiceInsuranceClaimController::class, 'thankYou'])
+    ->name('service-insurance.thank-you');

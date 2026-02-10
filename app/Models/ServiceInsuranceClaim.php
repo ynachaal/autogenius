@@ -10,10 +10,15 @@ class ServiceInsuranceClaim extends Model
 {
     use HasFactory;
 
+    // 1. Explicitly define the table name
+    protected $table = 'service_insurance_claims';
+
+    // 2. Add the missing fields you added in the migration
     protected $fillable = [
         'customer_name',
         'customer_mobile',
-        'vehicle_reg_no',
+        'service_type',     // Added
+        'vehicle_reg_no',   // Added
         'rc_path',
         'insurance_path',
         'status',

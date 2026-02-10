@@ -78,6 +78,6 @@ class SellYourCarController extends Controller
     public function thankYou()
     {
         $response = 'Your Inquiry Has Been Successfully Received. We will get back to you within 24 Hours.';
-        return view('front.sell-your-car.thank-you', compact('response'));
+        return view('front.payment.thank-you', compact('response'));
     }
 }
