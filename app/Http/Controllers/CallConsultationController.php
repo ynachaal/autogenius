@@ -150,6 +150,10 @@ class CallConsultationController extends Controller
                 $this->emailService->callConsultationAdminNotification($consultation);
             }
 
+            if (method_exists($this->emailService, 'callConsultationUserConfirmation')) {
+                $this->emailService->callConsultationUserConfirmation($consultation);
+            }
+
             return redirect()->route('payment.success')
                 ->with('message', 'Your consultation booking is successful! We will call you soon.');
 

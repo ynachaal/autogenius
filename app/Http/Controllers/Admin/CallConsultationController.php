@@ -54,7 +54,7 @@ class CallConsultationController extends Controller
         try {
             $api = new Api(config('services.razorpay.key'), config('services.razorpay.secret'));
             $razorOrder = $api->order->fetch($payment->order_id);
-            $razorPayments = $razorOrder->payments(); 
+            $razorPayments = $razorOrder->payments();
 
             $isPaid = false;
             $verifiedPaymentId = null;
@@ -73,16 +73,21 @@ class CallConsultationController extends Controller
 
             if ($isPaid) {
                 $payment->update([
-                    'payment_id' => $verifiedPaymentId ?? $payment->payment_id, 
-                    'status'     => 'paid',
-                    'paid_at'    => now(),
+                    'payment_id' => $verifiedPaymentId ?? $payment->payment_id,
+                    'status' => 'paid',
+                    'paid_at' => now(),
                 ]);
 
                 $call_consultation->update(['status' => 'confirmed']);
 
-               if (method_exists($this->emailService, 'callConsultationAdminNotification')) {
-        $this->emailService->callConsultationAdminNotification($call_consultation);
-    }
+                if (method_exists($this->emailService, 'callConsultationAdminNotification')) {
+                    $this->emailService->callConsultationAdminNotification($call_consultation);
+                }
+
+                // 2. Notify User (ADD THIS)
+                if (method_exists($this->emailService, 'callConsultationUserConfirmation')) {
+                    $this->emailService->callConsultationUserConfirmation($call_consultation);
+                }
 
                 return back()->with('success', 'Consultation payment verified and confirmed!');
             }

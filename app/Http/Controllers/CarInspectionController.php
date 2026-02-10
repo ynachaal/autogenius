@@ -153,6 +153,10 @@ class CarInspectionController extends Controller
 
             $this->emailService->carInspectionAdminNotification($inspection);
 
+            if (method_exists($this->emailService, 'carInspectionUserConfirmation')) {
+                $this->emailService->carInspectionUserConfirmation($inspection);
+            }
+
           return redirect()->route('payment.success')
         ->with('message', 'Your Inquiry Has Been Successfully Received. We will get back to you within 24 Hours.');
 

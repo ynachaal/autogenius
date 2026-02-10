@@ -158,6 +158,14 @@ class ServiceInsuranceClaimController extends Controller
                 Log::error('Failed to send Service Insurance Admin Email: ' . $e->getMessage());
             }
 
+            try {
+                if (method_exists($this->emailService, 'serviceInsuranceClaimUserConfirmation')) {
+                    $this->emailService->serviceInsuranceClaimUserConfirmation($insurance);
+                }
+            } catch (\Exception $e) {
+                Log::error('Failed to send Service Insurance User Confirmation: ' . $e->getMessage());
+            }
+
             return redirect()->route('payment.success')->with([
                 'title'   => 'Claim Request Received!',
                 'message' => 'Your Inquiry Has Been Successfully Received. We will get back to you within 3 Hours.'

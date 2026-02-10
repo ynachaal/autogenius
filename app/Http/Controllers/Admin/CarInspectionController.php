@@ -90,6 +90,10 @@ public function verifyPayment(CarInspection $car_inspection, Payment $payment)
 
             $this->emailService->carInspectionAdminNotification($car_inspection);
 
+            if (method_exists($this->emailService, 'carInspectionUserConfirmation')) {
+                $this->emailService->carInspectionUserConfirmation($car_inspection);
+            }
+
             return back()->with('success', 'Inspection payment verified and confirmed!');
         }
 

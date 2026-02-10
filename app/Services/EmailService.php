@@ -266,33 +266,6 @@ class EmailService
     }
 
     /**
-     * Send lead inquiry confirmation to the user.
-     *
-     * @param \App\Models\Lead $lead
-     * @return bool
-     */
-    public function sendLeadUserConfirmation($lead): bool
-    {
-        // Ensure data matches the {{placeholder}} format in your migration
-        $data = [
-            '{full_name}' => $lead->full_name ?? 'Valued Customer',
-            '{service_required}' => $lead->service_required ?? 'Automotive Service',
-            '{fuel_preference}' => is_array($lead->fuel_preference) ? implode(', ', $lead->fuel_preference) : ($lead->fuel_preference ?? 'Any'),
-            '{body_type}' => is_array($lead->body_type) ? implode(', ', $lead->body_type) : ($lead->body_type ?? 'Any'),
-            '{preferred_contact_method}' => ucfirst($lead->preferred_contact_method ?? 'Email'),
-            '{year}' => now()->year,
-            '{website_link}' => config('app.url'),
-        ];
-
-        return $this->sendEmailInstant(
-            $lead->mobile, // Note: Ensure your Mail driver/Service supports sending to a mobile 'address' if this is SMS, or use $lead->email
-            'Lead Inquiry Confirmation - User',
-            $data,
-            'We have received your inquiry!'
-        );
-    }
-
-    /**
      * Send lead notification alert to the admin.
      */
     public function sendLeadAdminNotification($lead): bool
@@ -429,6 +402,118 @@ class EmailService
             'Call Consultation - Admin', // This must match the title in your migration
             $data,
             'New Consultation Request: ' . ($consultation->selected_service ?? 'Inquiry')
+        );
+    }
+
+    /**
+     * Send lead inquiry confirmation to the user.
+     */
+    public function sendLeadUserConfirmation($lead): bool
+    {
+        $data = [
+            '{full_name}'        => $lead->full_name ?? 'Valued Customer',
+            '{service_required}' => $lead->service_required ?? 'Automotive Service',
+            '{budget}'           => number_format($lead->budget ?? 0),
+            '{city}'             => $lead->city ?? 'N/A',
+            '{mobile}'           => $lead->mobile ?? 'N/A',
+            '{year}'             => now()->year,
+            '{website_link}'     => config('app.url'),
+        ];
+
+        return $this->sendEmailInstant(
+            $lead->email ?? $lead->customer_email,
+            'New Lead - User Confirmation',
+            $data,
+            'We have received your inquiry!'
+        );
+    }
+
+    /**
+     * Send Sell Your Car confirmation to the user.
+     */
+    public function sellYourCarUserConfirmation($sellYourCar): bool
+    {
+        $data = [
+            '{customer_name}'       => $sellYourCar->customer_name ?? 'Customer',
+            '{vehicle_name}'        => $sellYourCar->vehicle_name ?? 'Vehicle',
+            '{registration_number}' => $sellYourCar->registration_number ?? 'N/A',
+            '{kms_driven}'          => $sellYourCar->kms_driven ?? 'N/A',
+            '{car_location}'        => $sellYourCar->car_location ?? 'N/A',
+            '{year}'                => now()->year,
+            '{website_link}'        => config('app.url'),
+        ];
+
+        return $this->sendEmailInstant(
+            $sellYourCar->customer_email ?? $sellYourCar->email,
+            'Sell Your Car - User Confirmation',
+            $data,
+            'Your Car Listing Received'
+        );
+    }
+
+    /**
+     * Send Car Inspection confirmation to the user.
+     */
+    public function carInspectionUserConfirmation($inspection): bool
+    {
+        $data = [
+            '{customer_name}'        => $inspection->customer_name ?? 'Customer',
+            '{vehicle_name}'         => $inspection->vehicle_name ?? 'Vehicle',
+            '{inspection_date}'      => $inspection->inspection_date ? \Carbon\Carbon::parse($inspection->inspection_date)->format('l, d F Y') : 'N/A',
+            '{inspection_location}'  => $inspection->inspection_location ?? 'N/A',
+            '{payment_status}'       => strtoupper($inspection->isPaid() ? 'PAID' : 'PENDING'),
+            '{year}'                 => now()->year,
+            '{website_link}'         => config('app.url'),
+        ];
+
+        return $this->sendEmailInstant(
+            $inspection->customer_email,
+            'Car Inspection - User Confirmation',
+            $data,
+            'Your Car Inspection is Confirmed'
+        );
+    }
+
+    /**
+     * Send Insurance Claim acknowledgment to the user.
+     */
+    public function serviceInsuranceClaimUserConfirmation($claim): bool
+    {
+        $data = [
+            '{customer_name}' => $claim->customer_name ?? 'Customer',
+            '{service_type}'  => ucfirst(str_replace('_', ' ', $claim->service_type ?? 'N/A')),
+            '{date}'          => optional($claim->created_at)->format('d-m-Y') ?? now()->format('d-m-Y'),
+            '{year}'          => now()->year,
+            '{website_link}'  => config('app.url'),
+        ];
+
+        return $this->sendEmailInstant(
+            $claim->customer_email ?? $claim->email,
+            'Service Insurance Claim - User Confirmation',
+            $data,
+            'Insurance Claim Acknowledgment'
+        );
+    }
+
+    /**
+     * Send Call Consultation confirmation to the user.
+     */
+    public function callConsultationUserConfirmation($consultation): bool
+    {
+        $data = [
+            '{customer_name}'    => $consultation->customer_name ?? 'Customer',
+            '{selected_service}' => $consultation->selected_service ?? 'Expert Talk',
+            '{customer_mobile}'  => $consultation->customer_mobile ?? 'N/A',
+            '{date}'             => now()->format('d-m-Y'),
+            '{year}'             => now()->year,
+            '{website_link}'     => config('app.url'),
+        ];
+
+        return $this->sendEmailInstant(
+            $consultation->customer_email,
+            'Call Consultation - User Confirmation',
+            $data,
+            'Your Expert Consultation is Booked'
         );
     }
 }
