@@ -22,8 +22,9 @@ class Service extends Model
         'status',
         'featured',
         'youtube_url',
+        'amount',
 
-        // ✅ SEO META
+        //  SEO META
         'meta_title',
         'meta_description',
         'meta_keywords',
@@ -32,6 +33,7 @@ class Service extends Model
     protected $casts = [
         'status' => 'boolean',
         'featured' => 'boolean',
+         'amount' => 'integer',
     ];
 
     /**

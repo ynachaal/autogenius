@@ -98,12 +98,13 @@ class ServiceController extends Controller
             'sub_heading' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'image' => ['nullable', 'image', 'max:2048'],
-                'youtube_url' => ['nullable', 'url'],
+            'youtube_url' => ['nullable', 'url'],
+            'amount' => ['required', 'integer', 'min:0'], // ✅ ADD THIS
             'status' => ['boolean'],
             'featured' => ['boolean'],
             'meta_title' => ['nullable', 'string', 'max:100'],
-        'meta_description' => ['nullable', 'string', 'max:500'],
-        'meta_keywords' => ['nullable', 'string', 'max:500'],
+            'meta_description' => ['nullable', 'string', 'max:500'],
+            'meta_keywords' => ['nullable', 'string', 'max:500'],
         ]);
 
         // --- SLUG GENERATION AND UNIQUENESS CHECK (STORE) ---
@@ -168,14 +169,15 @@ class ServiceController extends Controller
             ],
             'sub_heading' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
-                'youtube_url' => ['nullable', 'url'],
+            'youtube_url' => ['nullable', 'url'],
             'image' => ['nullable', 'image', 'max:2048'],
+            'amount' => ['required', 'integer', 'min:0'],
             'status' => ['boolean'],
             'featured' => ['boolean'],
             'remove_image' => ['boolean'],
             'meta_title' => ['nullable', 'string', 'max:100'],
-        'meta_description' => ['nullable', 'string', 'max:500'],
-        'meta_keywords' => ['nullable', 'string', 'max:500'],
+            'meta_description' => ['nullable', 'string', 'max:500'],
+            'meta_keywords' => ['nullable', 'string', 'max:500'],
         ]);
 
         // --- SLUG GENERATION AND UNIQUENESS CHECK (UPDATE) ---
@@ -183,13 +185,15 @@ class ServiceController extends Controller
         if (empty($validatedData['slug'])) {
             $slug = Str::slug($validatedData['title']);
             $originalSlug = $slug;
-            
+
             $count = 1;
             // Check against ALL records (including trashed) except the current one
-            while (Service::withTrashed()
-                ->where('slug', $slug)
-                ->where('id', '!=', $service->id)
-                ->exists()) {
+            while (
+                Service::withTrashed()
+                    ->where('slug', $slug)
+                    ->where('id', '!=', $service->id)
+                    ->exists()
+            ) {
                 $slug = $originalSlug . '-' . $count;
                 $count++;
             }
@@ -242,7 +246,7 @@ class ServiceController extends Controller
         // Note: For Soft Deletes, we usually KEEP the image in case of restoration.
         // If you want to delete the image only on Force Delete, keep this in mind.
         // For now, I'm leaving your original logic but commenting that it deletes the file.
-        
+
         /* if ($service->image) {
             Storage::disk('public')->delete($service->image);
         }

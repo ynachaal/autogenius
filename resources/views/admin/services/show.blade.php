@@ -56,6 +56,13 @@
                                 </span>
                             </p>
 
+                            <p class="text-muted mb-2">
+                                <strong>Amount:</strong>
+                                <span class="fw-semibold text-dark">
+                                    {{ number_format($service->amount) }}
+                                </span>
+                            </p>
+
                             <p class="text-muted mb-2"><strong>Featured:</strong>
                                 {{ $service->featured ? 'Yes' : 'No' }}</p>
                             <p class="text-muted mb-2"><strong>Created at:</strong>

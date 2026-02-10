@@ -56,7 +56,7 @@
                                 @endif
                             </figure>
                         </div>
-                       
+
                         @if(!empty($data['service']->youtube_url))
                             <div class="google-map-iframe mt-4">
                                 <iframe src="{{ str_replace('watch?v=', 'embed/', $data['service']->youtube_url) }}"
@@ -71,14 +71,14 @@
                         @include('components.forms.lead')
                     @elseif($data['service']->slug === 'sell-your-car-with-autogenius')
                         @include('components.forms.sell-car')
-                    @elseif($data['service']->slug === 'new-car-pdi' || $data['service']->slug === 'premium-luxury-car-inspection' || $data['service']->slug === 'get-your-own-car-inspected'  || $data['service']->slug === 'used-car-inspection')
+                    @elseif($data['service']->slug === 'new-car-pdi' || $data['service']->slug === 'premium-luxury-car-inspection' || $data['service']->slug === 'get-your-own-car-inspected' || $data['service']->slug === 'used-car-inspection')
                         @include('components.forms.car-inspection')
-                           @elseif($data['service']->slug === 'get-service-history-and-insurance-claim-details')
+                    @elseif($data['service']->slug === 'get-service-history-and-insurance-claim-details')
                         @include('components.forms.service-history-insurance')
-                         @elseif($data['service']->slug === 'insurance-with-autogenius')
-                         <a href="tel:{{ config('settings.phone', '') }}" class="btn-default mt-3">
-                                   Protect Your Car with AutoGenius
-                                </a>
+                    @elseif($data['service']->slug === 'insurance-with-autogenius')
+                        <a href="tel:{{ config('settings.phone', '') }}" class="btn-default mt-3">
+                            Protect Your Car with AutoGenius
+                        </a>
                     @endif
                 </div>
 
