@@ -213,12 +213,12 @@ class LeadController extends Controller
 
     public function paymentFailed()
     {
-        return view('front.lead.payment-failed');
+        return view('front.payment.payment-failed');
     }
 
     public function thankYou()
     {
         $response = 'Your Inquiry Has Been Successfully Received. We will get back to you within 24 Hours.';
-        return view('front.lead.thank-you', compact('response'));
+        return view('front.payment.thank-you', compact('response'));
     }
 }
