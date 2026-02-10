@@ -23,6 +23,11 @@ class CarInspection extends Model
         'status',
     ];
 
+    protected $casts = [
+        'inspection_date' => 'date:d-m-Y', // Displays as 10-02-2026 automatically
+   
+    ];
+
     protected $attributes = [
         'status' => 'pending',
     ];
