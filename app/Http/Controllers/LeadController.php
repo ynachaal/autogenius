@@ -7,11 +7,13 @@ use App\Models\Payment;
 use Razorpay\Api\Api;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use App\Models\Page;
 use Illuminate\View\View;
 use App\Services\PageService;
 use Illuminate\Support\Facades\Http;
 use App\Services\EmailService;
 use Illuminate\Support\Facades\Log;
+use App\Services\ServiceService; // Don't forget to import the service
 
 class LeadController extends Controller
 {
@@ -33,14 +35,30 @@ class LeadController extends Controller
     /**
      * Handles lead creation + Razorpay order creation
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request, ServiceService $serviceService): RedirectResponse
     {
         // 1. Validate
         $request->validate([
             'name' => 'required|string|max:255',
             'mobile' => 'required|string|min:10',
             'city' => 'required|string',
+             'page_slug' => 'required|string', 
         ]);
+
+        
+        $slug = $request->input('page_slug');
+
+        // 3. Call your service to get the amount
+        $amount = $serviceService->getAmountBySlug($slug);
+
+        $page = Page::where('slug', $slug)->first();
+        $serviceName = $page ? $page->title : ucwords(str_replace('-', ' ', $slug));
+
+
+
+        if (!$amount) {
+            return redirect()->back()->with('error', 'Service amount not found.');
+        }
 
         // 2. Turnstile verify
         try {
@@ -88,6 +106,7 @@ class LeadController extends Controller
             'decision_maker' => $request->Decision,
             'existing_car' => $request->Existing,
             'upgrade_reason' => $request->Reason,
+            'service_type'     => $serviceName, // The new field
             'declaration' => $request->has('confirm'),
         ];
 
@@ -100,7 +119,7 @@ class LeadController extends Controller
             config('services.razorpay.secret')
         );
 
-        $amountInPaise = 9900; // ₹99.00
+        $amountInPaise = $amount*100; // ₹99.00
 
         $order = $api->order->create([
             'receipt' => 'lead_' . $lead->id,
@@ -109,6 +128,7 @@ class LeadController extends Controller
             'notes' => [
                 'lead_id' => $lead->id,
                 'mobile' => $lead->mobile,
+                'service_type' => $lead->service_type,
             ],
         ]);
 
