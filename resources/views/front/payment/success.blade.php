@@ -14,7 +14,9 @@
                     <div class="section-title section-title-center thank-you">
                         <h2>Thank You</h2>
                     </div>
-                    <p>{{ $response }}</p>
+                    <p class="lead">
+                        {{ session('message') ?? 'Your Inquiry Has Been Successfully Received. We will get back to you shortly.' }}
+                    </p>
                 </div>
             </div>
         </div>

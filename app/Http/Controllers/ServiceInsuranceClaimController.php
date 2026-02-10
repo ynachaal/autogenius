@@ -32,7 +32,6 @@ class ServiceInsuranceClaimController extends Controller
         $request->validate([
             'customer_name'   => 'required|string|max:255',
             'customer_mobile' => 'required|string|max:20',
-            'vehicle_reg_no'  => 'required|string|max:20',
             'rc_photo'        => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
             'insurance_photo' => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
             'cf-turnstile-response' => 'required',
@@ -65,7 +64,6 @@ class ServiceInsuranceClaimController extends Controller
         $insurance = ServiceInsuranceClaim::create([
             'customer_name'   => $request->customer_name,
             'customer_mobile' => $request->customer_mobile,
-            'vehicle_reg_no'  => $request->vehicle_reg_no,
             'rc_path'         => $rcPath,
             'insurance_path'  => $insPath,
             'status'          => 'pending',
@@ -137,11 +135,14 @@ class ServiceInsuranceClaimController extends Controller
             // Notify Admin (Uncomment when EmailService method is ready)
             // $this->emailService->insuranceHistoryAdminNotification($insurance);
 
-            return redirect()->route('insurance.thank-you')->with('success', 'Payment successful');
+         return redirect()->route('payment.success')->with([
+        'title' => 'Claim Request Received!',
+        'message' => 'Your Inquiry Has Been Successfully Received. We will get back to you within 3 Hours.'
+    ]);
 
         } catch (\Exception $e) {
             Log::error('Service Insurance Payment Verify Failed: ' . $e->getMessage());
-            return redirect()->route('lead.payment.failed');
+           return redirect()->route('payment.failed');
         }
     }
 
@@ -162,9 +163,4 @@ class ServiceInsuranceClaimController extends Controller
         ]);
     }
 
-    public function thankYou()
-    {
-        $response = 'Your Inquiry Has Been Successfully Received. We will get back to you within 3 Hours.';
-        return view('front.payment.thank-you', compact('response'));
-    }
 }
