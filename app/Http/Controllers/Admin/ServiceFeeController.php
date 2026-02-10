@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\ServiceFee;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule; // <-- Import for unique validation rules
+use Illuminate\Validation\Rule;
 
 class ServiceFeeController extends Controller
 {
@@ -19,7 +19,6 @@ class ServiceFeeController extends Controller
 
         $query = ServiceFee::query();
 
-        // Search logic
         if ($search) {
             $query->where(function ($q) use ($search) {
                 $q->where('car_segment', 'like', "%{$search}%")
@@ -28,12 +27,10 @@ class ServiceFeeController extends Controller
             });
         }
 
-        // Status Filter
         if ($status !== null && in_array($status, ['0', '1'])) {
             $query->where('status', $status);
         }
 
-        // Advanced Sorting Logic
         $sortBy = $request->input('sort_by', 'id');
         $sortDirection = $request->input('sort_direction', 'asc');
         $allowedSorts = ['id', 'car_segment', 'full_report_fee', 'booking_amount', 'status', 'created_at'];
@@ -45,7 +42,6 @@ class ServiceFeeController extends Controller
 
         $fees = $query->orderBy($sortBy, $sortDirection)->paginate(10);
 
-        // Appends parameters to pagination links to maintain state during sorting/searching
         $fees->appends(array_merge($request->query(), [
             'search' => $search,
             'status' => $status,
@@ -56,9 +52,6 @@ class ServiceFeeController extends Controller
         return view('admin.service-fees.index', compact('fees', 'sortBy', 'sortDirection', 'search', 'status'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('admin.service-fees.create');
@@ -71,29 +64,25 @@ class ServiceFeeController extends Controller
     {
         $validatedData = $request->validate([
             'car_segment'     => ['required', 'string', 'max:255', Rule::unique('service_fees', 'car_segment')],
-            'full_report_fee' => ['required', 'numeric', 'min:0'],
-            'booking_amount'  => ['required', 'numeric', 'min:0'],
-            'status'          => ['boolean'],
+            'full_report_fee' => ['required', 'numeric', 'min:0', 'max:99999'],
+            'booking_amount'  => ['required', 'numeric', 'min:0', 'max:99999'],
+            'status'          => ['nullable'], 
         ]);
+
+        // Logic fix: Check the actual value since hidden input always sends the key
+        $validatedData['status'] = $request->input('status') == '1' ? 1 : 0;
 
         $serviceFee = ServiceFee::create($validatedData);
 
-        // Redirecting to show page to match the BlogController pattern
         return redirect()->route('admin.service-fees.show', $serviceFee)
             ->with('success', 'Service fee created successfully for ' . $validatedData['car_segment']);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(ServiceFee $serviceFee)
     {
         return view('admin.service-fees.show', compact('serviceFee'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(ServiceFee $serviceFee)
     {
         return view('admin.service-fees.edit', compact('serviceFee'));
@@ -111,13 +100,13 @@ class ServiceFeeController extends Controller
                 'max:255', 
                 Rule::unique('service_fees', 'car_segment')->ignore($serviceFee->id)
             ],
-            'full_report_fee' => ['required', 'numeric', 'min:0'],
-            'booking_amount'  => ['required', 'numeric', 'min:0'],
-            'status'          => ['boolean'],
+            'full_report_fee' => ['required', 'numeric', 'min:0', 'max:99999'],
+            'booking_amount'  => ['required', 'numeric', 'min:0', 'max:99999'],
+            'status'          => ['nullable'],
         ]);
 
-        // Handle checkbox logic manually if status isn't sent when unchecked
-        $validatedData['status'] = $request->has('status') ? 1 : 0;
+        // Logic fix: Use boolean conversion for the incoming string "0" or "1"
+        $validatedData['status'] = $request->input('status') == '1' ? 1 : 0;
 
         $serviceFee->update($validatedData);
 
@@ -125,9 +114,6 @@ class ServiceFeeController extends Controller
             ->with('success', 'Service fee updated successfully: ' . $serviceFee->car_segment);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(ServiceFee $serviceFee)
     {
         try {

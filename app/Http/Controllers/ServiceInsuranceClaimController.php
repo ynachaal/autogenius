@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ServiceInsuranceClaim; 
+use App\Models\ServiceInsuranceClaim;
 use App\Models\Payment;
 use App\Services\EmailService;
 use App\Services\PageService;
+use App\Models\Page;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Razorpay\Api\Api;
+use App\Services\ServiceService;
 
 class ServiceInsuranceClaimController extends Controller
 {
@@ -26,18 +28,34 @@ class ServiceInsuranceClaimController extends Controller
     /**
      * Store the request and initiate Razorpay Order
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request, ServiceService $serviceService): RedirectResponse
     {
-        // 1. Validate including File Uploads
+        // 1. Validate including File Uploads and Turnstile
         $request->validate([
-            'customer_name'   => 'required|string|max:255',
-            'customer_mobile' => 'required|string|max:20',
-            'rc_photo'        => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
-            'insurance_photo' => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
-            'cf-turnstile-response' => 'required',
+            'customer_name'         => 'required|string|max:255',
+            'customer_mobile'       => 'required|string|max:20',
+            'rc_photo'              => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
+            'insurance_photo'       => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
+            'cf-turnstile-response' => 'required', 
+            'page_slug'             => 'required|string',
         ]);
 
-        // 2. Turnstile Verification
+        $slug = $request->input('page_slug');
+
+        // 2. Fetch Dynamic Amount from Service
+        $amountValue = $serviceService->getAmountBySlug($slug);
+
+        if (!$amountValue) {
+            return redirect()->back()->with('error', 'Service pricing information not found.');
+        }
+
+        // Convert to Paise (e.g., 500 -> 50000)
+        $amountInPaise = $amountValue * 100;
+
+        $page = Page::where('slug', $slug)->first();
+        $serviceName = $page ? $page->title : ucwords(str_replace('-', ' ', $slug));
+
+        // 3. Turnstile Verification
         try {
             $turnstile = Http::asForm()->timeout(5)->post(
                 'https://challenges.cloudflare.com/turnstile/v0/siteverify',
@@ -47,33 +65,32 @@ class ServiceInsuranceClaimController extends Controller
                     'remoteip' => $request->ip(),
                 ]
             );
+            
+            if (!$turnstile->json('success')) {
+                return back()->withErrors(['cf-turnstile-response' => 'Captcha verification failed.'])->withInput();
+            }
         } catch (\Exception $e) {
             Log::error('Insurance Turnstile Error: ' . $e->getMessage());
-            return back()->with('error', 'Security service unavailable.');
+            return back()->with('error', 'Security service unavailable. Please try again later.');
         }
 
-        if (!$turnstile->json('success')) {
-            return back()->withErrors(['cf-turnstile-response' => 'Captcha verification failed.'])->withInput();
-        }
-
-        // 3. Handle File Storage
+        // 4. Handle File Storage
         $rcPath = $request->file('rc_photo')->store('insurance/rc', 'public');
         $insPath = $request->file('insurance_photo')->store('insurance/insurance', 'public');
 
-        // 4. Create record
+        // 5. Create record
         $insurance = ServiceInsuranceClaim::create([
             'customer_name'   => $request->customer_name,
             'customer_mobile' => $request->customer_mobile,
             'rc_path'         => $rcPath,
             'insurance_path'  => $insPath,
+            'service_type'    => $serviceName,
             'status'          => 'pending',
         ]);
 
-        // 5. Razorpay Order Creation
+        // 6. Razorpay Order Creation
         try {
             $api = new Api(config('services.razorpay.key'), config('services.razorpay.secret'));
-
-            $amountInPaise = 50000; // ₹500
 
             $order = $api->order->create([
                 'receipt'  => 'ins_history_' . $insurance->id,
@@ -82,6 +99,7 @@ class ServiceInsuranceClaimController extends Controller
                 'notes'    => [
                     'insurance_id' => $insurance->id,
                     'customer'     => $insurance->customer_name,
+                    'service_type' => $insurance->service_type,
                 ],
             ]);
 
@@ -100,7 +118,7 @@ class ServiceInsuranceClaimController extends Controller
 
         } catch (\Exception $e) {
             Log::error('Service Insurance Razorpay Error: ' . $e->getMessage());
-            return back()->with('error', 'Unable to initiate payment.');
+            return back()->with('error', 'Unable to initiate payment gateway.');
         }
     }
 
@@ -132,29 +150,40 @@ class ServiceInsuranceClaimController extends Controller
             $insurance = ServiceInsuranceClaim::findOrFail($payment->entity_id);
             $insurance->update(['status' => 'confirmed']);
 
-            // Notify Admin (Uncomment when EmailService method is ready)
-            // $this->emailService->insuranceHistoryAdminNotification($insurance);
+            // Notify Admin
+            try {
+                $this->emailService->insuranceHistoryAdminNotification($insurance);
+            } catch (\Exception $e) {
+                Log::error('Failed to send Admin Email: ' . $e->getMessage());
+            }
 
-         return redirect()->route('payment.success')->with([
-        'title' => 'Claim Request Received!',
-        'message' => 'Your Inquiry Has Been Successfully Received. We will get back to you within 3 Hours.'
-    ]);
+            return redirect()->route('payment.success')->with([
+                'title'   => 'Claim Request Received!',
+                'message' => 'Your Inquiry Has Been Successfully Received. We will get back to you within 3 Hours.'
+            ]);
 
         } catch (\Exception $e) {
             Log::error('Service Insurance Payment Verify Failed: ' . $e->getMessage());
-           return redirect()->route('payment.failed');
+            return redirect()->route('payment.failed');
         }
     }
 
+    /**
+     * Show Payment Page
+     */
     public function payment(ServiceInsuranceClaim $insurance)
     {
         $paid = $insurance->payments()->where('status', 'paid')->exists();
 
         if ($paid) {
-            return redirect()->route('insurance.thank-you');
+            return redirect()->route('payment.success');
         }
 
         $payment = $insurance->payments()->latest()->first();
+
+        if (!$payment) {
+            return redirect()->back()->with('error', 'Payment session not found.');
+        }
 
         return view('front.service-insurance.payment', [
             'insurance'   => $insurance,
@@ -162,5 +191,4 @@ class ServiceInsuranceClaimController extends Controller
             'razorpayKey' => config('services.razorpay.key'),
         ]);
     }
-
 }

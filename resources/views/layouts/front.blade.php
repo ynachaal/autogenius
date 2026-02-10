@@ -79,7 +79,7 @@
     <script src="{{ asset('js/jquery.mb.YTPlayer.min.js') }}"></script>
     <script src="{{ asset('js/wow.min.js') }}"></script>
     <script src="{{ asset('js/function.js') }}"></script>
-    <script src="{{ asset('js/serviceforms.js') }}"></script>
+    <script src="{{ asset('js/serviceforms.js') }}?time={{ time() }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@26.0.6/build/js/intlTelInput.min.js"></script>
     @stack('scripts')
     <script>
