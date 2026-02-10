@@ -21,7 +21,8 @@
                             <div class="row mb-3">
                                 <div class="col-sm-4 fw-bold">Service Type:</div>
                                 <div class="col-sm-8">
-                                    <span class="badge bg-info text-dark">{{ $inspection->service_type ?? 'Standard Inspection' }}</span>
+                                    <span
+                                        class="badge bg-info text-dark">{{ $inspection->service_type ?? 'Standard Inspection' }}</span>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -38,7 +39,10 @@
                             <div class="row mb-3">
                                 <div class="col-sm-4 fw-bold">Inspection Date:</div>
                                 <div class="col-sm-8">
-                                    {{ \Carbon\Carbon::parse($inspection->inspection_date)->format('l, d F Y') }}
+                                    <span class="text-dark fw-bold">
+                                        <i class="bi bi-calendar-event"></i>
+                                        {{ \Carbon\Carbon::parse($inspection->inspection_date)->format('l, d F Y') }}
+                                    </span>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -62,11 +66,12 @@
                                     <p>
                                         <strong>Payment Status:</strong>
                                         @if($latestPayment)
-                                            <span class="badge 
-                                                {{ $latestPayment->status === 'paid' ? 'bg-success' :
-                                                ($latestPayment->status === 'pending' ? 'bg-warning' : 'bg-danger') }}">
-                                                {{ strtoupper($latestPayment->status) }}
-                                            </span>
+                                                                            <span
+                                                                                class="badge 
+                                                                                    {{ $latestPayment->status === 'paid' ? 'bg-success' :
+                                            ($latestPayment->status === 'pending' ? 'bg-warning' : 'bg-danger') }}">
+                                                                                {{ strtoupper($latestPayment->status) }}
+                                                                            </span>
                                         @else
                                             <span class="badge bg-secondary">UNPAID</span>
                                         @endif
@@ -78,8 +83,8 @@
 
                                     <p><strong>Paid At:</strong>
                                         {{ $latestPayment && $latestPayment->paid_at
-                                            ? $latestPayment->paid_at->format('d M Y, h:i A')
-                                            : 'N/A' }}
+    ? $latestPayment->paid_at->format('d M Y, h:i A')
+    : 'N/A' }}
                                     </p>
                                 </div>
 
@@ -97,9 +102,11 @@
                                     <p><strong>Request Created:</strong>
                                         {{ $inspection->created_at->format('d M Y, h:i A') }}
                                     </p>
-                                    
+
                                     @if($latestPayment && $latestPayment->status !== 'paid')
-                                        <form action="{{ route('admin.car-inspections.verify-payment', [$inspection->id, $latestPayment->id]) }}" method="POST">
+                                        <form
+                                            action="{{ route('admin.car-inspections.verify-payment', [$inspection->id, $latestPayment->id]) }}"
+                                            method="POST">
                                             @csrf
                                             <button type="submit" class="btn btn-sm btn-outline-primary">
                                                 <i class="bi bi-patch-check"></i> Verify Payment
@@ -130,7 +137,8 @@
                                         </div>
                                         <small
                                             class="text-muted d-block">{{ $payment->created_at->format('d M, h:i A') }}</small>
-                                        <small class="text-xs text-uppercase text-muted">ID: {{ $payment->payment_id ?? 'N/A' }}</small>
+                                        <small class="text-xs text-uppercase text-muted">ID:
+                                            {{ $payment->payment_id ?? 'N/A' }}</small>
                                     </li>
                                 @empty
                                     <li class="list-group-item text-center text-muted py-4">No payment attempts found.</li>

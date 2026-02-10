@@ -72,13 +72,15 @@ class CarInspectionController extends Controller
         $page = Page::where('slug', $request->page_slug)->first();
         $serviceName = $page ? $page->title : ucwords(str_replace('-', ' ', $request->page_slug));
 
+        $formattedDate = \Carbon\Carbon::createFromFormat('dmY', $request->pdi_date . '20')->format('Y-m-d');
+
         // Create inspection
         $inspection = CarInspection::create([
             'customer_name' => $request->customer_name,
             'customer_mobile' => $request->customer_mobile,
             'customer_email' => $request->customer_email,
             'vehicle_name' => $request->vehicle_name,
-            'inspection_date' => $request->pdi_date,
+            'inspection_date' => $formattedDate, // Saved as real DATE
             'service_type' => $serviceName, // Now saves "Pre-Delivery Inspection" instead of "pre-delivery-inspection"
             'inspection_location' => $request->pdi_location,
             'status' => 'pending',
