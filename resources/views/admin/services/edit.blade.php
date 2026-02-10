@@ -14,8 +14,9 @@
         'sub_heading' => old('sub_heading', $service->sub_heading),
         'description' => old('description', $service->description),
         'image' => $service->image,
+        'amount' => old('amount', $service->amount),  
 
-        // ✅ ADD THIS
+        
         'youtube_url' => old('youtube_url', $service->youtube_url),
 
         /* SEO Meta Fields */

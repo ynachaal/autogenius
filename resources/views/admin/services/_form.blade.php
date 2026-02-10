@@ -38,6 +38,17 @@
                                 @error('title')<div class="text-danger small">{{ $message }}</div>@enderror
                             </div>
 
+                            {{-- Amount --}}
+                            <div class="col-md-6">
+                                <label class="form-label fw-medium">Amount</label>
+                                <input type="number" name="amount" value="{{ $amount ?? old('amount') }}"
+                                    class="form-control @error('amount') is-invalid @enderror" min="0" step="1"
+                                    required>
+                                @error('amount')
+                                    <div class="text-danger small">{{ $message }}</div>
+                                @enderror
+                            </div>
+
                             {{-- Slug --}}
                             <div class="col-md-6">
                                 <label class="form-label fw-medium">Slug (optional)</label>
@@ -205,11 +216,21 @@
                     },
                     meta_keywords: {
                         maxlength: 500
-                    }
+                    },
+                    amount: {
+                        required: true,
+                        digits: true,   // whole numbers only
+                        min: 0
+                    },
                 },
                 messages: {
                     slug: {
                         regex: "Slug can only contain lowercase letters, numbers, and hyphens"
+                    },
+                    amount: {
+                        required: "Amount is required",
+                        digits: "Amount must be a whole number",
+                        min: "Amount cannot be negative"
                     }
                 },
                 errorElement: "div",
