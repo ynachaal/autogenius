@@ -18,7 +18,6 @@ class ServiceInsuranceClaim extends Model
         'customer_name',
         'customer_mobile',
         'service_type',     // Added
-        'vehicle_reg_no',   // Added
         'rc_path',
         'insurance_path',
         'status',

@@ -72,12 +72,10 @@ class SellYourCarController extends Controller
           $this->emailService->sellYourCarAdminNotification($sellYourCar); 
 
         // 5. Redirect
-        return redirect()->route('car.thank-you');
+        return redirect()->route('payment.success')->with([
+    'title'   => 'Listing Received!',
+    'message' => 'Your Inquiry Has Been Successfully Received. We will get back to you within 24 Hours.'
+]);
     }
 
-    public function thankYou()
-    {
-        $response = 'Your Inquiry Has Been Successfully Received. We will get back to you within 24 Hours.';
-        return view('front.payment.thank-you', compact('response'));
-    }
 }

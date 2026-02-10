@@ -71,7 +71,7 @@ Route::get('/smart-car-requirements', [LeadController::class, 'index'])->name('l
 
 // Add this to handle the form data
 Route::post('/smart-car-requirements', [LeadController::class, 'store'])->name('lead.store');
-Route::get('/thank-you', [LeadController::class, 'thankYou'])->name('lead.thank-you');
+
 Route::get('/search', [SiteController::class, 'search'])->name('search');
 
 Route::get('/services/{slug}', [SiteController::class, 'serviceDetail'])->name('services.show');
@@ -87,12 +87,9 @@ Route::get('/book-a-consultation', [SiteController::class, 'bookConsultation'])
 Route::post('/book-a-consultation/store', [SiteController::class, 'storeConsultation'])
     ->name('frontend.consultation.store');
 
-
-
 Route::post('/razorpay/success', [SiteController::class, 'razorpaySuccess'])
     ->name('razorpay.success');
 
-Route::get('/payment-failed', [LeadController::class, 'paymentFailed'])->name('lead.payment.failed');
 
 Route::get('/lead/payment/{lead}', [LeadController::class, 'payment'])
     ->name('lead.payment')
@@ -102,9 +99,6 @@ Route::post('/lead/payment/verify', [LeadController::class, 'verifyPayment'])->n
 
 // sell car routes
 Route::post('/sell-car/submit', [SellYourCarController::class, 'store'])->name('car.submit');
-
-Route::get('/sell-car/thank-you', [SellYourCarController::class, 'thankYou'])->name('car.thank-you');
-
 
 // inspection routes
 
@@ -121,15 +115,8 @@ Route::post('/inspection/payment/verify', [CarInspectionController::class, 'veri
     ->name('inspection.payment.verify');
 
 // Success and Failure pages
-Route::get('/inspection/thank-you', [CarInspectionController::class, 'thankYou'])
-    ->name('inspection.thank-you');
 
-Route::get('/inspection/payment-failed', [CarInspectionController::class, 'paymentFailed'])
-    ->name('inspection.payment.failed');
-
-
-
-    Route::post('/service-insurance/submit', [ServiceInsuranceClaimController::class, 'store'])
+Route::post('/service-insurance/submit', [ServiceInsuranceClaimController::class, 'store'])
     ->name('service-insurance.submit');
 
 Route::get('/service-insurance/payment/{insurance}', [ServiceInsuranceClaimController::class, 'payment'])
@@ -139,5 +126,7 @@ Route::get('/service-insurance/payment/{insurance}', [ServiceInsuranceClaimContr
 Route::post('/service-insurance/payment/verify', [ServiceInsuranceClaimController::class, 'verifyPayment'])
     ->name('service-insurance.payment.verify');
 
-Route::get('/service-insurance/thank-you', [ServiceInsuranceClaimController::class, 'thankYou'])
-    ->name('service-insurance.thank-you');
+
+
+Route::view('/payment/success', 'front.payments.success')->name('payment.success');
+Route::view('/payment/failed', 'front.payments.failed')->name('payment.failed');

@@ -42,10 +42,10 @@ class LeadController extends Controller
             'name' => 'required|string|max:255',
             'mobile' => 'required|string|min:10',
             'city' => 'required|string',
-             'page_slug' => 'required|string', 
+            'page_slug' => 'required|string',
         ]);
 
-        
+
         $slug = $request->input('page_slug');
 
         // 3. Call your service to get the amount
@@ -76,7 +76,7 @@ class LeadController extends Controller
 
         if (!$turnstile->json('success')) {
             return back()->withErrors(['cf-turnstile-response' => 'Captcha verification failed.'])->withInput();
-        } 
+        }
 
         // 3. Map lead data
         $data = [
@@ -106,7 +106,7 @@ class LeadController extends Controller
             'decision_maker' => $request->Decision,
             'existing_car' => $request->Existing,
             'upgrade_reason' => $request->Reason,
-            'service_type'     => $serviceName, // The new field
+            'service_type' => $serviceName, // The new field
             'declaration' => $request->has('confirm'),
         ];
 
@@ -119,7 +119,7 @@ class LeadController extends Controller
             config('services.razorpay.secret')
         );
 
-        $amountInPaise = $amount*100; // ₹99.00
+        $amountInPaise = $amount * 100; // ₹99.00
 
         $order = $api->order->create([
             'receipt' => 'lead_' . $lead->id,
@@ -183,10 +183,14 @@ class LeadController extends Controller
                 $this->emailService->sendLeadAdminNotification($lead);
             }
 
-            return redirect()->route('lead.thank-you')->with('success', 'Payment successful');
+            return redirect()->route('payment.success')->with([
+                'title' => 'Inquiry Received!',
+                'message' => 'Your Inquiry Has Been Successfully Received. We will get back to you within 24 Hours.'
+            ]);
+
         } catch (\Exception $e) {
             Log::error('Razorpay Verify Failed: ' . $e->getMessage());
-            return redirect()->route('lead.payment.failed');
+            return redirect()->route('payment.failed');
         }
     }
 
@@ -209,16 +213,5 @@ class LeadController extends Controller
             'payment' => $payment,
             'razorpayKey' => config('services.razorpay.key'),
         ]);
-    }
-
-    public function paymentFailed()
-    {
-        return view('front.payment.payment-failed');
-    }
-
-    public function thankYou()
-    {
-        $response = 'Your Inquiry Has Been Successfully Received. We will get back to you within 24 Hours.';
-        return view('front.payment.thank-you', compact('response'));
     }
 }

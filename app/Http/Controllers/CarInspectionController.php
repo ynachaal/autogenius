@@ -28,18 +28,18 @@ class CarInspectionController extends Controller
     public function store(Request $request, ServiceService $serviceService): RedirectResponse
     {
         $request->validate([
-           
+
             'customer_name' => 'required|string|max:255',
             'customer_mobile' => 'required|string|max:20',
             'customer_email' => 'required|email',
             'vehicle_name' => 'required|string|max:255',
-           'pdi_date' => 'required|date',
+            'pdi_date' => 'required|date',
             'pdi_location' => 'required|string|max:255',
             'page_slug' => 'required|string', // The hidden input from your form
-             'cf-turnstile-response' => 'required', 
+            'cf-turnstile-response' => 'required',
         ]);
 
-       
+
 
         $slug = $request->input('page_slug');
 
@@ -53,7 +53,7 @@ class CarInspectionController extends Controller
         }
 
         // Turnstile verify
-         try {
+        try {
             $turnstile = Http::asForm()->timeout(5)->post(
                 'https://challenges.cloudflare.com/turnstile/v0/siteverify',
                 [
@@ -70,13 +70,13 @@ class CarInspectionController extends Controller
         if (!$turnstile->json('success')) {
             return back()->withErrors(['cf-turnstile-response' => 'Captcha verification failed.'])->withInput();
         }
- 
+
         $page = Page::where('slug', $request->page_slug)->first();
         $serviceName = $page ? $page->title : ucwords(str_replace('-', ' ', $request->page_slug));
 
-        
 
-       $formattedDate = $request->pdi_date; // Already Y-m-d from flatpickr
+
+        $formattedDate = $request->pdi_date; // Already Y-m-d from flatpickr
 
         // Create inspection
         $inspection = CarInspection::create([
@@ -93,7 +93,7 @@ class CarInspectionController extends Controller
         try {
             $api = new Api(config('services.razorpay.key'), config('services.razorpay.secret'));
 
-            $amountInPaise = $amount*100; // ₹500
+            $amountInPaise = $amount * 100; // ₹500
 
             $order = $api->order->create([
                 'receipt' => 'car_inspection_' . $inspection->id,
@@ -153,12 +153,13 @@ class CarInspectionController extends Controller
 
             $this->emailService->carInspectionAdminNotification($inspection);
 
-            return redirect()->route('inspection.thank-you')->with('success', 'Payment verified successfully');
+          return redirect()->route('payment.success')
+        ->with('message', 'Your Inquiry Has Been Successfully Received. We will get back to you within 24 Hours.');
 
         } catch (\Exception $e) {
 
             Log::error('PDI Payment Verify Failed: ' . $e->getMessage());
-            return redirect()->route('inspection.payment.failed');
+           return redirect()->route('payment.failed');
         }
     }
 
@@ -179,9 +180,5 @@ class CarInspectionController extends Controller
         ]);
     }
 
-    public function thankYou()
-    {
-        $response = 'Your Inquiry Has Been Successfully Received. We will get back to you within 24 Hours.';
-       return view('front.payment.thank-you', compact('response'));
-    }
+  
 }
