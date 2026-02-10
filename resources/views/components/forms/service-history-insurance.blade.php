@@ -8,7 +8,7 @@
         </div>
 
         @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <div id="sell-car-success"  class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>Success!</strong> {{ session('success') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
@@ -23,7 +23,6 @@
                 </ul>
             </div>
         @endif
-
 
         {{-- Dynamic Pricing Table --}}
         <div class="mb-5">
@@ -64,6 +63,9 @@
                                 class="text-danger">*</span></label>
                         <input required type="text" name="customer_name" id="customer_name"
                             placeholder="Enter your name" class="form-control" value="{{ old('customer_name') }}">
+
+                        <input type="hidden" name="page_slug"
+                            value="{{ $slug ?? request()->segment(count(request()->segments())) }}">
                     </div>
                 </div>
 
@@ -81,8 +83,8 @@
                         <label for="rc_photo" class="form-label">Upload RC Copy <span
                                 class="text-danger">*</span></label>
                         <input required type="file" name="rc_photo" id="rc_photo" class="form-control"
-                            accept="image/*,.pdf">
-                        <div class=" small mt-1">Clear photo of the Front RC</div>
+                            >
+                        <p >Clear photo of the Front RC</p>
                     </div>
                 </div>
 
@@ -91,7 +93,7 @@
                         <label for="insurance_photo" class="form-label">Upload Latest Insurance Policy <span
                                 class="text-danger">*</span></label>
                         <input required type="file" name="insurance_photo" id="insurance_photo" class="form-control"
-                            accept="image/*,.pdf">
+                           >
 
                     </div>
                 </div>
