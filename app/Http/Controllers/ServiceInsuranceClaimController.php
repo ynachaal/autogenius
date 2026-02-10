@@ -152,7 +152,7 @@ class ServiceInsuranceClaimController extends Controller
 
             // Notify Admin
             try {
-                $this->emailService->insuranceHistoryAdminNotification($insurance);
+              //  $this->emailService->insuranceHistoryAdminNotification($insurance);
             } catch (\Exception $e) {
                 Log::error('Failed to send Admin Email: ' . $e->getMessage());
             }
