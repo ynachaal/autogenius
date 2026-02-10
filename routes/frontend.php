@@ -87,11 +87,8 @@ Route::get('/book-a-consultation', [SiteController::class, 'bookConsultation'])
 Route::post('/book-a-consultation/store', [SiteController::class, 'storeConsultation'])
     ->name('frontend.consultation.store');
 
-
-
 Route::post('/razorpay/success', [SiteController::class, 'razorpaySuccess'])
     ->name('razorpay.success');
-
 
 
 Route::get('/lead/payment/{lead}', [LeadController::class, 'payment'])
@@ -102,8 +99,6 @@ Route::post('/lead/payment/verify', [LeadController::class, 'verifyPayment'])->n
 
 // sell car routes
 Route::post('/sell-car/submit', [SellYourCarController::class, 'store'])->name('car.submit');
-
-
 
 // inspection routes
 
@@ -121,10 +116,7 @@ Route::post('/inspection/payment/verify', [CarInspectionController::class, 'veri
 
 // Success and Failure pages
 
-
-
-
-    Route::post('/service-insurance/submit', [ServiceInsuranceClaimController::class, 'store'])
+Route::post('/service-insurance/submit', [ServiceInsuranceClaimController::class, 'store'])
     ->name('service-insurance.submit');
 
 Route::get('/service-insurance/payment/{insurance}', [ServiceInsuranceClaimController::class, 'payment'])
