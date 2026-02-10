@@ -33,6 +33,7 @@
                             <h5 class="text-primary border-bottom pb-2">Customer Information</h5>
                             <table class="table table-borderless">
                                 <tr><th width="40%">Name:</th><td>{{ $sellYourCar->customer_name }}</td></tr>
+                                <tr><th width="40%">Email:</th><td>{{ $sellYourCar->customer_email }}</td></tr>
                                 <tr><th>Mobile:</th><td><a href="tel:{{ $sellYourCar->customer_mobile }}">{{ $sellYourCar->customer_mobile }}</a></td></tr>
                                 <tr><th>Inquiry Date:</th><td>{{ $sellYourCar->created_at->format('M d, Y - h:i A') }}</td></tr>
                             </table>

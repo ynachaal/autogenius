@@ -25,6 +25,7 @@
                             <h5 class="fw-bold text-primary mb-3">Customer Information</h5>
                             <p><strong>Full Name:</strong> {{ $lead->full_name }}</p>
                             <p><strong>Mobile:</strong> {{ $lead->mobile ?? 'N/A' }}</p>
+                            <p><strong>Email:</strong> {{ $lead->email ?? 'N/A' }}</p>
                             <p><strong>City:</strong> {{ $lead->city ?? 'N/A' }}</p>
                             <p><strong>Service:</strong> {{ $lead->service_required ?? 'N/A' }}</p>
                             <p><strong>Preferred Contact:</strong> {{ $lead->preferred_contact_method ?? 'N/A' }}</p>
@@ -109,7 +110,7 @@
                                 <strong>Payment Status:</strong>
                                 @if($latestPayment)
                                                             <span class="badge 
-                                                {{ $latestPayment->status === 'paid' ? 'bg-success' :
+                                                                            {{ $latestPayment->status === 'paid' ? 'bg-success' :
                                     ($latestPayment->status === 'pending' ? 'bg-warning' : 'bg-danger') }}">
                                                                 {{ strtoupper($latestPayment->status) }}
                                                             </span>

@@ -27,6 +27,7 @@
                             <div class="row mb-3">
                                 <div class="col-sm-4 fw-bold">Customer:</div>
                                 <div class="col-sm-8">{{ $claim->customer_name }} ({{ $claim->customer_mobile }})</div>
+                                <div class="col-sm-8">{{ $claim->customer_email }}</div>
                             </div>
                             
                             <hr>
