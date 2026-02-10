@@ -150,8 +150,13 @@ return [
                 'route' => route('admin.email-templates.index'),
                 'active' => Route::is('admin.email-templates.index'),
             ],
+             [
+                'title' => 'Service Fees',
+                'route' => route('admin.service-fees.index'),
+                'active' => Route::is('admin.service-fees.index'),
+            ],
         ],
-        'active' => Route::is('admin.pages.index') || Route::is('admin.email-templates.index'),
+        'active' => Route::is('admin.pages.index') || Route::is('admin.email-templates.index') || Route::is('admin.service-fees.index'),
     ],
     [
         'title' => 'Settings',

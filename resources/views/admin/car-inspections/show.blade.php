@@ -119,7 +119,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-4 d-none">
                     <div class="card shadow-sm">
                         <div class="card-header bg-light">
                             <h3 class="card-title">Payment History</h3>

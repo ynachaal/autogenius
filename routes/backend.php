@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\{
     ConsultationController,
     SellYourCarController,
     LeadController,
+    ServiceFeeController,
     PageController,
     BrandController,
     ContactSubmissionController,
@@ -58,17 +59,18 @@ Route::middleware(['auth', AdminMiddleware::class])
 
         Route::resource('leads', LeadController::class);
         Route::post('leads/{lead}/payments/{payment}/verify', [LeadController::class, 'verifyPayment'])
-    ->name('leads.verify-payment');
+            ->name('leads.verify-payment');
         Route::resource('contact-submissions', ContactSubmissionController::class);
-        Route::resource('sell-your-cars', SellYourCarController::class); 
-         Route::resource('car-inspections', CarInspectionController::class); 
-         Route::post('car-inspections/{car_inspection}/payments/{payment}/verify', [CarInspectionController::class, 'verifyPayment'])
-    ->name('car-inspections.verify-payment');   
+        Route::resource('sell-your-cars', SellYourCarController::class);
+        Route::resource('car-inspections', CarInspectionController::class);
+        Route::post('car-inspections/{car_inspection}/payments/{payment}/verify', [CarInspectionController::class, 'verifyPayment'])
+            ->name('car-inspections.verify-payment');
         Route::resource('consultations', ConsultationController::class);
 
         Route::post('consultations/{consultation}/status', [ConsultationController::class, 'updateStatus'])
             ->name('consultations.updateStatus');
 
+        Route::resource('service-fees', ServiceFeeController::class);
         Route::resource('services', ServiceController::class);
         Route::resource('brands', BrandController::class);
         Route::resource('blogs', BlogController::class);
