@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\LeadController;
 use App\Http\Controllers\ServiceInsuranceClaimController;
+use App\Http\Controllers\CallConsultationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ContactSubmissionController;
 use App\Http\Controllers\TinyMCEController;
@@ -117,6 +118,19 @@ Route::get('/service-insurance/payment/{insurance}', [ServiceInsuranceClaimContr
 
 Route::post('/service-insurance/payment/verify', [ServiceInsuranceClaimController::class, 'verifyPayment'])
     ->name('service-insurance.payment.verify');
+
+
+    Route::post('/call-consultation/submit', [CallConsultationController::class, 'store'])
+    ->name('service.submit'); // Matches the action name in your Blade form
+
+// The payment page (Signed for security)
+Route::get('/call-consultation/payment/{consultation}', [CallConsultationController::class, 'payment'])
+    ->name('call-consultation.payment')
+    ->middleware('signed');
+
+// The Razorpay verification callback
+Route::post('/call-consultation/payment/verify', [CallConsultationController::class, 'verifyPayment'])
+    ->name('call-consultation.payment.verify');
 
 
 

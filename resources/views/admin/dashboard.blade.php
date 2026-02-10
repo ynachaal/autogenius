@@ -53,18 +53,7 @@
                     </a>
                 </div>
 
-                {{-- Consultation Requests --}}
-                <div class="col-12 col-md-6 col-lg-3">
-                    <a href="{{ route('admin.consultations.index') }}" class="text-decoration-none">
-                        <div
-                            class="card border border-success-subtle shadow-sm rounded-4 p-4 text-center bg-success-subtle hover-shadow">
-                            <p class="text-uppercase small fw-medium text-success mb-2">Consultation Requests</p>
-                            <p class="display-6 fw-bold text-dark mb-0">
-                                {{ number_format($stats['total_consultations'] ?? 0) }}
-                            </p>
-                        </div>
-                    </a>
-                </div>
+              
 
             </div>
 

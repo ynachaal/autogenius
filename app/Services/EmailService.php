@@ -379,5 +379,29 @@ class EmailService
             'New Car Inspection Request: ' . ($inspection->vehicle_name ?? 'Inquiry')
         );
     }
+    /**
+     * Send Service Insurance Claim notification to admin.
+     *
+     * @param \App\Models\ServiceInsuranceClaim $claim
+     * @return bool
+     */
+    public function serviceInsuranceClaimAdminNotification($claim): bool
+    {
+        $data = [
+            '{customer_name}' => $claim->customer_name ?? 'N/A',
+            '{customer_mobile}' => $claim->customer_mobile ?? 'N/A',
+            '{service_type}' => ucfirst(str_replace('_', ' ', $claim->service_type ?? 'N/A')),
+            '{status}' => strtoupper($claim->status ?? 'PENDING'),
+            '{date}' => optional($claim->created_at)->format('d-m-Y H:i:s') ?? now()->format('d-m-Y H:i:s'),
+            '{year}' => now()->year,
+            '{website_link}' => config('app.url', url('/')),
+        ];
 
+        return $this->sendEmailInstant(
+            config('settings.admin_email', 'admin@autogenious.com'),
+            'Service Insurance Claim - Admin', // This matches the migration title
+            $data,
+            'New Insurance Claim Request: ' . ($claim->customer_name ?? 'Inquiry')
+        );
+    }
 }

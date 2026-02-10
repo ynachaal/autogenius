@@ -151,10 +151,11 @@ class ServiceInsuranceClaimController extends Controller
             $insurance->update(['status' => 'confirmed']);
 
             // Notify Admin
-            try {
-              //  $this->emailService->insuranceHistoryAdminNotification($insurance);
+           try {
+                // Calling the new method added to EmailService
+                $this->emailService->serviceInsuranceClaimAdminNotification($insurance);
             } catch (\Exception $e) {
-                Log::error('Failed to send Admin Email: ' . $e->getMessage());
+                Log::error('Failed to send Service Insurance Admin Email: ' . $e->getMessage());
             }
 
             return redirect()->route('payment.success')->with([

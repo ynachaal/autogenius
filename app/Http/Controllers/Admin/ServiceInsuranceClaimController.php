@@ -84,7 +84,7 @@ class ServiceInsuranceClaimController extends Controller
                 $service_insurance_claim->update(['status' => 'confirmed']);
 
                 // If you have this method ready in EmailService:
-                // $this->emailService->insuranceClaimAdminNotification($service_insurance_claim);
+                $this->emailService->serviceInsuranceClaimAdminNotification($service_insurance_claim);
 
                 return back()->with('success', 'Claim payment verified and confirmed!');
             }

@@ -1,4 +1,64 @@
 $(document).ready(function () {
+	$("#serviceBooking").validate({
+        errorElement: 'span',
+        errorClass: 'text-danger small',
+        highlight: function (element) { 
+            $(element).addClass('is-invalid'); 
+        },
+        unhighlight: function (element) { 
+            $(element).removeClass('is-invalid'); 
+        },
+        submitHandler: function (form) {
+            // Check Turnstile
+            const turnstileResponse = $(form).find('[name="cf-turnstile-response"]').val();
+            if (!turnstileResponse) {
+                // Check if error message already exists to avoid duplication
+                if ($('#turnstile-error-service').length === 0) {
+                    $(form).find('.cf-turnstile').after('<div id="turnstile-error-service" class="text-danger small mt-1">Please verify that you are not a robot.</div>');
+                }
+                return false;
+            }
+            $('#turnstile-error-service').remove();
+            
+            // Disable button to prevent double submission
+            $(form).find('button[type="submit"]').prop('disabled', true).text('Processing...');
+            form.submit();
+        },
+        rules: {
+            customer_name: { 
+                required: true, 
+                minlength: 3 
+            },
+            customer_mobile: { 
+                required: true, 
+                minlength: 10, 
+                maxlength: 15,
+                
+            },
+            customer_email: { 
+                required: true, 
+                email: true 
+            },
+            selected_service: { 
+                required: true 
+            }
+        },
+        messages: {
+            selected_service: {
+                required: "Please select a service to continue."
+            },
+            customer_mobile: {
+                digits: "Please enter a valid mobile number."
+            }
+        },
+        errorPlacement: function (error, element) {
+            if (element.hasClass('form-select')) {
+                error.insertAfter(element);
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
 	// 1. REGISTER CUSTOM VALIDATION METHODS
 	$.validator.addMethod("filesize", function (value, element, param) {
 		if (!element.files.length) return true; // Optional field

@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Services\BrandService;
 use App\Services\ServiceService;
 use App\Services\LeadService;
-use App\Services\ConsultationService;
 use Illuminate\Support\Facades\Artisan;
 
 class DashboardController extends Controller
@@ -21,24 +20,20 @@ class DashboardController extends Controller
         BrandService $brandService, 
         ServiceService $serviceService,
         LeadService $leadService,
-        ConsultationService $consultationService
+       
     ) {
         $this->brandService = $brandService;
         $this->serviceService = $serviceService;
         $this->leadService = $leadService;
-        $this->consultationService = $consultationService;
+      
     }
 
     public function index()
     {
-        $consultationStats = $this->consultationService->getConsultationStats();
-
         $stats = [
             'active_brands'   => $this->brandService->getActiveBrandsCount(),
             'active_services' => $this->serviceService->getActiveServicesCount(),
             'total_leads'     => $this->leadService->getTotalLeadsCount(),
-            'total_consultations'     => $consultationStats['total'],
-          
         ];
 
         return view('admin.dashboard', compact('stats'));
