@@ -45,17 +45,17 @@ return [
                 'route' => route('admin.leads.index'),
                 'active' => Route::is('admin.leads.*'),
             ],
-           /*  [
-                'title' => 'Consultations',
-                'route' => route('admin.consultations.index'),
-                'active' => Route::is('admin.consultations.*'),
-            ], */
+            [
+                'title' => 'Service Claim Insurance',
+                'route' => route('admin.service-insurance-claims.index'),
+                'active' => Route::is('admin.service-insurance-claims.*'),
+            ],
         ],
         // Parent active if any child is active
         'active' => Route::is('admin.leads.*') ||
                     Route::is('admin.car-inspections.*') ||
                     Route::is('admin.contact-submissions.*') ||
-                    Route::is('admin.consultations.*') ||
+                    Route::is('admin.service-insurance-claims.*') ||
                     Route::is('admin.sell-your-cars.*'),
     ],
     [

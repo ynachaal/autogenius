@@ -80,15 +80,7 @@ Route::get('/tinymce-images', [TinyMCEController::class, 'images'])->name('tinym
 Route::post('/tinymce-upload', [TinyMCEController::class, 'upload'])->name('tinymce.upload');
 
 
-Route::get('/book-a-consultation', [SiteController::class, 'bookConsultation'])
-    ->name('front.bookConsultation');
 
-// The form submission logic
-Route::post('/book-a-consultation/store', [SiteController::class, 'storeConsultation'])
-    ->name('frontend.consultation.store');
-
-Route::post('/razorpay/success', [SiteController::class, 'razorpaySuccess'])
-    ->name('razorpay.success');
 
 
 Route::get('/lead/payment/{lead}', [LeadController::class, 'payment'])

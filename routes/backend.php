@@ -5,8 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\Admin\{
     CarInspectionController,
+    ServiceInsuranceClaimController,
     DashboardController,
-    ConsultationController,
+
     SellYourCarController,
     LeadController,
     ServiceFeeController,
@@ -65,11 +66,11 @@ Route::middleware(['auth', AdminMiddleware::class])
         Route::resource('car-inspections', CarInspectionController::class);
         Route::post('car-inspections/{car_inspection}/payments/{payment}/verify', [CarInspectionController::class, 'verifyPayment'])
             ->name('car-inspections.verify-payment');
-        Route::resource('consultations', ConsultationController::class);
+  
 
-        Route::post('consultations/{consultation}/status', [ConsultationController::class, 'updateStatus'])
-            ->name('consultations.updateStatus');
-
+        Route::resource('service-insurance-claims', ServiceInsuranceClaimController::class);
+        Route::post('service-insurance-claims/{service_insurance_claim}/payments/{payment}/verify', [ServiceInsuranceClaimController::class, 'verifyPayment'])
+            ->name('service-insurance-claims.verify-payment');  
         Route::resource('service-fees', ServiceFeeController::class);
         Route::resource('services', ServiceController::class);
         Route::resource('brands', BrandController::class);
