@@ -67,16 +67,36 @@
 
                     </div>
                     <br>
-                    @if($data['service']->slug === 'new-car-consultation' || $data['service']->slug === 'used-car-consultation-and-unlimited-inspections')
+                    @php
+                        $slug = $data['service']->slug;
+
+                        // Group slugs that share the same form
+                        $isLeadForm = in_array($slug, ['new-car-consultation', 'used-car-consultation-and-unlimited-inspections']);
+
+                        $isInspectionForm = in_array($slug, [
+                            'new-car-pdi',
+                            'premium-luxury-car-inspection',
+                            'get-your-own-car-inspected',
+                            'used-car-inspection'
+                        ]);
+                    @endphp
+
+                    @if($isLeadForm)
                         @include('components.forms.lead')
-                    @elseif($data['service']->slug === 'sell-your-car-with-autogenius')
+
+                    @elseif($slug === 'on-call-consultation')
+                        @include('components.forms.on-call-consultation')
+
+                    @elseif($slug === 'sell-your-car-with-autogenius')
                         @include('components.forms.sell-car')
-                    @elseif($data['service']->slug === 'new-car-pdi' || $data['service']->slug === 'premium-luxury-car-inspection' || $data['service']->slug === 'get-your-own-car-inspected' || $data['service']->slug === 'used-car-inspection')
+
+                    @elseif($isInspectionForm)
                         @include('components.forms.car-inspection')
-                    @elseif($data['service']->slug === 'get-service-history-and-insurance-claim-details')
+
+                    @elseif($slug === 'get-service-history-and-insurance-claim-details')
                         @include('components.forms.service-history-insurance', ['fees' => $fees])
 
-                    @elseif($data['service']->slug === 'insurance-with-autogenius')
+                    @elseif($slug === 'insurance-with-autogenius')
                         <a href="tel:{{ config('settings.phone', '') }}" class="btn-default mt-3">
                             Protect Your Car with AutoGenius
                         </a>
