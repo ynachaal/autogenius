@@ -85,7 +85,9 @@ class ServiceInsuranceClaimController extends Controller
 
                 // If you have this method ready in EmailService:
                 $this->emailService->serviceInsuranceClaimAdminNotification($service_insurance_claim);
-
+                if (method_exists($this->emailService, 'serviceInsuranceClaimUserConfirmation')) {
+                    $this->emailService->serviceInsuranceClaimUserConfirmation($service_insurance_claim);
+                }
                 return back()->with('success', 'Claim payment verified and confirmed!');
             }
 

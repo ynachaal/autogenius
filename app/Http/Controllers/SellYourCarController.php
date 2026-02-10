@@ -71,6 +71,10 @@ class SellYourCarController extends Controller
         // 4. Send Admin Email
           $this->emailService->sellYourCarAdminNotification($sellYourCar); 
 
+          if (method_exists($this->emailService, 'sellYourCarUserConfirmation')) {
+            $this->emailService->sellYourCarUserConfirmation($sellYourCar);
+        }
+
         // 5. Redirect
         return redirect()->route('payment.success')->with([
     'title'   => 'Listing Received!',

@@ -181,6 +181,10 @@ class LeadController extends Controller
             // Send email after payment
             if ($lead->declaration) {
                 $this->emailService->sendLeadAdminNotification($lead);
+
+                if (method_exists($this->emailService, 'sendLeadUserConfirmation')) {
+                    $this->emailService->sendLeadUserConfirmation($lead);
+                }
             }
 
             return redirect()->route('payment.success')->with([
