@@ -43,7 +43,7 @@
     @stack('styles')
 </head>
 
-<body>
+<body class="{{ request()->routeIs('home') ? 'homepage' : '' }}">
     <div class="preloader">
         <div class="loading-container">
             <div class="loading"></div>
