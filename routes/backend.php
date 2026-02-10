@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\{
     DashboardController,
 
     SellYourCarController,
+    CallConsultationController,
     LeadController,
     ServiceFeeController,
     PageController,
@@ -84,6 +85,7 @@ Route::middleware(['auth', AdminMiddleware::class])
         Route::resource('email-templates', EmailTemplateController::class);
         Route::resource('menu-categories', MenuCategoryController::class);
         Route::resource('blog-categories', BlogCategoryController::class);
+        Route::resource('call-consultations', CallConsultationController::class);
 
         Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
         Route::put('/settings', [SettingController::class, 'update'])->name('settings.update');

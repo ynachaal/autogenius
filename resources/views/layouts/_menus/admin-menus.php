@@ -50,12 +50,18 @@ return [
                 'route' => route('admin.service-insurance-claims.index'),
                 'active' => Route::is('admin.service-insurance-claims.*'),
             ],
+             [
+                'title' => 'Call Consultations',
+                'route' => route('admin.call-consultations.index'),
+                'active' => Route::is('admin.call-consultations.*'),
+            ],
         ],
         // Parent active if any child is active
         'active' => Route::is('admin.leads.*') ||
                     Route::is('admin.car-inspections.*') ||
                     Route::is('admin.contact-submissions.*') ||
                     Route::is('admin.service-insurance-claims.*') ||
+                     Route::is('admin.call-consultations.*') ||
                     Route::is('admin.sell-your-cars.*'),
     ],
     [
