@@ -47,8 +47,10 @@
                                 <tr>
                                     <td>
                                         {{-- Radio button to select the segment --}}
-                                        <input type="radio" name="fee_id" value="{{ $fee->id }}" 
-                                            {{ $loop->first ? 'checked' : '' }} required>
+                                       <input type="radio" name="fee_id" value="{{ $fee->id }}" 
+       data-amount="{{ number_format($fee->booking_amount, 0) }}" 
+       class="fee-selector" 
+       {{ $loop->first ? 'checked' : '' }}>
                                     </td>
                                     <td>{{ $fee->car_segment }}</td>
                                     <td>₹{{ number_format($fee->full_report_fee, 0) }}</td>
@@ -127,9 +129,10 @@
                 </div>
             </div>
 
-            <div class="alert alert-light small p-2 px-3 w-fit d-block  mb-4 " data-bs-theme="dark">
-                Pay <strong>₹500</strong> to initiate the search. Our experts will call you within 3 working hours.
-            </div>
+           {{-- Update the Alert Box --}}
+<div class="alert alert-light small p-2 px-3 w-fit d-block mb-4" data-bs-theme="dark">
+    Pay <strong id="display-amount">₹500</strong> to initiate the search. Our experts will call you within 3 working hours.
+</div>
 
             <div class="text-center mt-3">
                 <button type="submit" class="btn-default">

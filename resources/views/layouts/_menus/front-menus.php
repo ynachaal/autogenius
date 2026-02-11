@@ -57,6 +57,11 @@ return [
                 'title' => 'Insurance With AutoGenius',
                 'route' => route('services.show', 'insurance-with-autogenius'),
             ],
+            [
+                'title' => 'Car Loan With AutoGenius',
+                'route' => route('services.show', 'car-loan-with-autogenius'),
+            ],
+            
         ],
 
         // Parent active if ANY service page OR admin services pages are active
