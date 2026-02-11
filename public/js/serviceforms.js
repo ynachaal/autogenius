@@ -1,4 +1,7 @@
 $(document).ready(function () {
+	$.validator.addMethod("mobileWithSpaces", function(value, element) {
+  return this.optional(element) || /^[0-9 ]+$/.test(value);
+}, "Only numbers and spaces are allowed");
 	$("#serviceBooking").validate({
 		errorElement: 'span',
 		errorClass: 'text-danger small',
@@ -34,6 +37,7 @@ $(document).ready(function () {
 				required: true,
 				minlength: 7,
 				maxlength: 20,
+				 mobileWithSpaces: true
 
 			},
 			customer_email: {
@@ -147,7 +151,7 @@ $(document).ready(function () {
 		},
 		rules: {
 			customer_name: { required: true, minlength: 2, maxlength: 100 },
-			customer_mobile: { required: true, minlength: 7, maxlength: 20 },
+			customer_mobile: { required: true, minlength: 7, maxlength: 20, mobileWithSpaces: true },
 			customer_email: { required: true, email: true, maxlength: 254 },
 			vehicle_name: { required: true, minlength: 2, maxlength: 150 },
 			pdi_date: { required: true, digits: true, minlength: 6, maxlength: 6 },
@@ -179,7 +183,7 @@ $(document).ready(function () {
 			registration_number: { required: true, minlength: 4 },
 			car_location: { required: true },
 			customer_name: { required: true,minlength: 2, maxlength: 100 },
-			customer_mobile: { required: true, minlength: 7, maxlength: 20 },
+			customer_mobile: { required: true, minlength: 7, maxlength: 20, mobileWithSpaces: true },
 			car_photos: { fileExtension: "jpg|jpeg|png", filesize: 2097152 }
 		}
 	});
@@ -208,7 +212,7 @@ $(document).ready(function () {
 		rules: {
 			name: { required: true, minlength: 2, maxlength: 100 },
 			email: { required: true, email: true, maxlength: 254 },
-			mobile: { required: true, minlength: 7, maxlength: 20 },
+			mobile: { required: true, minlength: 7, maxlength: 20, mobileWithSpaces: true },
 			budget: { required: true, min: 100000 },
 			confirm: "required"
 		}
