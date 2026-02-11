@@ -1,4 +1,30 @@
 $(document).ready(function () {
+const $amountDisplay = $('#display-amount');
+
+    // --- 1. NEW: Price Update Function ---
+    function updatePrice() {
+        const $selected = $('.fee-selector:checked');
+        if ($selected.length) {
+            let amount = $selected.data('amount');
+            $amountDisplay.text('₹' + amount);
+        }
+    }
+
+    // --- 2. Event Listeners ---
+    $('.fee-selector').on('change', updatePrice);
+
+    $('#historyBooking tbody tr').on('click', function(e) {
+        if ($(e.target).is('input[type="radio"]')) return;
+        let $radio = $(this).find('.fee-selector');
+        if ($radio.length) {
+            $radio.prop('checked', true).trigger('change');
+        }
+    });
+
+    // --- 3. RUN ON LOAD ---
+    updatePrice(); 
+    $('#historyBooking tbody tr').css('cursor', 'pointer');
+
 	$.validator.addMethod("mobileWithSpaces", function(value, element) {
   return this.optional(element) || /^[0-9 ]+$/.test(value);
 }, "Only numbers and spaces are allowed");

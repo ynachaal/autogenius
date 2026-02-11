@@ -75,34 +75,42 @@
                                 type="text" class="form-control">
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    @php
+                    $defaultService = null;
+
+                        if ($slug === 'new-car-consultation') {
+                            $defaultService = 'New Car Consultation';
+                        } elseif ($slug === 'used-car-consultation-and-unlimited-inspections') {
+                            $defaultService = 'Pre-Owned Car Consultation & Unlimited Inspections';
+                        }
+                    @endphp
+
+                    <div class="col-md-6 d-none">
                         <div class="form-group mb-4">
                             <p class="fw-normal">Service Required <span class="text-danger">*</span></p>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="service" id="1new"
-                                    value="New Car Consultation" required {{ old('service', 'New Car Consultation') == 'New Car Consultation' ? 'checked' : '' }}>
-                                <label class="form-check-label" for="1new">New Car Consultation</label>
-                            </div>
 
-                            <!--    <div class="form-check">
-                                <input class="form-check-input" type="radio" name="service" id="2pre"
-                                    value="Pre-Owned Car Inspection" {{ old('service') == 'Pre-Owned Car Inspection' ? 'checked' : '' }}>
-                                <label class="form-check-label" for="2pre">Pre-Owned Car Inspection</label>
-                            </div> -->
+                            {{-- New Car --}}
+                            @if(!$defaultService || $defaultService === 'New Car Consultation')
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="service" id="1new"
+                                        value="New Car Consultation" required
+                                        {{ old('service', $defaultService) === 'New Car Consultation' ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="1new">New Car Consultation</label>
+                                </div>
+                            @endif
 
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="service"
-                                    value="Pre-Owned Car Consultation & Unlimited Inspections" id="3pre" {{ old('service') == 'Pre-Owned Car Consultation & Unlimited Inspections' ? 'checked' : '' }}>
-                                <label class="form-check-label" for="3pre">
-                                    Pre-Owned Car Consultation & Unlimited Inspections</label>
-                            </div>
+                            {{-- Pre-Owned --}}
+                            @if(!$defaultService || $defaultService === 'Pre-Owned Car Consultation & Unlimited Inspections')
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="service" id="3pre"
+                                        value="Pre-Owned Car Consultation & Unlimited Inspections"
+                                        {{ old('service', $defaultService) === 'Pre-Owned Car Consultation & Unlimited Inspections' ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="3pre">
+                                        Pre-Owned Car Consultation & Unlimited Inspections
+                                    </label>
+                                </div>
+                            @endif
 
-                            <!--  <div class="form-check">
-                                <input class="form-check-input" type="radio" id="4pre" name="service" value="Pre-Owned Car Certification &
-                                                    Selling" {{ old('service') == 'Pre-Owned Car Certification & Selling' ? 'checked' : '' }}>
-                                <label class="form-check-label" for="4pre">Pre-Owned Car Certification &
-                                    Selling</label>
-                            </div> -->
                         </div>
                     </div>
                     <div class="col-md-6">

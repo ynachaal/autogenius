@@ -100,6 +100,8 @@
                                 ['title' => 'Get Service History & Insurance Claim Details', 'slug' => 'get-service-history-and-insurance-claim-details'],
                                 ['title' => 'On Call Consultation', 'slug' => 'on-call-consultation'],
                                 ['title' => 'Insurance With AutoGenius', 'slug' => 'insurance-with-autogenius'],
+                                     ['title' => 'Car Loan With AutoGenius', 'slug' => 'car-loan-with-autogenius'],
+                              
                             ];
                         @endphp
 
