@@ -77,6 +77,7 @@
             amount: "{{ $payment->amount }}",
             currency: "INR",
             name: "AutoGenius",
+            email: "{{ $insurance->customer_email }}",
             description: "{{ $insurance->service_type }} Fee",
             order_id: "{{ $payment->order_id }}",
             handler: function (response) {

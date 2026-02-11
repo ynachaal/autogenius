@@ -96,6 +96,14 @@
                     </div>
                 </div>
 
+                <div class="col-md-6">
+                    <div class="form-group mb-4">
+                        <label for="customer_email" class="form-label">Email Address <span class="text-danger">*</span></label>
+                        <input required type="email" name="customer_email" id="customer_email"
+                            placeholder="email@example.com" class="form-control" value="{{ old('customer_email') }}">
+                    </div>
+                </div>
+
                 <div class="col-md-12">
                     <div class="form-group mb-4">
                         <label for="car_photos" class="form-label">Car Photo (Optional)</label>

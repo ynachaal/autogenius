@@ -198,74 +198,6 @@ class EmailService
     }
 
     /**
-     * Send consultation confirmation email to the user.
-     *
-     * @param \App\Models\Consultation $consultation
-     * @return bool
-     */
-    public function consultationUserConfirmation($consultation): bool
-    {
-        $data = [
-            '{name}' => $consultation->name ?? '',
-            '{email}' => $consultation->email ?? '',
-            '{phone}' => $consultation->phone ?? '',
-            '{subject}' => $consultation->subject ?? '',
-            '{preferred_date}' => $consultation->preferred_date ?? '',
-            '{message}' => $consultation->message ?? '',
-            '{status}' => ucfirst($consultation->status),
-            '{amount}' => $consultation->amount,
-            '{payment_status}' => ucfirst($consultation->payment_status),
-            '{year}' => now()->year,
-            '{website_link}' => config('app.url'),
-        ];
-
-        return $this->sendEmail(
-            $consultation->email,
-            'Book a Consultation - Confirmation',
-            $data,
-            'Consultation Request Confirmation'
-        );
-    }
-    /**
-     * Send consultation notification email to admin and consultant.
-     *
-     * @param \App\Models\Consultation $consultation
-     * @return void
-     */
-    public function consultationAdminAndConsultant($consultation): void
-    {
-        $data = [
-            '{name}' => $consultation->name ?? '',
-            '{email}' => $consultation->email ?? '',
-            '{phone}' => $consultation->phone ?? '',
-            '{subject}' => $consultation->subject ?? '',
-            '{preferred_date}' => $consultation->preferred_date ?? '',
-            '{message}' => $consultation->message ?? '',
-            '{status}' => ucfirst($consultation->status),
-            '{amount}' => $consultation->amount,
-            '{payment_status}' => ucfirst($consultation->payment_status),
-            '{year}' => now()->year,
-            '{website_link}' => config('app.url'),
-        ];
-
-        // Admin
-        $this->sendEmail(
-            config('settings.admin_email', 'admin@example.com'),
-            'Book a Consultation - Admin',
-            $data,
-            'New Consultation Booked'
-        );
-
-        // Consultant
-        $this->sendEmail(
-            config('settings.consultant_email', 'consultant@example.com'),
-            'Book a Consultation - Consultant',
-            $data,
-            'New Consultation Assigned'
-        );
-    }
-
-    /**
      * Send lead notification alert to the admin.
      */
     public function sendLeadAdminNotification($lead): bool
@@ -421,7 +353,7 @@ class EmailService
         ];
 
         return $this->sendEmailInstant(
-            $lead->email ?? $lead->customer_email,
+            $lead->email ,
             'New Lead - User Confirmation',
             $data,
             'We have received your inquiry!'

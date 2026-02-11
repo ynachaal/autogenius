@@ -33,6 +33,7 @@ class ServiceInsuranceClaimController extends Controller
         // 1. Validate including File Uploads and Turnstile
         $request->validate([
             'customer_name'         => 'required|string|max:255',
+            'customer_email'        => 'required|email|max:255',
             'customer_mobile'       => 'required|string|max:20',
             'rc_photo'              => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
             'insurance_photo'       => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
@@ -81,6 +82,7 @@ class ServiceInsuranceClaimController extends Controller
         // 5. Create record
         $insurance = ServiceInsuranceClaim::create([
             'customer_name'   => $request->customer_name,
+            'customer_email'  => $request->customer_email,
             'customer_mobile' => $request->customer_mobile,
             'rc_path'         => $rcPath,
             'insurance_path'  => $insPath,
@@ -99,6 +101,7 @@ class ServiceInsuranceClaimController extends Controller
                 'notes'    => [
                     'insurance_id' => $insurance->id,
                     'customer'     => $insurance->customer_name,
+                    'customer_email' => $insurance->customer_email,
                     'service_type' => $insurance->service_type,
                 ],
             ]);

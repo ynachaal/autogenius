@@ -83,7 +83,7 @@ $(document).ready(function () {
 			$(element).removeClass('is-invalid');
 		},
 		submitHandler: function (form) {
-			/* const turnstileResponse = $('[name="cf-turnstile-response"]').val();
+			 const turnstileResponse = $('[name="cf-turnstile-response"]').val();
 			if (!turnstileResponse) {
 				if ($('#turnstile-error').length === 0) {
 					$('.cf-turnstile').after('<div id="turnstile-error" class="text-danger small mt-1">Please complete the security check.</div>');
@@ -91,11 +91,12 @@ $(document).ready(function () {
 				return false;
 			}
 			$('#turnstile-error').remove();
-			$(form).find('button[type="submit"]').prop('disabled', true).text('Processing...'); */
+			$(form).find('button[type="submit"]').prop('disabled', true).text('Processing...'); 
 			form.submit();
 		},
 		rules: {
 			customer_name: { required: true, minlength: 3 },
+			customer_email: { required: true, email: true },
 			customer_mobile: { required: true, minlength: 7, maxlength: 20 },
 			rc_photo: {
 				required: true,
@@ -163,6 +164,7 @@ $(document).ready(function () {
 			form.submit();
 		},
 		rules: {
+			customer_email: { required: true, email: true },
 			vehicle_name: { required: true, minlength: 3 },
 			year: { required: true, digits: true, minlength: 4, maxlength: 4 },
 			kms_driven: { required: true, number: true },
@@ -198,6 +200,7 @@ $(document).ready(function () {
 		errorClass: 'text-danger small',
 		rules: {
 			name: { required: true, minlength: 3 },
+			email: { required: true, email: true },
 			mobile: { required: true, minlength: 7, maxlength: 20 },
 			budget: { required: true, min: 100000 },
 			confirm: "required"
