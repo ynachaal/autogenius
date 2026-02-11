@@ -25,37 +25,48 @@
         @endif
 
         {{-- Dynamic Pricing Table --}}
-        <div class="mb-5">
-            <h5 class="text-center mb-3">Service Fee per Report</h5>
-            <div class="table-responsive">
-                <table class="table table-bordered text-center small">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>Car Segment</th>
-                            <th>Full Report Fee</th>
-                            <th>Booking Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($fees as $fee)
-                            <tr>
-                                <td>{{ $fee->car_segment }}</td>
-                                <td>₹{{ number_format($fee->full_report_fee, 0) }}</td>
-                                <td>₹{{ number_format($fee->booking_amount, 0) }}</td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="3" class="py-3 text-muted">Pricing information currently unavailable.</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
-        </div>
+       
 
         <form id="historyBooking" novalidate action="{{ route('service-insurance.submit') }}" method="POST"
             enctype="multipart/form-data">
             @csrf
+            <div class="mb-5">
+                <h5 class="text-center mb-3">Service Fee per Report</h5>
+                <div class="table-responsive">
+                    <table class="table table-bordered text-center small">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Select</th> {{-- New Column --}}
+                                <th>Car Segment</th>
+                                <th>Full Report Fee</th>
+                                <th>Booking Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($fees as $fee)
+                                <tr>
+                                    <td>
+                                        {{-- Radio button to select the segment --}}
+                                        <input type="radio" name="fee_id" value="{{ $fee->id }}" 
+                                            {{ $loop->first ? 'checked' : '' }} required>
+                                    </td>
+                                    <td>{{ $fee->car_segment }}</td>
+                                    <td>₹{{ number_format($fee->full_report_fee, 0) }}</td>
+                                    <td>₹{{ number_format($fee->booking_amount, 0) }}</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="py-3 text-muted">Pricing information currently unavailable.</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                    {{-- Error message for radio selection --}}
+                    @error('fee_id')
+                        <div class="text-danger small text-center">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group mb-4">
@@ -69,7 +80,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="form-group mb-4">
                         <label for="customer_email" class="form-label">Email Address <span
                                 class="text-danger">*</span></label>

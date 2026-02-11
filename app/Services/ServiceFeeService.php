@@ -32,6 +32,16 @@ class ServiceFeeService
     }
 
     /**
+     * Find a specific fee by ID.
+     */
+    public function getFeeById(int $id): ?ServiceFee
+    {
+        return ServiceFee::where('id', $id)
+            ->where('status', true)
+            ->first();
+    }
+
+    /**
      * Format the price with the Rupee symbol for the UI.
      */
     public function formatPrice($amount): string

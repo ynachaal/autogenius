@@ -82,7 +82,7 @@
                     @endphp
 
                     @if($isLeadForm)
-                        @include('components.forms.lead')
+                        @include('components.forms.lead', ['slug' => $slug])
 
                     @elseif($slug === 'on-call-consultation')
                         @include('components.forms.on-call-consultation')

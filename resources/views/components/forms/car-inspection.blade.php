@@ -65,7 +65,7 @@
 
                 <div class="col-md-6">
                     <div class="form-group mb-4">
-                        <label for="pdi_date" class="form-label">Preferred Date (DDMMYY) <span
+                        <label for="pdi_date" class="form-label">Preferred Date<span
                                 class="text-danger">*</span></label>
                         <input required type="text" name="pdi_date" id="datepicker" placeholder="e.g. 251226"
                             maxlength="6" class="form-control" value="{{ old('pdi_date') }}">

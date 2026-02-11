@@ -6,6 +6,7 @@ use App\Models\ServiceInsuranceClaim;
 use App\Models\Payment;
 use App\Services\EmailService;
 use App\Services\PageService;
+use App\Services\ServiceFeeService;
 use App\Models\Page;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -18,40 +19,53 @@ class ServiceInsuranceClaimController extends Controller
 {
     protected $emailService;
     protected $pageService;
+    protected $feeService;
 
-    public function __construct(EmailService $emailService, PageService $pageService)
+    public function __construct(EmailService $emailService, PageService $pageService, ServiceFeeService $feeService)
     {
         $this->emailService = $emailService;
         $this->pageService = $pageService;
+        $this->feeService = $feeService;
     }
 
     /**
      * Store the request and initiate Razorpay Order
      */
-    public function store(Request $request, ServiceService $serviceService): RedirectResponse
+    public function store(Request $request, ServiceService $serviceService, ServiceFeeService $feeService): RedirectResponse
     {
+
         // 1. Validate including File Uploads and Turnstile
         $request->validate([
             'customer_name' => 'required|string|min:2|max:100',
+            'fee_id' => 'required',
             'customer_email' => 'required|email|max:254',
             'customer_mobile' => 'required|string|min:7|max:20',
             'rc_photo' => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
             'insurance_photo' => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
-            'cf-turnstile-response' => 'required',
+             'cf-turnstile-response' => 'required', 
             'page_slug' => 'required|string',
         ]);
 
         $slug = $request->input('page_slug');
 
         // 2. Fetch Dynamic Amount from Service
-        $amountValue = $serviceService->getAmountBySlug($slug);
+        $feeRecord = $feeService->getFeeById($request->input('fee_id'));
 
-        if (!$amountValue) {
-            return redirect()->back()->with('error', 'Service pricing information not found.');
+        if (!$feeRecord) {
+            return redirect()->back()->with('error', 'Selected car segment pricing not found.');
         }
 
-        // Convert to Paise (e.g., 500 -> 50000)
+
+
+        // Get the booking amount (e.g., 500)
+        $amountValue = $feeRecord->booking_amount;
+
+
+
+        // Convert to Paise for Razorpay (e.g., 500 -> 50000)
         $amountInPaise = $amountValue * 100;
+
+
 
         $page = Page::where('slug', $slug)->first();
         $serviceName = $page ? $page->title : ucwords(str_replace('-', ' ', $slug));
@@ -73,7 +87,7 @@ class ServiceInsuranceClaimController extends Controller
         } catch (\Exception $e) {
             Log::error('Insurance Turnstile Error: ' . $e->getMessage());
             return back()->with('error', 'Security service unavailable. Please try again later.');
-        }
+        } 
 
         // 4. Handle File Storage
         $rcPath = $request->file('rc_photo')->store('insurance/rc', 'public');

@@ -90,7 +90,7 @@ $(document).ready(function () {
 			$(element).removeClass('is-invalid');
 		},
 		submitHandler: function (form) {
-			const turnstileResponse = $('[name="cf-turnstile-response"]').val();
+			/* const turnstileResponse = $('[name="cf-turnstile-response"]').val();
 			if (!turnstileResponse) {
 				if ($('#turnstile-error').length === 0) {
 					$('.cf-turnstile').after('<div id="turnstile-error" class="text-danger small mt-1">Please complete the security check.</div>');
@@ -98,7 +98,7 @@ $(document).ready(function () {
 				return false;
 			}
 			$('#turnstile-error').remove();
-			$(form).find('button[type="submit"]').prop('disabled', true).text('Processing...');
+			$(form).find('button[type="submit"]').prop('disabled', true).text('Processing...'); */
 			form.submit();
 		},
 		rules: {
