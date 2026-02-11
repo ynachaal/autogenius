@@ -29,10 +29,10 @@ class CarInspectionController extends Controller
     {
         $request->validate([
 
-            'customer_name' => 'required|string|max:255',
-            'customer_mobile' => 'required|string|max:20',
-            'customer_email' => 'required|email',
-            'vehicle_name' => 'required|string|max:255',
+            'customer_name' => 'required|string|min:2|max:100',
+            'customer_mobile' => 'required|string|min:7|max:20',
+            'customer_email' => 'required|email|max:254',
+            'vehicle_name' => 'required|string|min:2|max:150',
             'pdi_date' => 'required|date',
             'pdi_location' => 'required|string|max:255',
             'page_slug' => 'required|string', // The hidden input from your form
@@ -157,13 +157,13 @@ class CarInspectionController extends Controller
                 $this->emailService->carInspectionUserConfirmation($inspection);
             }
 
-          return redirect()->route('payment.success')
-        ->with('message', 'Your Inquiry Has Been Successfully Received. We will get back to you within 24 Hours.');
+            return redirect()->route('payment.success')
+                ->with('message', 'Your Inquiry Has Been Successfully Received. We will get back to you within 24 Hours.');
 
         } catch (\Exception $e) {
 
             Log::error('PDI Payment Verify Failed: ' . $e->getMessage());
-           return redirect()->route('payment.failed');
+            return redirect()->route('payment.failed');
         }
     }
 
@@ -184,5 +184,5 @@ class CarInspectionController extends Controller
         ]);
     }
 
-  
+
 }

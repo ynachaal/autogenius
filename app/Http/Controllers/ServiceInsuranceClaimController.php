@@ -32,13 +32,13 @@ class ServiceInsuranceClaimController extends Controller
     {
         // 1. Validate including File Uploads and Turnstile
         $request->validate([
-            'customer_name'         => 'required|string|max:255',
-            'customer_email'        => 'required|email|max:255',
-            'customer_mobile'       => 'required|string|max:20',
-            'rc_photo'              => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
-            'insurance_photo'       => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
-            'cf-turnstile-response' => 'required', 
-            'page_slug'             => 'required|string',
+            'customer_name' => 'required|string|min:2|max:100',
+            'customer_email' => 'required|email|max:254',
+            'customer_mobile' => 'required|string|min:7|max:20',
+            'rc_photo' => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
+            'insurance_photo' => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
+            'cf-turnstile-response' => 'required',
+            'page_slug' => 'required|string',
         ]);
 
         $slug = $request->input('page_slug');
@@ -61,12 +61,12 @@ class ServiceInsuranceClaimController extends Controller
             $turnstile = Http::asForm()->timeout(5)->post(
                 'https://challenges.cloudflare.com/turnstile/v0/siteverify',
                 [
-                    'secret'   => config('services.turnstile.secret_key'),
+                    'secret' => config('services.turnstile.secret_key'),
                     'response' => $request->input('cf-turnstile-response'),
                     'remoteip' => $request->ip(),
                 ]
             );
-            
+
             if (!$turnstile->json('success')) {
                 return back()->withErrors(['cf-turnstile-response' => 'Captcha verification failed.'])->withInput();
             }
@@ -81,13 +81,13 @@ class ServiceInsuranceClaimController extends Controller
 
         // 5. Create record
         $insurance = ServiceInsuranceClaim::create([
-            'customer_name'   => $request->customer_name,
-            'customer_email'  => $request->customer_email,
+            'customer_name' => $request->customer_name,
+            'customer_email' => $request->customer_email,
             'customer_mobile' => $request->customer_mobile,
-            'rc_path'         => $rcPath,
-            'insurance_path'  => $insPath,
-            'service_type'    => $serviceName,
-            'status'          => 'pending',
+            'rc_path' => $rcPath,
+            'insurance_path' => $insPath,
+            'service_type' => $serviceName,
+            'status' => 'pending',
         ]);
 
         // 6. Razorpay Order Creation
@@ -95,25 +95,25 @@ class ServiceInsuranceClaimController extends Controller
             $api = new Api(config('services.razorpay.key'), config('services.razorpay.secret'));
 
             $order = $api->order->create([
-                'receipt'  => 'ins_history_' . $insurance->id,
-                'amount'   => $amountInPaise,
+                'receipt' => 'ins_history_' . $insurance->id,
+                'amount' => $amountInPaise,
                 'currency' => 'INR',
-                'notes'    => [
+                'notes' => [
                     'insurance_id' => $insurance->id,
-                    'customer'     => $insurance->customer_name,
+                    'customer' => $insurance->customer_name,
                     'customer_email' => $insurance->customer_email,
                     'service_type' => $insurance->service_type,
                 ],
             ]);
 
             Payment::create([
-                'entity_type'     => ServiceInsuranceClaim::class,
-                'entity_id'       => $insurance->id,
-                'gateway'         => 'razorpay',
-                'order_id'        => $order['id'],
-                'amount'          => $amountInPaise,
-                'currency'        => 'INR',
-                'status'          => 'pending',
+                'entity_type' => ServiceInsuranceClaim::class,
+                'entity_id' => $insurance->id,
+                'gateway' => 'razorpay',
+                'order_id' => $order['id'],
+                'amount' => $amountInPaise,
+                'currency' => 'INR',
+                'status' => 'pending',
                 'gateway_payload' => $order->toArray(),
             ]);
 
@@ -134,9 +134,9 @@ class ServiceInsuranceClaimController extends Controller
 
         try {
             $api->utility->verifyPaymentSignature([
-                'razorpay_order_id'   => $request->razorpay_order_id,
+                'razorpay_order_id' => $request->razorpay_order_id,
                 'razorpay_payment_id' => $request->razorpay_payment_id,
-                'razorpay_signature'  => $request->razorpay_signature,
+                'razorpay_signature' => $request->razorpay_signature,
             ]);
 
             $payment = Payment::where('order_id', $request->razorpay_order_id)
@@ -145,16 +145,16 @@ class ServiceInsuranceClaimController extends Controller
 
             $payment->update([
                 'payment_id' => $request->razorpay_payment_id,
-                'signature'  => $request->razorpay_signature,
-                'status'     => 'paid',
-                'paid_at'    => now(),
+                'signature' => $request->razorpay_signature,
+                'status' => 'paid',
+                'paid_at' => now(),
             ]);
 
             $insurance = ServiceInsuranceClaim::findOrFail($payment->entity_id);
             $insurance->update(['status' => 'confirmed']);
 
             // Notify Admin
-           try {
+            try {
                 // Calling the new method added to EmailService
                 $this->emailService->serviceInsuranceClaimAdminNotification($insurance);
             } catch (\Exception $e) {
@@ -170,7 +170,7 @@ class ServiceInsuranceClaimController extends Controller
             }
 
             return redirect()->route('payment.success')->with([
-                'title'   => 'Claim Request Received!',
+                'title' => 'Claim Request Received!',
                 'message' => 'Your Inquiry Has Been Successfully Received. We will get back to you within 3 Hours.'
             ]);
 
@@ -198,8 +198,8 @@ class ServiceInsuranceClaimController extends Controller
         }
 
         return view('front.service-insurance.payment', [
-            'insurance'   => $insurance,
-            'payment'     => $payment,
+            'insurance' => $insurance,
+            'payment' => $payment,
             'razorpayKey' => config('services.razorpay.key'),
         ]);
     }
