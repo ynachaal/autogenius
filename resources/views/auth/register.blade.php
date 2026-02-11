@@ -1,17 +1,6 @@
 @extends('layouts.front')
 
 @section('content')
-    <div class="page-header bg-section parallaxie1">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="page-header-box">
-                        <h1 class="text-anime-style-3" data-cursor="-opaque" aria-label="Contact Us" style="perspective: 400px;">Create an account</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <section class="page-contact-us">
         <div class="container">
             <div class="contact-form col-md-6 mx-auto">
