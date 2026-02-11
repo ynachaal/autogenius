@@ -63,6 +63,14 @@
                                 </span>
                             </p>
 
+                            {{-- Added Display Order here --}}
+                            <p class="text-muted mb-2">
+                                <strong>Display Order:</strong>
+                                <span class="badge bg-info text-dark">
+                                    {{ $service->order ?? 0 }}
+                                </span>
+                            </p>
+
                             <p class="text-muted mb-2"><strong>Featured:</strong>
                                 {{ $service->featured ? 'Yes' : 'No' }}</p>
                             <p class="text-muted mb-2"><strong>Created at:</strong>

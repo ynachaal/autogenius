@@ -23,7 +23,7 @@ class Service extends Model
         'featured',
         'youtube_url',
         'amount',
-
+        'order', // ✅ Added to fillable
         //  SEO META
         'meta_title',
         'meta_description',

@@ -49,6 +49,14 @@
                                 @enderror
                             </div>
 
+                            {{-- Order Field (NEW) --}}
+                            <div class="col-md-3">
+                                <label class="form-label fw-medium">Display Order</label>
+                                <input type="number" name="order" value="{{ $order ?? old('order', 0) }}"
+                                    class="form-control @error('order') is-invalid @enderror" min="0" step="1">
+                                @error('order')<div class="text-danger small">{{ $message }}</div>@enderror
+                            </div>
+
                             {{-- Slug --}}
                             <div class="col-md-6">
                                 <label class="form-label fw-medium">Slug (optional)</label>
@@ -222,6 +230,12 @@
                         digits: true,   // whole numbers only
                         min: 0
                     },
+                    // ✅ Add this rule
+                    order: {
+                        required: false,
+                        digits: true,
+                        min: 0
+                    },
                 },
                 messages: {
                     slug: {
@@ -231,6 +245,11 @@
                         required: "Amount is required",
                         digits: "Amount must be a whole number",
                         min: "Amount cannot be negative"
+                    },
+                    // ✅ Add this message
+                    order: {
+                        digits: "Order must be a whole number",
+                        min: "Order cannot be negative"
                     }
                 },
                 errorElement: "div",

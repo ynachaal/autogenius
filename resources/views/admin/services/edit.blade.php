@@ -16,7 +16,7 @@
         'image' => $service->image,
         'amount' => old('amount', $service->amount),  
 
-        
+         'order' => old('order', $service->order), // ✅ Added order here   
         'youtube_url' => old('youtube_url', $service->youtube_url),
 
         /* SEO Meta Fields */
