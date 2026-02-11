@@ -29,9 +29,9 @@ class CallConsultationController extends Controller
     {
         // 1. Validation
         $request->validate([
-            'customer_name' => 'required|string|max:255',
+               'customer_name' => 'required|string|min:2|max:100',
             'customer_mobile' => 'required|string|max:20',
-            'customer_email' => 'required|email',
+            'customer_email' => 'required|email|max:254',
             'selected_service' => 'required|string', // The choice from dropdown
             'service_type' => 'required|string',    // The hidden category slug
             'cf-turnstile-response' => 'required',

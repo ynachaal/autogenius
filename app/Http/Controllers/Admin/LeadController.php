@@ -89,6 +89,9 @@ class LeadController extends Controller
             // Trigger the Admin Notification
             if ($lead->declaration) {
                 $this->emailService->sendLeadAdminNotification($lead);
+                if (method_exists($this->emailService, 'sendLeadUserConfirmation')) {
+                    $this->emailService->sendLeadUserConfirmation($lead);
+                }
             }
 
             return back()->with('success', 'Payment verified! Status updated and admin email sent.');

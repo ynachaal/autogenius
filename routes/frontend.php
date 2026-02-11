@@ -136,3 +136,6 @@ Route::post('/call-consultation/payment/verify', [CallConsultationController::cl
 
 Route::view('/payment/success', 'front.payments.success')->name('payment.success');
 Route::view('/payment/failed', 'front.payments.failed')->name('payment.failed');
+
+
+Route::get('/about', [SiteController::class, 'about'])->name('about');

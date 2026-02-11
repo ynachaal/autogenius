@@ -71,7 +71,7 @@ class SiteController extends Controller
 
         return view('front.home', compact('data', 'sliders'));
     }
-
+    
     public function carDeliveries(): View
     {
         $page = $this->pageService->getBySlug('car-deliveries');
@@ -165,4 +165,15 @@ class SiteController extends Controller
 
         return view('front.search.index', compact('data'));
     }
+
+    public function about(): View
+    {
+          $sliders = $this->sliderService
+            ->getByCategoryName('About AutoGenius');
+         $data = [
+            'about' => $this->metaService->getAllValues('about-autogenius'),
+        ];
+        $page = $this->pageService->getBySlug('about-us');
+        return view('front.about', compact('page', 'data','sliders'));
+    }   
 }
