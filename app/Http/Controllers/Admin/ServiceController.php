@@ -96,6 +96,7 @@ class ServiceController extends Controller
                 Rule::unique('services', 'slug')->whereNull('deleted_at')
             ],
             'sub_heading' => ['nullable', 'string', 'max:255'],
+            'order'  => ['nullable', 'integer'], // ✅ Add this
             'description' => ['nullable', 'string'],
             'image' => ['nullable', 'image', 'max:2048'],
             'youtube_url' => ['nullable', 'url'],
@@ -167,6 +168,7 @@ class ServiceController extends Controller
                     ->ignore($service->id)
                     ->whereNull('deleted_at'),
             ],
+            'order'  => ['nullable', 'integer'], // ✅ Add this
             'sub_heading' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'youtube_url' => ['nullable', 'url'],
