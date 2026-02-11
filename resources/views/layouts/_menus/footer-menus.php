@@ -7,7 +7,7 @@ return [
     ],
     [
         'title' => 'About Us',
-        'route' => route('pages.show', 'about-us'),
+        'route' => route('front.about'),
     ],
     [
         'title' => 'Services',
