@@ -66,6 +66,18 @@
                                     @error('content')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
                                 </div>
 
+                                 {{-- Content --}}
+                             @if(isset($page) && $page->id == 1)
+    <div class="col-12 mb-3">
+        <label for="sub_content" class="form-label">Sub Content</label>
+        <textarea name="sub_content" id="sub_content" rows="4"
+            class="form-control tinymce-editor">{{ $sub_content ?? old('sub_content') }}</textarea>
+        @error('sub_content')
+            <div class="text-danger small mt-1">{{ $message }}</div>
+        @enderror
+    </div>
+@endif
+
                                 {{-- Publish --}}
                                 <div class="col-md-6 d-flex align-items-center">
                                     <div class="form-check mt-2">
