@@ -38,7 +38,7 @@ class ServiceService
     public function getPaginatedServices(int $perPage = 12): LengthAwarePaginator
     {
         return Service::active()
-            ->orderBy('id', 'asc')
+            ->orderBy('order', 'asc')
             ->paginate($perPage);
     }
 
