@@ -184,7 +184,7 @@ $(document).ready(function () {
 			car_location: { required: true },
 			customer_name: { required: true,minlength: 2, maxlength: 100 },
 			customer_mobile: { required: true, minlength: 7, maxlength: 20, mobileWithSpaces: true },
-			car_photos: { fileExtension: "jpg|jpeg|png", filesize: 2097152 }
+			car_photos: { filetype: ["jpeg", "jpg", "png", "gif"], filesize: 2097152 }
 		}
 	});
 
