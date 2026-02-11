@@ -10,6 +10,7 @@
     <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
 
     <title>{{ config('settings.site_name', '') }}</title>
+    <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css" crossorigin="anonymous">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet">
