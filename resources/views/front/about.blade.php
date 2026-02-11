@@ -5,6 +5,7 @@
 @section('meta_description', $page->meta_description ?? '')
 @section('meta_keywords', $page->meta_keywords ?? '')
 
+@section('content')
 <div class="our-approach bg-section mx-0 w-100">
     <div class="container">
         <div class="row align-items-center">
@@ -66,3 +67,4 @@
         </div>
     </div>
 </div>
+@endsection
