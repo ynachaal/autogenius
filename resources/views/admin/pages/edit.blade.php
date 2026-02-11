@@ -11,6 +11,7 @@
         'title' => old('title', $page->title),
         'slug' => old('slug', $page->slug),
         'content' => old('content', $page->content),
+        'sub_content' => old('sub_content', $page->sub_content),
         'is_published' => old('is_published', $page->is_published),
         
         // === NEW SEO FIELDS (For existing data) ===

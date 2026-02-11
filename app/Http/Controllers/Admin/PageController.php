@@ -96,6 +96,7 @@ class PageController extends Controller
                 Rule::unique('pages', 'slug')->whereNull('deleted_at'),
             ],
             'content' => 'required|string',
+            'sub_content' => 'nullable|string',
             'is_published' => 'nullable|boolean',
             
             // --- NEW FIELDS VALIDATION ---
@@ -159,6 +160,7 @@ class PageController extends Controller
                 Rule::unique('pages', 'slug')->ignore($page->id)->whereNull('deleted_at'),
             ],
             'content' => 'nullable|string',
+            'sub_content' => 'nullable|string',
             'is_published' => 'nullable|boolean', // Uncommented and restored (using nullable for flexibility)
 
             // --- NEW FIELDS VALIDATION ---

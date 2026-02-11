@@ -20,6 +20,7 @@ class Page extends Model
         'title',
         'slug',
         'content',
+        'sub_content',
         'is_published',
         'meta_title',
         'meta_description',
