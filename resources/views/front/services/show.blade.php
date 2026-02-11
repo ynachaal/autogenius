@@ -97,7 +97,7 @@
                         @include('components.forms.service-history-insurance', ['fees' => $fees])
 
                     @elseif($slug === 'insurance-with-autogenius')
-                        <a href="tel:{{ config('settings.phone', '') }}" class="btn-default mt-3">
+                        <a href="https://wa.me/+91{{ str_replace(' ', '', config('settings.phone', '')) }}?text=Hi%20AutoGenius%2C%0AI%27d%20like%20expert%20guidance%20regarding%20a%20car." class="btn-default mt-3">
                             Protect Your Car with AutoGenius
                         </a>
                     @endif
