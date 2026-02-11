@@ -6,7 +6,7 @@
     <div class="content py-3">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div class="card card-outline card-primary shadow-sm">
                         <div class="card-header">
                             <h3 class="card-title">Consultation Details</h3>

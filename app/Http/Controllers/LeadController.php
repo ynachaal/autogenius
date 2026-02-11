@@ -39,10 +39,10 @@ class LeadController extends Controller
     {
         // 1. Validate
         $request->validate([
-            'name' => 'required|string|max:255',
-            'mobile' => 'required|string|min:10',
-            'email' => 'required|email|max:255',
-            'city' => 'required|string',
+            'name' => 'required|string|min:2|max:100',
+            'mobile' => 'required|string|min:7|max:20',
+            'email' => 'required|email|max:254',
+            'city' => 'required|string|min:2|max:100',
             'page_slug' => 'required|string',
         ]);
 

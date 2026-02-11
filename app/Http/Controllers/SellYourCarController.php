@@ -21,15 +21,15 @@ class SellYourCarController extends Controller
     {
         // 1. Validate the incoming data + turnstile
         $validated = $request->validate([
-            'vehicle_name' => 'required|string|max:255',
+            'vehicle_name' => 'required|string|min:2|max:150',
             'year' => 'required|digits:4',
-            'kms_driven' => 'required|numeric',
+            'kms_driven' => 'required|integer|min:0|max:1000000',
             'no_of_owners' => 'required|integer',
             'registration_number' => 'required|string|max:50',
-            'car_location' => 'required|string|max:255',
-            'customer_name' => 'required|string|max:255',
-            'customer_email' => 'required|email|max:255',
-            'customer_mobile' => 'required|string|max:20',
+            'car_location' => 'required|string|min:2|max:100',
+            'customer_name' => 'required|string|min:2|max:100',
+            'customer_email' => 'required|email|max:254',
+            'customer_mobile' => 'required|string|min:7|max:20',
             'car_photos' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'cf-turnstile-response' => 'required',
         ], [

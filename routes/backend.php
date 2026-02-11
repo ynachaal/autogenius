@@ -87,6 +87,11 @@ Route::middleware(['auth', AdminMiddleware::class])
         Route::resource('blog-categories', BlogCategoryController::class);
         Route::resource('call-consultations', CallConsultationController::class);
 
+// Add this line below:
+Route::post('call-consultations/{call_consultation}/payments/{payment}/verify', [CallConsultationController::class, 'verifyPayment'])
+    ->name('call-consultations.verify-payment');
+        Route::resource('call-consultations', CallConsultationController::class);
+
         Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
         Route::put('/settings', [SettingController::class, 'update'])->name('settings.update');
     });
