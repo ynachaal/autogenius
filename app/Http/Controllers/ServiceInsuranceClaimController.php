@@ -171,7 +171,7 @@ class ServiceInsuranceClaimController extends Controller
 
             return redirect()->route('payment.success')->with([
                 'title' => 'Claim Request Received!',
-                'message' => 'Your Inquiry Has Been Successfully Received. We will get back to you within 3 Hours.'
+                'message' => 'Your Inquiry Has Been Successfully Received. We will get back to you within 3 working hours.'
             ]);
 
         } catch (\Exception $e) {

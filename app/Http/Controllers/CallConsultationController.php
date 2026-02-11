@@ -155,7 +155,7 @@ class CallConsultationController extends Controller
             }
 
             return redirect()->route('payment.success')
-                ->with('message', 'Your consultation booking is successful! We will call you soon.');
+                ->with('message', 'Your Inquiry Has Been Successfully Received. We will get back to you within 2 working hours.');
 
         } catch (\Exception $e) {
             Log::error('Consultation Payment Verify Failed: ' . $e->getMessage());
