@@ -7,7 +7,7 @@
         <div class="container-fluid">
             <div class="card card-primary card-outline">
                 <div class="card-header">
-                    <h3 class="card-title">Application List</h3>
+                    <h3 class="card-title">Inquiry List</h3>
 
                     <div class="card-tools d-flex align-items-center">
                         <form action="{{ route('admin.car-loans.index') }}" method="GET" class="d-flex align-items-center me-2">
@@ -61,32 +61,19 @@
                                 @forelse($inquiries as $index => $item)
                                     <tr>
                                         <td>{{ $inquiries->firstItem() + $index }}</td>
-                                        <td>
-                                            <strong>{{ $item->customer_name }}</strong><br>
-                                            <small class="text-muted">{{ $item->customer_mobile }}</small>
-                                        </td>
-                                        <td>
-                                            <span class="badge {{ $item->loan_type == 'New Car Loan' ? 'bg-success' : 'bg-info' }}">
-                                                {{ $item->loan_type }}
-                                            </span>
-                                        </td>
+                                        <td><strong>{{ $item->customer_name }}</strong></td>
+                                        <td>{{ $item->loan_type }}</td>
                                         <td>{{ $item->city }}</td>
                                         <td>{{ $item->created_at->format('Y-m-d') }}</td>
                                         <td class="text-center">
                                             <a href="{{ route('admin.car-loans.show', $item) }}" class="btn btn-sm btn-primary">
-                                                <i class="fas fa-eye"></i>
+                                                <i class="bi bi-eye"></i>
                                             </a>
-                                            <form action="{{ route('admin.car-loans.destroy', $item) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure?')">
-                                                @csrf @method('DELETE')
-                                                <button class="btn btn-sm btn-danger">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </form>
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6" class="text-center">No loan applications found.</td>
+                                        <td colspan="6" class="text-center">No inquiries found.</td>
                                     </tr>
                                 @endforelse
                             </tbody>
