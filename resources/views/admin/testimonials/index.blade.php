@@ -47,6 +47,9 @@
                                     </td>
                                     <td class="text-center">
                                         <div class="btn-group">
+                                               <a href="{{ route('admin.testimonials.show', $testimonial) }}" class="btn btn-sm btn-primary me-1">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
                                             <a href="{{ route('admin.testimonials.edit', $testimonial) }}" class="btn btn-sm btn-info me-1">
                                                 <i class="bi bi-pencil"></i>
                                             </a>
