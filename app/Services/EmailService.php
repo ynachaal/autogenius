@@ -318,15 +318,15 @@ class EmailService
     public function callConsultationAdminNotification($consultation): bool
     {
         $data = [
-            '{customer_name}'    => $consultation->customer_name ?? 'N/A',
-            '{customer_mobile}'  => $consultation->customer_mobile ?? 'N/A',
-            '{customer_email}'   => $consultation->customer_email ?? 'N/A',
+            '{customer_name}' => $consultation->customer_name ?? 'N/A',
+            '{customer_mobile}' => $consultation->customer_mobile ?? 'N/A',
+            '{customer_email}' => $consultation->customer_email ?? 'N/A',
             '{selected_service}' => $consultation->selected_service ?? 'Expert Talk',
-            '{service_type}'     => $consultation->service_type ?? 'N/A',
-            '{status}'           => strtoupper($consultation->status ?? 'PENDING'),
-            '{date}'             => optional($consultation->created_at)->format('d-m-Y H:i:s') ?? now()->format('d-m-Y H:i:s'),
-            '{year}'             => now()->year,
-            '{website_link}'     => config('app.url', url('/')),
+            '{service_type}' => $consultation->service_type ?? 'N/A',
+            '{status}' => strtoupper($consultation->status ?? 'PENDING'),
+            '{date}' => optional($consultation->created_at)->format('d-m-Y H:i:s') ?? now()->format('d-m-Y H:i:s'),
+            '{year}' => now()->year,
+            '{website_link}' => config('app.url', url('/')),
         ];
 
         return $this->sendEmailInstant(
@@ -343,17 +343,17 @@ class EmailService
     public function sendLeadUserConfirmation($lead): bool
     {
         $data = [
-            '{full_name}'        => $lead->full_name ?? 'Valued Customer',
+            '{full_name}' => $lead->full_name ?? 'Valued Customer',
             '{service_required}' => $lead->service_required ?? 'Automotive Service',
-            '{budget}'           => number_format($lead->budget ?? 0),
-            '{city}'             => $lead->city ?? 'N/A',
-            '{mobile}'           => $lead->mobile ?? 'N/A',
-            '{year}'             => now()->year,
-            '{website_link}'     => config('app.url'),
+            '{budget}' => number_format($lead->budget ?? 0),
+            '{city}' => $lead->city ?? 'N/A',
+            '{mobile}' => $lead->mobile ?? 'N/A',
+            '{year}' => now()->year,
+            '{website_link}' => config('app.url'),
         ];
 
         return $this->sendEmailInstant(
-            $lead->email ,
+            $lead->email,
             'New Lead - User Confirmation',
             $data,
             'We have received your inquiry!'
@@ -366,13 +366,13 @@ class EmailService
     public function sellYourCarUserConfirmation($sellYourCar): bool
     {
         $data = [
-            '{customer_name}'       => $sellYourCar->customer_name ?? 'Customer',
-            '{vehicle_name}'        => $sellYourCar->vehicle_name ?? 'Vehicle',
+            '{customer_name}' => $sellYourCar->customer_name ?? 'Customer',
+            '{vehicle_name}' => $sellYourCar->vehicle_name ?? 'Vehicle',
             '{registration_number}' => $sellYourCar->registration_number ?? 'N/A',
-            '{kms_driven}'          => $sellYourCar->kms_driven ?? 'N/A',
-            '{car_location}'        => $sellYourCar->car_location ?? 'N/A',
-            '{year}'                => now()->year,
-            '{website_link}'        => config('app.url'),
+            '{kms_driven}' => $sellYourCar->kms_driven ?? 'N/A',
+            '{car_location}' => $sellYourCar->car_location ?? 'N/A',
+            '{year}' => now()->year,
+            '{website_link}' => config('app.url'),
         ];
 
         return $this->sendEmailInstant(
@@ -389,13 +389,13 @@ class EmailService
     public function carInspectionUserConfirmation($inspection): bool
     {
         $data = [
-            '{customer_name}'        => $inspection->customer_name ?? 'Customer',
-            '{vehicle_name}'         => $inspection->vehicle_name ?? 'Vehicle',
-            '{inspection_date}'      => $inspection->inspection_date ? \Carbon\Carbon::parse($inspection->inspection_date)->format('l, d F Y') : 'N/A',
-            '{inspection_location}'  => $inspection->inspection_location ?? 'N/A',
-            '{payment_status}'       => strtoupper($inspection->isPaid() ? 'PAID' : 'PENDING'),
-            '{year}'                 => now()->year,
-            '{website_link}'         => config('app.url'),
+            '{customer_name}' => $inspection->customer_name ?? 'Customer',
+            '{vehicle_name}' => $inspection->vehicle_name ?? 'Vehicle',
+            '{inspection_date}' => $inspection->inspection_date ? \Carbon\Carbon::parse($inspection->inspection_date)->format('l, d F Y') : 'N/A',
+            '{inspection_location}' => $inspection->inspection_location ?? 'N/A',
+            '{payment_status}' => strtoupper($inspection->isPaid() ? 'PAID' : 'PENDING'),
+            '{year}' => now()->year,
+            '{website_link}' => config('app.url'),
         ];
 
         return $this->sendEmailInstant(
@@ -413,10 +413,10 @@ class EmailService
     {
         $data = [
             '{customer_name}' => $claim->customer_name ?? 'Customer',
-            '{service_type}'  => ucfirst(str_replace('_', ' ', $claim->service_type ?? 'N/A')),
-            '{date}'          => optional($claim->created_at)->format('d-m-Y') ?? now()->format('d-m-Y'),
-            '{year}'          => now()->year,
-            '{website_link}'  => config('app.url'),
+            '{service_type}' => ucfirst(str_replace('_', ' ', $claim->service_type ?? 'N/A')),
+            '{date}' => optional($claim->created_at)->format('d-m-Y') ?? now()->format('d-m-Y'),
+            '{year}' => now()->year,
+            '{website_link}' => config('app.url'),
         ];
 
         return $this->sendEmailInstant(
@@ -433,12 +433,12 @@ class EmailService
     public function callConsultationUserConfirmation($consultation): bool
     {
         $data = [
-            '{customer_name}'    => $consultation->customer_name ?? 'Customer',
+            '{customer_name}' => $consultation->customer_name ?? 'Customer',
             '{selected_service}' => $consultation->selected_service ?? 'Expert Talk',
-            '{customer_mobile}'  => $consultation->customer_mobile ?? 'N/A',
-            '{date}'             => now()->format('d-m-Y'),
-            '{year}'             => now()->year,
-            '{website_link}'     => config('app.url'),
+            '{customer_mobile}' => $consultation->customer_mobile ?? 'N/A',
+            '{date}' => now()->format('d-m-Y'),
+            '{year}' => now()->year,
+            '{website_link}' => config('app.url'),
         ];
 
         return $this->sendEmailInstant(
@@ -446,6 +446,57 @@ class EmailService
             'Call Consultation - User Confirmation',
             $data,
             'Your Expert Consultation is Booked'
+        );
+    }
+
+    /**
+     * Send Car Loan application notification to admin.
+     *
+     * @param \App\Models\CarLoan $carLoan
+     * @return bool
+     */
+    public function carLoanAdminNotification($carLoan): bool
+    {
+        $data = [
+            '{customer_name}' => $carLoan->customer_name ?? 'N/A',
+            '{customer_mobile}' => $carLoan->customer_mobile ?? 'N/A',
+            '{customer_email}' => $carLoan->customer_email ?? 'N/A',
+            '{loan_type}' => $carLoan->loan_type ?? 'N/A',
+            '{city}' => $carLoan->city ?? 'N/A',
+            '{date}' => optional($carLoan->created_at)->format('d-m-Y H:i:s') ?? now()->format('d-m-Y H:i:s'),
+            '{year}' => now()->year,
+            '{website_link}' => config('app.url', url('/')),
+        ];
+
+        return $this->sendEmailInstant(
+            config('settings.admin_email', 'admin@autogenious.com'),
+            'Car Loan - Admin',
+            $data,
+            'New Car Loan Application: ' . ($carLoan->customer_name ?? 'Inquiry')
+        );
+    }
+
+    /**
+     * Send Car Loan confirmation to the user.
+     *
+     * @param \App\Models\CarLoan $carLoan
+     * @return bool
+     */
+    public function carLoanUserConfirmation($carLoan): bool
+    {
+        $data = [
+            '{customer_name}' => $carLoan->customer_name ?? 'Customer',
+            '{loan_type}' => $carLoan->loan_type ?? 'Car Loan',
+            '{city}' => $carLoan->city ?? 'N/A',
+            '{year}' => now()->year,
+            '{website_link}' => config('app.url', url('/')),
+        ];
+
+        return $this->sendEmailInstant(
+            $carLoan->customer_email,
+            'Car Loan - User Confirmation',
+            $data,
+            'Your Car Loan Application Received'
         );
     }
 }

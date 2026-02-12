@@ -1,33 +1,101 @@
 $(document).ready(function () {
-const $amountDisplay = $('#display-amount');
+	const $amountDisplay = $('#display-amount');
 
-    // --- 1. NEW: Price Update Function ---
-    function updatePrice() {
-        const $selected = $('.fee-selector:checked');
-        if ($selected.length) {
-            let amount = $selected.data('amount');
-            $amountDisplay.text('₹' + amount);
-        }
-    }
+	// --- 1. NEW: Price Update Function ---
+	function updatePrice() {
+		const $selected = $('.fee-selector:checked');
+		if ($selected.length) {
+			let amount = $selected.data('amount');
+			$amountDisplay.text('₹' + amount);
+		}
+	}
 
-    // --- 2. Event Listeners ---
-    $('.fee-selector').on('change', updatePrice);
+	// --- 2. Event Listeners ---
+	$('.fee-selector').on('change', updatePrice);
 
-    $('#historyBooking tbody tr').on('click', function(e) {
-        if ($(e.target).is('input[type="radio"]')) return;
-        let $radio = $(this).find('.fee-selector');
-        if ($radio.length) {
-            $radio.prop('checked', true).trigger('change');
-        }
-    });
+	$('#historyBooking tbody tr').on('click', function (e) {
+		if ($(e.target).is('input[type="radio"]')) return;
+		let $radio = $(this).find('.fee-selector');
+		if ($radio.length) {
+			$radio.prop('checked', true).trigger('change');
+		}
+	});
 
-    // --- 3. RUN ON LOAD ---
-    updatePrice(); 
-    $('#historyBooking tbody tr').css('cursor', 'pointer');
+	// --- 3. RUN ON LOAD ---
+	updatePrice();
+	$('#historyBooking tbody tr').css('cursor', 'pointer');
 
-	$.validator.addMethod("mobileWithSpaces", function(value, element) {
-  return this.optional(element) || /^[0-9 ]+$/.test(value);
-}, "Only numbers and spaces are allowed");
+	$.validator.addMethod("mobileWithSpaces", function (value, element) {
+		return this.optional(element) || /^[0-9 ]+$/.test(value);
+	}, "Only numbers and spaces are allowed");
+
+	// 7. CAR LOAN FORM VALIDATION
+	$("#carLoanForm").validate({
+		errorElement: 'span',
+		errorClass: 'text-danger small',
+		highlight: function (element) {
+			$(element).addClass('is-invalid');
+		},
+		unhighlight: function (element) {
+			$(element).removeClass('is-invalid');
+		},
+		submitHandler: function (form) {
+			// Check Turnstile
+			const turnstileResponse = $(form).find('[name="cf-turnstile-response"]').val();
+			if (!turnstileResponse) {
+				if ($('#turnstile-error-loan').length === 0) {
+					$(form).find('.cf-turnstile').after('<div id="turnstile-error-loan" class="text-danger small mt-1">Please verify that you are not a robot.</div>');
+				}
+				return false;
+			}
+			$('#turnstile-error-loan').remove();
+
+			// Prevent double submission
+			$(form).find('button[type="submit"]').prop('disabled', true).text('Processing...');
+			form.submit();
+		},
+		rules: {
+			loan_type: {
+				required: true
+			},
+			customer_name: {
+				required: true,
+				minlength: 2,
+				maxlength: 100
+			},
+			customer_mobile: {
+				required: true,
+				minlength: 7,
+				maxlength: 20,
+				mobileWithSpaces: true
+			},
+			customer_email: {
+				required: true,
+				email: true,
+				maxlength: 254
+			},
+			city: {
+				required: true,
+				minlength: 2,
+				maxlength: 100
+			}
+		},
+		messages: {
+			loan_type: {
+				required: "Please select whether you want a New or Used car loan."
+			},
+			customer_mobile: {
+				mobileWithSpaces: "Please enter a valid mobile number (numbers and spaces only)."
+			}
+		},
+		errorPlacement: function (error, element) {
+			if (element.attr("name") === "loan_type") {
+				error.insertAfter(element.closest('.d-flex'));
+			} else {
+				error.insertAfter(element);
+			}
+		}
+	});
 	$("#serviceBooking").validate({
 		errorElement: 'span',
 		errorClass: 'text-danger small',
@@ -63,7 +131,7 @@ const $amountDisplay = $('#display-amount');
 				required: true,
 				minlength: 7,
 				maxlength: 20,
-				 mobileWithSpaces: true
+				mobileWithSpaces: true
 
 			},
 			customer_email: {
@@ -128,12 +196,12 @@ const $amountDisplay = $('#display-amount');
 			form.submit();
 		},
 		rules: {
-			customer_name: { 
+			customer_name: {
 				required: true,
 				minlength: 2,
 				maxlength: 100
 			},
-			customer_email: { required: true, email: true,maxlength: 254 },
+			customer_email: { required: true, email: true, maxlength: 254 },
 			customer_mobile: { required: true, minlength: 7, maxlength: 20 },
 			rc_photo: {
 				required: true,
@@ -181,7 +249,7 @@ const $amountDisplay = $('#display-amount');
 			customer_email: { required: true, email: true, maxlength: 254 },
 			vehicle_name: { required: true, minlength: 2, maxlength: 150 },
 			pdi_date: { required: true, digits: true, minlength: 6, maxlength: 6 },
-			pdi_location: { required: true,maxlength: 255 }
+			pdi_location: { required: true, maxlength: 255 }
 		}
 	});
 
@@ -201,14 +269,14 @@ const $amountDisplay = $('#display-amount');
 			form.submit();
 		},
 		rules: {
-			customer_email: { required: true, email: true,maxlength: 254 },
+			customer_email: { required: true, email: true, maxlength: 254 },
 			vehicle_name: { required: true, minlength: 3 },
 			year: { required: true, digits: true, minlength: 4, maxlength: 4 },
 			kms_driven: { required: true, number: true },
 			no_of_owners: { required: true, digits: true },
 			registration_number: { required: true, minlength: 4 },
 			car_location: { required: true },
-			customer_name: { required: true,minlength: 2, maxlength: 100 },
+			customer_name: { required: true, minlength: 2, maxlength: 100 },
 			customer_mobile: { required: true, minlength: 7, maxlength: 20, mobileWithSpaces: true },
 			car_photos: { filetype: ["jpeg", "jpg", "png", "gif"], filesize: 2097152 }
 		}

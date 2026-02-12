@@ -96,6 +96,9 @@
                     @elseif($slug === 'get-service-history-and-insurance-claim-details')
                         @include('components.forms.service-history-insurance', ['fees' => $fees])
 
+                    @elseif($slug === 'car-loan-with-autogenius')
+                        @include('components.forms.car-loan')
+
                     @elseif($slug === 'insurance-with-autogenius')
                         <a href="https://wa.me/+91{{ str_replace(' ', '', config('settings.phone', '')) }}?text=Hi%20AutoGenius%2C%0AI%27d%20like%20expert%20guidance%20regarding%20a%20car." class="btn-default mt-3">
                             Protect Your Car with AutoGenius
