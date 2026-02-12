@@ -19,6 +19,7 @@
                         'footer_text' => '',
                         'home_page_banner_title' => '',
                         'home_page_banner_text' => '',
+                        'home_page_video' => '', // <--- Added this key
                         // Meta
                         'meta_title' => '',
                         'meta_description' => '',
@@ -106,7 +107,24 @@
                                         style="max-width:200px">
                                 @endif
                             </div>
+                            
+                        <div class="col-md-6 mb-3 border-start">
+                                <label class="form-label">Home Page Banner Video</label>
+                                <input type="file" name="home_page_video" class="form-control" accept="video/mp4,video/webm">
+                                <small class="text-muted">Upload an MP4.</small>
+                                <x-input-error :messages="$errors->get('home_page_video')" class="text-danger mt-1" />
+                                
+                                @if ($settings->get('home_page_video'))
+                                    <div class="mt-2">
+                                        <video width="250" controls class="rounded shadow-sm">
+                                            <source src="{{ asset($settings->get('home_page_video')->value) }}" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    </div>
+                                @endif
+                            </div>
                         </div>
+
                     </div>
 
                     {{-- META --}}
