@@ -1,25 +1,25 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="h4">{{ __('Car Loan Applications') }}</h2>
+        <h2 class="h4">{{ __('Sell Your Car Inquiries') }}</h2>
     </x-slot>
 
     <div class="content">
         <div class="container-fluid">
             <div class="card card-primary card-outline">
                 <div class="card-header">
-                    <h3 class="card-title">Application List</h3>
+                    <h3 class="card-title">Inquiry List</h3>
 
                     <div class="card-tools d-flex align-items-center">
-                        <form action="{{ route('admin.car-loans.index') }}" method="GET" class="d-flex align-items-center me-2">
+                        <form action="{{ route('admin.sell-your-cars.index') }}" method="GET" class="d-flex align-items-center me-2">
                             <div class="input-group input-group-sm" style="width: 250px;">
                                 <input type="search" name="search" class="form-control float-right"
-                                    placeholder="Search name, mobile or city..." value="{{ request('search') }}">
+                                    placeholder="Search vehicle or customer..." value="{{ request('search') }}">
                                 <div class="input-group-append">
                                     <button class="btn btn-default" type="submit">
                                         <i class="fas fa-search"></i>
                                     </button>
                                     @if(request('search'))
-                                        <a href="{{ route('admin.car-loans.index') }}" class="btn btn-secondary btn-sm">Clear</a>
+                                        <a href="{{ route('admin.sell-your-cars.index') }}" class="btn btn-secondary btn-sm">Clear</a>
                                     @endif
                                 </div>
                             </div>
@@ -35,9 +35,9 @@
                                     @php
                                         $sortableColumns = [
                                             'id' => 'Sr No.',
+                                            'vehicle_name' => 'Vehicle',
+                                            'year' => 'Year',
                                             'customer_name' => 'Customer',
-                                            'loan_type' => 'Loan Type',
-                                            'city' => 'City',
                                             'created_at' => 'Date',
                                         ];
                                         $sortBy = request('sort_by', 'created_at');
@@ -47,7 +47,7 @@
                                             $dir = ($column == $sortBy && $sortDirection == 'asc') ? 'desc' : 'asc';
                                             $query = array_merge(request()->query(), ['sort_by' => $column, 'sort_direction' => $dir]);
                                             $icon = ($column == $sortBy) ? ($dir == 'asc' ? '<i class="fas fa-arrow-up fa-xs"></i>' : '<i class="fas fa-arrow-down fa-xs"></i>') : '';
-                                            return '<a class="text-decoration-none text-dark fw-semibold" href="' . route('admin.car-loans.index', $query) . '">' . $label . ' ' . $icon . '</a>';
+                                            return '<a class="text-decoration-none text-dark fw-semibold" href="' . route('admin.sell-your-cars.index', $query) . '">' . $label . ' ' . $icon . '</a>';
                                         };
                                     @endphp
 
@@ -59,34 +59,22 @@
                             </thead>
                             <tbody>
                                 @forelse($inquiries as $index => $item)
+                            
                                     <tr>
                                         <td>{{ $inquiries->firstItem() + $index }}</td>
-                                        <td>
-                                            <strong>{{ $item->customer_name }}</strong><br>
-                                            <small class="text-muted">{{ $item->customer_mobile }}</small>
-                                        </td>
-                                        <td>
-                                            <span class="badge {{ $item->loan_type == 'New Car Loan' ? 'bg-success' : 'bg-info' }}">
-                                                {{ $item->loan_type }}
-                                            </span>
-                                        </td>
-                                        <td>{{ $item->city }}</td>
+                                        <td><strong>{{ $item->vehicle_name }}</strong></td>
+                                        <td>{{ $item->year }}</td>
+                                        <td>{{ $item->customer_name }}</td>
                                         <td>{{ $item->created_at->format('Y-m-d') }}</td>
                                         <td class="text-center">
-                                            <a href="{{ route('admin.car-loans.show', $item) }}" class="btn btn-sm btn-primary">
-                                                <i class="fas fa-eye"></i>
+                                            <a href="{{ route('admin.sell-your-cars.show', $item) }}" class="btn btn-sm btn-primary">
+                                                <i class="bi bi-eye"></i>
                                             </a>
-                                            <form action="{{ route('admin.car-loans.destroy', $item) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure?')">
-                                                @csrf @method('DELETE')
-                                                <button class="btn btn-sm btn-danger">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </form>
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6" class="text-center">No loan applications found.</td>
+                                        <td colspan="6" class="text-center">No inquiries found.</td>
                                     </tr>
                                 @endforelse
                             </tbody>

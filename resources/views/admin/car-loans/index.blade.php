@@ -61,8 +61,15 @@
                                 @forelse($inquiries as $index => $item)
                                     <tr>
                                         <td>{{ $inquiries->firstItem() + $index }}</td>
-                                        <td><strong>{{ $item->customer_name }}</strong><br><small>{{ $item->customer_mobile }}</small></td>
-                                        <td><span class="badge {{ $item->loan_type == 'New Car Loan' ? 'bg-success' : 'bg-info' }}">{{ $item->loan_type }}</span></td>
+                                        <td>
+                                            <strong>{{ $item->customer_name }}</strong><br>
+                                            <small class="text-muted">{{ $item->customer_mobile }}</small>
+                                        </td>
+                                        <td>
+                                            <span class="badge {{ $item->loan_type == 'New Car Loan' ? 'bg-success' : 'bg-info' }}">
+                                                {{ $item->loan_type }}
+                                            </span>
+                                        </td>
                                         <td>{{ $item->city }}</td>
                                         <td>{{ $item->created_at->format('Y-m-d') }}</td>
                                         <td class="text-center">
@@ -71,7 +78,9 @@
                                             </a>
                                             <form action="{{ route('admin.car-loans.destroy', $item) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure?')">
                                                 @csrf @method('DELETE')
-                                                <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                                <button class="btn btn-sm btn-danger">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
                                             </form>
                                         </td>
                                     </tr>
