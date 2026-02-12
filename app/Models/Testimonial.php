@@ -8,13 +8,9 @@ class Testimonial extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'title',
+        'designation', // Add this here
         'description',
         'image',
         'youtube_url',
@@ -22,19 +18,11 @@ class Testimonial extends Model
         'status',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'status' => 'boolean',
         'order'  => 'integer',
     ];
 
-    /**
-     * Scope a query to only include active testimonials.
-     */
     public function scopeActive($query)
     {
         return $query->where('status', true)->orderBy('order', 'asc');

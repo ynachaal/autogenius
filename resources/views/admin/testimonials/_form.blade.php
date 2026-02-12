@@ -15,11 +15,39 @@
                         @enderror
                     </div>
 
+                    <div class="col-md-6 mb-3"> 
+                        <label for="designation" class="form-label fw-medium text-dark">Designation (e.g. CEO, Client)</label>
+                        <input type="text" name="designation" id="designation" value="{{ $designation ?? old('designation') }}"
+                               class="form-control @error('designation') is-invalid @enderror" placeholder="Verified Client">
+                        @error('designation')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
                     <div class="col-md-4 mb-3">
                         <label for="order" class="form-label fw-medium text-dark">Display Order</label>
                         <input type="number" name="order" id="order" value="{{ $order ?? old('order', 0) }}"
                                class="form-control @error('order') is-invalid @enderror">
                     </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="image" class="form-label fw-medium text-dark">Author Image / Thumbnail</label>
+                    <input type="file" name="image" id="image" 
+                           class="form-control @error('image') is-invalid @enderror" 
+                           accept="image/*">
+                    <div class="form-text">Recommended size: 400x400px (Square). Aspect ratio 1:1.</div>
+                    
+                    @if(isset($testimonial) && $testimonial->image)
+                        <div class="mt-2">
+                            <p class="small mb-1 text-muted">Current Image:</p>
+                            <img src="{{ asset('storage/' . $testimonial->image) }}" alt="Preview" class="img-thumbnail" style="height: 100px;">
+                        </div>
+                    @endif
+
+                    @error('image')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="mb-3">
@@ -64,6 +92,7 @@
         $("#{{ $formId ?? 'testimonialForm' }}").validate({
             rules: {
                 title: { required: true, minlength: 3 },
+                designation: { maxlength: 255 }, // Add validation for designation
                 description: { required: true },
                 youtube_url: { url: true }
             },

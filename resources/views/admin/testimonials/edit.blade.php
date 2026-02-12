@@ -11,6 +11,7 @@
         'title' => old('title', $testimonial->title),
         'description' => old('description', $testimonial->description),
         'youtube_url' => old('youtube_url', $testimonial->youtube_url),
+        'designation' => old('designation', $testimonial->designation), // Add this line
         'order' => old('order', $testimonial->order),
         'status' => old('status', $testimonial->status),
         'submitButtonText' => __('Update Testimonial'),

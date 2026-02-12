@@ -52,6 +52,10 @@
                         <div class="card-body">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item d-flex justify-content-between">
+                                    <strong>Designation:</strong>
+                                    <span>{{ $testimonial->designation ?? 'N/A' }}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
                                     <strong>Display Order:</strong>
                                     <span>{{ $testimonial->order }}</span>
                                 </li>
