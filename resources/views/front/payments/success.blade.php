@@ -15,7 +15,7 @@
                         <h2>Thank You</h2>
                     </div>
                     <p>
-                        {{ session('message') ?? 'Your Inquiry Has Been Successfully Received. We will get back to you shortly.' }}
+                        {!! session('message') ?? 'Your Inquiry Has Been Successfully Received. We will get back to you shortly.' !!}
                     </p>
                 </div>
             </div>
