@@ -1786,6 +1786,7 @@ header.main-header .header-sticky.active{
 	height: 50px;
 	user-select: none;
 	/*filter: brightness(0);*/
+    object-fit: contain;
 }
 
 /************************************/
