@@ -2299,33 +2299,34 @@ header.main-header .header-sticky.active{
 	background-color: var(--bg-color);
 	border: 1px solid var(--divider-color);
 	border-radius: 20px;
-	padding: 50px;
-	min-height: 480px;
 	display: flex;
 	flex-direction: column;
-	gap: 30px;
 	justify-content: space-between;
+    overflow: hidden;
+    position: relative;
 }
-
+.testimonial-item-body{
+    padding: 20px;
+}
 .testimonial-item-logo img{
-	max-width: 200px;
-	height: 50px;
+    width: 100%;
+	height: 300px;
+    object-fit: cover;
 }
 
 .testimonial-item-content{
-	border-bottom: 1px solid var(--divider-color);
-	margin-bottom: 25px;
-	padding-bottom: 25px;
+	border-top: 1px solid var(--divider-color);
+	margin-top: 15px;
+	padding-top: 15px;
 }
 
 .testimonial-item-content p{
-	font-size: 18px;
-	font-weight: 600;
+	font-size: 14px;
 	margin: 0;
 }
 
 .testimonial-item-author h3{
-	font-size: 20px;
+	font-size: 15px;
 }
 
 .testimonial-item-author sub{
@@ -4212,8 +4213,6 @@ header.main-header .header-sticky.active{
 .page-testimonials .testimonial-item{
 	background-color: var(--secondary-color);
 	border: none;
-	height: calc(100% - 30px);
-	margin-bottom: 30px;
 }
 
 /************************************/
@@ -4777,11 +4776,6 @@ header.main-header .header-sticky.active{
 
 	.faq-accordion .accordion-header .accordion-button{
 		padding: 0 25px 20px 0;
-	}
-
-	.testimonial-item{
-		min-height: 430px;
-		padding: 30px;
 	}
 
 	.post-featured-image{
@@ -5490,14 +5484,6 @@ header.main-header .header-sticky.active{
 		padding: 50px 0;
 	}
 
-	.testimonial-item{
-		min-height: 380px;
-	}
-
-	.testimonial-item-content p{
-		font-size: 15px;
-	}
-
 	.testimonial-pagination{
 		margin-top: 30px;
 	}
@@ -6101,20 +6087,6 @@ header.main-header .header-sticky.active{
 	.faq-accordion .accordion-header .accordion-button{
 		font-size: 15px;
     }
-
-	.testimonial-item{
-		min-height: initial;
-		padding: 20px;
-	}
-
-	.testimonial-item-logo img{
-		height: 40px;
-	}
-
-	.testimonial-item-content{
-		margin-bottom: 20px;
-		padding-bottom: 20px;
-	}
 
 	.testimonial-item-author h3{
 		font-size: 18px;
@@ -7408,7 +7380,6 @@ header.main-header .header-sticky.active{
 .testimonial-item-body-ultimate{
 	background-color: var(--divider-color);
 	border-radius: 10px;
-	min-height: 480px;
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: column;
@@ -7430,7 +7401,7 @@ header.main-header .header-sticky.active{
 .testimonial-item-content-ultimate p{
 	font-size: 18px;
 	font-weight: 600;
-	margin: 25px 0 0;
+	margin: 15px 0 0;
 }
 
 .testimonial-author-box-ultimate{
@@ -7737,7 +7708,6 @@ header.main-header .header-sticky.active{
 
 	.testimonial-item-body-ultimate{
 		padding: 30px;
-		min-height: 400px;
 	}
 
 	.footer-contact-list-ultimate{
@@ -8043,7 +8013,6 @@ header.main-header .header-sticky.active{
 	}
 
 	.testimonial-item-body-ultimate{
-		min-height: 350px;
 		padding: 30px 20px;
 	}
 
