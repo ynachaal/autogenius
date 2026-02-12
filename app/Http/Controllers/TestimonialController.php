@@ -19,6 +19,8 @@ class TestimonialController extends Controller
 
         // 2. Call the service to get cached testimonials
         $testimonials = $testimonialService->getAllActive();
+
+    
         
         // 3. Optional: Get the count if needed for the UI
         $testimonialCount = $testimonialService->getActiveCount();

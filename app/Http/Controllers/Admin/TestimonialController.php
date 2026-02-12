@@ -23,6 +23,7 @@ class TestimonialController extends Controller
         if ($search) {
             $query->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%{$search}%")
+                ->orWhere('designation', 'like', "%{$search}%") // Add this line
                   ->orWhere('description', 'like', "%{$search}%");
             });
         }
@@ -78,6 +79,7 @@ class TestimonialController extends Controller
     $validatedData = $request->validate([
         'title' => ['required', 'string', 'max:255'],
         'description' => ['required', 'string'],
+        'designation' => ['nullable', 'string', 'max:200'], // Add this line
         'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
         'youtube_url' => ['nullable', 'url', 'max:255'],
         'order' => ['nullable', 'integer'],
@@ -122,6 +124,7 @@ class TestimonialController extends Controller
         'description' => ['required', 'string'],
         'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
         'youtube_url' => ['nullable', 'url', 'max:255'],
+        'designation' => ['nullable', 'string', 'max:200'], // Add this line
         'order' => ['nullable', 'integer'],
         'status' => ['nullable', 'boolean'], // Changed to nullable
     ]);
