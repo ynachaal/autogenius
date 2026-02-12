@@ -32,74 +32,62 @@ class SettingController extends Controller
             'settings.phone' => ['nullable', 'regex:/^[\+0-9 ]*$/'],
             'site_logo'  => 'nullable|mimetypes:image/jpeg,image/png,image/jpg,image/gif,image/svg+xml|max:2048',
             'site_ceo_image'  => 'nullable|mimetypes:image/jpeg,image/png,image/jpg,image/gif,image/svg+xml|max:2048',
+            // Added MP4 only validation with 4MB (4096KB) limit
+            'home_page_video' => 'nullable|mimes:mp4|max:10096',
         ], [
-            'settings.phone.regex' => 'The phone number may only contain numbers, spaces, and the + symbol.'
+            'settings.phone.regex' => 'The phone number may only contain numbers, spaces, and the + symbol.',
+            'home_page_video.mimes' => 'The home page video must be an MP4 file.',
+            'home_page_video.max' => 'The video may not be greater than 10MB.',
         ]);
 
-        // Handle logo upload
+        // Handle Site Logo upload
         if ($request->hasFile('site_logo')) {
-            $oldLogo = Setting::where('key', 'site_logo')->first();
-
-            // Delete old logo if it exists and is a file
-            if ($oldLogo && !empty($oldLogo->value)) {
-                $oldFilePath = public_path($oldLogo->value);
-                if (file_exists($oldFilePath) && is_file($oldFilePath)) {
-                    unlink($oldFilePath);
-                }
-            }
-
-            // Store new logo in public/images
-            $image = $request->file('site_logo');
-            $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('uploads/'), $imageName);
-
-            // Save path in database
-            Setting::updateOrCreate(
-                ['key' => 'site_logo'],
-                ['value' => 'uploads/' . $imageName]
-            );
+            $this->uploadAndOverwrite($request->file('site_logo'), 'site_logo');
         }
+
+        // Handle Site CEO Image upload
         if ($request->hasFile('site_ceo_image')) {
-            $oldLogo = Setting::where('key', 'site_ceo_image')->first();
+            $this->uploadAndOverwrite($request->file('site_ceo_image'), 'site_ceo_image');
+        }
 
-            // Delete old logo if it exists and is a file
-            if ($oldLogo && !empty($oldLogo->value)) {
-                $oldFilePath = public_path($oldLogo->value);
-                if (file_exists($oldFilePath) && is_file($oldFilePath)) {
-                    unlink($oldFilePath);
+        // Handle Home Page Video upload (Overwrite logic)
+        if ($request->hasFile('home_page_video')) {
+            $oldVideo = Setting::where('key', 'home_page_video')->first();
+
+            // Delete old video if it exists
+            if ($oldVideo && !empty($oldVideo->value)) {
+                $oldPath = public_path($oldVideo->value);
+                if (file_exists($oldPath) && is_file($oldPath)) {
+                    unlink($oldPath);
                 }
             }
 
-            // Store new logo in public/images
-            $image = $request->file('site_ceo_image');
-            $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('uploads/'), $imageName);
+            // Store new video
+            $video = $request->file('home_page_video');
+            $videoName = 'home_video_' . time() . '.' . $video->getClientOriginalExtension();
+            $video->move(public_path('uploads/'), $videoName);
 
             // Save path in database
             Setting::updateOrCreate(
-                ['key' => 'site_ceo_image'],
-                ['value' => 'uploads/' . $imageName]
+                ['key' => 'home_page_video'],
+                ['value' => 'uploads/' . $videoName]
             );
         }
 
+        // Handle Smart Car Requirement Image
         if ($request->hasFile('smart_car_requirement_image')) {
-        // Store the file and get the path
-        $carImagePath = $request->file('smart_car_requirement_image')->store('uploads/settings', 'public');
-        
-        // Save the path to the settings table
-        Setting::updateOrCreate(
-            ['key' => 'smart_car_requirement_image'], 
-            ['value' => 'storage/' . $carImagePath]
-        );
-    }
+            // Note: This uses storage/app/public pattern per your previous code
+            $carImagePath = $request->file('smart_car_requirement_image')->store('uploads/settings', 'public');
+            
+            Setting::updateOrCreate(
+                ['key' => 'smart_car_requirement_image'], 
+                ['value' => 'storage/' . $carImagePath]
+            );
+        }
 
-        // Loop through the submitted 'settings' array and update or create each one
+        // Loop through the submitted 'settings' array and update each one
         foreach ($request->input('settings', []) as $key => $value) {
-            // Check if the current key is the phone field
             if ($key === 'phone' && !empty($value)) {
-                /** * Replace anything that is NOT a digit or a plus sign with a space.
-                 * This handles hyphens, dots, or brackets if they somehow bypassed validation.
-                 */
                 $value = preg_replace('/[^\d+]/', ' ', $value);
             }
             Setting::updateOrCreate(
@@ -110,5 +98,28 @@ class SettingController extends Controller
 
         return redirect()->route('admin.settings.index')
             ->with('success', 'Application settings updated successfully!');
+    }
+
+    /**
+     * Private helper to handle image upload and overwrite existing files
+     */
+    private function uploadAndOverwrite($file, $key)
+    {
+        $oldRecord = Setting::where('key', $key)->first();
+
+        if ($oldRecord && !empty($oldRecord->value)) {
+            $oldFilePath = public_path($oldRecord->value);
+            if (file_exists($oldFilePath) && is_file($oldFilePath)) {
+                unlink($oldFilePath);
+            }
+        }
+
+        $fileName = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('uploads/'), $fileName);
+
+        Setting::updateOrCreate(
+            ['key' => $key],
+            ['value' => 'uploads/' . $fileName]
+        );
     }
 }
