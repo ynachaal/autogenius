@@ -78,6 +78,13 @@ return [
         'title' => 'Contact Us',
         'route' => route('frontend.contact.create'),
     ],
+
+    [
+        'title' => 'Customer Testimonials',
+        'route' => route('front.testimonials.index'),
+    ],
+   
+
     /* [
         'title' => 'Autogenius Merchandise',
         'route' => route('services.show', 'autogenius-merchandise'),
