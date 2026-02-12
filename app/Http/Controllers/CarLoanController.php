@@ -70,10 +70,9 @@ class CarLoanController extends Controller
         // 4. Redirect with Success Message
         $phone = config('settings.phone', '');
 
-        return redirect()->route('payment.success')->with([
-            'title' => 'Application Received!',
-            'message' => 'Thank you for choosing AutoGenius. Our loan experts will call you within 24 hours to discuss your ' . $loanApplication->loan_type . '. ' .
-                ($phone ? "If you have urgent questions, feel free to contact us at $phone." : "")
-        ]);
+       return redirect()->route('payment.success')->with([
+    'title' => 'Application Received!',
+    'message' => "Thank you for choosing AutoGenius. Our loan experts will call you within 24 hours to discuss your {$loanApplication->loan_type}.<br>If you have urgent questions, feel free to contact us at $phone."
+]);
     }
 }
