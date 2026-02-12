@@ -161,6 +161,11 @@ return [
                 'route' => route('admin.service-fees.index'),
                 'active' => Route::is('admin.service-fees.index'),
             ],
+             [
+                'title' => 'Testimonials',
+                'route' => route('admin.testimonials.index'),
+                'active' => Route::is('admin.testimonials.index'),
+            ],
         ],
         'active' => Route::is('admin.pages.index') || Route::is('admin.email-templates.index') || Route::is('admin.service-fees.index'),
     ],
