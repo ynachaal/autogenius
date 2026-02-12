@@ -1,0 +1,93 @@
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="h4">{{ __('Car Loan Applications') }}</h2>
+    </x-slot>
+
+    <div class="content">
+        <div class="container-fluid">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <h3 class="card-title">Application List</h3>
+
+                    <div class="card-tools d-flex align-items-center">
+                        <form action="{{ route('admin.car-loans.index') }}" method="GET" class="d-flex align-items-center me-2">
+                            <div class="input-group input-group-sm" style="width: 250px;">
+                                <input type="search" name="search" class="form-control float-right"
+                                    placeholder="Search name, mobile or city..." value="{{ request('search') }}">
+                                <div class="input-group-append">
+                                    <button class="btn btn-default" type="submit">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                    @if(request('search'))
+                                        <a href="{{ route('admin.car-loans.index') }}" class="btn btn-secondary btn-sm">Clear</a>
+                                    @endif
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover align-middle">
+                            <thead>
+                                <tr>
+                                    @php
+                                        $sortableColumns = [
+                                            'id' => 'Sr No.',
+                                            'customer_name' => 'Customer',
+                                            'loan_type' => 'Loan Type',
+                                            'city' => 'City',
+                                            'created_at' => 'Date',
+                                        ];
+                                        $sortBy = request('sort_by', 'created_at');
+                                        $sortDirection = request('sort_direction', 'desc');
+
+                                        $sort = function ($column, $label) use ($sortBy, $sortDirection) {
+                                            $dir = ($column == $sortBy && $sortDirection == 'asc') ? 'desc' : 'asc';
+                                            $query = array_merge(request()->query(), ['sort_by' => $column, 'sort_direction' => $dir]);
+                                            $icon = ($column == $sortBy) ? ($dir == 'asc' ? '<i class="fas fa-arrow-up fa-xs"></i>' : '<i class="fas fa-arrow-down fa-xs"></i>') : '';
+                                            return '<a class="text-decoration-none text-dark fw-semibold" href="' . route('admin.car-loans.index', $query) . '">' . $label . ' ' . $icon . '</a>';
+                                        };
+                                    @endphp
+
+                                    @foreach($sortableColumns as $column => $label)
+                                        <th>{!! $sort($column, $label) !!}</th>
+                                    @endforeach
+                                    <th class="text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($inquiries as $index => $item)
+                                    <tr>
+                                        <td>{{ $inquiries->firstItem() + $index }}</td>
+                                        <td><strong>{{ $item->customer_name }}</strong><br><small>{{ $item->customer_mobile }}</small></td>
+                                        <td><span class="badge {{ $item->loan_type == 'New Car Loan' ? 'bg-success' : 'bg-info' }}">{{ $item->loan_type }}</span></td>
+                                        <td>{{ $item->city }}</td>
+                                        <td>{{ $item->created_at->format('Y-m-d') }}</td>
+                                        <td class="text-center">
+                                            <a href="{{ route('admin.car-loans.show', $item) }}" class="btn btn-sm btn-primary">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <form action="{{ route('admin.car-loans.destroy', $item) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure?')">
+                                                @csrf @method('DELETE')
+                                                <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="6" class="text-center">No loan applications found.</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    {{ $inquiries->links('pagination::bootstrap-5') }}
+                </div>
+            </div>
+        </div>
+    </div>
+</x-app-layout>

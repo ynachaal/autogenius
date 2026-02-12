@@ -30,6 +30,11 @@ return [
                 'route' => route('admin.sell-your-cars.index'),
                 'active' => Route::is('admin.sell-your-cars.*'),
             ],
+              [
+                'title' => 'Car Loans',
+                'route' => route('admin.car-loans.index'),
+                'active' => Route::is('admin.car-loans.*'),
+            ],
             [
                 'title' => 'PDI & Car Inspections',
                 'route' => route('admin.car-inspections.index'),

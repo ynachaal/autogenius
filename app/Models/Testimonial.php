@@ -3,11 +3,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes; // 1. Import the trait
 class Testimonial extends Model
 {
-    use HasFactory;
-
+use HasFactory, SoftDeletes; // 2. Use the trait
     protected $fillable = [
         'title',
         'designation', // Add this here

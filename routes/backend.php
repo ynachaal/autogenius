@@ -8,7 +8,7 @@ use App\Http\Controllers\Admin\{
     ServiceInsuranceClaimController,
     DashboardController,
     TestimonialController,
-
+    CarLoanController,
     SellYourCarController,
     CallConsultationController,
     LeadController,
@@ -65,6 +65,8 @@ Route::middleware(['auth', AdminMiddleware::class])
             ->name('leads.verify-payment');
         Route::resource('contact-submissions', ContactSubmissionController::class);
         Route::resource('sell-your-cars', SellYourCarController::class);
+          Route::resource('car-loans', CarLoanController::class);
+        
         Route::resource('car-inspections', CarInspectionController::class);
         Route::post('car-inspections/{car_inspection}/payments/{payment}/verify', [CarInspectionController::class, 'verifyPayment'])
             ->name('car-inspections.verify-payment');
