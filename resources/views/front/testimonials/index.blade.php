@@ -98,6 +98,9 @@
                     </div>
                 @endforelse
             </div>
+            <div class="mt-4 justify-content-center d-flex">
+                {{ $testimonials->links('vendor.pagination.bootstrap-5') }}
+            </div>
         </div>
     </section>
 @endsection
