@@ -175,5 +175,5 @@ class SiteController extends Controller
         ];
         $page = $this->pageService->getBySlug('about-us');
         return view('front.about', compact('page', 'data','sliders'));
-    }   
+    }  
 }

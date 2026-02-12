@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\{
     CarInspectionController,
     ServiceInsuranceClaimController,
     DashboardController,
+    TestimonialController,
 
     SellYourCarController,
     CallConsultationController,
@@ -86,6 +87,7 @@ Route::middleware(['auth', AdminMiddleware::class])
         Route::resource('menu-categories', MenuCategoryController::class);
         Route::resource('blog-categories', BlogCategoryController::class);
         Route::resource('call-consultations', CallConsultationController::class);
+        Route::resource('testimonials', TestimonialController::class);
 
 // Add this line below:
 Route::post('call-consultations/{call_consultation}/payments/{payment}/verify', [CallConsultationController::class, 'verifyPayment'])

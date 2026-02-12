@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ContactSubmissionController;
 use App\Http\Controllers\TinyMCEController;
 use App\Http\Controllers\SellYourCarController;
+use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\CarInspectionController;
 
 /*
@@ -120,7 +121,7 @@ Route::post('/service-insurance/payment/verify', [ServiceInsuranceClaimControlle
     ->name('service-insurance.payment.verify');
 
 
-    Route::post('/call-consultation/submit', [CallConsultationController::class, 'store'])
+Route::post('/call-consultation/submit', [CallConsultationController::class, 'store'])
     ->name('service.submit'); // Matches the action name in your Blade form
 
 // The payment page (Signed for security)
@@ -139,3 +140,4 @@ Route::view('/payment/failed', 'front.payments.failed')->name('payment.failed');
 
 
 Route::get('/about-us', [SiteController::class, 'about'])->name('front.about');
+Route::get('/testimonials', [TestimonialController::class, 'index'])->name('front.testimonials.index');
