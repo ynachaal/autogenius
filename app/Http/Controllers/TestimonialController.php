@@ -3,18 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
 use App\Models\Page;
+use App\Services\TestimonialService; // Import your service
 use Illuminate\View\View;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
-
 
 class TestimonialController extends Controller
 {
-    public function index(): View
+    /**
+     * Display the testimonials page.
+     */
+    public function index(TestimonialService $testimonialService): View
     {
+        // 1. Fetch the page SEO/Content data
         $page = Page::where('slug', 'testimonials')->first();
-        return view('front.testimonials.index', compact('page'));
+
+        // 2. Call the service to get cached testimonials
+        $testimonials = $testimonialService->getAllActive();
+        
+        // 3. Optional: Get the count if needed for the UI
+        $testimonialCount = $testimonialService->getActiveCount();
+
+        return view('front.testimonials.index', compact('page', 'testimonials', 'testimonialCount'));
     }
 }
