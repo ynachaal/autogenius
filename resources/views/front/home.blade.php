@@ -7,7 +7,7 @@
         <!-- Hero Box Start -->
         <div class="hero-box parallaxie">
             <video autoplay muted loop playsinline class="bg-video">
-                <source src="{{ asset('video/video-bg.mp4') }}" type="video/mp4">
+                <source src="{{ asset(config('settings.home_page_video', '')) }}" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
             <div class="container position-relative" style="z-index: 2;">

@@ -74,24 +74,27 @@ class TestimonialController extends Controller
      * Store a newly created testimonial in storage.
      */
     public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'title' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string'],
-            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
-            'youtube_url' => ['nullable', 'url', 'max:255'],
-            'order' => ['nullable', 'integer'],
-            'status' => ['boolean'],
-        ]);
+{
+    $validatedData = $request->validate([
+        'title' => ['required', 'string', 'max:255'],
+        'description' => ['required', 'string'],
+        'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
+        'youtube_url' => ['nullable', 'url', 'max:255'],
+        'order' => ['nullable', 'integer'],
+        'status' => ['nullable', 'boolean'], // Changed to nullable
+    ]);
 
-        if ($request->hasFile('image')) {
-            $validatedData['image'] = $request->file('image')->store('testimonials', 'public');
-        }
+    // Force status to be 0 or 1
+    $validatedData['status'] = $request->has('status') ? 1 : 0;
 
-        Testimonial::create($validatedData);
-
-        return redirect()->route('admin.testimonials.index')->with('success', 'Testimonial created successfully!');
+    if ($request->hasFile('image')) {
+        $validatedData['image'] = $request->file('image')->store('testimonials', 'public');
     }
+
+    Testimonial::create($validatedData);
+
+    return redirect()->route('admin.testimonials.index')->with('success', 'Testimonial created successfully!');
+}
 
     /**
      * Display the specified testimonial.
@@ -112,29 +115,31 @@ class TestimonialController extends Controller
     /**
      * Update the specified testimonial in storage.
      */
-    public function update(Request $request, Testimonial $testimonial)
-    {
-        $validatedData = $request->validate([
-            'title' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string'],
-            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
-            'youtube_url' => ['nullable', 'url', 'max:255'],
-            'order' => ['nullable', 'integer'],
-            'status' => ['boolean'],
-        ]);
+   public function update(Request $request, Testimonial $testimonial)
+{
+    $validatedData = $request->validate([
+        'title' => ['required', 'string', 'max:255'],
+        'description' => ['required', 'string'],
+        'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
+        'youtube_url' => ['nullable', 'url', 'max:255'],
+        'order' => ['nullable', 'integer'],
+        'status' => ['nullable', 'boolean'], // Changed to nullable
+    ]);
 
-        if ($request->hasFile('image')) {
-            // Delete old image if exists
-            if ($testimonial->image) {
-                Storage::disk('public')->delete($testimonial->image);
-            }
-            $validatedData['image'] = $request->file('image')->store('testimonials', 'public');
+    // This is the critical line: if the checkbox isn't in the request, set status to 0
+    $validatedData['status'] = $request->has('status') ? 1 : 0;
+
+    if ($request->hasFile('image')) {
+        if ($testimonial->image) {
+            Storage::disk('public')->delete($testimonial->image);
         }
-
-        $testimonial->update($validatedData);
-
-        return redirect()->route('admin.testimonials.index')->with('success', 'Testimonial updated successfully!');
+        $validatedData['image'] = $request->file('image')->store('testimonials', 'public');
     }
+
+    $testimonial->update($validatedData);
+
+    return redirect()->route('admin.testimonials.index')->with('success', 'Testimonial updated successfully!');
+}
 
     /**
      * Remove the specified testimonial from storage.
